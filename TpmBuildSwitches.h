@@ -12,7 +12,12 @@
 //
 //     Define the alignment macro appropriate for the build environment For MS C compiler
 //
+#ifdef __GNUC__
+#define ALIGN_TO(boundary)            __attribute__ ((aligned(boundary)))
+#define __declspec(x)
+#else
 #define ALIGN_TO(boundary)            __declspec(align(boundary))
+#endif
 //
 //     For ISO 9899:2011
 //
