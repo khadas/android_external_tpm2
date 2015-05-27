@@ -61,8 +61,8 @@ EntityGetLoadStatus(
                        break;
                    default:
                        // handling of the manufacture_specific handles
-                       if(      ((TPM_RH)*handle >= TPM_RH_AUTH_00)
-                            && ((TPM_RH)*handle <= TPM_RH_AUTH_FF))
+                       if(      ((TPM_RH)*handle >= TPM_RH_FIRST)
+                            && ((TPM_RH)*handle <= TPM_RH_LAST))
                             // use the value that would have been returned from
                             // unmarshaling if it did the handle filtering
                                 result = TPM_RC_VALUE;
@@ -149,7 +149,7 @@ EntityGetAuthValue(
     AUTH_VALUE          *auth                // OUT: authValue of the entity
     )
 {
-    TPM2B_AUTH           authValue = {0};
+    TPM2B_AUTH           authValue = {};
    switch(HandleGetType(handle))
    {
        case TPM_HT_PERMANENT:

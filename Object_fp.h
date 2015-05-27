@@ -18,6 +18,11 @@ TPM_RC ObjectContextLoad(
 TPMI_RH_HIERARCHY ObjectDataGetHierarchy(
         OBJECT              *object             // IN :object
 );
+TPM_RC ObjectLoadEvict(
+        TPM_HANDLE           *handle,             // IN:OUT: evict object handle. If success, it
+                                              // will be replace by the loaded object handle
+        TPM_CC                commandCode         // IN: the command being processed
+                       );
 void ObjectFlushHierarchy(
         TPMI_RH_HIERARCHY          hierarchy             // IN: hierarchy to be flush
 );
@@ -32,6 +37,9 @@ void ObjectGetQualifiedName(
         TPMI_DH_OBJECT       handle,            // IN: handle of the object
         TPM2B_NAME          *qualifiedName      // OUT: qualified name of the object
 );
+BOOL ObjectIsPresent(
+        TPMI_DH_OBJECT        handle              // IN: handle to be checked
+                     );
 BOOL ObjectIsSequence(
         OBJECT              *object               // IN: handle to be checked
                       );

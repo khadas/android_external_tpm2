@@ -10,6 +10,18 @@
 void NvFlushHierarchy(
         TPMI_RH_HIERARCHY         hierarchy          // IN: hierarchy to be flushed.
 );
+void NvGetIndexInfo(
+        TPMI_RH_NV_INDEX          handle,              // IN: handle
+        NV_INDEX                 *nvIndex              // OUT: NV index structure
+                    );
+UINT16 NvGetName(
+        TPMI_RH_NV_INDEX          handle,            // IN: handle of the index
+        NAME                     *name               // OUT: name of the index
+                 );
+TPM_RC NvIndexIsAccessible(
+        TPMI_RH_NV_INDEX         handle,                // IN: handle
+        TPM_CC                   commandCode            // IN: the command
+                           );
 TPM_RC NvIsAvailable(
         void
 );
