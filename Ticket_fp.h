@@ -13,5 +13,15 @@ void TicketComputeCreation(
         TPM2B_DIGEST           *creation,         //   IN: creation hash
         TPMT_TK_CREATION       *ticket            //   OUT: created ticket
 );
+void TicketComputeHashCheck(
+        TPMI_RH_HIERARCHY        hierarchy,      //   IN: hierarchy constant for ticket
+        TPM_ALG_ID               hashAlg,        //   IN: the hash algorithm used to create
+                                            //       'digest'
+        TPM2B_DIGEST            *digest,         //   IN: input digest
+        TPMT_TK_HASHCHECK       *ticket          //   OUT: Created ticket
+                            );
+BOOL TicketIsSafe(
+        TPM2B                *buffer
+                  );
 
 #endif // __TPM2_TICKET_FP_H
