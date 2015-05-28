@@ -15,6 +15,10 @@ UINT16 CryptCompleteHash2B(
         TPM2B     *digest       // IN: the size of the buffer Out: requested
                                 //     number of byte
 );
+UINT16 CryptGenerateRandom(
+        UINT16               randomSize,       // IN: size of random number
+        BYTE                *buffer            // OUT: buffer of random number
+);
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );

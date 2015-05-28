@@ -7,6 +7,9 @@
 #ifndef __TPM2_OBJECT_FP_H
 #define __TPM2_OBJECT_FP_H
 
+void ObjectFlushHierarchy(
+        TPMI_RH_HIERARCHY          hierarchy             // IN: hierarchy to be flush
+);
 OBJECT* ObjectGet(
         TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
