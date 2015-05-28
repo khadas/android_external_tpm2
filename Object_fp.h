@@ -10,5 +10,9 @@
 OBJECT* ObjectGet(
         TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
+void ObjectGetQualifiedName(
+        TPMI_DH_OBJECT       handle,            // IN: handle of the object
+        TPM2B_NAME          *qualifiedName      // OUT: qualified name of the object
+);
 
 #endif // __TPM2_OBJECT_FP_H
