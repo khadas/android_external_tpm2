@@ -20,7 +20,6 @@ SOURCES += ClearControl.c
 SOURCES += Clock.c
 SOURCES += ClockRateAdjust.c
 SOURCES += ClockSet.c
-SOURCES += CommandAttributeData.c
 SOURCES += CommandAudit.c
 SOURCES += CommandCodeAttributes.c
 SOURCES += Commit.c

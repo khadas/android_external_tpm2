@@ -47,8 +47,8 @@ CommandAuthRole(
        if(properties & HANDLE_1_DUP) return AUTH_DUP;
        return AUTH_NONE;
    }
-   if(s_commandAttributes[commandCode - TPM_CC_FIRST] & HANDLE_2_USER) return
-//     AUTH_USER;
+   if(s_commandAttributes[commandCode - TPM_CC_FIRST] & HANDLE_2_USER)
+           return AUTH_USER;
    return AUTH_NONE;
 }
 //
@@ -94,6 +94,8 @@ CommandGetAttribute(
     // This function should be called in the way that the command code
     // attribute is available.
     FAIL(FATAL_ERROR_INTERNAL);
+
+    return s_ccAttr[0]; // Just to appease the compiler, never reached.
 }
 //
 //
