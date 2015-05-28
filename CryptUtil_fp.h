@@ -55,6 +55,11 @@ void CryptUpdateDigest(
         UINT32  dataSize,        // IN: the size of data
         BYTE    *data            // IN: data to be hashed
 );
+void CryptUpdateDigestInt(
+        void    *state,             // IN: the state of hash stack
+        UINT32   intSize,           // IN: the size of 'intValue' in byte
+        void    *intValue           // IN: integer value to be hashed
+                          );
 void KDFa(
         TPM_ALG_ID           hash,        //   IN: hash algorithm used in HMAC
         TPM2B               *key,         //   IN: HMAC key
