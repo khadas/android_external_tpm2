@@ -10,4 +10,8 @@
 void TimeFillInfo(
         TPMS_CLOCK_INFO           *clockInfo
 );
+void TimeSetAdjustRate(
+        TPM_CLOCK_ADJUST          adjust            // IN: adjust constant
+);
+
 #endif // __TPM2_TIME_FP_H
