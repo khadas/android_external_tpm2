@@ -15,6 +15,9 @@ UINT16 CryptCompleteHash2B(
         TPM2B     *digest       // IN: the size of the buffer Out: requested
                                 //     number of byte
 );
+void CryptDrbgGetPutState(
+        GET_PUT              direction         // IN: Get from or put to DRBG
+);
 UINT16 CryptGenerateRandom(
         UINT16               randomSize,       // IN: size of random number
         BYTE                *buffer            // OUT: buffer of random number
