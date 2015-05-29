@@ -142,4 +142,3 @@ _cpri__GenerateSeededRandom(
    return (_cpri__KDFa(hashAlg, seed, label, partyU, partyV,
                        randomSize * 8, random, NULL, FALSE));
 }
-#endif   //%
