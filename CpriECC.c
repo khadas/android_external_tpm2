@@ -5,10 +5,24 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include <string.h>
+
 #include   "OsslCryptoEngine.h"
+
 #ifdef TPM_ALG_ECC
 #include   "CpriDataEcc.h"
 #include   "CpriDataEcc.c"
+
+/*
+ * TODO(vbendeb): this structure is supposed to be defined in the openssl
+ * include files, but is not. Adding missing fields to it by hand, this will
+ * have to be validated.
+ */
+struct ec_group_st {
+        BIGNUM  field;
+        BIGNUM  order;
+};
+
 //
 //
 //      Functions
@@ -78,6 +92,8 @@ _cpri__EccGetParametersByCurveId(
            return &eccCurves[i];
    }
    FAIL(FATAL_ERROR_INTERNAL);
+
+   return NULL; // Never reached.
 }
 static const ECC_CURVE_DATA *
 GetCurveData(
@@ -492,7 +508,7 @@ _cpri__EccCommitCompute(
     )
 {
     BN_CTX                    *context;
-    BIGNUM                    *bnX, *bnY, *bnR, *bnD;
+    BIGNUM                    *bnY, *bnR, *bnD;
     EC_GROUP                  *group;
     EC_POINT                  *pK = NULL, *pL = NULL, *pE = NULL, *pM = NULL, *pB = NULL;
     UINT16                     keySizeInBytes;
@@ -500,15 +516,14 @@ _cpri__EccCommitCompute(
     // Validate that the required parameters are provided.
     // Note: E has to be provided if computing E := [r]Q or E := [r]M. Will do
     // E := [r]Q if both M and B are NULL.
-    pAssert(   r != NULL && (K != NULL || B == NULL) && (L != NULL || B == NULL)
-            || (E != NULL || (M == NULL && B != NULL)));
+
+    pAssert((r && (K || !B) && (L || !B)) || (E || (!M && B)));
     context = BN_CTX_new();
     if(context == NULL)
         FAIL(FATAL_ERROR_ALLOCATION);
     BN_CTX_start(context);
     bnR = BN_CTX_get(context);
     bnD = BN_CTX_get(context);
-    bnX = BN_CTX_get(context);
     bnY = BN_CTX_get(context);
     if(bnY == NULL)
         FAIL(FATAL_ERROR_ALLOCATION);
@@ -705,7 +720,7 @@ _cpri__GenerateKeyEcc(
     BN_CTX                            *context;        // the context for the BIGNUM values
     BYTE                               withExtra[MAX_ECC_KEY_BYTES + 8]; // trial key with
                                                                            //extra bits
-    TPM2B_4_BYTE_VALUE                 marshaledCounter = {4, {0}};
+    TPM2B_4_BYTE_VALUE                 marshaledCounter = {.t = {4}};
     UINT32                             totalBits;
     // Validate parameters (these are fatal)
    pAssert(     seed != NULL && dOut != NULL && Qout != NULL && curveData != NULL);
@@ -1241,7 +1256,6 @@ SignSM2(
    BIGNUM                         *bnT;        // temp
    BIGNUM                         *bnE;
    BN_CTX                  *context;
-   TPM2B_TYPE(DIGEST, MAX_DIGEST_SIZE);
    TPM2B_ECC_PARAMETER      k;
    TPMS_ECC_POINT           p2Br;
    const ECC_CURVE_DATA    *curveData = GetCurveData(curveId);
@@ -1432,8 +1446,6 @@ ValidateSignatureEcdsa(
    BIGNUM                     *bnV;
    BIGNUM                     *bnN;
    BIGNUM                     *bnE;
-   BIGNUM                     *bnGx;
-   BIGNUM                     *bnGy;
    BIGNUM                     *bnQx;
    BIGNUM                     *bnQy;
    CRYPT_RESULT                retVal = CRYPT_FAIL;
@@ -1459,8 +1471,6 @@ ValidateSignatureEcdsa(
    bnE = BN_CTX_get(context);
    bnV = BN_CTX_get(context);
    bnW = BN_CTX_get(context);
-   bnGx = BN_CTX_get(context);
-   bnGy = BN_CTX_get(context);
    bnQx = BN_CTX_get(context);
    bnQy = BN_CTX_get(context);
    bnU1 = BN_CTX_get(context);

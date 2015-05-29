@@ -7,6 +7,10 @@
 #ifndef __TPM2_CPRIRNG_FP_H
 #define __TPM2_CPRIRNG_FP_H
 
+LIB_EXPORT UINT16 _cpri__GenerateRandom(
+        INT32                randomSize,
+        BYTE                *buffer
+                                        );
 LIB_EXPORT BOOL _cpri__RngStartup(void);
 
 #endif // __TPM2_CPRIRNG_FP_H
