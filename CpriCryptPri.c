@@ -5,6 +5,7 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include "CryptoEngine.h"
 #include "OsslCryptoEngine.h"
 static void Trap(const char *function, int line, int code);
 FAIL_FUNCTION       TpmFailFunction = (FAIL_FUNCTION)&Trap;
