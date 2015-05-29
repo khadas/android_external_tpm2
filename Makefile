@@ -29,7 +29,6 @@ SOURCES += Context_spt.c
 SOURCES += CpriCryptPri.c
 SOURCES += CpriECC.c
 SOURCES += CpriHash.c
-SOURCES += CpriHashData.c
 SOURCES += CpriMisc.c
 SOURCES += CpriRNG.c
 SOURCES += CpriRSA.c
