@@ -344,26 +344,6 @@ _cpri__AESEncryptCTR(
    return CRYPT_SUCCESS;
 }
 //
-//       _cpri__AESDecryptCTR()
-//
-//      Counter mode decryption uses the same algorithm as encryption. The _cpri__AESDecryptCTR() function
-//      is implemented as a macro call to _cpri__AESEncryptCTR(). (skip)
-//
-//% #define _cpri__AESDecryptCTR(dOut, keySize, key, iv, dInSize, dIn) \
-//%         _cpri__AESEncryptCTR(                           \
-//%                               ((BYTE *)dOut),           \
-//%                               ((UINT32)keySize),        \
-//%                               ((BYTE *)key),            \
-//%                               ((BYTE *)iv),             \
-//%                               ((UINT32)dInSize),        \
-//%                               ((BYTE *)dIn)             \
-//%                             )
-//%
-// The //% is used by the prototype extraction program to cause it to include the
-// line in the prototype file after removing the //%. Need an extra line with
-//
-//      nothing on it so that a blank line will separate this macro from the next definition.
-//
 //       _cpri__AESEncryptECB()
 //
 //      AES encryption in ECB mode. The data buffer is modified to contain the cipher text.
@@ -499,25 +479,7 @@ _cpri__AESEncryptOFB(
    }
    return CRYPT_SUCCESS;
 }
-//
-//
-//       _cpri__AESDecryptOFB()
-//
-//      OFB encryption and decryption use the same algorithms for both. The _cpri__AESDecryptOFB() function
-//      is implemented as a macro call to _cpri__AESEncrytOFB(). (skip)
-//
-//%#define _cpri__AESDecryptOFB(dOut,keySizeInBits, key, iv, dInSize, dIn) \
-//%        _cpri__AESEncryptOFB (                               \
-//%                               ((BYTE *)dOut),               \
-//%                               ((UINT32)keySizeInBits),      \
-//%                               ((BYTE *)key),                \
-//%                               ((BYTE *)iv),                 \
-//%                               ((UINT32)dInSize),            \
-//%                               ((BYTE *)dIn)                 \
-//%                             )
-//%
-//
-#ifdef    TPM_ALG_SM4          //%
+#ifdef    TPM_ALG_SM4
 //
 //
 //       SM4 Encryption
@@ -795,28 +757,6 @@ _cpri__SM4EncryptCTR(
    return CRYPT_SUCCESS;
 }
 //
-//
-//       _cpri__SM4DecryptCTR()
-//
-//      Counter mode decryption uses the same algorithm as encryption. The _cpri__SM4DecryptCTR() function
-//      is implemented as a macro call to _cpri__SM4EncryptCTR(). (skip)
-//
-//% #define _cpri__SM4DecryptCTR(dOut, keySize, key, iv, dInSize, dIn) \
-//%         _cpri__SM4EncryptCTR(                           \
-//%                               ((BYTE *)dOut),           \
-//%                               ((UINT32)keySize),        \
-//%                               ((BYTE *)key),            \
-//%                               ((BYTE *)iv),             \
-//%                               ((UINT32)dInSize),        \
-//
-//%                               ((BYTE *)dIn)             \
-//%                             )
-//%
-// The //% is used by the prototype extraction program to cause it to include the
-// line in the prototype file after removing the //%. Need an extra line with
-//
-//      nothing on it so that a blank line will separate this macro from the next definition.
-//
 //       _cpri__SM4EncryptECB()
 //
 //      SM4 encryption in ECB mode. The data buffer is modified to contain the cipher text.
@@ -952,21 +892,4 @@ _cpri__SM4EncryptOFB(
    }
    return CRYPT_SUCCESS;
 }
-//
-//
-//       _cpri__SM4DecryptOFB()
-//
-//      OFB encryption and decryption use the same algorithms for both. The _cpri__SM4DecryptOFB() function
-//      is implemented as a macro call to _cpri__SM4EncrytOFB(). (skip)
-//
-//%#define _cpri__SM4DecryptOFB(dOut,keySizeInBits, key, iv, dInSize, dIn) \
-//%        _cpri__SM4EncryptOFB (                               \
-//%                               ((BYTE *)dOut),               \
-//%                               ((UINT32)keySizeInBits),      \
-//%                               ((BYTE *)key),                \
-//%                               ((BYTE *)iv),                 \
-//%                               ((UINT32)dInSize),            \
-//%                               ((BYTE *)dIn)                 \
-//%                             )
-//%
 #endif      //% TPM_ALG_SM4
