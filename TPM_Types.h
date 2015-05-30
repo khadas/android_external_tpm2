@@ -192,6 +192,18 @@ typedef UINT16 TPM_SU;
 #define TPM_SU_CLEAR (TPM_SU)(0x0000)
 #define TPM_SU_STATE (TPM_SU)(0x0001)
 
+// Table 26 - TPM_HT Constants
+typedef UINT8 TPM_HT;
+#define TPM_HT_PCR            (TPM_HT)(0x00)
+#define TPM_HT_NV_INDEX       (TPM_HT)(0x01)
+#define TPM_HT_HMAC_SESSION   (TPM_HT)(0x02)
+#define TPM_HT_LOADED_SESSION (TPM_HT)(0x02)
+#define TPM_HT_POLICY_SESSION (TPM_HT)(0x03)
+#define TPM_HT_ACTIVE_SESSION (TPM_HT)(0x03)
+#define TPM_HT_PERMANENT      (TPM_HT)(0x40)
+#define TPM_HT_TRANSIENT      (TPM_HT)(0x80)
+#define TPM_HT_PERSISTENT     (TPM_HT)(0x81)
+
 // Table 27 - TPM_RH Constants
 typedef UINT32 TPM_RH;
 #define TPM_RH_FIRST       (TPM_RH)(0x40000000)
@@ -210,6 +222,38 @@ typedef UINT32 TPM_RH;
 #define TPM_RH_PLATFORM    (TPM_RH)(0x4000000C)
 #define TPM_RH_PLATFORM_NV (TPM_RH)(0x4000000D)
 #define TPM_RH_LAST        (TPM_RH)(0x4000000D)
+
+// Table 28 - TPM_HC Constants
+typedef TPM_HANDLE TPM_HC;
+#define HR_HANDLE_MASK       (TPM_HC)(0x00FFFFFF)
+#define HR_RANGE_MASK        (TPM_HC)(0xFF000000)
+#define HR_SHIFT             (TPM_HC)(24)
+#define HR_PCR               (TPM_HC)((TPM_HC)TPM_HT_PCR << HR_SHIFT)
+#define HR_HMAC_SESSION      (TPM_HC)((TPM_HC)TPM_HT_HMAC_SESSION << HR_SHIFT)
+#define HR_POLICY_SESSION    (TPM_HC)((TPM_HC)TPM_HT_POLICY_SESSION << HR_SHIFT)
+#define HR_TRANSIENT         (TPM_HC)((TPM_HC)TPM_HT_TRANSIENT << HR_SHIFT)
+#define HR_PERSISTENT        (TPM_HC)((TPM_HC)TPM_HT_PERSISTENT << HR_SHIFT)
+#define HR_NV_INDEX          (TPM_HC)((TPM_HC)TPM_HT_NV_INDEX << HR_SHIFT)
+#define HR_PERMANENT         (TPM_HC)((TPM_HC)TPM_HT_PERMANENT << HR_SHIFT)
+#define PCR_FIRST            (TPM_HC)(HR_PCR + 0)
+#define PCR_LAST             (TPM_HC)(PCR_FIRST + IMPLEMENTATION_PCR - 1)
+#define HMAC_SESSION_FIRST   (TPM_HC)(HR_HMAC_SESSION + 0)
+#define HMAC_SESSION_LAST    (TPM_HC)(HMAC_SESSION_FIRST + MAX_ACTIVE_SESSIONS - 1)
+#define LOADED_SESSION_FIRST (TPM_HC)(HMAC_SESSION_FIRST)
+#define LOADED_SESSION_LAST  (TPM_HC)(HMAC_SESSION_LAST)
+#define POLICY_SESSION_FIRST (TPM_HC)(HR_POLICY_SESSION + 0)
+#define POLICY_SESSION_LAST  (TPM_HC)(POLICY_SESSION_FIRST + MAX_ACTIVE_SESSIONS - 1)
+#define TRANSIENT_FIRST      (TPM_HC)(HR_TRANSIENT + 0)
+#define ACTIVE_SESSION_FIRST (TPM_HC)(POLICY_SESSION_FIRST)
+#define ACTIVE_SESSION_LAST  (TPM_HC)(POLICY_SESSION_LAST)
+#define TRANSIENT_LAST       (TPM_HC)(TRANSIENT_FIRST+MAX_LOADED_OBJECTS - 1)
+#define PERSISTENT_FIRST     (TPM_HC)(HR_PERSISTENT + 0)
+#define PERSISTENT_LAST      (TPM_HC)(PERSISTENT_FIRST + 0x00FFFFFF)
+#define PLATFORM_PERSISTENT  (TPM_HC)(PERSISTENT_FIRST + 0x00800000)
+#define NV_INDEX_FIRST       (TPM_HC)(HR_NV_INDEX + 0)
+#define NV_INDEX_LAST        (TPM_HC)(NV_INDEX_FIRST + 0x00FFFFFF)
+#define PERMANENT_FIRST      (TPM_HC)(TPM_RH_FIRST)
+#define PERMANENT_LAST       (TPM_HC)(TPM_RH_LAST)
 
 // 8 Attribute Structures
 // Table 29 - TPMA_ALGORITHM Bits
@@ -280,6 +324,9 @@ typedef TPM_HANDLE TPMI_DH_OBJECT;
 // Table 40 - TPMI_DH_ENTITY Type
 typedef TPM_HANDLE TPMI_DH_ENTITY;
 
+// Table 45 - TPMI_DH_CONTEXT Type
+typedef TPM_HANDLE TPMI_DH_CONTEXT;
+
 // Table 46 - TPMI_RH_HIERARCHY Type
 typedef TPM_HANDLE TPMI_RH_HIERARCHY;
 
@@ -336,6 +383,9 @@ typedef TPM2B_DIGEST TPM2B_AUTH;
 
 // Table 75 - TPM2B_MAX_NV_BUFFER Structure
 TPM2B_TYPE(MAX_NV_BUFFER, MAX_NV_INDEX_SIZE);
+
+// Table 77 -- TPM2B_IV Structure <I/O>
+TPM2B_TYPE(IV, MAX_SYM_BLOCK_SIZE);
 
 // Table 78 - TPMU_NAME Union
 typedef union {
@@ -647,6 +697,15 @@ typedef struct {
   TPMU_ASYM_SCHEME    details;
 } TPMT_RSA_SCHEME;
 
+// Table 156 - TPMI_ALG_RSA_DECRYPT Type
+typedef TPM_ALG_ID TPMI_ALG_RSA_DECRYPT;
+
+// Table 157 - TPMT_RSA_DECRYPT Structure
+typedef struct {
+  TPMI_ALG_RSA_DECRYPT scheme;
+  TPMU_ASYM_SCHEME     details;
+} TPMT_RSA_DECRYPT;
+
 // Table 158 - TPM2B_PUBLIC_KEY_RSA Structure
 TPM2B_TYPE(PUBLIC_KEY_RSA, MAX_RSA_KEY_BYTES);
 
@@ -868,6 +927,23 @@ typedef struct {
 // Table 198 - TPM2B_CONTEXT_SENSITIVE Structure
 TPM2B_TYPE(CONTEXT_SENSITIVE, MAX_CONTEXT_SIZE);
 
+// Table 199 - TPMS_CONTEXT_DATA Structure
+typedef struct {
+  TPM2B_DIGEST            integrity;
+  TPM2B_CONTEXT_SENSITIVE encrypted;
+} TPMS_CONTEXT_DATA;
+
+// Table 200 - TPM2B_CONTEXT_DATA Structure
+TPM2B_TYPE(CONTEXT_DATA,sizeof(TPMS_CONTEXT_DATA));
+
+// Table 201 - TPMS_CONTEXT Structure
+typedef struct {
+  UINT64             sequence;
+  TPMI_DH_CONTEXT    savedHandle;
+  TPMI_RH_HIERARCHY  hierarchy;
+  TPM2B_CONTEXT_DATA contextBlob;
+} TPMS_CONTEXT;
+
 //
 // Unknown defines to be investigated and resolved
 //
@@ -885,6 +961,7 @@ enum {
         RC_Commit_s2,
         RC_Commit_signHandle,
         RC_Commit_y2,
+        RC_ContextLoad_context,
 };
 
 #endif // __TPM2_TPM_TYPES_H
