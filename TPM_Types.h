@@ -1052,6 +1052,10 @@ enum {
         RC_Create_inPublic,
         RC_Create_inSensitive,
         RC_Create_parentHandle,
+        RC_Duplicate_encryptionKeyIn,
+        RC_Duplicate_newParentHandle,
+        RC_Duplicate_objectHandle,
+        RC_Duplicate_symmetricAlg,
 };
 
 enum {

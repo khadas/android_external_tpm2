@@ -31,6 +31,27 @@ TPM_RC PublicAttributesValidation(
         TPMI_DH_OBJECT      parentHandle,         // IN: input parent handle
         TPMT_PUBLIC        *publicArea            // IN: public area of the object
 );
+void SensitiveToDuplicate(
+        TPMT_SENSITIVE                *sensitive,          //   IN: sensitive structure
+        TPM2B_NAME                    *name,               //   IN: the name of the object
+        TPM_HANDLE                     parentHandle,       //   IN: The new parent's handle
+        TPM_ALG_ID                     nameAlg,            //   IN: hash algorithm in public area. It
+        //       is passed separately because we
+        //       only pass name, rather than the
+        //       whole public area of the object.
+        TPM2B_SEED                    *seed,               //   IN: the external seed. If external
+        //       seed is provided with size of 0,
+        //       no outer wrap should be applied
+        //       to duplication blob.
+        TPMT_SYM_DEF_OBJECT           *symDef,             //   IN: Symmetric key definition. If the
+        //       symmetric key algorithm is NULL,
+        //       no inner wrap should be applied.
+        TPM2B_DATA                    *innerSymKey,        //   IN/OUT: a symmetric key may be
+        //       provided to encrypt the inner
+        //       wrap of a duplication blob. May
+        //       be generated here if needed.
+        TPM2B_PRIVATE                 *outPrivate          //   OUT: output private structure
+        );
 void SensitiveToPrivate(
         TPMT_SENSITIVE      *sensitive,         //   IN: sensitive structure
         TPM2B_NAME          *name,              //   IN: the name of the object

@@ -218,6 +218,12 @@ TPM_RC CryptSecretDecrypt(
         TPM2B_ENCRYPTED_SECRET *secret,          // IN: input secret
         TPM2B_DATA      *data             // OUT: decrypted secret value
 );
+TPM_RC CryptSecretEncrypt(
+        TPMI_DH_OBJECT                 keyHandle,           //   IN: encryption key handle
+        const char                    *label,               //   IN: a null-terminated string as L
+        TPM2B_DATA                    *data,                //   OUT: secret value
+        TPM2B_ENCRYPTED_SECRET        *secret               //   OUT: secret structure
+        );
 TPM_RC CryptSelectSignScheme(
         TPMI_DH_OBJECT   signHandle,        // IN: handle of signing key
         TPMT_SIG_SCHEME  *scheme             // IN/OUT: signing scheme
