@@ -11,6 +11,10 @@ TPM_RC SessionContextLoad(
         SESSION            *session,            // IN: session structure from saved context
         TPM_HANDLE         *handle              // IN/OUT: session handle
                           );
+TPM_RC SessionContextSave (
+        TPM_HANDLE                 handle,           // IN: session handle
+        CONTEXT_COUNTER           *contextID         // OUT: assigned contextID
+                           );
 SESSION *SessionGet(
         TPM_HANDLE           handle              // IN: session handle
 );
