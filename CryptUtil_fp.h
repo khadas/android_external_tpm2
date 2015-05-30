@@ -7,9 +7,6 @@
 #ifndef __SOURCE_CRYPTUTIL_FP_H
 #define __SOURCE_CRYPTUTIL_FP_H
 
-BOOL CryptIsAsymAlgorithm(
-        TPM_ALG_ID           algID                // IN: algorithm ID
-);
 UINT16 CryptCommit(void);
 TPM_RC CryptCommitCompute(
         TPMS_ECC_POINT                *K,                     //   OUT: [d]B
@@ -29,6 +26,13 @@ UINT16 CryptCompleteHash2B(
         void      *state,       // IN: the state of hash stack
         TPM2B     *digest       // IN: the size of the buffer Out: requested
                                 //     number of byte
+);
+TPM_RC CryptCreateObject(
+        TPM_HANDLE                       parentHandle,            //   IN/OUT: indication of the seed
+                                                             //       source
+        TPMT_PUBLIC                    *publicArea,               //   IN/OUT: public area
+        TPMS_SENSITIVE_CREATE          *sensitiveCreate,          //   IN: sensitive creation
+        TPMT_SENSITIVE                 *sensitive                 //   OUT: sensitive area
 );
 void CryptDrbgGetPutState(
         GET_PUT              direction         // IN: Get from or put to DRBG
@@ -73,6 +77,10 @@ UINT16 CryptGenerateRandom(
 LIB_EXPORT UINT16 CryptGetHashDigestSize(
         TPM_ALG_ID           hashAlg              // IN: hash algorithm
                                          );
+INT16 CryptGetSymmetricBlockSize(
+        TPMI_ALG_SYM         algorithm,           // IN: symmetric algorithm
+        UINT16               keySize              // IN: key size in bit
+                                 );
 LIB_EXPORT UINT16 CryptHashBlock(
         TPM_ALG_ID          algId,               //   IN: the hash algorithm to use
         UINT16              blockSize,           //   IN: size of the data block
@@ -85,10 +93,9 @@ void CryptHashStateImportExport(
         HASH_STATE         *externalFmt,         // OUT: exported state
         IMPORT_EXPORT       direction
                                 );
-INT16 CryptGetSymmetricBlockSize(
-        TPMI_ALG_SYM         algorithm,           // IN: symmetric algorithm
-        UINT16               keySize              // IN: key size in bit
-                                 );
+BOOL CryptIsAsymAlgorithm(
+        TPM_ALG_ID           algID                // IN: algorithm ID
+);
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );
