@@ -62,6 +62,12 @@ TPM_RC PublicAttributesValidation(
         TPMI_DH_OBJECT      parentHandle,         // IN: input parent handle
         TPMT_PUBLIC        *publicArea            // IN: public area of the object
 );
+TPM_RC SchemeChecks(
+        BOOL                load,               // IN: TRUE if load checks, FALSE if
+                                           //     TPM2_Create()
+        TPMI_DH_OBJECT      parentHandle,       // IN: input parent handle
+        TPMT_PUBLIC        *publicArea          // IN: public area of the object
+                    );
 void SensitiveToDuplicate(
         TPMT_SENSITIVE                *sensitive,          //   IN: sensitive structure
         TPM2B_NAME                    *name,               //   IN: the name of the object
