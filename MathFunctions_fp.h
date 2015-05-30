@@ -7,6 +7,12 @@
 #ifndef __TPM2_MATHFUNCTIONS_FP_H
 #define __TPM2_MATHFUNCTIONS_FP_H
 
+LIB_EXPORT int _math__Comp(
+        const   UINT32     aSize,                //   IN:   size of a
+        const   BYTE      *a,                    //   IN:   a buffer
+        const   UINT32     bSize,                //   IN:   size of b
+        const   BYTE      *b                     //   IN:   b buffer
+        );
 LIB_EXPORT CRYPT_RESULT _math__Div(
         const TPM2B         *n,                  //   IN: numerator
         const TPM2B         *d,                  //   IN: denominator

@@ -34,3 +34,14 @@ LIB_EXPORT void MemorySet(
                           );
 
 #endif
+LIB_EXPORT void MemoryConcat2B(
+        TPM2B               *aInOut,              // IN/OUT: destination 2B
+        TPM2B               *bIn,                 // IN: second 2B
+        UINT16               aSize                // IN: The size of aInOut.buffer (max values for
+        //     aInOut.size)
+        );
+LIB_EXPORT BOOL MemoryEqual(
+        const void       *buffer1,             // IN: compare buffer1
+        const void       *buffer2,             // IN: compare buffer2
+        UINT32            size                 // IN: size of bytes being compared
+        );

@@ -741,55 +741,6 @@ CryptGenerateKeyedHash(
 }
 //
 //
-//
-//      10.2.4.23 CryptKDFa()
-//
-//      This function generates a key using the KDFa() formulation in Part 1 of the TPM specification. In this
-//      implementation, this is a macro invocation of _cpri__KDFa() in the hash module of the CryptoEngine().
-//      This macro sets once to FALSE so that KDFa() will iterate as many times as necessary to generate
-//      sizeInBits number of bits.
-//
-//%#define CryptKDFa(hashAlg, key, label, contextU, contextV,                  \
-//%                  sizeInBits, keyStream, counterInOut)                      \
-//%         TEST_HASH(hashAlg);                                                \
-//%        _cpri__KDFa(                                                        \
-//%                       ((TPM_ALG_ID)hashAlg),                               \
-//%                       ((TPM2B *)key),                                      \
-//%                       ((const char *)label),                               \
-//%                       ((TPM2B *)contextU),                                 \
-//%                       ((TPM2B *)contextV),                                 \
-//%                       ((UINT32)sizeInBits),                                \
-//%                       ((BYTE *)keyStream),                                 \
-//%                       ((UINT32 *)counterInOut),                            \
-//%                       ((BOOL) FALSE)                                       \
-//%                     )
-//%
-//
-//
-//      10.2.4.24 CryptKDFaOnce()
-//
-//      This function generates a key using the KDFa() formulation in Part 1 of the TPM specification. In this
-//      implementation, this is a macro invocation of _cpri__KDFa() in the hash module of the CryptoEngine().
-//      This macro will call _cpri__KDFa() with once TRUE so that only one iteration is performed, regardless of
-//      sizeInBits.
-//
-//%#define CryptKDFaOnce(hashAlg, key, label, contextU, contextV,                   \
-//%                        sizeInBits, keyStream, counterInOut)                     \
-//%         TEST_HASH(hashAlg);                                                     \
-//%        _cpri__KDFa(                                                             \
-//%                       ((TPM_ALG_ID)hashAlg),                                    \
-//%                       ((TPM2B *)key),                                           \
-//%                       ((const char *)label),                                    \
-//%                       ((TPM2B *)contextU),                                      \
-//%                       ((TPM2B *)contextV),                                      \
-//%                       ((UINT32)sizeInBits),                                     \
-//%                      ((BYTE *)keyStream),                                       \
-//%                       ((UINT32 *)counterInOut),                                 \
-//%                       ((BOOL) TRUE)                                             \
-//%                     )
-//%
-//
-//
 //      10.2.4.25 KDFa()
 //
 //      This function is used by functions outside of CryptUtil() to access _cpri_KDFa().
@@ -811,26 +762,6 @@ KDFa(
    CryptKDFa(hash, key, label, contextU, contextV, sizeInBits,
              keyStream, counterInOut);
 }
-//
-//
-//      10.2.4.26 CryptKDFe()
-//
-//      This function generates a key using the KDFa() formulation in Part 1 of the TPM specification. In this
-//      implementation, this is a macro invocation of _cpri__KDFe() in the hash module of the CryptoEngine().
-//
-//%#define CryptKDFe(hashAlg, Z, label, partyUInfo, partyVInfo,                         \
-//%                   sizeInBits, keyStream)                                            \
-//% TEST_HASH(hashAlg);                                                                 \
-//% _cpri__KDFe(                                                                        \
-//%              ((TPM_ALG_ID)hashAlg),                                                 \
-//%              ((TPM2B *)Z),                                                          \
-//%             ((const char *)label),                                                  \
-//%              ((TPM2B *)partyUInfo),                                                 \
-//%              ((TPM2B *)partyVInfo),                                                 \
-//%              ((UINT32)sizeInBits),                                                  \
-//%              ((BYTE *)keyStream)                                                    \
-//%              )
-//%
 #endif //TPM_ALG_KEYEDHASH     //% 1
 //
 //
@@ -1311,15 +1242,6 @@ CryptEccGetKeySizeInBits(
 }
 //
 //
-//      10.2.6.3    CryptEccGetKeySizeBytes()
-//
-//      This macro returns the size of the ECC key in bytes. It uses CryptEccGetKeySizeInBits().
-//
-// The next lines will be placed in CyrptUtil_fp.h with the //% removed
-//% #define CryptEccGetKeySizeInBytes(curve)            \
-//%             ((CryptEccGetKeySizeInBits(curve)+7)/8)
-//
-//
 //      10.2.6.4    CryptEccGetParameter()
 //
 //      This function returns a pointer to an ECC curve parameter. The parameter is selected by a single
@@ -1624,7 +1546,7 @@ CryptGenerateR(
 {
    // This holds the marshaled g_commitCounter.
    TPM2B_TYPE(8B, 8);
-   TPM2B_8B                cntr = {8,{0}};
+   TPM2B_8B                cntr = {.b.size = 8};
    UINT32                   iterations;
    const TPM2B             *n;
    UINT64                   currentCount = gr.commitCounter;
@@ -2019,19 +1941,19 @@ CryptGenerateKeySymmetric(
    if(publicArea->objectAttributes.sensitiveDataOrigin == CLEAR)
    {
        if(     (sensitiveCreate->data.t.size * 8)
-           != publicArea->parameters.symDetail.sym.keyBits.sym)
+           != publicArea->parameters.symDetail.keyBits.sym)
            return TPM_RC_KEY_SIZE;
        // Make sure that the key size is OK.
        // This implementation only supports symmetric key sizes that are
        // multiples of 8
-       if(publicArea->parameters.symDetail.sym.keyBits.sym % 8 != 0)
+       if(publicArea->parameters.symDetail.keyBits.sym % 8 != 0)
            return TPM_RC_KEY_SIZE;
    }
    else
    {
        // TPM is going to generate the key so set the size
        sensitive->sensitive.sym.t.size
-           = publicArea->parameters.symDetail.sym.keyBits.sym / 8;
+           = publicArea->parameters.symDetail.keyBits.sym / 8;
        sensitiveCreate->data.t.size = 0;
    }
    // Fill in the sensitive area
@@ -2240,7 +2162,7 @@ CryptSymmetricEncrypt(
    BYTE                    *data               //   IN/OUT: data buffer
    )
 {
-   TPM2B_IV                 defaultIv = {0};
+   TPM2B_IV                 defaultIv = {};
    TPM2B_IV                *iv = (ivIn != NULL) ? ivIn : &defaultIv;
    TEST(algorithm);
    pAssert(encrypted != NULL && key != NULL);
@@ -2481,7 +2403,7 @@ CryptSecretEncrypt(
              // Create secret data from RNG
              CryptGenerateRandom(data->t.size, data->t.buffer);
              // Encrypt the data by RSA OAEP into encrypted secret
-             result = CryptEncryptRSA(&secret->t.size, secret->t.secret,
+             result = CryptEncryptRSA(&secret->t.size, secret->t.buffer,
                                       encryptKey, &scheme,
                                       data->t.size, data->t.buffer, label);
        }
@@ -2493,7 +2415,7 @@ CryptSecretEncrypt(
            TPMS_ECC_POINT         eccPublic;
            TPM2B_ECC_PARAMETER    eccPrivate;
            TPMS_ECC_POINT         eccSecret;
-           BYTE                   *buffer = secret->t.secret;
+           BYTE                   *buffer = secret->t.buffer;
              // Need to make sure that the public point of the key is on the
              // curve defined by the key.
              if(!_cpri__EccIsPointOnCurve(
@@ -2601,7 +2523,7 @@ CryptSecretDecrypt(
              // Decrypt seed by RSA OAEP
              result = CryptDecryptRSA(&data->t.size, data->t.buffer, decryptKey,
                                        &scheme,
-                                       secret->t.size, secret->t.secret,label);
+                                       secret->t.size, secret->t.buffer,label);
              if(    (result == TPM_RC_SUCCESS)
                  && (data->t.size
                       > CryptGetHashDigestSize(decryptKey->publicArea.nameAlg)))
@@ -2614,7 +2536,7 @@ CryptSecretDecrypt(
        {
            TPMS_ECC_POINT            eccPublic;
            TPMS_ECC_POINT            eccSecret;
-           BYTE                     *buffer = secret->t.secret;
+           BYTE                     *buffer = secret->t.buffer;
            INT32                     size = secret->t.size;
              // Retrieve ECC point from secret buffer
              result = TPMS_ECC_POINT_Unmarshal(&eccPublic, &buffer, &size);
@@ -2674,14 +2596,14 @@ CryptSecretDecrypt(
                 CryptXORObfuscation(decryptKey->publicArea.nameAlg,
                                      &decryptKey->sensitive.sensitive.bits.b,
                                      &nonceCaller->b, NULL,
-                                     secret->t.size, secret->t.secret);
+                                     secret->t.size, secret->t.buffer);
                 // Copy decrypted seed
                 MemoryCopy2B(&data->b, &secret->b, sizeof(data->t.buffer));
             }
             break;
         case TPM_ALG_SYMCIPHER:
             {
-                TPM2B_IV                 iv = {0};
+                TPM2B_IV                 iv = {};
                 TPMT_SYM_DEF_OBJECT      *symDef;
                 // The seed size can not be bigger than the digest size of nameAlg
                 if(secret->t.size >
@@ -2689,7 +2611,7 @@ CryptSecretDecrypt(
                     result = TPM_RC_VALUE;
                 else
                 {
-                    symDef = &decryptKey->publicArea.parameters.symDetail.sym;
+                    symDef = &decryptKey->publicArea.parameters.symDetail;
                     iv.t.size = CryptGetSymmetricBlockSize(symDef->algorithm,
                                                              symDef->keyBits.sym);
                     pAssert(iv.t.size != 0);
@@ -2700,10 +2622,10 @@ CryptSecretDecrypt(
                          MemoryCopy(iv.b.buffer, nonceCaller->t.buffer,
                                       nonceCaller->t.size, sizeof(iv.t.buffer));
                        // CFB decrypt in place, using nonceCaller as iv
-                       CryptSymmetricDecrypt(secret->t.secret, symDef->algorithm,
+                       CryptSymmetricDecrypt(secret->t.buffer, symDef->algorithm,
                                           symDef->keyBits.sym, TPM_ALG_CFB,
                                           decryptKey->sensitive.sensitive.sym.t.buffer,
-                                          &iv, secret->t.size, secret->t.secret);
+                                          &iv, secret->t.size, secret->t.buffer);
                        // Copy decrypted seed
                        MemoryCopy2B(&data->b, &secret->b, sizeof(data->t.buffer));
                    }
@@ -3176,7 +3098,7 @@ CryptObjectPublicPrivateMatch(
    case TPM_ALG_KEYEDHASH:
        break;
    case TPM_ALG_SYMCIPHER:
-       if(    (publicArea->parameters.symDetail.sym.keyBits.sym + 7)/8
+       if(    (publicArea->parameters.symDetail.keyBits.sym + 7)/8
            != sensitive->sensitive.sym.t.size)
             result = TPM_RC_BINDING;
        break;

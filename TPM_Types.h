@@ -25,6 +25,7 @@ typedef UINT32 TPM_CAP;
 #define MAX_CAP_DATA       (MAX_CAP_BUFFER - sizeof(TPM_CAP) - sizeof(UINT32))
 #define MAX_CAP_ALGS       (MAX_CAP_DATA / sizeof(TPMS_ALG_PROPERTY))
 #define MAX_CAP_CC         (MAX_CAP_DATA / sizeof(TPM_CC))
+#define MAX_ECC_CURVES     (MAX_CAP_DATA / sizeof(TPM_ECC_CURVE))
 
 // Table 6 - TPM_GENERATED Constants
 typedef UINT32 TPM_GENERATED;
@@ -381,6 +382,9 @@ typedef TPM2B_DIGEST TPM2B_NONCE;
 // Table 71 - TPM2B_AUTH Types
 typedef TPM2B_DIGEST TPM2B_AUTH;
 
+// Table 74 - TPM2B_MAX_BUFFER Structure
+TPM2B_TYPE(MAX_BUFFER, MAX_DIGEST_BUFFER);
+
 // Table 75 - TPM2B_MAX_NV_BUFFER Structure
 TPM2B_TYPE(MAX_NV_BUFFER, MAX_NV_INDEX_SIZE);
 
@@ -445,6 +449,12 @@ typedef struct {
   UINT32            count;
   TPMS_ALG_PROPERTY algProperties[MAX_CAP_ALGS];
 } TPML_ALG_PROPERTY;
+
+// Table 102 - TPML_ECC_CURVE Structure
+typedef struct {
+  UINT32        count;
+  TPM_ECC_CURVE eccCurves[MAX_ECC_CURVES];
+} TPML_ECC_CURVE;
 
 // Table 105 - TPMS_CLOCK_INFO Structure
 typedef struct {
@@ -765,6 +775,21 @@ typedef struct {
   TPMU_SIG_SCHEME     details;
 } TPMT_ECC_SCHEME;
 
+// Table 167 - TPMS_ALGORITHM_DETAIL_ECC Structure
+typedef struct {
+  TPM_ECC_CURVE       curveID;
+  UINT16              keySize;
+  TPMT_KDF_SCHEME     kdf;
+  TPMT_ECC_SCHEME     sign;
+  TPM2B_ECC_PARAMETER p;
+  TPM2B_ECC_PARAMETER a;
+  TPM2B_ECC_PARAMETER b;
+  TPM2B_ECC_PARAMETER gX;
+  TPM2B_ECC_PARAMETER gY;
+  TPM2B_ECC_PARAMETER n;
+  TPM2B_ECC_PARAMETER h;
+} TPMS_ALGORITHM_DETAIL_ECC;
+
 // Table 168 - TPMS_SIGNATURE_RSASSA Structure
 typedef struct {
   TPMI_ALG_HASH        hash;
@@ -1027,6 +1052,10 @@ enum {
         RC_Create_inPublic,
         RC_Create_inSensitive,
         RC_Create_parentHandle,
+};
+
+enum {
+        TPM_RCS_HANDLE,
 };
 
 #endif // __TPM2_TPM_TYPES_H
