@@ -26,6 +26,10 @@ TPM_RC ObjectContextLoad(
         OBJECT              *object,               // IN: object structure from saved context
         TPMI_DH_OBJECT      *handle                // OUT: object handle
                          );
+TPM_RC ObjectCreateEventSequence(
+        TPM2B_AUTH          *auth,              // IN: authValue
+        TPMI_DH_OBJECT      *newHandle          // OUT: sequence object handle
+                                 );
 TPM_RC ObjectCreateHMACSequence(
         TPMI_ALG_HASH        hashAlg,               // IN: hash algorithm
         TPM_HANDLE           handle,                // IN: the handle associated with sequence
@@ -33,6 +37,11 @@ TPM_RC ObjectCreateHMACSequence(
         TPM2B_AUTH         *auth,                 // IN: authValue
         TPMI_DH_OBJECT     *newHandle             // OUT: HMAC sequence object handle
                                 );
+TPM_RC ObjectCreateHashSequence(
+        TPMI_ALG_HASH       hashAlg,              // IN: hash algorithm
+        TPM2B_AUTH         *auth,                 // IN: authValue
+        TPMI_DH_OBJECT     *newHandle             // OUT: sequence object handle
+                         );
 TPMI_RH_HIERARCHY ObjectDataGetHierarchy(
         OBJECT              *object             // IN :object
 );
