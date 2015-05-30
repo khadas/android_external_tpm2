@@ -7,6 +7,13 @@
 #ifndef __TPM2_NV_FP_H
 #define __TPM2_NV_FP_H
 
+TPM_RC NvAddEvictObject(
+        TPMI_DH_OBJECT       evictHandle,         // IN: new evict handle
+        OBJECT              *object              // IN: object to be added
+                        );
+void NvDeleteEntity(
+        TPM_HANDLE           handle              // IN: handle of entity to be deleted
+                    );
 void NvFlushHierarchy(
         TPMI_RH_HIERARCHY         hierarchy          // IN: hierarchy to be flushed.
 );
@@ -25,9 +32,14 @@ TPM_RC NvIndexIsAccessible(
 TPM_RC NvIsAvailable(
         void
 );
+BOOL NvIsOwnerPersistentHandle(
+        TPM_HANDLE           handle              // IN: handle
+                               );
+BOOL NvIsPlatformPersistentHandle(
+        TPM_HANDLE           handle              // IN: handle
+                                  );
 void NvWriteReserved(
-        NV_RESERVE   type,              // IN: type of reserved data
+	NV_RESERVE   type,              // IN: type of reserved data
         void        *buffer             // IN: data buffer
                      );
-
 #endif // __TPM2_NV_FP_H

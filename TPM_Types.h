@@ -1071,6 +1071,8 @@ enum {
         RC_EncryptDecrypt_keyHandle,
         RC_EncryptDecrypt_mode,
         RC_EventSequenceComplete_sequenceHandle,
+        RC_EvictControl_objectHandle,
+        RC_EvictControl_persistentHandle,
 };
 
 enum {
