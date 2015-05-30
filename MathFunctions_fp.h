@@ -13,6 +13,19 @@ LIB_EXPORT CRYPT_RESULT _math__Div(
         TPM2B               *q,                  //   OUT: quotient
         TPM2B               *r                   //   OUT: remainder
                                    );
+LIB_EXPORT BOOL _math__IsPrime(
+        const UINT32         prime
+);
+LIB_EXPORT CRYPT_RESULT _math__ModExp(
+        UINT32               cSize,                 //   IN: size of the result
+        BYTE                *c,                     //   OUT: results buffer
+        const UINT32         mSize,                 //   IN: size of number to be exponentiated
+        const BYTE          *m,                     //   IN: number to be exponentiated
+        const UINT32         eSize,                 //   IN: size of power
+        const BYTE          *e,                     //   IN: power
+        const UINT32         nSize,                 //   IN: modulus size
+        const BYTE          *n                      //   IN: modulu
+);
 LIB_EXPORT UINT16 _math__Normalize2B(
         TPM2B               *b                  // IN/OUT: number to normalize
 );
