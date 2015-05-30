@@ -90,6 +90,12 @@ BOOL CryptEccGetParameters(
         TPM_ECC_CURVE                        curveId,            // IN: ECC curve ID
         TPMS_ALGORITHM_DETAIL_ECC           *parameters          // OUT: ECC parameter
                            );
+TPM_RC CryptEccPointMultiply(
+        TPMS_ECC_POINT                  *pOut,                  //   OUT: output point
+        TPM_ECC_CURVE                    curveId,               //   IN: curve selector
+        TPM2B_ECC_PARAMETER             *dIn,                   //   IN: public scalar
+        TPMS_ECC_POINT                  *pIn                    //   IN: optional point
+                             );
 BOOL CryptEccIsPointOnCurve(
         TPM_ECC_CURVE        curveID,            // IN: ECC curve ID
         TPMS_ECC_POINT      *Q                   // IN: ECC point
@@ -215,6 +221,11 @@ BOOL CryptIsSchemeAnonymous(
 BOOL CryptIsSplitSign(
         TPM_ALG_ID           scheme             // IN: the algorithm selector
         );
+TPM_RC CryptNewEccKey(
+        TPM_ECC_CURVE                    curveID,               // IN: ECC curve
+        TPMS_ECC_POINT                  *publicPoint,           // OUT: public point
+        TPM2B_ECC_PARAMETER             *sensitive              // OUT: private area
+                      );
 TPM_RC CryptSecretDecrypt(
         TPM_HANDLE      tpmKey,               // IN: decrypt key
         TPM2B_NONCE     *nonceCaller,         // IN: nonceCaller. It is needed for
