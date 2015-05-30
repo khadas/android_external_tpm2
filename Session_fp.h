@@ -15,6 +15,9 @@ TPM_RC SessionContextSave (
         TPM_HANDLE                 handle,           // IN: session handle
         CONTEXT_COUNTER           *contextID         // OUT: assigned contextID
                            );
+void SessionFlush(
+        TPM_HANDLE           handle             // IN: loaded or saved session handle
+);
 SESSION *SessionGet(
         TPM_HANDLE           handle              // IN: session handle
 );
