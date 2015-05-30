@@ -21,6 +21,10 @@ TPM_RC CryptCommitCompute(
         TPM2B_ECC_PARAMETER           *d,                     //   IN: the private scalar
         TPM2B_ECC_PARAMETER           *r                      //   IN: the computed r value
                           );
+LIB_EXPORT UINT16 CryptCompleteHMAC2B(
+        HMAC_STATE         *hmacState,           // IN: the state of HMAC stack
+        TPM2B              *digest               // OUT: HMAC
+                                      );
 UINT16 CryptCompleteHash2B(
         void      *state,       // IN: the state of hash stack
         TPM2B     *digest       // IN: the size of the buffer Out: requested
@@ -76,6 +80,15 @@ LIB_EXPORT UINT16 CryptHashBlock(
         UINT16              retSize,             //   IN: size of the return buffer
         BYTE               *ret                  //   OUT: address of the buffer
                                  );
+void CryptHashStateImportExport(
+        HASH_STATE         *internalFmt,         // IN: state to LIB_EXPORT
+        HASH_STATE         *externalFmt,         // OUT: exported state
+        IMPORT_EXPORT       direction
+                                );
+INT16 CryptGetSymmetricBlockSize(
+        TPMI_ALG_SYM         algorithm,           // IN: symmetric algorithm
+        UINT16               keySize              // IN: key size in bit
+                                 );
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );
@@ -99,6 +112,12 @@ TPM_RC CryptSign(
         TPM2B_DIGEST       *digest,        //   IN: The digest being signed
         TPMT_SIGNATURE     *signature      //   OUT: signature
 );
+LIB_EXPORT UINT16 CryptStartHMAC2B(
+        TPMI_ALG_HASH       hashAlg,            // IN: hash algorithm
+        TPM2B              *key,                // IN: HMAC key
+        HMAC_STATE         *hmacState           // OUT: the state of HMAC stack. It will be used
+                                            //     in HMAC update and completion
+                                   );
 void CryptSymmetricDecrypt(
         BYTE                      *decrypted,
         TPM_ALG_ID                 algorithm,       //   IN: algorithm for encryption
