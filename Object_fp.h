@@ -26,8 +26,18 @@ TPM_RC ObjectContextLoad(
         OBJECT              *object,               // IN: object structure from saved context
         TPMI_DH_OBJECT      *handle                // OUT: object handle
                          );
+TPM_RC ObjectCreateHMACSequence(
+        TPMI_ALG_HASH        hashAlg,               // IN: hash algorithm
+        TPM_HANDLE           handle,                // IN: the handle associated with sequence
+                                               //     object
+        TPM2B_AUTH         *auth,                 // IN: authValue
+        TPMI_DH_OBJECT     *newHandle             // OUT: HMAC sequence object handle
+                                );
 TPMI_RH_HIERARCHY ObjectDataGetHierarchy(
         OBJECT              *object             // IN :object
+);
+OBJECT* ObjectGet(
+        TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
 TPM_RC ObjectLoadEvict(
         TPM_HANDLE           *handle,             // IN:OUT: evict object handle. If success, it

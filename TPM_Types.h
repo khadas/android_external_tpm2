@@ -1260,6 +1260,8 @@ enum {
         RC_GetTime_signHandle,
         RC_HMAC_handle,
         RC_HMAC_hashAlg,
+        RC_HMAC_Start_handle,
+        RC_HMAC_Start_hashAlg,
 };
 
 enum {
