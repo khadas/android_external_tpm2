@@ -1056,6 +1056,7 @@ enum {
         RC_Duplicate_newParentHandle,
         RC_Duplicate_objectHandle,
         RC_Duplicate_symmetricAlg,
+        RC_ECC_Parameters_curveID,
 };
 
 enum {
