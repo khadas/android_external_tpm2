@@ -1270,12 +1270,18 @@ enum {
         RC_HMAC_Start_handle,
         RC_HMAC_Start_hashAlg,
         RC_HierarchyChangeAuth_newAuth,
+        RC_Import_duplicate,
+        RC_Import_encryptionKey,
+        RC_Import_inSymSeed,
+        RC_Import_objectPublic,
+        RC_Import_parentHandle,
 };
 
 enum {
         TPM_RCS_ATTRIBUTES,
         TPM_RCS_HANDLE,
         TPM_RCS_KEY,
+        TPM_RCS_SIZE,
         TPM_RCS_TYPE,
         TPM_RCS_VALUE,
 };

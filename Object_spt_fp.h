@@ -17,6 +17,23 @@ TPM_RC CredentialToSecret(
         TPM_HANDLE                protector,              //   IN: The protector's handle
         TPM2B_DIGEST             *secret                  //   OUT: secret information
 );
+TPM_RC DuplicateToSensitive(
+        TPM2B_PRIVATE                 *inPrivate,           //   IN: input private structure
+        TPM2B_NAME                    *name,                //   IN: the name of the object
+        TPM_HANDLE                     parentHandle,        //   IN: The parent's handle
+        TPM_ALG_ID                     nameAlg,             //   IN: hash algorithm in public area.
+        TPM2B_SEED                    *seed,                //   IN: an external seed may be provided.
+                                                       //       If external seed is provided with
+                                                       //       size of 0, no outer wrap is
+                                                       //       applied
+        TPMT_SYM_DEF_OBJECT           *symDef,              //   IN: Symmetric key definition. If the
+                                                       //       symmetric key algorithm is NULL,
+                                                       //       no inner wrap is applied
+        TPM2B_DATA                    *innerSymKey,         //   IN: a symmetric key may be provided
+                                                       //       to decrypt the inner wrap of a
+                                                       //       duplication blob.
+        TPMT_SENSITIVE                *sensitive            //   OUT: sensitive structure
+                            );
 void FillInCreationData(
         TPMI_DH_OBJECT                     parentHandle,    //   IN: handle of parent
         TPMI_ALG_HASH                      nameHashAlg,     //   IN: name hash algorithm
