@@ -42,6 +42,20 @@ void FillInCreationData(
         TPM2B_CREATION_DATA               *outCreation,     //   OUT: creation data for output
         TPM2B_DIGEST                      *creationDigest   //   OUT: creation digest
 );
+TPM_RC PrivateToSensitive(
+        TPM2B_PRIVATE       *inPrivate,          // IN: input private structure
+        TPM2B_NAME          *name,               // IN: the name of the object
+        TPM_HANDLE          parentHandle,    // IN: The parent's handle
+        TPM_ALG_ID          nameAlg,         // IN: hash algorithm in public area. It is
+                                        //     passed separately because we only pass
+                                        //     name, rather than the whole public area
+                                        //     of the object. This parameter is used in
+                                        //     the following two cases: 1. primary
+                                        //     objects. 2. duplication blob with inner
+                                        //     wrap. In other cases, this parameter
+                                        //     will be ignored
+        TPMT_SENSITIVE     *sensitive        // OUT: sensitive structure
+                          );
 TPM_RC PublicAttributesValidation(
         BOOL                load,                 // IN: TRUE if load checks, FALSE if
                                              //     TPM2_Create()

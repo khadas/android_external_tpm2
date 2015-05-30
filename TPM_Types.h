@@ -1276,6 +1276,9 @@ enum {
         RC_Import_objectPublic,
         RC_Import_parentHandle,
         RC_IncrementalSelfTest_toTest,
+        RC_Load_inPrivate,
+        RC_Load_inPublic,
+        RC_Load_parentHandle,
 };
 
 enum {
