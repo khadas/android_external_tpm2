@@ -1058,6 +1058,8 @@ enum {
         RC_Duplicate_symmetricAlg,
         RC_ECC_Parameters_curveID,
         RC_ECDH_KeyGen_keyHandle,
+        RC_ECDH_ZGen_keyHandle,
+        RC_ECDH_ZGen_inPoint,
 };
 
 enum {
