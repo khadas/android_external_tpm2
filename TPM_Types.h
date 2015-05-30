@@ -1016,6 +1016,8 @@ enum {
         RC_Commit_signHandle,
         RC_Commit_y2,
         RC_ContextLoad_context,
+        RC_CreatePrimary_inPublic,
+        RC_CreatePrimary_inSensitive,
         RC_Create_inPublic,
         RC_Create_inSensitive,
         RC_Create_parentHandle,
