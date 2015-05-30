@@ -1070,6 +1070,7 @@ enum {
         RC_EncryptDecrypt_ivIn,
         RC_EncryptDecrypt_keyHandle,
         RC_EncryptDecrypt_mode,
+        RC_EventSequenceComplete_sequenceHandle,
 };
 
 enum {

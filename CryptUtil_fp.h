@@ -36,6 +36,11 @@ LIB_EXPORT UINT16 CryptCompleteHMAC2B(
         HMAC_STATE         *hmacState,           // IN: the state of HMAC stack
         TPM2B              *digest               // OUT: HMAC
                                       );
+LIB_EXPORT UINT16 CryptCompleteHash(
+        void               *state,             // IN: the state of hash stack
+        UINT16              digestSize,        // IN: size of digest buffer
+        BYTE               *digest             // OUT: hash digest
+                                    );
 UINT16 CryptCompleteHash2B(
         void      *state,       // IN: the state of hash stack
         TPM2B     *digest       // IN: the size of the buffer Out: requested
@@ -79,6 +84,9 @@ void CryptDrbgGetPutState(
 #define CryptEccGetKeySizeInBytes(curve)            \
        ((CryptEccGetKeySizeInBits(curve)+7)/8)
 
+LIB_EXPORT TPM_ALG_ID CryptGetHashAlgByIndex(
+        UINT32               index                // IN: the index
+                                             );
 LIB_EXPORT UINT16 CryptGetHashDigestSize(
         TPM_ALG_ID           hashAlg              // IN: hash algorithm
                                          );
@@ -289,6 +297,10 @@ void CryptUpdateDigest(
         UINT32  dataSize,        // IN: the size of data
         BYTE    *data            // IN: data to be hashed
 );
+LIB_EXPORT void CryptUpdateDigest2B(
+        void                *digestState,       // IN: the digest state
+        TPM2B               *bIn                // IN: 2B containing the data
+                                    );
 void CryptUpdateDigestInt(
         void    *state,             // IN: the state of hash stack
         UINT32   intSize,           // IN: the size of 'intValue' in byte
