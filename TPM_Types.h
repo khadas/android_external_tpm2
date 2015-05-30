@@ -1275,6 +1275,7 @@ enum {
         RC_Import_inSymSeed,
         RC_Import_objectPublic,
         RC_Import_parentHandle,
+        RC_IncrementalSelfTest_toTest,
 };
 
 enum {

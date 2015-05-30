@@ -7,9 +7,13 @@
 #ifndef __TPM2_CRYPTSELFTEST_FP_H
 #define __TPM2_CRYPTSELFTEST_FP_H
 
+TPM_RC CryptIncrementalSelfTest(
+        TPML_ALG            *toTest,              // IN: list of algorithms to be tested
+        TPML_ALG            *toDoList             // OUT: list of algorithms needing test
+                                );
 void CryptInitializeToTest(
         void
-        );
+);
 TPM_RC CryptTestAlgorithm(
         TPM_ALG_ID                 alg,
         ALGORITHM_VECTOR          *toTest
