@@ -50,7 +50,7 @@ TPM2_MakeCredential(
 
    // Make encrypt key and its associated secret structure.
    // Even though CrypeSecretEncrypt() may return
-   out->secret.t.size = sizeof(out->secret.t.secret);
+   out->secret.t.size = sizeof(out->secret.t.buffer);
    result = CryptSecretEncrypt(in->handle, "IDENTITY", &data, &out->secret);
    if(result != TPM_RC_SUCCESS)
        return result;

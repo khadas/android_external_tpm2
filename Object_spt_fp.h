@@ -68,6 +68,13 @@ TPM_RC SchemeChecks(
         TPMI_DH_OBJECT      parentHandle,       // IN: input parent handle
         TPMT_PUBLIC        *publicArea          // IN: public area of the object
                     );
+void SecretToCredential(
+        TPM2B_DIGEST              *secret,          //   IN: secret information
+        TPM2B_NAME                *name,            //   IN: the name of the object
+        TPM2B_SEED                *seed,            //   IN: an external seed.
+        TPM_HANDLE                 protector,       //   IN: The protector's handle
+        TPM2B_ID_OBJECT           *outIDObject      //   OUT: output credential
+                        );
 void SensitiveToDuplicate(
         TPMT_SENSITIVE                *sensitive,          //   IN: sensitive structure
         TPM2B_NAME                    *name,               //   IN: the name of the object
