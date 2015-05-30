@@ -24,19 +24,19 @@ LocalityGetAttributes(
       switch(locality)
       {
           case 0:
-              locality_attributes.TPM_LOC_ZERO = SET;
+              locality_attributes.locZero = SET;
               break;
           case 1:
-              locality_attributes.TPM_LOC_ONE = SET;
+              locality_attributes.locOne = SET;
               break;
           case 2:
-              locality_attributes.TPM_LOC_TWO = SET;
+              locality_attributes.locTwo = SET;
               break;
           case 3:
-              locality_attributes.TPM_LOC_THREE = SET;
+              locality_attributes.locThree = SET;
               break;
           case 4:
-              locality_attributes.TPM_LOC_FOUR = SET;
+              locality_attributes.locFour = SET;
               break;
           default:
               pAssert(locality < 256 && locality > 31);
