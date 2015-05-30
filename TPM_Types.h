@@ -402,6 +402,18 @@ typedef struct {
   UINT32 reserved19_31        : 13;
 } TPMA_OBJECT;
 
+// Table 31 - TPMA_SESSION Bits
+typedef struct {
+  UINT8 continueSession : 1;
+  UINT8 auditExclusive  : 1;
+  UINT8 auditReset      : 1;
+  UINT8 reserved3_4     : 2;
+  UINT8 decrypt         : 1;
+  UINT8 encrypt         : 1;
+  UINT8 audit           : 1;
+} TPMA_SESSION;
+
+
 // Table 32 - TPMA_LOCALITY Bits
 //
 // NOTE: Use low case here to resolve conflict
@@ -1246,11 +1258,16 @@ enum {
         RC_GetSessionAuditDigest_signHandle,
         RC_GetTime_inScheme,
         RC_GetTime_signHandle,
+        RC_HMAC_handle,
+        RC_HMAC_hashAlg,
 };
 
 enum {
+        TPM_RCS_ATTRIBUTES,
         TPM_RCS_HANDLE,
         TPM_RCS_KEY,
+        TPM_RCS_TYPE,
+        TPM_RCS_VALUE,
 };
 
 #endif // __TPM2_TPM_TYPES_H
