@@ -5,7 +5,6 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
-#define _CRT_RAND_S
 #include <stdlib.h>
 #include <stdint.h>
 #include <memory.h>
@@ -43,7 +42,7 @@ _plat__GetEntropy(
 )
 {
       uint32_t                rndNum;
-      int                   OK = 1;
+
       if(amount == 0)
       {
           firstValue = 1;
@@ -51,21 +50,14 @@ _plat__GetEntropy(
       }
       // Only provide entropy 32 bits at a time to test the ability
       // of the caller to deal with partial results.
-      OK = rand_s(&rndNum) == 0;
-      if(OK)
-      {
-          if(firstValue)
-               firstValue = 0;
-          else
-               OK = (rndNum != lastEntropy);
-      }
-//
-   if(OK)
-   {
-       lastEntropy = rndNum;
-       if(amount > sizeof(rndNum))
-           amount = sizeof(rndNum);
-       memcpy(entropy, &rndNum, amount);
-   }
-   return (OK) ? (int32_t)amount : -1;
+      rndNum = random();  //TODO(vbendeb): compare to rand_s case
+      if(firstValue)
+              firstValue = 0;
+
+      lastEntropy = rndNum;
+      if(amount > sizeof(rndNum))
+              amount = sizeof(rndNum);
+      memcpy(entropy, &rndNum, amount);
+
+   return (int32_t)amount;
 }
