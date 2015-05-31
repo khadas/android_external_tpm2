@@ -13,4 +13,7 @@ TPMI_YES_NO PhysicalPresenceCapGetCCList(
         TPML_CC           *commandList           // OUT: list of TPM_CC
 );
 
+void PhysicalPresencePreInstall_Init(
+        void
+        );
 #endif // __TPM2_PP_FP_H

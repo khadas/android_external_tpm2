@@ -15,6 +15,9 @@ TPMI_YES_NO CommandAuditCapGetCCList(
 void CommandAuditGetDigest(
         TPM2B_DIGEST     *digest                // OUT: command digest
 );
+void CommandAuditPreInstall_Init(
+        void
+        );
 BOOL CommandAuditSet(
         TPM_CC   commandCode  // IN: command code
 );
