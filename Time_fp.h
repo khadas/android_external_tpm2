@@ -14,4 +14,8 @@ void TimeSetAdjustRate(
         TPM_CLOCK_ADJUST          adjust            // IN: adjust constant
 );
 
+void TimeUpdateToCurrent(
+        void
+        );
+
 #endif // __TPM2_TIME_FP_H

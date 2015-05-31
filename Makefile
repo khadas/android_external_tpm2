@@ -51,6 +51,7 @@ SOURCES += Entity.c
 SOURCES += Entropy.c
 SOURCES += EventSequenceComplete.c
 SOURCES += EvictControl.c
+SOURCES += ExecCommand.c
 SOURCES += FieldUpgradeData.c
 SOURCES += FieldUpgradeStart.c
 SOURCES += FirmwareRead.c
