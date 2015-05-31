@@ -16,5 +16,11 @@ TPMI_YES_NO CommandCapGetCCList(
 BOOL CommandIsImplemented(
         TPM_CC  commandCode          // IN: command code
                           );
+BOOL IsReadOperation(
+        TPM_CC               command           // IN: Command to check
+        );
+BOOL IsWriteOperation(
+        TPM_CC               command           // IN: Command to check
+        );
 
 #endif // __TPM2_COMMANDCODEATTRIBUTES_FP_H

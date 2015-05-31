@@ -11,6 +11,9 @@ TPM_RC NvAddEvictObject(
         TPMI_DH_OBJECT       evictHandle,         // IN: new evict handle
         OBJECT              *object              // IN: object to be added
                         );
+UINT32 NvCapGetPersistentNumber(
+        void
+        );
 void NvCheckState(void);
 BOOL NvCommit(
         void
@@ -25,6 +28,11 @@ void NvGetIndexInfo(
         TPMI_RH_NV_INDEX          handle,              // IN: handle
         NV_INDEX                 *nvIndex              // OUT: NV index structure
                     );
+void NvGetIntIndexData(
+        TPMI_RH_NV_INDEX          handle,            // IN: handle
+        NV_INDEX                 *nvIndex,           // IN: RAM image of NV Index header
+        UINT64                   *data               // IN: UINT64 pointer for counter or bit
+        );
 UINT16 NvGetName(
         TPMI_RH_NV_INDEX          handle,            // IN: handle of the index
         NAME                     *name               // OUT: name of the index
@@ -55,6 +63,13 @@ BOOL NvIsOwnerPersistentHandle(
 BOOL NvIsPlatformPersistentHandle(
         TPM_HANDLE           handle              // IN: handle
                                   );
+TPM_RC NvWriteIndexData(
+        TPMI_RH_NV_INDEX          handle,               //   IN: handle
+        NV_INDEX                 *nvIndex,              //   IN: RAM copy of NV Index
+        UINT32                    offset,               //   IN: offset of NV data
+        UINT32                    size,                 //   IN: size of NV data
+        void                     *data                  //   OUT: data buffer
+        );
 void NvWriteReserved(
         NV_RESERVE   type,              // IN: type of reserved data
         void        *buffer             // IN: data buffer
