@@ -29,6 +29,16 @@ UINT16 NvGetName(
         TPMI_RH_NV_INDEX          handle,            // IN: handle of the index
         NAME                     *name               // OUT: name of the index
                  );
+TPMI_YES_NO NvCapGetIndex(
+        TPMI_DH_OBJECT     handle,              // IN: start handle
+        UINT32             count,               // IN: maximum number of returned handle
+        TPML_HANDLE       *handleList           // OUT: list of handle
+);
+TPMI_YES_NO NvCapGetPersistent(
+        TPMI_DH_OBJECT       handle,            // IN: start handle
+        UINT32               count,             // IN: maximum number of returned handle
+        TPML_HANDLE         *handleList         // OUT: list of handle
+);
 TPM_RC NvIndexIsAccessible(
         TPMI_RH_NV_INDEX         handle,                // IN: handle
         TPM_CC                   commandCode            // IN: the command

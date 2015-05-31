@@ -9,7 +9,12 @@
 
 BOOL CryptAreKeySizesConsistent(
         TPMT_PUBLIC           *publicArea              // IN: the public area to check
-        );
+);
+TPMI_YES_NO CryptCapGetECCCurve(
+        TPM_ECC_CURVE      curveID,             // IN: the starting ECC curve
+        UINT32             maxCount,            // IN: count of returned curve
+        TPML_ECC_CURVE    *curveList            // OUT: ECC curve list
+);
 UINT16 CryptCommit(void);
 LIB_EXPORT int CryptCompare(
         const   UINT32         aSize,                  //   IN:   size of a

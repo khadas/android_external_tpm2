@@ -7,6 +7,12 @@
 #ifndef __TPM2_COMMANDCODEATTRIBUTES_FP_H
 #define __TPM2_COMMANDCODEATTRIBUTES_FP_H
 
+TPMI_YES_NO CommandCapGetCCList(
+        TPM_CC            commandCode,         // IN: start command code
+        UINT32            count,               // IN: maximum count for number of entries in
+                                                //     'commandList'
+        TPML_CCA         *commandList          // OUT: list of TPMA_CC
+);
 BOOL CommandIsImplemented(
         TPM_CC  commandCode          // IN: command code
                           );

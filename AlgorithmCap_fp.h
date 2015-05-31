@@ -7,8 +7,14 @@
 #ifndef __TPM2_ALGORITHMCAP_FP_H
 #define __TPM2_ALGORITHMCAP_FP_H
 
-void AlgorithmGetImplementedVector(
+LIB_EXPORT void AlgorithmGetImplementedVector(
         ALGORITHM_VECTOR      *implemented            // OUT: the implemented bits are SET
-        );
+);
+
+TPMI_YES_NO AlgorithmCapGetImplemented(
+        TPM_ALG_ID                          algID,         // IN: the starting algorithm ID
+        UINT32                              count,         // IN: count of returned algorithms
+        TPML_ALG_PROPERTY                  *algList        // OUT: algorithm list
+);
 
 #endif // __TPM2_ALGORITHMCAP_FP_H

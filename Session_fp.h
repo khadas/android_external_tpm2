@@ -7,6 +7,16 @@
 #ifndef __TPM2_SESSION_FP_H
 #define __TPM2_SESSION_FP_H
 
+TPMI_YES_NO SessionCapGetLoaded(
+        TPMI_SH_POLICY      handle,             // IN: start handle
+        UINT32              count,              // IN: count of returned handle
+        TPML_HANDLE        *handleList          // OUT: list of handle
+);
+TPMI_YES_NO SessionCapGetSaved(
+        TPMI_SH_HMAC        handle,             // IN: start handle
+        UINT32              count,              // IN: count of returned handle
+        TPML_HANDLE        *handleList          // OUT: list of handle
+);
 TPM_RC SessionContextLoad(
         SESSION            *session,            // IN: session structure from saved context
         TPM_HANDLE         *handle              // IN/OUT: session handle
