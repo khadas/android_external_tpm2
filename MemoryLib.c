@@ -59,24 +59,6 @@ MemoryMove(
       return;
 }
 //
-//
-//         MemoryCopy()
-//
-//     This function moves data from one place in memory to another. No safety checks of any type are
-//     performed. If the destination and source overlap, then the results are unpredictable. void MemoryCopy(
-//
-     void                             *destination, // OUT: copy destination
-//
-     void                             *source, // IN: copy source
-     UINT32                           size, // IN: number of octets being copied
-     UINT32                           dSize // IN: size of the receive buffer
-//
-//     MemoryMove(destination, source, size, dSize);
-//
-//%#define MemoryCopy(destination, source, size, destSize)                          \
-//%    MemoryMove((destination), (source), (size), (destSize))
-//
-//
 //         MemoryEqual()
 //
 //     This function indicates if two buffers have the same values in the indicated number of bytes.
