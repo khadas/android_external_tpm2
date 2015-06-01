@@ -1287,6 +1287,7 @@ enum {
         RC_MakeCredential_handle,
         RC_NV_Certify_signHandle,
         RC_NV_Certify_inScheme,
+        RC_NV_ChangeAuth_newAuth,
 };
 
 enum {
