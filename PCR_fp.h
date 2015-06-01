@@ -11,6 +11,12 @@ TPMI_YES_NO PCRCapGetAllocation(
         UINT32                   count,               // IN: count of return
         TPML_PCR_SELECTION      *pcrSelection         // OUT: PCR allocation list
 );
+void PCRComputeCurrentDigest(
+        TPMI_ALG_HASH             hashAlg,            // IN: hash algorithm to compute digest
+        TPML_PCR_SELECTION       *selection,          // IN/OUT: PCR selection (filtered on
+        //     output)
+        TPM2B_DIGEST             *digest              // OUT: digest
+        );
 TPMI_ALG_HASH PCRGetAuthPolicy(
         TPMI_DH_PCR          handle,            // IN: PCR handle
         TPM2B_DIGEST        *policy             // OUT: policy of PCR

@@ -51,11 +51,17 @@ TPM_RC ObjectCreateHashSequence(
 TPMI_RH_HIERARCHY ObjectDataGetHierarchy(
         OBJECT              *object             // IN :object
 );
+BOOL ObjectDataIsStorage(
+        TPMT_PUBLIC         *publicArea            // IN: public area of the object
+        );
 OBJECT* ObjectGet(
         TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
 TPMI_RH_HIERARCHY ObjectGetHierarchy(
         TPMI_DH_OBJECT        handle              // IN :object handle
+        );
+TPMI_ALG_HASH ObjectGetNameAlg(
+        TPMI_DH_OBJECT       handle             // IN: handle of the object
         );
 TPM_RC ObjectLoadEvict(
         TPM_HANDLE           *handle,             // IN:OUT: evict object handle. If success, it

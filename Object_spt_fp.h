@@ -42,6 +42,10 @@ void FillInCreationData(
         TPM2B_CREATION_DATA               *outCreation,     //   OUT: creation data for output
         TPM2B_DIGEST                      *creationDigest   //   OUT: creation digest
 );
+TPM2B_SEED* GetSeedForKDF(
+        TPM_HANDLE           protectorHandle,          // IN: the protector handle
+        TPM2B_SEED          *seedIn                    // IN: the optional input seed
+        );
 TPM_RC PrivateToSensitive(
         TPM2B_PRIVATE       *inPrivate,          // IN: input private structure
         TPM2B_NAME          *name,               // IN: the name of the object

@@ -1220,7 +1220,13 @@ typedef struct {
 } TPMS_CREATION_DATA;
 
 // Table 204 - TPM2B_CREATION_DATA Structure
-TPM2B_TYPE(CREATION_DATA, sizeof(TPMS_CREATION_DATA));
+typedef union {
+        struct {
+                UINT16 size;
+                TPMS_CREATION_DATA creationData;
+        } t __attribute__((packed));
+       TPM2B     b;
+} TPM2B_CREATION_DATA;
 
 //
 // Unknown defines to be investigated and resolved
