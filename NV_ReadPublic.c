@@ -21,10 +21,10 @@ TPM2_NV_ReadPublic(
    NvGetIndexInfo(in->nvIndex, &nvIndex);
 
    // Copy data to output
-   out->nvPublic.t.nvPublic = nvIndex.publicArea;
+   out->nvPublic = nvIndex.publicArea;
 
    // Compute NV name
-   out->nvName.t.size = NvGetName(in->nvIndex, &out->nvName.t.name);
+   out->nvName.t.size = NvGetName(in->nvIndex, &out->nvName.t.buffer);
 
    return TPM_RC_SUCCESS;
 }
