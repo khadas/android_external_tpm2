@@ -29,7 +29,7 @@ TPM2_NV_DefineSpace(
    TPMA_NV         attributes;
    UINT16          nameSize;
 
-   nameSize = CryptGetHashDigestSize(in->publicInfo.t.nvPublic.nameAlg);
+   nameSize = CryptGetHashDigestSize(in->publicInfo.nameAlg);
 
    // Check if NV is available. NvIsAvailable may return TPM_RC_NV_UNAVAILABLE
    // TPM_RC_NV_RATE or TPM_RC_SUCCESS.
@@ -45,17 +45,17 @@ TPM2_NV_DefineSpace(
    if(in->authHandle == TPM_RH_PLATFORM && gc.phEnableNV == CLEAR)
        return TPM_RC_HIERARCHY + RC_NV_DefineSpace_authHandle;
 
-   attributes = in->publicInfo.t.nvPublic.attributes;
+   attributes = in->publicInfo.attributes;
 
    //TPMS_NV_PUBLIC validation.
    // Counters and bit fields must have a size of 8
    if (   (attributes.TPMA_NV_COUNTER == SET || attributes.TPMA_NV_BITS == SET)
-       && (in->publicInfo.t.nvPublic.dataSize != 8))
+       && (in->publicInfo.dataSize != 8))
        return TPM_RC_SIZE + RC_NV_DefineSpace_publicInfo;
 
    // check that the authPolicy consistent with hash algorithm
-   if(   in->publicInfo.t.nvPublic.authPolicy.t.size != 0
-      && in->publicInfo.t.nvPublic.authPolicy.t.size != nameSize)
+   if(   in->publicInfo.authPolicy.t.size != 0
+      && in->publicInfo.authPolicy.t.size != nameSize)
        return TPM_RC_SIZE + RC_NV_DefineSpace_publicInfo;
 
    // make sure that the authValue is not too large
@@ -123,10 +123,10 @@ TPM2_NV_DefineSpace(
        return TPM_RC_ATTRIBUTES + RC_NV_DefineSpace_publicInfo;
 
    // Make sure that the creator of the index can delete the index
-   if( (    in->publicInfo.t.nvPublic.attributes.TPMA_NV_PLATFORMCREATE == SET
+   if( (    in->publicInfo.attributes.TPMA_NV_PLATFORMCREATE == SET
           && in->authHandle == TPM_RH_OWNER
          )
-      || (   in->publicInfo.t.nvPublic.attributes.TPMA_NV_PLATFORMCREATE == CLEAR
+      || (   in->publicInfo.attributes.TPMA_NV_PLATFORMCREATE == CLEAR
           && in->authHandle == TPM_RH_PLATFORM
          )
      )
@@ -134,25 +134,25 @@ TPM2_NV_DefineSpace(
 
   // If TPMA_NV_POLICY_DELETE is SET, then the index must be defined by
   // the platform
-  if(    in->publicInfo.t.nvPublic.attributes.TPMA_NV_POLICY_DELETE == SET
+  if(    in->publicInfo.attributes.TPMA_NV_POLICY_DELETE == SET
      && TPM_RH_PLATFORM != in->authHandle
     )
       return TPM_RC_ATTRIBUTES + RC_NV_DefineSpace_publicInfo;
 
   // If the NV index is used as a PCR, the data size must match the digest
   // size
-  if(   in->publicInfo.t.nvPublic.attributes.TPMA_NV_EXTEND == SET
-     && in->publicInfo.t.nvPublic.dataSize != nameSize
+  if(   in->publicInfo.attributes.TPMA_NV_EXTEND == SET
+     && in->publicInfo.dataSize != nameSize
     )
       return TPM_RC_ATTRIBUTES + RC_NV_DefineSpace_publicInfo;
 
   // See if the index is already defined.
-  if(NvIsUndefinedIndex(in->publicInfo.t.nvPublic.nvIndex))
+  if(NvIsUndefinedIndex(in->publicInfo.nvIndex))
       return TPM_RC_NV_DEFINED;
 
 // Internal Data Update
    // define the space. A TPM_RC_NV_SPACE error may be returned at this point
-   result = NvDefineIndex(&in->publicInfo.t.nvPublic, &in->auth);
+   result = NvDefineIndex(&in->publicInfo, &in->auth);
    if(result != TPM_RC_SUCCESS)
        return result;
 
