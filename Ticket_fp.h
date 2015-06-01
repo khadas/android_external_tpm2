@@ -7,6 +7,15 @@
 #ifndef __TPM2_TICKET_FP_H
 #define __TPM2_TICKET_FP_H
 
+void TicketComputeAuth(
+        TPM_ST                     type,            //   IN: the type of ticket.
+        TPMI_RH_HIERARCHY          hierarchy,       //   IN: hierarchy constant for ticket
+        UINT64                     timeout,         //   IN: timeout
+        TPM2B_DIGEST              *cpHashA,         //   IN: input cpHashA
+        TPM2B_NONCE               *policyRef,       //   IN: input policyRef
+        TPM2B_NAME                *entityName,      //   IN: name of entity
+        TPMT_TK_AUTH              *ticket           //   OUT: Created ticket
+        );
 void TicketComputeCreation(
         TPMI_RH_HIERARCHY       hierarchy,        //   IN: hierarchy for ticket
         TPM2B_NAME             *name,             //   IN: object name
