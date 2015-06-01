@@ -1293,6 +1293,7 @@ enum {
         RC_NV_DefineSpace_publicInfo,
         RC_NV_Extend_nvIndex,
         RC_NV_Increment_nvIndex,
+        RC_NV_ReadLock_nvIndex,
 };
 
 enum {
