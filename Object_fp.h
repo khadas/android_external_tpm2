@@ -22,6 +22,12 @@ void ObjectComputeName(
         TPMT_PUBLIC         *publicArea,       // IN: public area of an object
         TPM2B_NAME          *name              // OUT: name of the object
 );
+void ObjectComputeQualifiedName(
+        TPM2B_NAME          *parentQN,             //   IN: parent's qualified name
+        TPM_ALG_ID           nameAlg,              //   IN: name hash
+        TPM2B_NAME          *name,                 //   IN: name of the object
+        TPM2B_NAME          *qualifiedName         //   OUT: qualified name of the object
+        );
 TPM_RC ObjectContextLoad(
         OBJECT              *object,               // IN: object structure from saved context
         TPMI_DH_OBJECT      *handle                // OUT: object handle

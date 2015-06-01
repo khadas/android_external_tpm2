@@ -28,6 +28,10 @@ void NvDeleteEntity(
 void NvFlushHierarchy(
         TPMI_RH_HIERARCHY         hierarchy          // IN: hierarchy to be flushed.
 );
+TPM_RC NvGetEvictObject(
+        TPM_HANDLE           handle,              // IN: handle
+        OBJECT              *object               // OUT: object data
+        );
 void NvGetIndexData(
         TPMI_RH_NV_INDEX          handle,            //   IN: handle
         NV_INDEX                 *nvIndex,           //   IN: RAM image of index header
