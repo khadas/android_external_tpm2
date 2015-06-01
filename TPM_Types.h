@@ -1349,6 +1349,7 @@ enum {
         RC_PolicyNV_operandB,
         RC_PolicyNameHash_nameHash,
         RC_PolicyNvWritten_writtenSet,
+        RC_PolicyOR_pHashList,
 };
 
 enum {
