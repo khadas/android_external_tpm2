@@ -24,6 +24,13 @@ void NvDeleteEntity(
 void NvFlushHierarchy(
         TPMI_RH_HIERARCHY         hierarchy          // IN: hierarchy to be flushed.
 );
+void NvGetIndexData(
+        TPMI_RH_NV_INDEX          handle,            //   IN: handle
+        NV_INDEX                 *nvIndex,           //   IN: RAM image of index header
+        UINT32                    offset,            //   IN: offset of NV data
+        UINT16                    size,              //   IN: size of NV data
+        void                     *data               //   OUT: data buffer
+        );
 void NvGetIndexInfo(
         TPMI_RH_NV_INDEX          handle,              // IN: handle
         NV_INDEX                 *nvIndex              // OUT: NV index structure
