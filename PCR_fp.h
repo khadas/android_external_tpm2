@@ -13,6 +13,14 @@ TPM_RC PCRAllocate(
         UINT32                    *sizeNeeded,         //   OUT: required space
         UINT32                    *sizeAvailable       //   OUT: available space
         );
+BOOL PCRBelongsAuthGroup(
+        TPMI_DH_PCR          handle,              // IN: handle of PCR
+        UINT32              *groupIndex           // OUT: group index if PCR belongs a
+        //      group that allows authValue. If PCR
+        //      does not belong to an auth group,
+        //      the value in this parameter is
+        //      invalid
+);
 BOOL PCRBelongsPolicyGroup(
         TPMI_DH_PCR           handle,            // IN: handle of PCR
         UINT32               *groupIndex         // OUT: group index if PCR belongs a group that
