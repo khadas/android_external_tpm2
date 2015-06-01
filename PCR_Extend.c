@@ -54,9 +54,13 @@ TPM2_PCR_Extend(
    // Iterate input digest list to extend
    for(i = 0; i < in->digests.count; i++)
    {
-       PCRExtend(in->pcrHandle, in->digests.digests[i].hashAlg,
-                 CryptGetHashDigestSize(in->digests.digests[i].hashAlg),
-                 (BYTE *) &in->digests.digests[i].digest);
+       TPMI_ALG_HASH hashAlg;
+
+       hashAlg = ((TPMT_HA *)in->digests.digests[i].t.buffer)->hashAlg;
+
+       PCRExtend(in->pcrHandle, hashAlg,
+                 CryptGetHashDigestSize(hashAlg),
+                 (BYTE *) &in->digests.digests[i].t.buffer);
    }
 
    return TPM_RC_SUCCESS;
