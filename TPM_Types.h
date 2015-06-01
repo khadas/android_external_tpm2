@@ -1361,6 +1361,10 @@ enum {
         RC_PolicySecret_cpHashA,
         RC_PolicySecret_expiration,
         RC_PolicySecret_nonceTPM,
+        RC_PolicySigned_auth,
+        RC_PolicySigned_cpHashA,
+        RC_PolicySigned_expiration,
+        RC_PolicySigned_nonceTPM,
 };
 
 enum {
