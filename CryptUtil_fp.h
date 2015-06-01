@@ -32,6 +32,12 @@ TPM_RC CryptCommitCompute(
         TPM2B_ECC_PARAMETER           *d,                     //   IN: the private scalar
         TPM2B_ECC_PARAMETER           *r                      //   IN: the computed r value
                           );
+int CryptCompareSigned(
+        UINT32                 aSize,                  //   IN:   size of a
+        BYTE                  *a,                      //   IN:   a buffer
+        UINT32                 bSize,                  //   IN:   size of b
+        BYTE                  *b                       //   IN:   b buffer
+        );
 void CryptComputeSymmetricUnique(
         TPMI_ALG_HASH        nameAlg,           // IN: object name algorithm
         TPMT_SENSITIVE      *sensitive,         // IN: sensitive area

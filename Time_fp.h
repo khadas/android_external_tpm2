@@ -10,6 +10,11 @@
 void TimeFillInfo(
         TPMS_CLOCK_INFO           *clockInfo
 );
+TPM_RC TimeGetRange(
+        UINT16              offset,             // IN: offset in TPMS_TIME_INFO
+        UINT16              size,               // IN: size of data
+        TIME_INFO          *dataBuffer          // OUT: result buffer
+        );
 void TimeSetAdjustRate(
         TPM_CLOCK_ADJUST          adjust            // IN: adjust constant
 );
