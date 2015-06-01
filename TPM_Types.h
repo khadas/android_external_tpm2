@@ -1292,6 +1292,7 @@ enum {
         RC_NV_DefineSpace_authHandle,
         RC_NV_DefineSpace_publicInfo,
         RC_NV_Extend_nvIndex,
+        RC_NV_Increment_nvIndex,
 };
 
 enum {
