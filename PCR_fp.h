@@ -7,6 +7,12 @@
 #ifndef __TPM2_PCR_FP_H
 #define __TPM2_PCR_FP_H
 
+TPM_RC PCRAllocate(
+        TPML_PCR_SELECTION        *allocate,           //   IN: required allocation
+        UINT32                    *maxPCR,             //   OUT: Maximum number of PCR
+        UINT32                    *sizeNeeded,         //   OUT: required space
+        UINT32                    *sizeAvailable       //   OUT: available space
+        );
 TPMI_YES_NO PCRCapGetAllocation(
         UINT32                   count,               // IN: count of return
         TPML_PCR_SELECTION      *pcrSelection         // OUT: PCR allocation list
