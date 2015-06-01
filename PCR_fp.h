@@ -53,6 +53,13 @@ BOOL PCRIsExtendAllowed(
 BOOL PCRIsStateSaved(
         TPMI_DH_PCR         handle                // IN: PCR handle to be extended
                      );
+void PCRRead(
+        TPML_PCR_SELECTION       *selection,          // IN/OUT: PCR selection (filtered on
+        //     output)
+        TPML_DIGEST              *digest,             // OUT: digest
+        UINT32                   *pcrCounter          // OUT: the current value of PCR generation
+        //     number
+        );
 void PCRSimStart(
         void
         );
