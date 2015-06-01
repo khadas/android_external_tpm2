@@ -20,6 +20,12 @@ void TicketComputeHashCheck(
         TPM2B_DIGEST            *digest,         //   IN: input digest
         TPMT_TK_HASHCHECK       *ticket          //   OUT: Created ticket
                             );
+void TicketComputeVerified(
+        TPMI_RH_HIERARCHY          hierarchy,       //   IN: hierarchy constant for ticket
+        TPM2B_DIGEST              *digest,          //   IN: digest
+        TPM2B_NAME                *keyName,         //   IN: name of key that signed the value
+        TPMT_TK_VERIFIED          *ticket           //   OUT: verified ticket
+        );
 BOOL TicketIsSafe(
         TPM2B                *buffer
                   );
