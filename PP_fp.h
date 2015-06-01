@@ -12,6 +12,9 @@ TPMI_YES_NO PhysicalPresenceCapGetCCList(
         UINT32             count,                // IN: count of returned TPM_CC
         TPML_CC           *commandList           // OUT: list of TPM_CC
 );
+void PhysicalPresenceCommandClear(
+        TPM_CC               commandCode       // IN: command code
+        );
 void PhysicalPresenceCommandSet(
         TPM_CC               commandCode       // IN: command code
         );
