@@ -7,7 +7,7 @@
 
 #define PCR_C
 #include "InternalRoutines.h"
-#include <Platform.h>
+#include "Platform.h"
 //
 //      The initial value of PCR attributes. The value of these fields should be consistent with PC Client
 //      specification In this implementation, we assume the total number of implemented PCR is 24.
@@ -291,7 +291,7 @@ GetSavedPcrPointer (
    default:
        FAIL(FATAL_ERROR_INTERNAL);
    }
-   //return NULL; // Can't be reached
+   return NULL; // Never reached.
 }
 //
 //
