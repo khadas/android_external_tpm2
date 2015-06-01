@@ -1314,6 +1314,8 @@ enum {
         RC_ObjectChangeAuth_newAuth,
         RC_ObjectChangeAuth_objectHandle,
         RC_ObjectChangeAuth_parentHandle,
+        RC_PCR_SetAuthPolicy_authPolicy,
+        RC_PCR_SetAuthPolicy_pcrNum,
 };
 
 enum {
