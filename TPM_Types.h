@@ -1344,6 +1344,7 @@ enum {
         RC_PolicyAuthorize_checkTicket,
         RC_PolicyAuthorize_keySign,
         RC_PolicyCommandCode_code,
+        RC_PolicyCpHash_cpHashA,
 };
 
 enum {
