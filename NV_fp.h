@@ -77,6 +77,9 @@ BOOL NvIsPlatformPersistentHandle(
 BOOL NvIsUndefinedIndex(
         TPMI_RH_NV_INDEX         handle                 // IN: handle
         );
+void NvSetGlobalLock(
+        void
+        );
 TPM_RC NvWriteIndexData(
         TPMI_RH_NV_INDEX          handle,               //   IN: handle
         NV_INDEX                 *nvIndex,              //   IN: RAM copy of NV Index
