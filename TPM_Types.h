@@ -1350,6 +1350,7 @@ enum {
         RC_PolicyNameHash_nameHash,
         RC_PolicyNvWritten_writtenSet,
         RC_PolicyOR_pHashList,
+        RC_PolicyPCR_pcrDigest,
 };
 
 enum {
