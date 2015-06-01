@@ -1346,6 +1346,7 @@ enum {
         RC_PolicyCommandCode_code,
         RC_PolicyCpHash_cpHashA,
         RC_PolicyLocality_locality,
+        RC_PolicyNV_operandB,
 };
 
 enum {

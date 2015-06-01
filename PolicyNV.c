@@ -28,7 +28,7 @@ TPM2_PolicyNV(
    TPM_RC                   result;
    SESSION                 *session;
    NV_INDEX                 nvIndex;
-       BYTE                 nvBuffer[sizeof(in->operandB.t.buffer)];
+   BYTE                     nvBuffer[sizeof(in->operandB.t.buffer)];
    TPM2B_NAME               nvName;
    TPM_CC                   commandCode = TPM_CC_PolicyNV;
    HASH_STATE               hashState;
@@ -179,7 +179,7 @@ TPM2_PolicyNV(
    CryptUpdateDigest2B(&hashState, &argHash.b);
 
    // Adding nvName
-   nvName.t.size = EntityGetName(in->nvIndex, &nvName.t.name);
+   nvName.t.size = EntityGetName(in->nvIndex, &nvName.t.buffer);
    CryptUpdateDigest2B(&hashState, &nvName.b);
 
    // complete the digest
