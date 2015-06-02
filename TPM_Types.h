@@ -1414,6 +1414,7 @@ enum {
         RC_SequenceUpdate_sequenceHandle,
         RC_SetCommandCodeAuditStatus_auditAlg,
         RC_SetPrimaryPolicy_authPolicy,
+        RC_Shutdown_shutdownType,
 };
 
 enum {

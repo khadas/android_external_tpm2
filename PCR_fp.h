@@ -91,5 +91,8 @@ void PCRSetValue(
 void PCRSimStart(
         void
         );
+void PCRStateSave(
+        TPM_SU                 type             // IN: startup type
+        );
 
 #endif // __TPM2_PCR_FP_H
