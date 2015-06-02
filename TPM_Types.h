@@ -1391,6 +1391,9 @@ enum {
         RC_PolicyTicket_timeout,
         RC_Quote_inScheme,
         RC_Quote_signHandle,
+        RC_RSA_Decrypt_inScheme,
+        RC_RSA_Decrypt_keyHandle,
+        RC_RSA_Decrypt_label,
 };
 
 enum {
