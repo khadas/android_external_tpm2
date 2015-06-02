@@ -107,6 +107,9 @@ TPM_RC CryptEncryptRSA(
         BYTE                      *dataIn,           //   IN: plain text
         const char                *label             //   IN: an optional label
         );
+TPM_ALG_ID CryptGetContextAlg(
+        void                *state                // IN: the context to check
+        );
 LIB_EXPORT TPM_ALG_ID CryptGetHashAlgByIndex(
         UINT32               index                // IN: the index
                                              );
