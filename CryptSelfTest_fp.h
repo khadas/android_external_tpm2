@@ -14,6 +14,9 @@ TPM_RC CryptIncrementalSelfTest(
 void CryptInitializeToTest(
         void
 );
+TPM_RC CryptSelfTest(
+        TPMI_YES_NO           fullTest             // IN: if full test is required
+        );
 TPM_RC CryptTestAlgorithm(
         TPM_ALG_ID                 alg,
         ALGORITHM_VECTOR          *toTest
