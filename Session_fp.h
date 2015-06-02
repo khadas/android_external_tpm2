@@ -41,6 +41,15 @@ TPM_RC SessionContextSave (
         TPM_HANDLE                 handle,           // IN: session handle
         CONTEXT_COUNTER           *contextID         // OUT: assigned contextID
                            );
+TPM_RC SessionCreate(
+        TPM_SE               sessionType,        //   IN: the session type
+        TPMI_ALG_HASH        authHash,           //   IN: the hash algorithm
+        TPM2B_NONCE         *nonceCaller,        //   IN: initial nonceCaller
+        TPMT_SYM_DEF        *symmetric,          //   IN: the symmetric algorithm
+        TPMI_DH_ENTITY       bind,               //   IN: the bind object
+        TPM2B_DATA          *seed,               //   IN: seed data
+        TPM_HANDLE          *sessionHandle       //   OUT: the session handle
+        );
 void SessionFlush(
         TPM_HANDLE           handle             // IN: loaded or saved session handle
 );

@@ -1419,6 +1419,11 @@ enum {
         RC_Sign_inScheme,
         RC_Sign_keyHandle,
         RC_Sign_validation,
+        RC_StartAuthSession_bind,
+        RC_StartAuthSession_encryptedSalt,
+        RC_StartAuthSession_nonceCaller,
+        RC_StartAuthSession_symmetric,
+        RC_StartAuthSession_tpmKey,
 };
 
 enum {
