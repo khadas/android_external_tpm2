@@ -37,6 +37,9 @@ TPM_RC NvDefineIndex(
 void NvDeleteEntity(
         TPM_HANDLE           handle              // IN: handle of entity to be deleted
                     );
+void NvEntityStartup(
+        STARTUP_TYPE           type               // IN: start up type
+        );
 void NvFlushHierarchy(
         TPMI_RH_HIERARCHY         hierarchy          // IN: hierarchy to be flushed.
 );
@@ -95,6 +98,13 @@ BOOL NvIsPlatformPersistentHandle(
                                   );
 BOOL NvIsUndefinedIndex(
         TPMI_RH_NV_INDEX         handle                 // IN: handle
+        );
+void NvReadPersistent(
+        void
+        );
+void NvReadReserved(
+        NV_RESERVE           type,               // IN: type of reserved data
+        void                *buffer              // OUT: buffer receives the data.
         );
 void NvSetGlobalLock(
         void

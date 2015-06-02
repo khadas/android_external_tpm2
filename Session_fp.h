@@ -71,5 +71,8 @@ BOOL SessionPCRValueIsCurrent(
 void SessionResetPolicyData(
         SESSION            *session             // IN: the session to reset
         );
+void SessionStartup(
+        STARTUP_TYPE         type
+        );
 
 #endif // __TPM2_SESSION_FP_H

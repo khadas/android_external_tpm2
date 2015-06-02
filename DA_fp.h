@@ -13,5 +13,8 @@ void DAPreInstall_Init(
 void DARegisterFailure(
         TPM_HANDLE           handle             // IN: handle for failure
         );
+void DAStartup(
+        STARTUP_TYPE         type               // IN: startup type
+        );
 
 #endif // __TPM2_DA_FP_H

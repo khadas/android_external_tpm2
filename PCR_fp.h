@@ -91,6 +91,10 @@ void PCRSetValue(
 void PCRSimStart(
         void
         );
+void PCRStartup(
+        STARTUP_TYPE         type,              // IN: startup type
+        BYTE                 locality           // IN: startup locality
+        );
 void PCRStateSave(
         TPM_SU                 type             // IN: startup type
         );

@@ -16,9 +16,11 @@ TPM2B_AUTH *HierarchyGetProof(
 BOOL HierarchyIsEnabled(
         TPMI_RH_HIERARCHY        hierarchy           // IN: hierarchy
                         );
-
-#endif // __TPM2_HIERARCHY_FP_H
-
 void HierarchyPreInstall_Init(
         void
         );
+void HierarchyStartup(
+        STARTUP_TYPE         type                // IN: start up type
+        );
+
+#endif // __TPM2_HIERARCHY_FP_H
