@@ -56,6 +56,9 @@ BOOL SessionIsLoaded(
 BOOL SessionIsSaved(
         TPM_HANDLE            handle                // IN: session handle
                     );
+BOOL SessionPCRValueIsCurrent(
+        TPMI_SH_POLICY        handle                // IN: session handle
+        );
 void SessionResetPolicyData(
         SESSION            *session             // IN: the session to reset
         );

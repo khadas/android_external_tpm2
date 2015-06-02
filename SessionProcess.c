@@ -488,7 +488,7 @@ ComputeCpHash(
    // Add authNames for each of the handles.
    for(i = 0; i < handleNum; i++)
    {
-       name.t.size = EntityGetName(handles[i], &name.t.name);
+       name.t.size = EntityGetName(handles[i], &name.t.buffer);
        CryptUpdateDigest2B(&hashState, &name.b);
    }
    // Add the parameters.
@@ -503,7 +503,7 @@ ComputeCpHash(
          // Adding names.
          for(i = 0; i < handleNum; i++)
          {
-             name.t.size = EntityGetName(handles[i], &name.t.name);
+             name.t.size = EntityGetName(handles[i], &name.t.buffer);
              CryptUpdateDigest2B(&hashState, &name.b);
          }
          // Complete hash.
@@ -617,10 +617,10 @@ ComputeCommandHMAC(
    {
        // used for auth so see if this is a policy session with authValue needed
        // or an hmac session that is not bound
-       if(         sessionHandleType == TPM_HT_POLICY_SESSION
-               && session->attributes.isAuthValueNeeded == SET
-           ||      sessionHandleType == TPM_HT_HMAC_SESSION
-               && !IsSessionBindEntity(s_associatedHandles[sessionIndex], session)
+           if (((sessionHandleType == TPM_HT_POLICY_SESSION)
+                && (session->attributes.isAuthValueNeeded == SET))
+               || ((sessionHandleType == TPM_HT_HMAC_SESSION)
+                   && !IsSessionBindEntity(s_associatedHandles[sessionIndex], session))
          )
        {
            // add the authValue to the HMAC key
@@ -889,7 +889,7 @@ RetrieveSessionData (
         s_associatedHandles[sessionIndex] = TPM_RH_UNASSIGNED;
         // First parameter: Session handle.
         result = TPMI_SH_AUTH_SESSION_Unmarshal(&s_sessionHandles[sessionIndex],
-                                                &sessionBuffer, &bufferSize, TRUE);
+                                                &sessionBuffer, &bufferSize);
         if(result != TPM_RC_SUCCESS)
             return result + TPM_RC_S + g_rcIndex[sessionIndex];
         // Second parameter: Nonce.

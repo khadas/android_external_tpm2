@@ -281,6 +281,24 @@ BOOL CryptObjectIsPublicConsistent(
 TPM_RC CryptObjectPublicPrivateMatch(
         OBJECT              *object                // IN: the object to check
         );
+TPM_RC CryptParameterDecryption(
+        TPM_HANDLE          handle,                 //   IN: encrypted session handle
+        TPM2B              *nonceCaller,            //   IN: nonce caller
+        UINT32              bufferSize,             //   IN: size of parameter buffer
+        UINT16              leadingSizeInByte,      //   IN: the size of the leading size field in
+        //       byte
+        TPM2B_AUTH         *extraKey,               //   IN: the authValue
+        BYTE               *buffer                  //   IN/OUT: parameter buffer to be decrypted
+        );
+void CryptParameterEncryption(
+        TPM_HANDLE           handle,            // IN: encrypt session handle
+        TPM2B               *nonceCaller,       // IN: nonce caller
+        UINT16               leadingSizeInByte, // IN: the size of the leading size field in
+        //     byte
+        TPM2B_AUTH          *extraKey,          // IN: additional key material other than
+        //     session auth
+        BYTE                *buffer             // IN/OUT: parameter buffer to be encrypted
+        );
 TPM_RC CryptSecretDecrypt(
         TPM_HANDLE      tpmKey,               // IN: decrypt key
         TPM2B_NONCE     *nonceCaller,         // IN: nonceCaller. It is needed for

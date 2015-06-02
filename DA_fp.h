@@ -10,5 +10,8 @@
 void DAPreInstall_Init(
         void
 );
+void DARegisterFailure(
+        TPM_HANDLE           handle             // IN: handle for failure
+        );
 
 #endif // __TPM2_DA_FP_H

@@ -74,6 +74,9 @@ BOOL PCRIsResetAllowed(
 BOOL PCRIsStateSaved(
         TPMI_DH_PCR         handle                // IN: PCR handle to be extended
                      );
+BOOL PCRPolicyIsAvailable(
+        TPMI_DH_PCR          handle             // IN: PCR handle
+        );
 void PCRRead(
         TPML_PCR_SELECTION       *selection,          // IN/OUT: PCR selection (filtered on
         //     output)
