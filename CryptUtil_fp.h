@@ -346,6 +346,10 @@ UINT16 CryptStartHashSequence(
         HASH_STATE         *hashState           // OUT: the state of hash stack. It will be used
         //     in hash update and completion
         );
+void CryptStirRandom(
+        UINT32               entropySize,      // IN: size of entropy buffer
+        BYTE                *buffer            // IN: entropy buffer
+        );
 void CryptStopUnits(
         void
         );
