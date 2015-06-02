@@ -1415,6 +1415,10 @@ enum {
         RC_SetCommandCodeAuditStatus_auditAlg,
         RC_SetPrimaryPolicy_authPolicy,
         RC_Shutdown_shutdownType,
+        RC_Sign_digest,
+        RC_Sign_inScheme,
+        RC_Sign_keyHandle,
+        RC_Sign_validation,
 };
 
 enum {
