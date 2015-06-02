@@ -13,6 +13,9 @@ void DAPreInstall_Init(
 void DARegisterFailure(
         TPM_HANDLE           handle             // IN: handle for failure
         );
+void DASelfHeal(
+        void
+        );
 void DAStartup(
         STARTUP_TYPE         type               // IN: startup type
         );
