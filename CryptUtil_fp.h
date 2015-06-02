@@ -98,6 +98,16 @@ void CryptDrbgGetPutState(
 #define CryptEccGetKeySizeInBytes(curve)            \
        ((CryptEccGetKeySizeInBits(curve)+7)/8)
 
+TPM_RC CryptEcc2PhaseKeyExchange(
+        TPMS_ECC_POINT                *outZ1,            //   OUT: the computed point
+        TPMS_ECC_POINT                *outZ2,            //   OUT: optional second point
+        TPM_ALG_ID                     scheme,           //   IN: the key exchange scheme
+        TPM_ECC_CURVE                  curveId,          //   IN: the curve for the computation
+        TPM2B_ECC_PARAMETER           *dsA,              //   IN: static private TPM key
+        TPM2B_ECC_PARAMETER           *deA,              //   IN: ephemeral private TPM key
+        TPMS_ECC_POINT                *QsB,              //   IN: static public party B key
+        TPMS_ECC_POINT                *QeB               //   IN: ephemeral public party B key
+        );
 TPM_RC CryptEncryptRSA(
         UINT16                    *cipherOutSize,    //   OUT: size of cipher text in byte
         BYTE                      *cipherOut,        //   OUT: cipher text
