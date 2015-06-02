@@ -65,6 +65,15 @@ void PCRExtend(
         UINT32               size,                //   IN:    size of data to be extended
         BYTE                *data                 //   IN:    data to be extended
                );
+void PCRResetDynamics(
+        void
+        );
+void PcrDrtm(
+        const TPMI_DH_PCR              pcrHandle,       // IN: the index of the PCR to be
+        //     modified
+        const TPMI_ALG_HASH            hash,            // IN: the bank identifier
+        const TPM2B_DIGEST            *digest           // IN: the digest to modify the PCR
+        );
 BOOL PcrIsAllocated (
         UINT32               pcr,               // IN: The number of the PCR
         TPMI_ALG_HASH        hashAlg            // IN: The PCR algorithm
