@@ -15,6 +15,9 @@ TPMI_YES_NO CryptCapGetECCCurve(
         UINT32             maxCount,            // IN: count of returned curve
         TPML_ECC_CURVE    *curveList            // OUT: ECC curve list
 );
+UINT32 CryptCapGetEccCurveNumber(
+        void
+        );
 UINT16 CryptCommit(void);
 LIB_EXPORT int CryptCompare(
         const   UINT32         aSize,                  //   IN:   size of a

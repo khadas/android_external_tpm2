@@ -442,6 +442,36 @@ typedef struct {
   UINT8 Extended : 3;
 } TPMA_LOCALITY;
 
+// Table 33 - TPMA_PERMANENT Bits
+typedef struct {
+  UINT32 ownerAuthSet       : 1;
+  UINT32 endorsementAuthSet : 1;
+  UINT32 lockoutAuthSet     : 1;
+  UINT32 reserved3_7        : 5;
+  UINT32 disableClear       : 1;
+  UINT32 inLockout          : 1;
+  UINT32 tpmGeneratedEPS    : 1;
+  UINT32 reserved11_31      : 21;
+} TPMA_PERMANENT;
+
+// Table 34 - TPMA_STARTUP_CLEAR Bits
+typedef struct {
+  UINT32 phEnable     : 1;
+  UINT32 shEnable     : 1;
+  UINT32 ehEnable     : 1;
+  UINT32 phEnableNV   : 1;
+  UINT32 reserved3_30 : 27;
+  UINT32 orderly      : 1;
+} TPMA_STARTUP_CLEAR;
+
+// Table 35 - TPMA_MEMORY Bits
+typedef struct {
+  UINT32 sharedRAM         : 1;
+  UINT32 sharedNV          : 1;
+  UINT32 objectCopiedToRam : 1;
+  UINT32 reserved3_31      : 29;
+} TPMA_MEMORY;
+
 // Table 36 - TPMA_CC Bits
 typedef struct {
   UINT32 commandIndex  : 16;

@@ -11,6 +11,18 @@ TPM_RC NvAddEvictObject(
         TPMI_DH_OBJECT       evictHandle,         // IN: new evict handle
         OBJECT              *object              // IN: object to be added
                         );
+UINT32 NvCapGetCounterAvail(
+        void
+        );
+UINT32 NvCapGetCounterNumber(
+        void
+        );
+UINT32 NvCapGetIndexNumber(
+        void
+        );
+UINT32 NvCapGetPersistentAvail(
+        void
+        );
 UINT32 NvCapGetPersistentNumber(
         void
         );
