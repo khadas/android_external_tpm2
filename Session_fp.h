@@ -29,6 +29,10 @@ TPMI_YES_NO SessionCapGetSaved(
         UINT32              count,              // IN: count of returned handle
         TPML_HANDLE        *handleList          // OUT: list of handle
 );
+void SessionComputeBoundEntity(
+        TPMI_DH_ENTITY      entityHandle,     // IN: handle of entity
+        TPM2B_NAME         *bind              // OUT: binding value
+        );
 TPM_RC SessionContextLoad(
         SESSION            *session,            // IN: session structure from saved context
         TPM_HANDLE         *handle              // IN/OUT: session handle
@@ -43,6 +47,9 @@ void SessionFlush(
 SESSION *SessionGet(
         TPM_HANDLE           handle              // IN: session handle
 );
+void SessionInitPolicyData(
+        SESSION            *session           // IN: session handle
+        );
 BOOL SessionIsLoaded(
         TPM_HANDLE             handle                // IN: session handle
                      );

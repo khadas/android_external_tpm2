@@ -7,6 +7,10 @@
 #ifndef __SOURCE_ENTITY_FP_H
 #define __SOURCE_ENTITY_FP_H
 
+UINT16 EntityGetAuthValue(
+        TPMI_DH_ENTITY       handle,             // IN: handle of entity
+        AUTH_VALUE          *auth                // OUT: authValue of the entity
+        );
 TPMI_RH_HIERARCHY EntityGetHierarchy(
         TPMI_DH_ENTITY       handle             // IN :handle of entity
 );
