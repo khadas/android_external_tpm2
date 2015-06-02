@@ -946,12 +946,5 @@ end:
    BN_CTX_free(context);
    return retVal;
 }
-#else
-static void noFuntion(
-   void
-   )
-{
-   pAssert(1);
-}
 #endif              //%
 #endif // TPM_ALG_RSA
