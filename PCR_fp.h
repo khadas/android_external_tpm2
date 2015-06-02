@@ -65,6 +65,10 @@ void PCRExtend(
         UINT32               size,                //   IN:    size of data to be extended
         BYTE                *data                 //   IN:    data to be extended
                );
+BOOL PcrIsAllocated (
+        UINT32               pcr,               // IN: The number of the PCR
+        TPMI_ALG_HASH        hashAlg            // IN: The PCR algorithm
+);
 BOOL PCRIsExtendAllowed(
         TPMI_DH_PCR          handle               // IN: PCR handle to be extended
                         );
