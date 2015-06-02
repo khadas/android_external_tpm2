@@ -1397,6 +1397,10 @@ enum {
         RC_RSA_Encrypt_inScheme,
         RC_RSA_Encrypt_keyHandle,
         RC_RSA_Encrypt_label,
+        RC_Rewrap_inDuplicate,
+        RC_Rewrap_inSymSeed,
+        RC_Rewrap_newParent,
+        RC_Rewrap_oldParent,
 };
 
 enum {
