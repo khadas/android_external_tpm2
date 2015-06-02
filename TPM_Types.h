@@ -1426,6 +1426,8 @@ enum {
         RC_StartAuthSession_tpmKey,
         RC_Startup_startupType,
         RC_Unseal_itemHandle,
+        RC_VerifySignature_keyHandle,
+        RC_VerifySignature_signature,
 };
 
 enum {
