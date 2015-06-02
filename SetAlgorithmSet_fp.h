@@ -8,7 +8,7 @@
 #define __TPM2_SETALGORITHMSET_FP_H_
 
 typedef struct {
-        UINT32  algorithmSet;
+        UINT32      algorithmSet;
 } SetAlgorithmSet_In;
 
 TPM_RC TPM2_SetAlgorithmSet(

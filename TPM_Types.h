@@ -1412,6 +1412,7 @@ enum {
         RC_Rewrap_oldParent,
         RC_SequenceComplete_sequenceHandle,
         RC_SequenceUpdate_sequenceHandle,
+        RC_SetCommandCodeAuditStatus_auditAlg,
 };
 
 enum {
