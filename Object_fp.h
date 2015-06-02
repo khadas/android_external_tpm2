@@ -107,6 +107,9 @@ TPM_RC ObjectLoad(
                                                      //       consistency checks.
         TPMI_DH_OBJECT          *handle                   //   OUT: object handle
 );
+void ObjectStartup(
+        void
+        );
 void ObjectTerminateEvent(
         void
 );

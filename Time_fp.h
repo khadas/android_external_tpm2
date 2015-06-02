@@ -15,6 +15,9 @@ TPM_RC TimeGetRange(
         UINT16              size,               // IN: size of data
         TIME_INFO          *dataBuffer          // OUT: result buffer
         );
+void TimePowerOn(
+        void
+        );
 void TimeSetAdjustRate(
         TPM_CLOCK_ADJUST          adjust            // IN: adjust constant
 );

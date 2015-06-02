@@ -265,6 +265,9 @@ void CryptHashStateImportExport(
         HASH_STATE         *externalFmt,         // OUT: exported state
         IMPORT_EXPORT       direction
                                 );
+void CryptInitUnits(
+        void
+        );
 BOOL CryptIsAsymAlgorithm(
         TPM_ALG_ID           algID                // IN: algorithm ID
 );
