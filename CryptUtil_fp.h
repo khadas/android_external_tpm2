@@ -98,6 +98,15 @@ void CryptDrbgGetPutState(
 #define CryptEccGetKeySizeInBytes(curve)            \
        ((CryptEccGetKeySizeInBits(curve)+7)/8)
 
+TPM_RC CryptEncryptRSA(
+        UINT16                    *cipherOutSize,    //   OUT: size of cipher text in byte
+        BYTE                      *cipherOut,        //   OUT: cipher text
+        OBJECT                    *rsaKey,           //   IN: internal RSA key
+        TPMT_RSA_DECRYPT          *scheme,           //   IN: selects the padding scheme
+        UINT16                     dataInSize,       //   IN: size of plain text in byte
+        BYTE                      *dataIn,           //   IN: plain text
+        const char                *label             //   IN: an optional label
+        );
 LIB_EXPORT TPM_ALG_ID CryptGetHashAlgByIndex(
         UINT32               index                // IN: the index
                                              );
