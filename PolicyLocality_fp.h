@@ -8,12 +8,11 @@
 #define __TPM2_POLICYLOCALITY_FP_H_
 
 typedef struct {
-        TPM_HANDLE    policySession;
-        TPMA_LOCALITY locality;
+  TPM_HANDLE policySession;
+  TPMA_LOCALITY locality;
 } PolicyLocality_In;
 
-TPM_RC TPM2_PolicyLocality(
-        PolicyLocality_In        *in                 // IN: input parameter list
-);
+TPM_RC TPM2_PolicyLocality(PolicyLocality_In *in  // IN: input parameter list
+                           );
 
-#endif // __TPM2_POLICYLOCALITY_FP_H_
+#endif  // __TPM2_POLICYLOCALITY_FP_H_

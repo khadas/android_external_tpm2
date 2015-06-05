@@ -8,13 +8,12 @@
 #define __TPM2_NV_SETBITS_FP_H_
 
 typedef struct {
-        TPM_HANDLE        authHandle;
-        TPMI_RH_NV_INDEX  nvIndex;
-        UINT64            bits;
+  TPM_HANDLE authHandle;
+  TPMI_RH_NV_INDEX nvIndex;
+  UINT64 bits;
 } NV_SetBits_In;
 
-TPM_RC TPM2_NV_SetBits(
-        NV_SetBits_In     *in              // IN: input parameter list
-);
+TPM_RC TPM2_NV_SetBits(NV_SetBits_In *in  // IN: input parameter list
+                       );
 
-#endif // __TPM2_NV_SETBITS_FP_H_
+#endif  // __TPM2_NV_SETBITS_FP_H_

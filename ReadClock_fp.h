@@ -7,12 +7,9 @@
 #ifndef __TPM2_READCLOCK_FP_H_
 #define __TPM2_READCLOCK_FP_H_
 
-typedef struct {
-        TPMS_TIME_INFO  currentTime;
-} ReadClock_Out;
+typedef struct { TPMS_TIME_INFO currentTime; } ReadClock_Out;
 
-TPM_RC TPM2_ReadClock(
-        ReadClock_Out    *out            // OUT: output parameter list
-);
+TPM_RC TPM2_ReadClock(ReadClock_Out *out  // OUT: output parameter list
+                      );
 
-#endif // __TPM2_READCLOCK_FP_H_
+#endif  // __TPM2_READCLOCK_FP_H_

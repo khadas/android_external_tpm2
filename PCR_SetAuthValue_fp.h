@@ -8,12 +8,12 @@
 #define __TPM2_PCR_SETAUTHVALUE_FP_H_
 
 typedef struct {
-        TPMI_DH_PCR  pcrHandle;
-        TPM2B_DIGEST auth;
+  TPMI_DH_PCR pcrHandle;
+  TPM2B_DIGEST auth;
 } PCR_SetAuthValue_In;
 
 TPM_RC TPM2_PCR_SetAuthValue(
-        PCR_SetAuthValue_In       *in              // IN: input parameter list
-);
+    PCR_SetAuthValue_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_PCR_SETAUTHVALUE_FP_H_
+#endif  // __TPM2_PCR_SETAUTHVALUE_FP_H_

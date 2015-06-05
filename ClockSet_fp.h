@@ -7,12 +7,9 @@
 #ifndef __TPM2_CLOCKSET_FP_H
 #define __TPM2_CLOCKSET_FP_H
 
-typedef struct {
-        UINT64 newTime;
-} ClockSet_In;
+typedef struct { UINT64 newTime; } ClockSet_In;
 
-TPM_RC TPM2_ClockSet(
-        ClockSet_In       *in              // IN: input parameter list
-);
+TPM_RC TPM2_ClockSet(ClockSet_In *in  // IN: input parameter list
+                     );
 
-#endif // __TPM2_CLOCKSET_FP_H
+#endif  // __TPM2_CLOCKSET_FP_H

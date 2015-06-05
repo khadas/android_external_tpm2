@@ -7,8 +7,6 @@
 #ifndef __TPM2__TPM_HASH_START_FP_H
 #define __TPM2__TPM_HASH_START_FP_H
 
-void _TPM_Hash_Start(
-        void
-        );
+void _TPM_Hash_Start(void);
 
-#endif // __TPM2__TPM_HASH_START_FP_H
+#endif  // __TPM2__TPM_HASH_START_FP_H

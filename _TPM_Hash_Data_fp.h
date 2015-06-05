@@ -7,9 +7,8 @@
 #ifndef __TPM2__TPM_HASH_DATA_FP_H
 #define __TPM2__TPM_HASH_DATA_FP_H
 
-void _TPM_Hash_Data(
-        UINT32             dataSize,        // IN: size of data to be extend
-        BYTE              *data             // IN: data buffer
-        );
+void _TPM_Hash_Data(UINT32 dataSize,  // IN: size of data to be extend
+                    BYTE *data        // IN: data buffer
+                    );
 
-#endif // __TPM2__TPM_HASH_DATA_FP_H
+#endif  // __TPM2__TPM_HASH_DATA_FP_H

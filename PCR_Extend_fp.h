@@ -8,12 +8,11 @@
 #define __TPM2_PCR_EXTEND_FP_H_
 
 typedef struct {
-        TPM_RH      pcrHandle;
-        TPML_DIGEST digests;
+  TPM_RH pcrHandle;
+  TPML_DIGEST digests;
 } PCR_Extend_In;
 
-TPM_RC TPM2_PCR_Extend(
-        PCR_Extend_In     *in                 // IN: input parameter list
-);
+TPM_RC TPM2_PCR_Extend(PCR_Extend_In *in  // IN: input parameter list
+                       );
 
-#endif // __TPM2_PCR_EXTEND_FP_H_
+#endif  // __TPM2_PCR_EXTEND_FP_H_

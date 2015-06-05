@@ -8,17 +8,14 @@
 #define __TPM2_PCR_EVENT_FP_H_
 
 typedef struct {
-        TPM_RH	   pcrHandle;
-        TPM2B_DATA eventData;
+  TPM_RH pcrHandle;
+  TPM2B_DATA eventData;
 } PCR_Event_In;
 
-typedef struct {
-        TPML_DIGEST  digests;
-} PCR_Event_Out;
+typedef struct { TPML_DIGEST digests; } PCR_Event_Out;
 
-TPM_RC TPM2_PCR_Event(
-        PCR_Event_In      *in,             // IN: input parameter list
-        PCR_Event_Out     *out             // OUT: output parameter list
-);
+TPM_RC TPM2_PCR_Event(PCR_Event_In *in,   // IN: input parameter list
+                      PCR_Event_Out *out  // OUT: output parameter list
+                      );
 
-#endif // __TPM2_PCR_EVENT_FP_H_
+#endif  // __TPM2_PCR_EVENT_FP_H_

@@ -8,11 +8,10 @@
 #define __TPM2_CLOCKRATEADJUST_FP_H
 
 typedef struct {
-        TPM_CLOCK_ADJUST  rateAdjust;            // IN: adjust constant
+  TPM_CLOCK_ADJUST rateAdjust;  // IN: adjust constant
 } ClockRateAdjust_In;
 
-TPM_RC TPM2_ClockRateAdjust(
-        ClockRateAdjust_In    *in            // IN: input parameter list
-);
+TPM_RC TPM2_ClockRateAdjust(ClockRateAdjust_In *in  // IN: input parameter list
+                            );
 
-#endif // __TPM2_CLOCKRATEADJUST_FP_H
+#endif  // __TPM2_CLOCKRATEADJUST_FP_H

@@ -7,8 +7,7 @@
 #ifndef __TPM2_LOCALITY_FP_H
 #define __TPM2_LOCALITY_FP_H
 
-TPMA_LOCALITY LocalityGetAttributes(
-        UINT8               locality            // IN: locality value
-        );
+TPMA_LOCALITY LocalityGetAttributes(UINT8 locality  // IN: locality value
+                                    );
 
-#endif // __TPM2_LOCALITY_FP_H
+#endif  // __TPM2_LOCALITY_FP_H

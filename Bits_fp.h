@@ -7,24 +7,20 @@
 #ifndef __BITS_FP_H_
 #define __BITS_FP_H_
 
-BOOL
-BitIsSet(
-        unsigned int          bitNum,            // IN: number of the bit in 'bArray'
-        BYTE                 *bArray,            // IN: array containing the bit
-        unsigned int          arraySize          // IN: size in bytes of 'bArray'
-         );
+BOOL BitIsSet(unsigned int bitNum,    // IN: number of the bit in 'bArray'
+              BYTE *bArray,           // IN: array containing the bit
+              unsigned int arraySize  // IN: size in bytes of 'bArray'
+              );
 //
 //
 //            BitSet()
 //
 //      This function will set the indicated bit in bArray.
 //
-void
-BitSet(
-     unsigned int          bitNum,            // IN: number of the bit in 'bArray'
-     BYTE                 *bArray,            // IN: array containing the bit
-     unsigned int          arraySize          // IN: size in bytes of 'bArray'
-       );
+void BitSet(unsigned int bitNum,    // IN: number of the bit in 'bArray'
+            BYTE *bArray,           // IN: array containing the bit
+            unsigned int arraySize  // IN: size in bytes of 'bArray'
+            );
 
 //
 //
@@ -32,11 +28,9 @@ BitSet(
 //
 //     This function will clear the indicated bit in bArray.
 //
-void
-BitClear(
-        unsigned int         bitNum,     // IN: number of the bit in 'bArray'.
-        BYTE                *bArray,     // IN: array containing the bit
-        unsigned int         arraySize   // IN: size in bytes of 'bArray'
-         );
+void BitClear(unsigned int bitNum,    // IN: number of the bit in 'bArray'.
+              BYTE *bArray,           // IN: array containing the bit
+              unsigned int arraySize  // IN: size in bytes of 'bArray'
+              );
 
 #endif

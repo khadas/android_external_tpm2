@@ -8,19 +8,15 @@
 #define __TPM2_HIERARCHY_FP_H
 
 TPM2B_SEED *HierarchyGetPrimarySeed(
-        TPMI_RH_HIERARCHY         hierarchy           // IN: hierarchy
-);
+    TPMI_RH_HIERARCHY hierarchy  // IN: hierarchy
+    );
 TPM2B_AUTH *HierarchyGetProof(
-        TPMI_RH_HIERARCHY hierarchy  // IN: hierarchy constant
-                              );
-BOOL HierarchyIsEnabled(
-        TPMI_RH_HIERARCHY        hierarchy           // IN: hierarchy
+    TPMI_RH_HIERARCHY hierarchy  // IN: hierarchy constant
+    );
+BOOL HierarchyIsEnabled(TPMI_RH_HIERARCHY hierarchy  // IN: hierarchy
                         );
-void HierarchyPreInstall_Init(
-        void
-        );
-void HierarchyStartup(
-        STARTUP_TYPE         type                // IN: start up type
-        );
+void HierarchyPreInstall_Init(void);
+void HierarchyStartup(STARTUP_TYPE type  // IN: start up type
+                      );
 
-#endif // __TPM2_HIERARCHY_FP_H
+#endif  // __TPM2_HIERARCHY_FP_H

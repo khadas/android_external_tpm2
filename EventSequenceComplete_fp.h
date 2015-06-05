@@ -8,21 +8,21 @@
 #define __TPM2_EVENTSEQUENCECOMPLETE_FP_H
 
 typedef struct {
-        TPMI_DH_OBJECT  sequenceHandle;
-        TPMI_DH_PCR     pcrHandle;
-        TPM2B_DATA      buffer;
+  TPMI_DH_OBJECT sequenceHandle;
+  TPMI_DH_PCR pcrHandle;
+  TPM2B_DATA buffer;
 } EventSequenceComplete_In;
 
 typedef struct {
-        struct {
-                UINT16 count;
-                TPMT_HA digests[HASH_COUNT];
-        } results;
+  struct {
+    UINT16 count;
+    TPMT_HA digests[HASH_COUNT];
+  } results;
 } EventSequenceComplete_Out;
 
 TPM_RC TPM2_EventSequenceComplete(
-        EventSequenceComplete_In      *in,                // IN: input parameter list
-        EventSequenceComplete_Out     *out                // OUT: output parameter list
-                                  );
+    EventSequenceComplete_In *in,   // IN: input parameter list
+    EventSequenceComplete_Out *out  // OUT: output parameter list
+    );
 
-#endif // __TPM2_EVENTSEQUENCECOMPLETE_FP_H
+#endif  // __TPM2_EVENTSEQUENCECOMPLETE_FP_H

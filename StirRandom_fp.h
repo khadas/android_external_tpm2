@@ -7,12 +7,9 @@
 #ifndef __TPM2_STIRRANDOM_FP_H_
 #define __TPM2_STIRRANDOM_FP_H_
 
-typedef struct {
-        TPM2B_DATA inData;
-} StirRandom_In;
+typedef struct { TPM2B_DATA inData; } StirRandom_In;
 
-TPM_RC TPM2_StirRandom(
-        StirRandom_In   *in            // IN: input parameter list
-);
+TPM_RC TPM2_StirRandom(StirRandom_In *in  // IN: input parameter list
+                       );
 
-#endif // __TPM2_STIRRANDOM_FP_H_
+#endif  // __TPM2_STIRRANDOM_FP_H_

@@ -8,15 +8,14 @@
 #define __TPM2_POLICYAUTHORIZE_FP_H_
 
 typedef struct {
-        TPM_HANDLE       policySession;
-        TPM2B_NAME       keySign;
-        TPM2B_DIGEST     approvedPolicy;
-        TPM2B_NONCE      policyRef;
-        TPMT_TK_VERIFIED checkTicket;
+  TPM_HANDLE policySession;
+  TPM2B_NAME keySign;
+  TPM2B_DIGEST approvedPolicy;
+  TPM2B_NONCE policyRef;
+  TPMT_TK_VERIFIED checkTicket;
 } PolicyAuthorize_In;
 
-TPM_RC TPM2_PolicyAuthorize(
-        PolicyAuthorize_In    *in                   // IN: input parameter list
-);
+TPM_RC TPM2_PolicyAuthorize(PolicyAuthorize_In *in  // IN: input parameter list
+                            );
 
-#endif // __TPM2_POLICYAUTHORIZE_FP_H_
+#endif  // __TPM2_POLICYAUTHORIZE_FP_H_

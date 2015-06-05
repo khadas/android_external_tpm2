@@ -8,13 +8,13 @@
 #define __TPM2_SETCOMMANDCODEAUDITSTATUS_FP_H_
 
 typedef struct {
-        TPML_CC     clearList;
-        TPML_CC     setList;
-        TPM_ALG_ID  auditAlg;
+  TPML_CC clearList;
+  TPML_CC setList;
+  TPM_ALG_ID auditAlg;
 } SetCommandCodeAuditStatus_In;
 
 TPM_RC TPM2_SetCommandCodeAuditStatus(
-        SetCommandCodeAuditStatus_In      *in             // IN: input parameter list
-);
+    SetCommandCodeAuditStatus_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_SETCOMMANDCODEAUDITSTATUS_FP_H_
+#endif  // __TPM2_SETCOMMANDCODEAUDITSTATUS_FP_H_

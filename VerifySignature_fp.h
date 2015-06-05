@@ -8,18 +8,16 @@
 #define __TPM2_VERIFYSIGNATURE_FP_H_
 
 typedef struct {
-        TPMI_DH_OBJECT  keyHandle;
-        TPM2B_DIGEST    digest;
-        TPMT_SIGNATURE  signature;
+  TPMI_DH_OBJECT keyHandle;
+  TPM2B_DIGEST digest;
+  TPMT_SIGNATURE signature;
 } VerifySignature_In;
 
-typedef struct {
-        TPMT_TK_VERIFIED validation;
-} VerifySignature_Out;
+typedef struct { TPMT_TK_VERIFIED validation; } VerifySignature_Out;
 
 TPM_RC TPM2_VerifySignature(
-        VerifySignature_In        *in,                   // IN: input parameter list
-        VerifySignature_Out       *out                   // OUT: output parameter list
-);
+    VerifySignature_In *in,   // IN: input parameter list
+    VerifySignature_Out *out  // OUT: output parameter list
+    );
 
-#endif // __TPM2_VERIFYSIGNATURE_FP_H_
+#endif  // __TPM2_VERIFYSIGNATURE_FP_H_

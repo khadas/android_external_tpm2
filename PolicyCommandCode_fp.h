@@ -8,12 +8,12 @@
 #define __TPM2_POLICYCOMMANDCODE_FP_H_
 
 typedef struct {
-        TPM_HANDLE  policySession;
-        TPM_CC      code;
+  TPM_HANDLE policySession;
+  TPM_CC code;
 } PolicyCommandCode_In;
 
 TPM_RC TPM2_PolicyCommandCode(
-        PolicyCommandCode_In      *in                   // IN: input parameter list
-);
+    PolicyCommandCode_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_POLICYCOMMANDCODE_FP_H_
+#endif  // __TPM2_POLICYCOMMANDCODE_FP_H_

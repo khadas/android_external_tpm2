@@ -8,13 +8,12 @@
 #define __TPM2_EVICTCONTROL_FP_H
 
 typedef struct {
-        TPMI_DH_OBJECT  objectHandle;
-        TPMI_DH_OBJECT  persistentHandle;
-        TPM_RH          auth;
+  TPMI_DH_OBJECT objectHandle;
+  TPMI_DH_OBJECT persistentHandle;
+  TPM_RH auth;
 } EvictControl_In;
 
-TPM_RC TPM2_EvictControl(
-        EvictControl_In       *in                   // IN: input parameter list
+TPM_RC TPM2_EvictControl(EvictControl_In *in  // IN: input parameter list
                          );
 
-#endif // __TPM2_EVICTCONTROL_FP_H
+#endif  // __TPM2_EVICTCONTROL_FP_H

@@ -8,12 +8,12 @@
 #define __TPM2_NV_UNDEFINESPACE_FP_H_
 
 typedef struct {
-        TPM_HANDLE        authHandle;
-        TPMI_RH_NV_INDEX  nvIndex;
+  TPM_HANDLE authHandle;
+  TPMI_RH_NV_INDEX nvIndex;
 } NV_UndefineSpace_In;
 
 TPM_RC TPM2_NV_UndefineSpace(
-        NV_UndefineSpace_In       *in                   // IN: input parameter list
-);
+    NV_UndefineSpace_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_NV_UNDEFINESPACE_FP_H_
+#endif  // __TPM2_NV_UNDEFINESPACE_FP_H_

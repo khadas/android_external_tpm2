@@ -8,14 +8,14 @@
 #define __TPM2_POLICYCOUNTERTIMER_FP_H_
 
 typedef struct {
-        TPM_EO          operation;
-        UINT16          offset;
-        TPM_HANDLE      policySession;
-        TPM2B_TIME_INFO operandB;
+  TPM_EO operation;
+  UINT16 offset;
+  TPM_HANDLE policySession;
+  TPM2B_TIME_INFO operandB;
 } PolicyCounterTimer_In;
 
 TPM_RC TPM2_PolicyCounterTimer(
-        PolicyCounterTimer_In      *in              // IN: input parameter list
-);
+    PolicyCounterTimer_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_POLICYCOUNTERTIMER_FP_H_
+#endif  // __TPM2_POLICYCOUNTERTIMER_FP_H_

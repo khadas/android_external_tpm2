@@ -8,14 +8,14 @@
 #define __TPM2_POLICYDUPLICATIONSELECT_FP_H_
 
 typedef struct {
-        TPM_HANDLE  policySession;
-        TPM2B_NAME  objectName;
-        TPM2B_NAME  newParentName;
-        TPMI_YES_NO includeObject;
+  TPM_HANDLE policySession;
+  TPM2B_NAME objectName;
+  TPM2B_NAME newParentName;
+  TPMI_YES_NO includeObject;
 } PolicyDuplicationSelect_In;
 
 TPM_RC TPM2_PolicyDuplicationSelect(
-        PolicyDuplicationSelect_In       *in                 // IN: input parameter list
-);
+    PolicyDuplicationSelect_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_POLICYDUPLICATIONSELECT_FP_H_
+#endif  // __TPM2_POLICYDUPLICATIONSELECT_FP_H_

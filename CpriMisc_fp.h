@@ -7,18 +7,15 @@
 #ifndef __TPM2_CPRIMISC_FP_H
 #define __TPM2_CPRIMISC_FP_H
 
-BIGNUM *BnFrom2B(
-        BIGNUM              *out,              // OUT: The BIGNUM
-        const TPM2B         *in                // IN: the TPM2B to copy
+BIGNUM *BnFrom2B(BIGNUM *out,     // OUT: The BIGNUM
+                 const TPM2B *in  // IN: the TPM2B to copy
                  );
-BOOL BnTo2B(
-        TPM2B               *outVal,             // OUT: place for the result
-        BIGNUM              *inVal,              // IN: number to convert
-        UINT16               size                // IN: size of the output.
+BOOL BnTo2B(TPM2B *outVal,  // OUT: place for the result
+            BIGNUM *inVal,  // IN: number to convert
+            UINT16 size     // IN: size of the output.
             );
-void Copy2B(
-        TPM2B               *out,                // OUT: The TPM2B to receive the copy
-        TPM2B               *in                  // IN: the TPM2B to copy
-);
+void Copy2B(TPM2B *out,  // OUT: The TPM2B to receive the copy
+            TPM2B *in    // IN: the TPM2B to copy
+            );
 
-#endif // __TPM2_CPRIMISC_FP_H
+#endif  // __TPM2_CPRIMISC_FP_H
