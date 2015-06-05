@@ -31,24 +31,21 @@
 //
 //     Disaggregate a UINT into a byte array
 //
-#define UINT8_TO_BYTE_ARRAY(i, b)           ((b)[0]   = (BYTE)(i), i)
-#define UINT16_TO_BYTE_ARRAY(i, b)          ((b)[0]   = (BYTE)((i) >>     8), \
-                                            (b)[1]   = (BYTE) (i),           \
-                                            (i))
-#define UINT32_TO_BYTE_ARRAY(i, b)          ((b)[0]   =   (BYTE)((i) >> 24), \
-                                            (b)[1]   =   (BYTE)((i) >> 16), \
-                                            (b)[2]   =   (BYTE)((i) >> 8), \
-                                            (b)[3]   =   (BYTE) (i),        \
-                                            (i))
-#define UINT64_TO_BYTE_ARRAY(i, b)          ((b)[0]   =   (BYTE)((i) >>   56),   \
-                                            (b)[1]   =   (BYTE)((i) >>   48),   \
-                                            (b)[2]   =   (BYTE)((i) >>   40),   \
-                                            (b)[3]   =   (BYTE)((i) >>   32),   \
-                                            (b)[4]   =   (BYTE)((i) >>   24),   \
-                                            (b)[5]   =   (BYTE)((i) >>   16),   \
-                                            (b)[6]   =   (BYTE)((i) >>    8),   \
-                                            (b)[7]   =   (BYTE) (i),            \
-                                            (i))
+#define UINT8_TO_BYTE_ARRAY(i, b)           {(b)[0]   = (BYTE)(i);}
+#define UINT16_TO_BYTE_ARRAY(i, b)          {(b)[0]   = (BYTE)((i) >>   8); \
+                                             (b)[1]   = (BYTE) (i);}
+#define UINT32_TO_BYTE_ARRAY(i, b)          {(b)[0]   = (BYTE)((i) >> 24);  \
+                                             (b)[1]   = (BYTE)((i) >> 16);  \
+                                             (b)[2]   = (BYTE)((i) >> 8);   \
+                                             (b)[3]   = (BYTE) (i);}
+#define UINT64_TO_BYTE_ARRAY(i, b)          {(b)[0]   = (BYTE)((i) >>  56); \
+                                             (b)[1]   = (BYTE)((i) >>  48); \
+                                             (b)[2]   = (BYTE)((i) >>  40); \
+                                             (b)[3]   = (BYTE)((i) >>  32); \
+                                             (b)[4]   = (BYTE)((i) >>  24); \
+                                             (b)[5]   = (BYTE)((i) >>  16); \
+                                             (b)[6]   = (BYTE)((i) >>   8); \
+                                             (b)[7]   = (BYTE) (i);}
 #else
 //
 //     the big-endian macros for machines that allow unaligned memory access Aggregate a byte array into a

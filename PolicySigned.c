@@ -128,7 +128,7 @@ TPM2_PolicySigned(
        // used has the side-effect of making the returned value a big-endian,
        // 64-bit value that is byte aligned.
        out->timeout.t.size = sizeof(UINT64);
-       (void)UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
+       UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
 
        // Compute policy ticket
        TicketComputeAuth(TPM_ST_AUTH_SIGNED, EntityGetHierarchy(in->authObject),
