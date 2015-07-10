@@ -24,7 +24,7 @@ TPM2_NV_ReadPublic(
    out->nvPublic = nvIndex.publicArea;
 
    // Compute NV name
-   out->nvName.t.size = NvGetName(in->nvIndex, &out->nvName.t.buffer);
+   out->nvName.t.size = NvGetName(in->nvIndex, &out->nvName.t.name);
 
    return TPM_RC_SUCCESS;
 }

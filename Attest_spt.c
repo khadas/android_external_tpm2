@@ -41,7 +41,7 @@ FillInAttestInfo(
      {
          BYTE     *buffer;
          // For null sign handle, the QN is TPM_RH_NULL
-         buffer = attest->qualifiedSigner.t.buffer;
+         buffer = attest->qualifiedSigner.t.name;
          attest->qualifiedSigner.t.size =
               TPM_HANDLE_Marshal(&signHandle, &buffer, NULL);
      }
@@ -132,7 +132,7 @@ SignAttestInfo(
    HASH_STATE                     hashState;
    TPM2B_DIGEST                   digest;
    // Marshal TPMS_ATTEST structure for hash
-   buffer = attest->t.buffer;
+   buffer = attest->t.attestationData;
    attest->t.size = TPMS_ATTEST_Marshal(certifyInfo, &buffer, NULL);
    if(signHandle == TPM_RH_NULL)
    {
@@ -155,7 +155,7 @@ SignAttestInfo(
          // Compute hash
          hashAlg = scheme->details.any.hashAlg;
          digest.t.size = CryptStartHash(hashAlg, &hashState);
-         CryptUpdateDigest(&hashState, attest->t.size, attest->t.buffer);
+         CryptUpdateDigest(&hashState, attest->t.size, attest->t.attestationData);
          CryptCompleteHash2B(&hashState, &digest.b);
          // If there is qualifying data, need to rehash the the data
          // hash(qualifyingData || hash(attestationData))

@@ -89,7 +89,7 @@ TPM2_Duplicate(
 
        // Make encrypt key and its associated secret structure. A TPM_RC_KEY
        // error may be returned at this point
-       out->outSymSeed.t.size = sizeof(out->outSymSeed.t.buffer);
+       out->outSymSeed.t.size = sizeof(out->outSymSeed.t.secret);
        result = CryptSecretEncrypt(in->newParentHandle,
                                    "DUPLICATE", &data, &out->outSymSeed);
        pAssert(result != TPM_RC_VALUE);

@@ -2403,7 +2403,7 @@ CryptSecretEncrypt(
              // Create secret data from RNG
              CryptGenerateRandom(data->t.size, data->t.buffer);
              // Encrypt the data by RSA OAEP into encrypted secret
-             result = CryptEncryptRSA(&secret->t.size, secret->t.buffer,
+             result = CryptEncryptRSA(&secret->t.size, secret->t.secret,
                                       encryptKey, &scheme,
                                       data->t.size, data->t.buffer, label);
        }
@@ -2415,7 +2415,7 @@ CryptSecretEncrypt(
            TPMS_ECC_POINT         eccPublic;
            TPM2B_ECC_PARAMETER    eccPrivate;
            TPMS_ECC_POINT         eccSecret;
-           BYTE                   *buffer = secret->t.buffer;
+           BYTE                   *buffer = secret->t.secret;
              // Need to make sure that the public point of the key is on the
              // curve defined by the key.
              if(!_cpri__EccIsPointOnCurve(
@@ -2523,7 +2523,7 @@ CryptSecretDecrypt(
              // Decrypt seed by RSA OAEP
              result = CryptDecryptRSA(&data->t.size, data->t.buffer, decryptKey,
                                        &scheme,
-                                       secret->t.size, secret->t.buffer,label);
+                                       secret->t.size, secret->t.secret,label);
              if(    (result == TPM_RC_SUCCESS)
                  && (data->t.size
                       > CryptGetHashDigestSize(decryptKey->publicArea.nameAlg)))
@@ -2536,7 +2536,7 @@ CryptSecretDecrypt(
        {
            TPMS_ECC_POINT            eccPublic;
            TPMS_ECC_POINT            eccSecret;
-           BYTE                     *buffer = secret->t.buffer;
+           BYTE                     *buffer = secret->t.secret;
            INT32                     size = secret->t.size;
              // Retrieve ECC point from secret buffer
              result = TPMS_ECC_POINT_Unmarshal(&eccPublic, &buffer, &size);
@@ -2596,7 +2596,7 @@ CryptSecretDecrypt(
                 CryptXORObfuscation(decryptKey->publicArea.nameAlg,
                                      &decryptKey->sensitive.sensitive.bits.b,
                                      &nonceCaller->b, NULL,
-                                     secret->t.size, secret->t.buffer);
+                                     secret->t.size, secret->t.secret);
                 // Copy decrypted seed
                 MemoryCopy2B(&data->b, &secret->b, sizeof(data->t.buffer));
             }
@@ -2622,10 +2622,10 @@ CryptSecretDecrypt(
                          MemoryCopy(iv.b.buffer, nonceCaller->t.buffer,
                                       nonceCaller->t.size, sizeof(iv.t.buffer));
                        // CFB decrypt in place, using nonceCaller as iv
-                       CryptSymmetricDecrypt(secret->t.buffer, symDef->algorithm,
+                       CryptSymmetricDecrypt(secret->t.secret, symDef->algorithm,
                                           symDef->keyBits.sym, TPM_ALG_CFB,
                                           decryptKey->sensitive.sensitive.sym.t.buffer,
-                                          &iv, secret->t.size, secret->t.buffer);
+                                          &iv, secret->t.size, secret->t.secret);
                        // Copy decrypted seed
                        MemoryCopy2B(&data->b, &secret->b, sizeof(data->t.buffer));
                    }

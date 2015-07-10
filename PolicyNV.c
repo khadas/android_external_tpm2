@@ -179,7 +179,7 @@ TPM2_PolicyNV(
    CryptUpdateDigest2B(&hashState, &argHash.b);
 
    // Adding nvName
-   nvName.t.size = EntityGetName(in->nvIndex, &nvName.t.buffer);
+   nvName.t.size = EntityGetName(in->nvIndex, &nvName.t.name);
    CryptUpdateDigest2B(&hashState, &nvName.b);
 
    // complete the digest

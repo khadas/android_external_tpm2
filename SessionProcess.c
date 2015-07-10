@@ -488,7 +488,7 @@ ComputeCpHash(
    // Add authNames for each of the handles.
    for(i = 0; i < handleNum; i++)
    {
-       name.t.size = EntityGetName(handles[i], &name.t.buffer);
+       name.t.size = EntityGetName(handles[i], &name.t.name);
        CryptUpdateDigest2B(&hashState, &name.b);
    }
    // Add the parameters.
@@ -503,7 +503,7 @@ ComputeCpHash(
          // Adding names.
          for(i = 0; i < handleNum; i++)
          {
-             name.t.size = EntityGetName(handles[i], &name.t.buffer);
+             name.t.size = EntityGetName(handles[i], &name.t.name);
              CryptUpdateDigest2B(&hashState, &name.b);
          }
          // Complete hash.
@@ -889,7 +889,7 @@ RetrieveSessionData (
         s_associatedHandles[sessionIndex] = TPM_RH_UNASSIGNED;
         // First parameter: Session handle.
         result = TPMI_SH_AUTH_SESSION_Unmarshal(&s_sessionHandles[sessionIndex],
-                                                &sessionBuffer, &bufferSize);
+                                                &sessionBuffer, &bufferSize, TRUE);
         if(result != TPM_RC_SUCCESS)
             return result + TPM_RC_S + g_rcIndex[sessionIndex];
         // Second parameter: Nonce.

@@ -597,7 +597,7 @@ SessionComputeBoundEntity(
     TPM2B_AUTH               auth;
     INT16                    overlap;
     // Get name
-    bind->t.size = EntityGetName(entityHandle, &bind->t.buffer);
+    bind->t.size = EntityGetName(entityHandle, &bind->t.name);
 //     // The bound value of a reserved handle is the handle itself
 //     if(bind->t.size == sizeof(TPM_HANDLE)) return;
     // For all the other entities, concatenate the auth value to the name.
@@ -606,12 +606,12 @@ SessionComputeBoundEntity(
     auth.t.size = EntityGetAuthValue(entityHandle, &auth.t.buffer);
     pAssert(auth.t.size <= sizeof(TPMU_HA));
     // Figure out if there will be any overlap
-    overlap = bind->t.size + auth.t.size - sizeof(bind->t.buffer);
+    overlap = bind->t.size + auth.t.size - sizeof(bind->t.name);
     // There is overlap if the combined sizes are greater than will fit
     if(overlap > 0)
     {
         // The overlap area is at the end of the Name
-        BYTE    *result = &bind->t.buffer[bind->t.size - overlap];
+        BYTE    *result = &bind->t.name[bind->t.size - overlap];
         int     i;
          // XOR the auth value into the Name for the overlap area
          for(i = 0; i < overlap; i++)
@@ -623,8 +623,8 @@ SessionComputeBoundEntity(
         overlap = 0;
     }
     //copy the remainder of the authData to the end of the name
-    MemoryCopy(&bind->t.buffer[bind->t.size], &auth.t.buffer[overlap],
-               auth.t.size - overlap, sizeof(bind->t.buffer) - bind->t.size);
+    MemoryCopy(&bind->t.name[bind->t.size], &auth.t.buffer[overlap],
+               auth.t.size - overlap, sizeof(bind->t.name) - bind->t.size);
     // Increase the size of the bind data by the size of the auth - the overlap
     bind->t.size += auth.t.size-overlap;
     return;
