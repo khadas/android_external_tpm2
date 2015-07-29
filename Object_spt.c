@@ -34,6 +34,7 @@ EqualCryptSet(
    BYTE                     params1[sizeof(TPMU_PUBLIC_PARMS)];
    BYTE                     params2[sizeof(TPMU_PUBLIC_PARMS)];
    BYTE                     *buffer;
+   INT32                    bufferSize;
    // Compare name hash
    if(publicArea1->nameAlg != publicArea2->nameAlg)
        return TPM_RC_HASH;
@@ -42,11 +43,13 @@ EqualCryptSet(
        return TPM_RC_TYPE;
    // TPMU_PUBLIC_PARMS field should be identical
    buffer = params1;
+   bufferSize = sizeof(TPMU_PUBLIC_PARMS);
    size1 = TPMU_PUBLIC_PARMS_Marshal(&publicArea1->parameters, &buffer,
-                                     NULL, publicArea1->type);
+                                     &bufferSize, publicArea1->type);
    buffer = params2;
+   bufferSize = sizeof(TPMU_PUBLIC_PARMS);
    size2 = TPMU_PUBLIC_PARMS_Marshal(&publicArea2->parameters, &buffer,
-                                     NULL, publicArea2->type);
+                                     &bufferSize, publicArea2->type);
    if(size1 != size2 || !MemoryEqual(params1, params2, size1))
        return TPM_RC_ASYMMETRIC;
    return TPM_RC_SUCCESS;
@@ -231,13 +234,15 @@ ProduceInnerIntegrity(
     TPM2B_DIGEST             integrity;
     UINT16                   integritySize;
     BYTE                     *buffer;             // Auxiliary buffer pointer
+    INT32                    bufferSize;
     // sensitiveData points to the beginning of sensitive data in innerBuffer
     integritySize = sizeof(UINT16) + CryptGetHashDigestSize(hashAlg);
     sensitiveData = innerBuffer + integritySize;
     ComputeInnerIntegrity(hashAlg, name, dataSize, sensitiveData, &integrity);
     // Add integrity at the beginning of inner buffer
     buffer = innerBuffer;
-    TPM2B_DIGEST_Marshal(&integrity, &buffer, NULL);
+    bufferSize = sizeof(TPM2B_DIGEST);
+    TPM2B_DIGEST_Marshal(&integrity, &buffer, &bufferSize);
     return dataSize + integritySize;
 }
 //
@@ -592,6 +597,7 @@ FillInCreationData(
 {
    BYTE                     creationBuffer[sizeof(TPMS_CREATION_DATA)];
    BYTE                    *buffer;
+   INT32                    bufferSize;
    HASH_STATE               hashState;
    // Fill in TPMS_CREATION_DATA in outCreation
    // Compute PCR digest
@@ -608,8 +614,9 @@ FillInCreationData(
    if(HandleGetType(parentHandle) == TPM_HT_PERMANENT)
    {
        BYTE         *buffer = &outCreation->t.creationData.parentName.t.name[0];
+       INT32         bufferSize = outCreation->t.creationData.parentName.t.size;
        outCreation->t.creationData.parentName.t.size =
-            TPM_HANDLE_Marshal(&parentHandle, &buffer, NULL);
+            TPM_HANDLE_Marshal(&parentHandle, &buffer, &bufferSize);
          // Parent qualified name of a Temporary Object is the same as parent's
          // name
          MemoryCopy2B(&outCreation->t.creationData.parentQualifiedName.b,
@@ -632,8 +639,9 @@ FillInCreationData(
    outCreation->t.creationData.outsideInfo = *outsideData;
    // Marshal creation data to canonical form
    buffer = creationBuffer;
+   bufferSize = sizeof(TPMS_CREATION_DATA);
    outCreation->t.size = TPMS_CREATION_DATA_Marshal(&outCreation->t.creationData,
-                         &buffer, NULL);
+                         &buffer, &bufferSize);
    // Compute hash for creation field in public template
    creationDigest->t.size = CryptStartHash(nameHashAlg, &hashState);
    CryptUpdateDigest(&hashState, outCreation->t.size, creationBuffer);
@@ -714,6 +722,7 @@ ProduceOuterWrap(
    TPM2B_DIGEST       integrity;
    UINT16             integritySize;
    BYTE               *buffer;         // Auxiliary buffer pointer
+   INT32              bufferSize;
    // Compute the beginning of sensitive data. The outer integrity should
    // always exist if this function function is called to make an outer wrap
    integritySize = sizeof(UINT16) + CryptGetHashDigestSize(hashAlg);
@@ -728,7 +737,8 @@ ProduceOuterWrap(
          CryptGenerateRandom(ivRNG.t.size, ivRNG.t.buffer);
          // Marshal IV to buffer
          buffer = sensitiveData;
-         TPM2B_IV_Marshal(&ivRNG, &buffer, NULL);
+         bufferSize = dataSize;
+         TPM2B_IV_Marshal(&ivRNG, &buffer, &bufferSize);
          // adjust sensitive data starting after IV area
          sensitiveData += ivSize;
          // Use iv for encryption
@@ -747,7 +757,8 @@ ProduceOuterWrap(
                          outerBuffer + integritySize, &integrity);
    // Add integrity at the beginning of outer buffer
    buffer = outerBuffer;
-   TPM2B_DIGEST_Marshal(&integrity, &buffer, NULL);
+   bufferSize = integritySize;
+   TPM2B_DIGEST_Marshal(&integrity, &buffer, &bufferSize);
    // return the total size in outer wrap
    return dataSize + integritySize + ivSize;
 }
@@ -855,6 +866,7 @@ SensitiveToPrivate(
     )
 {
     BYTE                     *buffer;                  //   Auxiliary buffer pointer
+    INT32                    bufferSize;
     BYTE                     *sensitiveData;           //   pointer to the sensitive data
     UINT16                   dataSize;                 //   data blob size
     TPMI_ALG_HASH            hashAlg;                  //   hash algorithm for integrity
@@ -884,10 +896,12 @@ SensitiveToPrivate(
    sensitiveData += ivSize;
    // Marshal sensitive area, leaving the leading 2 bytes for size
    buffer = sensitiveData + sizeof(UINT16);
-   dataSize = TPMT_SENSITIVE_Marshal(sensitive, &buffer, NULL);
+   bufferSize = sizeof(TPMT_SENSITIVE);
+   dataSize = TPMT_SENSITIVE_Marshal(sensitive, &buffer, &bufferSize);
    // Adding size before the data area
    buffer = sensitiveData;
-   UINT16_Marshal(&dataSize, &buffer, NULL);
+   bufferSize = sizeof(UINT16);
+   UINT16_Marshal(&dataSize, &buffer, &bufferSize);
    // Adjust the dataSize to include the size field
    dataSize += sizeof(UINT16);
    // Adjust the pointer to inner buffer including the iv
@@ -1027,6 +1041,7 @@ SensitiveToDuplicate(
     )
 {
     BYTE                *buffer;        // Auxiliary buffer pointer
+    INT32               bufferSize;
     BYTE                *sensitiveData; // pointer to the sensitive data
     TPMI_ALG_HASH       outerHash = TPM_ALG_NULL;// The hash algorithm for outer wrap
     TPMI_ALG_HASH       innerHash = TPM_ALG_NULL;// The hash algorithm for inner wrap
@@ -1059,10 +1074,12 @@ SensitiveToDuplicate(
    }
    // Marshal sensitive area, leaving the leading 2 bytes for size
    buffer = sensitiveData + sizeof(UINT16);
-   dataSize = TPMT_SENSITIVE_Marshal(sensitive, &buffer, NULL);
+   bufferSize = sizeof(TPMT_SENSITIVE);
+   dataSize = TPMT_SENSITIVE_Marshal(sensitive, &buffer, &bufferSize);
    // Adding size before the data area
    buffer = sensitiveData;
-   UINT16_Marshal(&dataSize, &buffer, NULL);
+   bufferSize = sizeof(UINT16);
+   UINT16_Marshal(&dataSize, &buffer, &bufferSize);
    // Adjust the dataSize to include the size field
    dataSize += sizeof(UINT16);
    // Apply inner wrap for duplication blob. It includes both integrity and
@@ -1238,6 +1255,7 @@ SecretToCredential(
    )
 {
    BYTE                      *buffer;          //   Auxiliary buffer pointer
+   INT32                      bufferSize;
    BYTE                      *sensitiveData;   //   pointer to the sensitive data
    TPMI_ALG_HASH              outerHash;       //   The hash algorithm for outer wrap
    UINT16                     dataSize;        //   data blob size
@@ -1249,7 +1267,8 @@ SecretToCredential(
                    + sizeof(UINT16) + CryptGetHashDigestSize(outerHash);
    // Marshal secret area
    buffer = sensitiveData;
-   dataSize = TPM2B_DIGEST_Marshal(secret, &buffer, NULL);
+   bufferSize = sizeof(TPM2B_DIGEST);
+   dataSize = TPM2B_DIGEST_Marshal(secret, &buffer, &bufferSize);
    // Apply outer wrap
    outIDObject->t.size = ProduceOuterWrap(protector,
                                           name,

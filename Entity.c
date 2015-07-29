@@ -325,6 +325,7 @@ EntityGetName(
     )
 {
     UINT16              nameSize;
+    INT32 bufferSize = sizeof(TPMU_NAME);
     switch(HandleGetType(handle))
     {
         case TPM_HT_TRANSIENT:
@@ -337,7 +338,7 @@ EntityGetName(
             break;
         default:
             // For all other types, the handle is the Name
-            nameSize = TPM_HANDLE_Marshal(&handle, (BYTE **)&name, NULL);
+            nameSize = TPM_HANDLE_Marshal(&handle, (BYTE **)&name, &bufferSize);
             break;
     }
     return nameSize;

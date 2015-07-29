@@ -1369,12 +1369,14 @@ NvGetName(
     NV_INDEX                  nvIndex;
     BYTE                      marshalBuffer[sizeof(TPMS_NV_PUBLIC)];
     BYTE                     *buffer;
+    INT32                     bufferSize;
     HASH_STATE                hashState;
     // Get NV public info
     NvGetIndexInfo(handle, &nvIndex);
     // Marshal public area
     buffer = marshalBuffer;
-    dataSize = TPMS_NV_PUBLIC_Marshal(&nvIndex.publicArea, &buffer, NULL);
+    bufferSize = sizeof(TPMS_NV_PUBLIC);
+    dataSize = TPMS_NV_PUBLIC_Marshal(&nvIndex.publicArea, &buffer, &bufferSize);
     // hash public area
     digestSize = CryptStartHash(nvIndex.publicArea.nameAlg, &hashState);
     CryptUpdateDigest(&hashState, dataSize, marshalBuffer);

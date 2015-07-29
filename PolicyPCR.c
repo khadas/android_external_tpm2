@@ -24,6 +24,7 @@ TPM2_PolicyPCR(
    BYTE               pcrs[sizeof(TPML_PCR_SELECTION)];
    UINT32             pcrSize;
    BYTE              *buffer;
+   INT32              bufferSize;
    TPM_CC             commandCode = TPM_CC_PolicyPCR;
    HASH_STATE         hashState;
 
@@ -71,7 +72,8 @@ TPM2_PolicyPCR(
 
   // add PCRS
   buffer = pcrs;
-  pcrSize = TPML_PCR_SELECTION_Marshal(&in->pcrs, &buffer, NULL);
+  bufferSize = sizeof(TPML_PCR_SELECTION);
+  pcrSize = TPML_PCR_SELECTION_Marshal(&in->pcrs, &buffer, &bufferSize);
   CryptUpdateDigest(&hashState, pcrSize, pcrs);
 
   // add PCR digest

@@ -2416,6 +2416,7 @@ CryptSecretEncrypt(
            TPM2B_ECC_PARAMETER    eccPrivate;
            TPMS_ECC_POINT         eccSecret;
            BYTE                   *buffer = secret->t.secret;
+           INT32                  bufferSize = secret->t.size;
              // Need to make sure that the public point of the key is on the
              // curve defined by the key.
              if(!_cpri__EccIsPointOnCurve(
@@ -2431,7 +2432,7 @@ CryptSecretEncrypt(
                                  &eccPublic, &eccPrivate);
                   // Marshal ECC public to secret structure. This will be used by the
                   // recipient to decrypt the secret with their private key.
-                  secret->t.size = TPMS_ECC_POINT_Marshal(&eccPublic, &buffer, NULL);
+                  secret->t.size = TPMS_ECC_POINT_Marshal(&eccPublic, &buffer, &bufferSize);
                   // Compute ECDH shared secret which is R = [d]Q where d is the
                   // private part of the ephemeral key and Q is the public part of a
                   // TPM key. TPM_RC_KEY error return from CryptComputeECDHSecret

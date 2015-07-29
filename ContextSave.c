@@ -31,6 +31,7 @@ TPM2_ContextSave(
    TPM2B_DIGEST      integrity;
    UINT16            integritySize;
    BYTE              *buffer;
+   INT32             bufferSize;
 
    // This command may cause the orderlyState to be cleared due to
    // the update of state reset data. If this is the case, check if NV is
@@ -184,7 +185,8 @@ TPM2_ContextSave(
 
    // add integrity at the beginning of context blob
    buffer = out->context.contextBlob.t.buffer;
-   TPM2B_DIGEST_Marshal(&integrity, &buffer, NULL);
+   bufferSize = out->context.contextBlob.t.size;
+   TPM2B_DIGEST_Marshal(&integrity, &buffer, &bufferSize);
 
    // orderly state should be cleared because of the update of state reset and
    // state clear data

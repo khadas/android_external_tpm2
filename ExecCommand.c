@@ -75,6 +75,8 @@ ExecuteCommand(
                                                    // buffer
    BYTE                      *buffer;              // pointer into the buffer being used
                                                    // for marshaling or unmarshaling
+   INT32                      bufferSize;          // size of buffer being used for
+                                                   // marshaling or unmarshaling
    UINT32                     i;                    // local temp
 // This next function call is used in development to size the command and response
 // buffers. The values printed are the sizes of the internal structures and
@@ -326,10 +328,11 @@ Fail:
      }
      // Marshal the response header.
      buffer = MemoryGetResponseBuffer(commandCode);
-     TPM_ST_Marshal(&resTag, &buffer, NULL);
-     UINT32_Marshal((UINT32 *)responseSize, &buffer, NULL);
+     bufferSize = 10;
+     TPM_ST_Marshal(&resTag, &buffer, &bufferSize);
+     UINT32_Marshal((UINT32 *)responseSize, &buffer, &bufferSize);
      pAssert(*responseSize <= MAX_RESPONSE_SIZE);
-     TPM_RC_Marshal(&result, &buffer, NULL);
+     TPM_RC_Marshal(&result, &buffer, &bufferSize);
      *response = MemoryGetResponseBuffer(commandCode);
      // Clear unused bit in response buffer.
      MemorySet(*response + *responseSize, 0, MAX_RESPONSE_SIZE - *responseSize);
