@@ -6,6 +6,7 @@
 // October 30, 2014
 
 #include     "InternalRoutines.h"
+#include     "ExecCommand_fp.h"
 #include     "HandleProcess_fp.h"
 #include     "SessionProcess_fp.h"
 #include     "CommandDispatcher_fp.h"

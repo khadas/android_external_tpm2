@@ -5,8 +5,8 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
-#ifndef _HANDLEPROCESS_FP_H_
-#define _HANDLEPROCESS_FP_H_
+#ifndef _TPM2_HANDLEPROCESS_FP_H_
+#define _TPM2_HANDLEPROCESS_FP_H_
 
 TPM_RC ParseHandleBuffer(
     TPM_CC commandCode,        //   IN: Command being processed
@@ -19,4 +19,4 @@ TPM_RC ParseHandleBuffer(
     UINT32 *handleCount          //   OUT: Receives the count of handles
     );
 
-#endif  // _HANDLEPROCESS_FP_H_
+#endif  // _TPM2_HANDLEPROCESS_FP_H_
