@@ -5,6 +5,8 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include "CryptoEngine.h"
+
   const HASH_INFO    g_hashData[HASH_COUNT + 1] = {
 #ifdef TPM_ALG_SHA1
    {TPM_ALG_SHA1,     SHA1_DIGEST_SIZE,   SHA1_BLOCK_SIZE,

@@ -1,15 +1,37 @@
-/*
- * Copyright 2015 The Chromium OS Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+// Copyright 2015 The Chromium OS Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-#ifndef __TPM2_TESTPARMS_FP_H_
-#define __TPM2_TESTPARMS_FP_H_
+// THIS CODE IS GENERATED - DO NOT MODIFY!
 
-typedef void TestParms_In;  // unused.
+#ifndef TPM2_TESTPARMS_FP_H
+#define TPM2_TESTPARMS_FP_H
 
-TPM_RC TPM2_TestParms(TestParms_In *in  // IN: input parameter list
-                      );
+#include "tpm_generated.h"
 
-#endif  // __TPM2_TESTPARMS_FP_H_
+typedef struct { TPMT_PUBLIC_PARMS parameters; } TestParms_In;
+
+// Executes TestParms with request handles and parameters from |in|.
+TPM_RC TPM2_TestParms(TestParms_In* in);
+
+// Initializes handle fields in |target| from |req_handles|. Unmarshals
+// parameter fields in |target| from |buffer|.
+TPM_RC TestParms_In_Unmarshal(TestParms_In* target,
+                              TPM_HANDLE req_handles[],
+                              BYTE** buffer,
+                              INT32* size);
+
+// Unmarshals any request parameters starting at |req_parameter_buffer|.
+// Executes command. Marshals any response handles and parameters to the
+// global response buffer and computes |*res_handle_buffer_size| and
+// |*res_parameter_buffer_size|. If |tag| == TPM_ST_SESSIONS, marshals
+// parameter_size indicating the size of the parameter area. parameter_size
+// field is located between the handle area and parameter area.
+TPM_RC Exec_TestParms(TPMI_ST_COMMAND_TAG tag,
+                      BYTE** req_parameter_buffer,
+                      INT32* req_parameter_buffer_size,
+                      TPM_HANDLE req_handles[],
+                      UINT32* res_handle_buffer_size,
+                      UINT32* res_parameter_buffer_size);
+
+#endif  // TPM2_TESTPARMS_FP_H

@@ -1,16 +1,49 @@
-/*
- * Copyright 2015 The Chromium OS Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+// Copyright 2015 The Chromium OS Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-#ifndef __TPM2_UNSEAL_FP_H_
-#define __TPM2_UNSEAL_FP_H_
+// THIS CODE IS GENERATED - DO NOT MODIFY!
+
+#ifndef TPM2_UNSEAL_FP_H
+#define TPM2_UNSEAL_FP_H
+
+#include "tpm_generated.h"
 
 typedef struct { TPMI_DH_OBJECT itemHandle; } Unseal_In;
 
-typedef struct { TPM2B_DATA outData; } Unseal_Out;
+typedef struct { TPM2B_SENSITIVE_DATA outData; } Unseal_Out;
 
-TPM_RC TPM2_Unseal(Unseal_In *in, Unseal_Out *out);
+// Executes Unseal with request handles and parameters from
+// |in| and computes response handles and parameters to |out|.
+TPM_RC TPM2_Unseal(Unseal_In* in, Unseal_Out* out);
 
-#endif  // __TPM2_UNSEAL_FP_H_
+// Initializes handle fields in |target| from |req_handles|. Unmarshals
+// parameter fields in |target| from |buffer|.
+TPM_RC Unseal_In_Unmarshal(Unseal_In* target,
+                           TPM_HANDLE req_handles[],
+                           BYTE** buffer,
+                           INT32* size);
+
+// Marshals response handles and parameters from |source| to |buffer|. Computes
+// and marshals the size of the parameter area (parameter_size) if |tag| ==
+// TPM_ST_SESSIONS. Returns size of (parameter area + handle area) in bytes.
+// Does not include parameter_size field.
+UINT16 Unseal_Out_Marshal(Unseal_Out* source,
+                          TPMI_ST_COMMAND_TAG tag,
+                          BYTE** buffer,
+                          INT32* size);
+
+// Unmarshals any request parameters starting at |req_parameter_buffer|.
+// Executes command. Marshals any response handles and parameters to the
+// global response buffer and computes |*res_handle_buffer_size| and
+// |*res_parameter_buffer_size|. If |tag| == TPM_ST_SESSIONS, marshals
+// parameter_size indicating the size of the parameter area. parameter_size
+// field is located between the handle area and parameter area.
+TPM_RC Exec_Unseal(TPMI_ST_COMMAND_TAG tag,
+                   BYTE** req_parameter_buffer,
+                   INT32* req_parameter_buffer_size,
+                   TPM_HANDLE req_handles[],
+                   UINT32* res_handle_buffer_size,
+                   UINT32* res_parameter_buffer_size);
+
+#endif  // TPM2_UNSEAL_FP_H

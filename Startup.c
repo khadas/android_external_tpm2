@@ -43,7 +43,6 @@ TPM2_Startup(
    result = NvIsAvailable();
    if(result != TPM_RC_SUCCESS)
        return result;
-
 // Input Validation
 
    // Read orderly shutdown states from previous power cycle
@@ -71,7 +70,6 @@ TPM2_Startup(
          if(g_StartupLocality3 != prevStartupLoc3)
              return TPM_RC_LOCALITY;
   }
-
   // if the previous power cycle was shut down with no StateSave command, or
   // with StateSave command for CLEAR, or the part of NV used for TPM_SU_STATE
   // cannot be recovered, then this cycle can not startup up with STATE
@@ -166,5 +164,4 @@ TPM2_Startup(
    g_DrtmPreStartup = FALSE;
 
    return TPM_RC_SUCCESS;
-
 }

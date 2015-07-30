@@ -7,6 +7,8 @@
 #ifndef __TPM2_MEMORYLIB_FP_H
 #define __TPM2_MEMORYLIB_FP_H
 
+#include "InternalRoutines.h"
+
 BYTE *MemoryGetResponseBuffer(
     TPM_CC command  // Command that requires the buffer
     );
