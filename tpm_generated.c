@@ -4215,6 +4215,10 @@ UINT16 TPMU_HA_Marshal(TPMU_HA* source,
       }
       return total_size;
 #endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
 #ifdef TPM_ALG_SHA256
     case TPM_ALG_SHA256:
       for (i = 0; i < SHA256_DIGEST_SIZE; ++i) {
@@ -4268,6 +4272,10 @@ TPM_RC TPMU_HA_Unmarshal(TPMU_HA* target,
           return result;
         }
       }
+      return TPM_RC_SUCCESS;
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
       return TPM_RC_SUCCESS;
 #endif
 #ifdef TPM_ALG_SHA256
@@ -5787,6 +5795,10 @@ UINT16 TPMU_SYM_KEY_BITS_Marshal(TPMU_SYM_KEY_BITS* source,
                                  INT32* size,
                                  UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
 #ifdef TPM_ALG_SM4
     case TPM_ALG_SM4:
       return TPMI_SM4_KEY_BITS_Marshal((TPMI_SM4_KEY_BITS*)&source->SM4, buffer,
@@ -5810,6 +5822,10 @@ TPM_RC TPMU_SYM_KEY_BITS_Unmarshal(TPMU_SYM_KEY_BITS* target,
                                    INT32* size,
                                    UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
+#endif
 #ifdef TPM_ALG_SM4
     case TPM_ALG_SM4:
       return TPMI_SM4_KEY_BITS_Unmarshal((TPMI_SM4_KEY_BITS*)&target->SM4,
@@ -5833,6 +5849,10 @@ UINT16 TPMU_SYM_MODE_Marshal(TPMU_SYM_MODE* source,
                              INT32* size,
                              UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
 #ifdef TPM_ALG_SM4
     case TPM_ALG_SM4:
       return TPMI_ALG_SYM_MODE_Marshal((TPMI_ALG_SYM_MODE*)&source->SM4, buffer,
@@ -5843,6 +5863,10 @@ UINT16 TPMU_SYM_MODE_Marshal(TPMU_SYM_MODE* source,
       return TPMI_ALG_SYM_MODE_Marshal((TPMI_ALG_SYM_MODE*)&source->aes, buffer,
                                        size);
 #endif
+#ifdef TPM_ALG_XOR
+    case TPM_ALG_XOR:
+      return 0;
+#endif
   }
   return 0;
 }
@@ -5852,6 +5876,10 @@ TPM_RC TPMU_SYM_MODE_Unmarshal(TPMU_SYM_MODE* target,
                                INT32* size,
                                UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
+#endif
 #ifdef TPM_ALG_SM4
     case TPM_ALG_SM4:
       return TPMI_ALG_SYM_MODE_Unmarshal(&target->SM4, buffer, size, FALSE);
@@ -5859,6 +5887,10 @@ TPM_RC TPMU_SYM_MODE_Unmarshal(TPMU_SYM_MODE* target,
 #ifdef TPM_ALG_AES
     case TPM_ALG_AES:
       return TPMI_ALG_SYM_MODE_Unmarshal(&target->aes, buffer, size, FALSE);
+#endif
+#ifdef TPM_ALG_XOR
+    case TPM_ALG_XOR:
+      return TPM_RC_SUCCESS;
 #endif
   }
   return TPM_RC_SELECTOR;
@@ -6107,6 +6139,10 @@ UINT16 TPMU_SCHEME_KEYEDHASH_Marshal(TPMU_SCHEME_KEYEDHASH* source,
                                      INT32* size,
                                      UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
 #ifdef TPM_ALG_HMAC
     case TPM_ALG_HMAC:
       return TPMS_SCHEME_HMAC_Marshal((TPMS_SCHEME_HMAC*)&source->hmac, buffer,
@@ -6126,6 +6162,10 @@ TPM_RC TPMU_SCHEME_KEYEDHASH_Unmarshal(TPMU_SCHEME_KEYEDHASH* target,
                                        INT32* size,
                                        UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
+#endif
 #ifdef TPM_ALG_HMAC
     case TPM_ALG_HMAC:
       return TPMS_SCHEME_HMAC_Unmarshal((TPMS_SCHEME_HMAC*)&target->hmac,
@@ -6232,6 +6272,10 @@ UINT16 TPMU_SIG_SCHEME_Marshal(TPMU_SIG_SCHEME* source,
       return TPMS_SCHEME_ECDSA_Marshal((TPMS_SCHEME_ECDSA*)&source->ecdsa,
                                        buffer, size);
 #endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
   }
   return 0;
 }
@@ -6275,6 +6319,10 @@ TPM_RC TPMU_SIG_SCHEME_Unmarshal(TPMU_SIG_SCHEME* target,
     case TPM_ALG_ECDSA:
       return TPMS_SCHEME_ECDSA_Unmarshal((TPMS_SCHEME_ECDSA*)&target->ecdsa,
                                          buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
 #endif
   }
   return TPM_RC_SELECTOR;
@@ -6445,6 +6493,10 @@ UINT16 TPMU_KDF_SCHEME_Marshal(TPMU_KDF_SCHEME* source,
       return TPMS_SCHEME_KDF2_Marshal((TPMS_SCHEME_KDF2*)&source->kdf2, buffer,
                                       size);
 #endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
   }
   return 0;
 }
@@ -6473,6 +6525,10 @@ TPM_RC TPMU_KDF_SCHEME_Unmarshal(TPMU_KDF_SCHEME* target,
     case TPM_ALG_KDF2:
       return TPMS_SCHEME_KDF2_Unmarshal((TPMS_SCHEME_KDF2*)&target->kdf2,
                                         buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
 #endif
   }
   return TPM_RC_SELECTOR;
@@ -6509,10 +6565,18 @@ UINT16 TPMU_ASYM_SCHEME_Marshal(TPMU_ASYM_SCHEME* source,
                                 INT32* size,
                                 UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_RSAES
+    case TPM_ALG_RSAES:
+      return 0;
+#endif
 #ifdef TPM_ALG_ECSCHNORR
     case TPM_ALG_ECSCHNORR:
       return TPMS_SCHEME_ECSCHNORR_Marshal(
           (TPMS_SCHEME_ECSCHNORR*)&source->ecSchnorr, buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
 #endif
 #ifdef TPM_ALG_ECDH
     case TPM_ALG_ECDH:
@@ -6558,10 +6622,18 @@ TPM_RC TPMU_ASYM_SCHEME_Unmarshal(TPMU_ASYM_SCHEME* target,
                                   INT32* size,
                                   UINT32 selector) {
   switch (selector) {
+#ifdef TPM_ALG_RSAES
+    case TPM_ALG_RSAES:
+      return TPM_RC_SUCCESS;
+#endif
 #ifdef TPM_ALG_ECSCHNORR
     case TPM_ALG_ECSCHNORR:
       return TPMS_SCHEME_ECSCHNORR_Unmarshal(
           (TPMS_SCHEME_ECSCHNORR*)&target->ecSchnorr, buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
 #endif
 #ifdef TPM_ALG_ECDH
     case TPM_ALG_ECDH:
@@ -7056,6 +7128,10 @@ UINT16 TPMU_SIGNATURE_Marshal(TPMU_SIGNATURE* source,
       return TPMS_SIGNATURE_ECDSA_Marshal((TPMS_SIGNATURE_ECDSA*)&source->ecdsa,
                                           buffer, size);
 #endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
   }
   return 0;
 }
@@ -7098,6 +7174,10 @@ TPM_RC TPMU_SIGNATURE_Unmarshal(TPMU_SIGNATURE* target,
     case TPM_ALG_ECDSA:
       return TPMS_SIGNATURE_ECDSA_Unmarshal(
           (TPMS_SIGNATURE_ECDSA*)&target->ecdsa, buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
 #endif
   }
   return TPM_RC_SELECTOR;
