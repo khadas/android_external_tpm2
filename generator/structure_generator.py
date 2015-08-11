@@ -1026,12 +1026,16 @@ TPM_RC %(type)s_Unmarshal(
     INT32 *size,
     UINT32 selector);
 """
+  _CASE_SELECTOR = """
+    case %(selector)s:"""
+  _MARSHAL_EMPTY = """
+      return 0;"""
+  _UNMARSHAL_EMPTY = """
+      return TPM_RC_SUCCESS;"""
   _MARSHAL_FIELD = """
-    case %(selector)s:
       return %(type)s_Marshal(
           (%(type)s*)&source->%(name)s, buffer, size);"""
   _UNMARSHAL_FIELD = """
-    case %(selector)s:
       return %(type)s_Unmarshal(
           (%(type)s*)&target->%(name)s, buffer, size);"""
   _SETUP_MARSHAL_FIELD_ARRAY = """
@@ -1041,14 +1045,12 @@ TPM_RC %(type)s_Unmarshal(
     INT32 i;
     TPM_RC result = TPM_RC_SUCCESS;"""
   _MARSHAL_FIELD_ARRAY = """
-  case %(selector)s:
     for (i = 0; i < %(array_length)s; ++i) {
       total_size += %(type)s_Marshal(
           &source->%(name)s[i], buffer, size);
     }
     return total_size;"""
   _UNMARSHAL_FIELD_ARRAY = """
-  case %(selector)s:
     for (i = 0; i < %(array_length)s; ++i) {
       result = %(type)s_Unmarshal(
           &target->%(name)s[i], buffer, size);
@@ -1058,7 +1060,6 @@ TPM_RC %(type)s_Unmarshal(
     }
     return TPM_RC_SUCCESS;"""
   _UNMARSHAL_FIELD_CONDITIONAL = """
-  case %(selector)s:
     return %(type)s_Unmarshal(
         &target->%(name)s, buffer, size, FALSE);"""
   _UNION_MARSHAL_CALL = """
@@ -1123,12 +1124,10 @@ TPM_RC %(type)s_Unmarshal(
     if array_length:
       out_file.write(self._MARSHAL_FIELD_ARRAY % {'type': field_type,
                                                   'name': field_name,
-                                                  'array_length': array_length,
-                                                  'selector': selector})
+                                                  'array_length': array_length})
     else:
       out_file.write(self._MARSHAL_FIELD % {'type': field_type,
-                                            'name': field_name,
-                                            'selector': selector})
+                                            'name': field_name})
 
   def _OutputUnmarshalField(
       self, out_file, field_type, field_name, array_length, selector, typemap):
@@ -1147,17 +1146,14 @@ TPM_RC %(type)s_Unmarshal(
       out_file.write(
           self._UNMARSHAL_FIELD_ARRAY % {'type': field_type,
                                          'name': field_name,
-                                         'array_length': array_length,
-                                         'selector': selector})
+                                         'array_length': array_length})
     elif typemap[field_type].HasConditional():
       out_file.write(
           self._UNMARSHAL_FIELD_CONDITIONAL % {'type': field_type,
-                                               'name': field_name,
-                                               'selector': selector})
+                                               'name': field_name})
     else:
       out_file.write(self._UNMARSHAL_FIELD % {'type': field_type,
-                                              'name': field_name,
-                                              'selector': selector})
+                                              'name': field_name})
 
   def OutputMarshalImpl(self, out_file, marshalled_types, typemap):
     """Writes marshal implementations for Union to |out_file|.
@@ -1188,12 +1184,17 @@ TPM_RC %(type)s_Unmarshal(
       out_file.write(self._SETUP_MARSHAL_FIELD_ARRAY)
     for selector in selector_values:
       field_name = union_selectors.GetUnionSelectorField(self.name, selector)
+      if self._NeedsIfdef(selector):
+        out_file.write(self._IFDEF % {'type': selector})
+      out_file.write(self._CASE_SELECTOR % {'selector':selector})
+      # Selector is not associated with a name, so no marshaling occurs.
       if not field_name:
+        out_file.write(self._MARSHAL_EMPTY)
+        if self._NeedsIfdef(selector):
+          out_file.write(self._ENDIF)
         continue
       field_type = field_types[field_name]
       array_length = array_lengths[field_name]
-      if self._NeedsIfdef(selector):
-        out_file.write(self._IFDEF % {'type': selector})
       self._OutputMarshalField(
           out_file, field_type, field_name, array_length, selector, typemap)
       if self._NeedsIfdef(selector):
@@ -1205,12 +1206,17 @@ TPM_RC %(type)s_Unmarshal(
       out_file.write(self._SETUP_UNMARSHAL_FIELD_ARRAY)
     for selector in selector_values:
       field_name = union_selectors.GetUnionSelectorField(self.name, selector)
+      if self._NeedsIfdef(selector):
+        out_file.write(self._IFDEF % {'type': selector})
+      out_file.write(self._CASE_SELECTOR % {'selector': selector})
+      # Selector is not associated with a name, so no unmarshaling occurs.
       if not field_name:
+        out_file.write(self._UNMARSHAL_EMPTY)
+        if self._NeedsIfdef(selector):
+          out_file.write(self._ENDIF)
         continue
       field_type = field_types[field_name]
       array_length = array_lengths[field_name]
-      if self._NeedsIfdef(selector):
-        out_file.write(self._IFDEF % {'type': selector})
       self._OutputUnmarshalField(
           out_file, field_type, field_name, array_length, selector, typemap)
       if self._NeedsIfdef(selector):
