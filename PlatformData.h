@@ -29,6 +29,7 @@ extern unsigned char s_locality;
 //     then a file is used as NV. If it is not defined, then RAM is used to back NV memory. Comment out to use
 //     RAM.
 //
+#ifndef EMBEDDED_MODE
 #define FILE_BACKED_NV
 #if defined FILE_BACKED_NV
 #include <stdio.h>
@@ -36,6 +37,7 @@ extern unsigned char s_locality;
 //     A file to emulate NV storage
 //
 extern   FILE*                  s_NVFile;
+#endif
 #endif
 extern   unsigned char          s_NV[NV_MEMORY_SIZE];
 extern   BOOL                   s_NvIsAvailable;

@@ -140,6 +140,7 @@ SetForceFailureMode(
     g_forceFailureMode = TRUE;
     return;
 }
+
 //
 //
 //         TpmFail()
@@ -166,7 +167,9 @@ TpmFail(
     g_forceFailureMode = FALSE;
     // Jump to the failure mode code.
     // Note: only get here if asserts are off or if we are testing failure mode
+#ifndef EMBEDDED_MODE
     longjmp(&g_jumpBuffer[0], 1);
+#endif
 }
 //
 //

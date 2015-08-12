@@ -374,4 +374,8 @@ _plat__GetEntropy(
       unsigned char          *entropy,                  // output buffer
       uint32_t                amount                    // amount requested
 );
+
+int uart_printf(const char *format, ...);
+#define ecprintf(format, args...) uart_printf(format, ## args);
+
 #endif

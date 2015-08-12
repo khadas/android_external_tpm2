@@ -178,6 +178,7 @@ MemorySet(
         *p++ = value;
     return;
 }
+#ifndef EMBEDDED_MODE
 //
 //
 //          MemoryGetActionInputBuffer()
@@ -226,6 +227,8 @@ MemoryGetActionOutputBuffer(
       command = 0;        // Unreferenced parameter
       return s_actionOutputBuffer;
 }
+#endif // EMBEDDED_MODE  ^^^^^ not defined.
+
 //
 //
 //       MemoryGetResponseBuffer()

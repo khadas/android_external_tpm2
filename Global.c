@@ -116,10 +116,12 @@ BOOL                      s_initialized = FALSE;
 //     if any, is complete. This memory is not used between commands
 //
 #ifndef __IGNORE_STATE__        // DO NOT DEFINE THIS VALUE
+#ifndef EMBEDDED_MODE
 UINT32   s_actionInputBuffer[1024];          // action input buffer
 UINT32   s_actionOutputBuffer[1024];         // action output buffer
+#endif  // EMBEDDED_MODE   ^^^ not defined
 BYTE     s_responseBuffer[MAX_RESPONSE_SIZE];// response buffer
-#endif
+#endif  // __IGNORE_STATE__   ^^^ not defined
 //
 //
 //         SelfTest.c
@@ -134,7 +136,9 @@ ALGORITHM_VECTOR          g_toTest;
 //
 //         TpmFail.c
 //
+#ifndef EMBEDDED_MODE
 jmp_buf                   g_jumpBuffer;
+#endif  // EMBEDDED_MODE   ^^^ not defined
 BOOL                      g_forceFailureMode;
 BOOL                      g_inFailureMode;
 UINT32                    s_failFunction;

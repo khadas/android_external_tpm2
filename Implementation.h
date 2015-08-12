@@ -251,7 +251,11 @@
 //
 #define MAX_NV_BUFFER_SIZE                1024
 #define MAX_CAP_BUFFER                    1024
+#ifdef EMBEDDED_MODE
+#define NV_MEMORY_SIZE                    8192
+#else
 #define NV_MEMORY_SIZE                    16384
+#endif
 #define NUM_STATIC_PCR                    16
 #define MAX_ALG_LIST_SIZE                 64
 #define TIMER_PRESCALE                    100000
