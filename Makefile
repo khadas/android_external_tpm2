@@ -61,6 +61,7 @@ SOURCES += FirmwareRead.c
 SOURCES += FlushContext.c
 SOURCES += GetCapability.c
 SOURCES += GetCommandAuditDigest.c
+SOURCES += GetCommandCodeString.c
 SOURCES += GetRandom.c
 SOURCES += GetSessionAuditDigest.c
 SOURCES += GetTestResult.c
