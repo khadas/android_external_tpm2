@@ -134,7 +134,30 @@ _HANDLE_PROCESS_END = """
       return TPM_RC_COMMAND_CODE;
   }
 }"""
+_GET_COMMAND_CODE_STRING_HEADER = """
+#ifndef TPM2_GET_COMMAND_CODE_STRING_FP_H_
+#define TPM2_GET_COMMAND_CODE_STRING_FP_H_
 
+#include "TPM_Types.h"
+
+const char* GetCommandCodeString(TPM_CC command_code);
+
+#endif  // TPM2_GET_COMMAND_CODE_STRING_FP_H_"""
+_GET_COMMAND_CODE_STRING_START = """
+#include "GetCommandCodeString_fp.h"
+
+const char* GetCommandCodeString(TPM_CC command_code) {
+  switch(command_code) {"""
+_GET_COMMAND_CODE_STRING_CASE = """
+#ifdef TPM_CC_%(command_name)s
+  case TPM_CC_%(command_name)s:
+      return "%(command_name)s";
+#endif"""
+_GET_COMMAND_CODE_STRING_END = """
+    default:
+      return "Unknown command";
+  }
+}"""
 class Command(object):
   """Represents a TPM command.
 
@@ -731,6 +754,25 @@ def OutputHandleProcess(commands, typemap):
     out_file.write(_HANDLE_PROCESS_END)
   call(['clang-format', '-i', '-style=Chromium', 'HandleProcess.c'])
 
+def OutputGetCommandCodeString(commands):
+  """Generates header and implementation files for GetCommandCodeString.
+
+  Args:
+    commands: A list of Command objects.
+  """
+  with open('GetCommandCodeString_fp.h', 'w') as out_file:
+    out_file.write(_COPYRIGHT_HEADER)
+    out_file.write(_GET_COMMAND_CODE_STRING_HEADER)
+  call(['clang-format', '-i', '-style=Chromium', 'GetCommandCodeString_fp.h'])
+  with open('GetCommandCodeString.c', 'w') as out_file:
+    out_file.write(_COPYRIGHT_HEADER)
+    out_file.write(_GET_COMMAND_CODE_STRING_START)
+    for command in commands:
+      out_file.write(_GET_COMMAND_CODE_STRING_CASE %
+          {'command_name': command.MethodName()})
+    out_file.write(_GET_COMMAND_CODE_STRING_END)
+  call(['clang-format', '-i', '-style=Chromium', 'GetCommandCodeString.c'])
+
 def GenerateHeader(commands):
   """Generates a header file with declarations for all given generator objects.
 
@@ -769,3 +811,4 @@ def GenerateImplementation(commands, typemap):
     call(['clang-format', '-i', '-style=Chromium', marshal_command_file])
   OutputHandleProcess(commands, typemap)
   OutputCommandDispatcher(commands)
+  OutputGetCommandCodeString(commands)
