@@ -394,12 +394,13 @@ NvGetRAMIndexOffset(
    {
        TPMI_RH_NV_INDEX    currHandle;
        UINT32              currSize;
-       currHandle = * (TPM_HANDLE *) &s_ramIndex[currAddr + sizeof(UINT32)];
+       memcpy(&currHandle, &s_ramIndex[currAddr + sizeof(UINT32)],
+              sizeof(currHandle));
          // Found a match
          if(currHandle == handle)
               // data buffer follows the handle and size field
               break;
-         currSize = * (UINT32 *) &s_ramIndex[currAddr];
+         memcpy(&currSize, &s_ramIndex[currAddr], sizeof(currSize));
          currAddr += sizeof(UINT32) + currSize;
    }
    // We assume the index data is existing in RAM space
@@ -420,8 +421,11 @@ NvAddRAM(
    )
 {
    // Add data space at the end of reserved RAM buffer
-   * (UINT32 *) &s_ramIndex[s_ramIndexSize] = size + sizeof(TPMI_RH_NV_INDEX);
-   * (TPMI_RH_NV_INDEX *) &s_ramIndex[s_ramIndexSize + sizeof(UINT32)] = handle;
+   UINT32 value = size + sizeof(TPMI_RH_NV_INDEX);
+   memcpy(&s_ramIndex[s_ramIndexSize], &value,
+          sizeof(s_ramIndex[s_ramIndexSize]));
+   memcpy(&s_ramIndex[s_ramIndexSize + sizeof(UINT32)], &handle,
+          sizeof(s_ramIndex[s_ramIndexSize + sizeof(UINT32)]));
    s_ramIndexSize += sizeof(UINT32) + sizeof(TPMI_RH_NV_INDEX) + size;
    pAssert(s_ramIndexSize <= RAM_INDEX_SPACE);
    // Update NV version of s_ramIndexSize
@@ -449,7 +453,7 @@ NvDeleteRAM(
    // Move the pointer back to get the size field of this node
    nodeOffset -= sizeof(UINT32) + sizeof(TPMI_RH_NV_INDEX);
    // Get node size
-   size = * (UINT32 *) &s_ramIndex[nodeOffset];
+   memcpy(&size, &s_ramIndex[nodeOffset], sizeof(size));
    // Get the offset of next node
    nextNode = nodeOffset + sizeof(UINT32) + size;
    // Move data
@@ -846,6 +850,8 @@ NvEntityStartup(
         NV_INDEX    nvIndex;
         UINT32      indexAddr;              // NV address points to index info
         TPMA_NV     attributes;
+        UINT32      attributesValue;
+        UINT32      publicAreaAttributesValue;
           indexAddr = currentAddr + sizeof(TPM_HANDLE);
           // Read NV Index info structure
           _plat__NvMemoryRead(indexAddr, sizeof(NV_INDEX), &nvIndex);
@@ -874,7 +880,10 @@ NvEntityStartup(
              )
                  attributes.TPMA_NV_WRITTEN = CLEAR;
          // Write NV Index info back if it has changed
-         if(*((UINT32 *)&attributes) != *((UINT32 *)&nvIndex.publicArea.attributes))
+         memcpy(&attributesValue, &attributes, sizeof(attributesValue));
+         memcpy(&publicAreaAttributesValue, &nvIndex.publicArea.attributes,
+                sizeof(publicAreaAttributesValue));
+         if(attributesValue != publicAreaAttributesValue)
          {
              nvIndex.publicArea.attributes = attributes;
              _plat__NvMemoryWrite(indexAddr, sizeof(NV_INDEX), &nvIndex);
@@ -1422,7 +1431,7 @@ NvDefineIndex(
        return TPM_RC_NV_SPACE;
    // Copy input value to nvBuffer
        // Copy handle
-   * (TPM_HANDLE *) nvBuffer = publicArea->nvIndex;
+   memcpy(nvBuffer, &publicArea->nvIndex, sizeof(TPM_HANDLE));
        // Copy NV_INDEX
    nvIndex = (NV_INDEX *) (nvBuffer + sizeof(TPM_HANDLE));
    nvIndex->publicArea = *publicArea;
@@ -1476,7 +1485,7 @@ NvAddEvictObject(
         return TPM_RC_NV_DEFINED;
     // Copy evict object to nvBuffer
         // Copy handle
-    * (TPM_HANDLE *) nvBuffer = evictHandle;
+    memcpy(nvBuffer, &evictHandle, sizeof(TPM_HANDLE));
         // Copy OBJECT
     nvObject = (OBJECT *) (nvBuffer + sizeof(TPM_HANDLE));
     *nvObject = *object;

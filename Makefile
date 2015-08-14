@@ -290,7 +290,7 @@ SOURCES += tpm_generated.c
 
 ifeq ($(EMBEDDED_MODE),)
 SOURCES += $(HOST_SOURCES)
-CFLAGS += -Wall -Werror
+CFLAGS += -Wall -Werror -fPIC
 else
 SOURCES += stubs.c
 CFLAGS += -DEMBEDDED_MODE
