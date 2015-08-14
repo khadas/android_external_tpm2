@@ -285,7 +285,7 @@ UINT16 _cpri__GenerateRandom(
   BYTE * buffer)
 {
   ecprintf("%s called\n", __func__);
-  return 0;
+  return randomSize;
 }
 
 UINT16 _cpri__GenerateSeededRandom(
