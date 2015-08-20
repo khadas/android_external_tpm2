@@ -614,7 +614,7 @@ FillInCreationData(
    if(HandleGetType(parentHandle) == TPM_HT_PERMANENT)
    {
        BYTE         *buffer = &outCreation->t.creationData.parentName.t.name[0];
-       INT32         bufferSize = outCreation->t.creationData.parentName.t.size;
+       INT32         bufferSize = sizeof(TPM_HANDLE);
        outCreation->t.creationData.parentName.t.size =
             TPM_HANDLE_Marshal(&parentHandle, &buffer, &bufferSize);
          // Parent qualified name of a Temporary Object is the same as parent's
@@ -737,7 +737,7 @@ ProduceOuterWrap(
          CryptGenerateRandom(ivRNG.t.size, ivRNG.t.buffer);
          // Marshal IV to buffer
          buffer = sensitiveData;
-         bufferSize = dataSize;
+         bufferSize = sizeof(TPM2B_IV);
          TPM2B_IV_Marshal(&ivRNG, &buffer, &bufferSize);
          // adjust sensitive data starting after IV area
          sensitiveData += ivSize;
@@ -757,7 +757,7 @@ ProduceOuterWrap(
                          outerBuffer + integritySize, &integrity);
    // Add integrity at the beginning of outer buffer
    buffer = outerBuffer;
-   bufferSize = integritySize;
+   bufferSize = sizeof(TPM2B_DIGEST);
    TPM2B_DIGEST_Marshal(&integrity, &buffer, &bufferSize);
    // return the total size in outer wrap
    return dataSize + integritySize + ivSize;

@@ -185,7 +185,7 @@ TPM2_ContextSave(
 
    // add integrity at the beginning of context blob
    buffer = out->context.contextBlob.t.buffer;
-   bufferSize = out->context.contextBlob.t.size;
+   bufferSize = sizeof(TPM2B_DIGEST);
    TPM2B_DIGEST_Marshal(&integrity, &buffer, &bufferSize);
 
    // orderly state should be cleared because of the update of state reset and

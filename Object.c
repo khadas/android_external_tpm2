@@ -734,7 +734,7 @@ ObjectComputeName(
    name->t.size = CryptStartHash(publicArea->nameAlg, &hashState);
    // Marshal the public area into its canonical form
    buffer = marshalBuffer.b.buffer;
-   bufferSize = marshalBuffer.b.size;
+   bufferSize = sizeof(TPMT_PUBLIC);
    marshalBuffer.t.size = TPMT_PUBLIC_Marshal(publicArea, &buffer, &bufferSize);
    // Adding public area
    CryptUpdateDigest2B(&hashState, &marshalBuffer.b);
