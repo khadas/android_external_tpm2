@@ -5,8 +5,8 @@
 
 obj ?= ./build
 CROSS_COMPILE ?=
-CC = $(CROSS_COMPILE)gcc
-AR = $(CROSS_COMPILE)ar
+CC ?= $(CROSS_COMPILE)gcc
+AR ?= $(CROSS_COMPILE)ar
 
 HOST_SOURCES =
 SOURCES  = ActivateCredential.c

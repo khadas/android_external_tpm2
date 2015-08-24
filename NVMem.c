@@ -85,7 +85,7 @@ _plat__NVEnable(
        assert(ftell(s_NVFile) == NV_MEMORY_SIZE);
        // read NV file data to memory
        fseek(s_NVFile, 0, SEEK_SET);
-       fread(s_NV, NV_MEMORY_SIZE, 1, s_NVFile);
+       assert(1 == fread(s_NV, NV_MEMORY_SIZE, 1, s_NVFile));
    }
 #endif
    // NV contents have been read and the error checks have been performed. For
