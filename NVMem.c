@@ -12,6 +12,18 @@
 #include     "PlatformData.h"
 #include     "TpmError.h"
 #include     "assert.h"
+
+#ifndef EMBEDDED_MODE
+#define FILE_BACKED_NV
+#endif
+
+#if defined FILE_BACKED_NV
+static   FILE*                  s_NVFile;
+#endif
+static   unsigned char          s_NV[NV_MEMORY_SIZE];
+static   BOOL                   s_NvIsAvailable;
+static   BOOL                   s_NV_unrecoverable;
+static   BOOL                   s_NV_recoverable;
 //
 //
 //          Functions
