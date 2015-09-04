@@ -30,7 +30,8 @@ def main():
   args = parser.parse_args()
   structure_parser = structure_generator.StructureParser(
       open(args.structures_file))
-  types, typemap = structure_parser.Parse()
+  _, typemap = structure_parser.Parse()
+  types = [typemap[x] for x in sorted(typemap.keys())]
   command_parser = command_generator.CommandParser(open(args.commands_file))
   commands = command_parser.Parse()
   structure_generator.GenerateHeader(types, typemap)
