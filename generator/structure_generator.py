@@ -1347,33 +1347,29 @@ class StructureParser(object):
     """Parse everything in a structures file.
 
     Returns:
-      A list of TPMType objects and a type-map as described in the class
-      documentation. The list of TPMType objects in order contains objects of
-      derived type Typdef, ConstantTypes, AttributeStruct, Interface,
-      Structure, and Union.
+      A type-map as described in the class documentation.
     """
     self._NextLine()
-    types = []
     typemap = {}
     # maps types to valid constants
     while self._line:
       if self._BEGIN_TYPES_TOKEN == self._line.rstrip():
-        types += self._ParseTypes(typemap)
+        self._ParseTypes(typemap)
       elif self._BEGIN_CONSTANTS_TOKEN == self._line.rstrip():
-        types += self._ParseConstants(typemap)
+        self._ParseConstants(typemap)
       elif self._BEGIN_ATTRIBUTE_STRUCTS_TOKEN == self._line.rstrip():
-        types += self._ParseAttributeStructs(typemap)
+        self._ParseAttributeStructs(typemap)
       elif self._BEGIN_INTERFACES_TOKEN == self._line.rstrip():
-        types += self._ParseInterfaces(typemap)
+        self._ParseInterfaces(typemap)
       elif self._BEGIN_STRUCTURES_TOKEN == self._line.rstrip():
-        types += self._ParseStructures(typemap)
+        self._ParseStructures(typemap)
       elif self._BEGIN_UNIONS_TOKEN == self._line.rstrip():
-        types += self._ParseUnions(typemap)
+        self._ParseUnions(typemap)
       else:
         print('Invalid file format: %s' % self._line)
         break
       self._NextLine()
-    return types, typemap
+    return typemap
 
   def _ParseTypes(self, typemap):
     """Parses a typedefs section.
@@ -1383,32 +1379,25 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of Typedef objects.
     """
-    types = []
     self._NextLine()
     while self._END_TOKEN != self._line.rstrip():
       match = self._OLD_TYPE_RE.search(self._line)
       if not match:
         print('Invalid old type: %s' % self._line)
-        return types
+        return
       old_type = match.group(1)
       self._NextLine()
       match = self._NEW_TYPE_RE.search(self._line)
       if not match:
         print('Invalid new type: %s' % self._line)
-        return types
+        return
       new_type = match.group(1)
       self._NextLine()
       # We don't need code for BOOL type to be generated.
       if new_type == 'BOOL':
         continue
-      t = Typedef(old_type, new_type)
-      types.append(t)
-      typemap[new_type] = t
-    return types
+      typemap[new_type] = Typedef(old_type, new_type)
 
   def _ParseConstants(self, typemap):
     """Parses a constants section.
@@ -1419,30 +1408,26 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of Constant objects.
     """
-    constants = []
     self._NextLine()
     while self._END_TOKEN != self._line.rstrip():
       match_old = self._OLD_TYPE_RE.search(self._line)
       if not match_old:
         print('Invalid constants section, expected OLD_TYPE: %s' % self._line)
-        return constants
+        return
       old_type = match_old.group(1)
       self._NextLine()
       match_new = self._NEW_TYPE_RE.search(self._line)
       if not match_new:
         print('Invalid constants section, expected NEW_TYPE: %s' % self._line)
-        return constants
+        return
       new_type = match_new.group(1)
       self._NextLine()
       current_constant_type = ConstantType(old_type, new_type)
       match_name = self._NAME_RE.search(self._line)
       if not match_name:
         print('Invalid constant name: %s' % self._line)
-        return constants
+        return
       while match_name:
         name = match_name.group(1)
         current_constant_type.valid_values.append(name)
@@ -1451,15 +1436,13 @@ class StructureParser(object):
         match_return = self._RETURN_RE.search(self._line)
       if not match_return:
         print('Invalid constants section, expected RETURN: %s' % self._line)
-        return constants
+        return
       current_constant_type.error_code = match_return.group(1)
       self._NextLine()
       # We don't need code for TPM_PS type to be generated.
       if new_type == 'TPM_PS':
         continue
-      constants.append(current_constant_type)
       typemap[new_type] = current_constant_type
-    return constants
 
   def _ParseAttributeStructs(self, typemap):
     """Parses an attribute structs section.
@@ -1470,23 +1453,19 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of AttributeStruct objects.
     """
-    attribute_structs = []
     self._NextLine()
     while self._END_TOKEN != self._line.rstrip():
       match_old = self._OLD_TYPE_RE.search(self._line)
       if not match_old:
         print('Invalid attributes section, expected OLD_TYPE: %s' % self._line)
-        return attribute_structs
+        return
       old_type = match_old.group(1)
       self._NextLine()
       match_new = self._NEW_TYPE_RE.search(self._line)
       if not match_new:
         print('Invalid attributes section, expected NEW_TYPE: %s' % self._line)
-        return attribute_structs
+        return
       new_type = match_new.group(1)
       self._NextLine()
       current_attribute_struct = AttributeStructure(old_type, new_type)
@@ -1496,9 +1475,7 @@ class StructureParser(object):
         current_attribute_struct.reserved.append(bits)
         self._NextLine()
         match_reserved = self._RESERVED_RE.search(self._line)
-      attribute_structs.append(current_attribute_struct)
       typemap[new_type] = current_attribute_struct
-    return attribute_structs
 
   def _ParseInterfaces(self, typemap):
     """Parses an interface types section.
@@ -1509,23 +1486,19 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of Interface objects.
     """
-    interfaces = []
     self._NextLine()
     while self._END_TOKEN != self._line.rstrip():
       match_old = self._OLD_TYPE_RE.search(self._line)
       if not match_old:
         print('Invalid interfaces section, expected OLD_TYPE: %s' % self._line)
-        return interfaces
+        return
       old_type = match_old.group(1)
       self._NextLine()
       match_new = self._NEW_TYPE_RE.search(self._line)
       if not match_new:
         print('Invalid interfaces section, expected NEW_TYPE: %s' % self._line)
-        return interfaces
+        return
       new_type = match_new.group(1)
       self._NextLine()
       current_interface = Interface(old_type, new_type)
@@ -1545,7 +1518,7 @@ class StructureParser(object):
           match_max = self._MAX_RE.search(self._line)
           if not match_max:
             print('Invalid interfaces section, expected _MAX: %s' % self._line)
-            return interfaces
+            return
           upper = match_max.group(1)
           current_interface.bounds.append((lower, upper))
         elif match_conditional_value:
@@ -1558,9 +1531,7 @@ class StructureParser(object):
           print('Invalid interfaces section: %s' % self._line)
           break
         self._NextLine()
-      interfaces.append(current_interface)
       typemap[new_type] = current_interface
-    return interfaces
 
   def _ParseStructures(self, typemap):
     """Parses a structures section.
@@ -1570,24 +1541,20 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of Structure objects.
     """
-    structures = []
     self._NextLine()
     while  self._END_TOKEN != self._line.rstrip():
       match_structure = self._STRUCTURE_RE.search(self._line)
       if not match_structure:
         print('Invalid structure section, expected _STRUCTURE: %s' % self._line)
-        return structures
+        return
       structure_name = match_structure.group(1)
       current_structure = Structure(structure_name)
       self._NextLine()
       match_type = self._TYPE_RE.search(self._line)
       if not match_type:
         print('Invalid field type: %s' % self._line)
-        return structures
+        return
       while match_type:
         field_type = match_type.group(1)
         self._NextLine()
@@ -1661,15 +1628,13 @@ class StructureParser(object):
           self._NextLine()
         else:
           print('Invalid field name: %s' % self._line)
-          return structures
+          return
         match_type = self._TYPE_RE.search(self._line)
         match_return = self._RETURN_RE.search(self._line)
         if match_return:
           current_structure.error_code = match_return.group(1)
           self._NextLine()
-      structures.append(current_structure)
       typemap[structure_name] = current_structure
-    return structures
 
   def _ParseUnions(self, typemap):
     """Parses a unions section.
@@ -1679,24 +1644,20 @@ class StructureParser(object):
 
     Args:
       typemap: A dictionary to which parsed types are added.
-
-    Returns:
-      A list of Union objects.
     """
-    unions = []
     self._NextLine()
     while  self._END_TOKEN != self._line.rstrip():
       match_union = self._UNION_RE.search(self._line)
       if not match_union:
         print('Invalid structure section, expected _STRUCTURE: %s' % self._line)
-        return unions
+        return
       union_name = match_union.group(1)
       current_union = Union(union_name)
       self._NextLine()
       match_type = self._TYPE_RE.search(self._line)
       if not match_type:
         print('Invalid field type: %s' % self._line)
-        return unions
+        return
       while match_type:
         field_type = match_type.group(1)
         self._NextLine()
@@ -1714,17 +1675,14 @@ class StructureParser(object):
           self._NextLine()
         else:
           print('Invalid field name: %s' % self._line)
-          return unions
+          return
         match_type = self._TYPE_RE.search(self._line)
-      unions.append(current_union)
       typemap[union_name] = current_union
-    return unions
 
-def GenerateHeader(types, typemap):
+def GenerateHeader(typemap):
   """Generates a header file with declarations for all given generator objects.
 
   Args:
-    types: A list of Typedef objects.
     typemap: A dict mapping type names to the corresponding object.
   """
   out_file = open(_OUTPUT_FILE_H, 'w')
@@ -1738,14 +1696,14 @@ def GenerateHeader(types, typemap):
   # Generate serialize / parse function declarations.
   for basic_type in _BASIC_TYPES:
     out_file.write(_STANDARD_MARSHAL_DECLARATION % {'type': basic_type})
-  for tpm_type in types:
+  for tpm_type in [typemap[x] for x in sorted(typemap.keys())]:
     tpm_type.OutputMarshalDecl(out_file, declared_types, typemap)
   out_file.write(_HEADER_FILE_GUARD_FOOTER % {'name': guard_name})
   out_file.close()
   call(['clang-format', '-i', '-style=Chromium', 'tpm_generated.h'])
 
 
-def GenerateImplementation(types, typemap):
+def GenerateImplementation(typemap):
   """Generates implementation code for each type.
 
   Args:
@@ -1758,7 +1716,7 @@ def GenerateImplementation(types, typemap):
   marshalled_types = set(_BASIC_TYPES)
   for basic_type in _BASIC_TYPES:
     out_file.write(_MARSHAL_BASIC_TYPE % {'type': basic_type})
-  for tpm_type in types:
+  for tpm_type in [typemap[x] for x in sorted(typemap.keys())]:
     tpm_type.OutputMarshalImpl(out_file, marshalled_types, typemap)
   out_file.close()
   call(['clang-format', '-i', '-style=Chromium', 'tpm_generated.c'])
