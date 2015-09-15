@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 
 # Copyright 2015 The Chromium OS Authors. All rights reserved.
 # Use of this source code is governed by a BSD-style license that can be
@@ -47,7 +47,8 @@ class TestGenerators(unittest.TestCase):
     """Test generation of marshaling code for attribute structures."""
     marshalled_types = set(['int'])
     typedef = structure_generator.Typedef('int', 'UINT16')
-    attributeStruct = structure_generator.AttributeStructure('UINT16', 'TPM_TYPE')
+    attributeStruct = structure_generator.AttributeStructure(
+        'UINT16', 'TPM_TYPE')
     attributeStruct.reserved.append('4_7')
     attributeStruct.reserved.append('1')
     typemap = {'UINT16': typedef}
@@ -127,7 +128,8 @@ class TestParser(unittest.TestCase):
   """Test structure parser."""
 
   FAKE_TYPEDEF = '_BEGIN_TYPES\n_OLD_TYPE uint16_t\n_NEW_TYPE UINT16\n_END\n'
-  FAKE_CONSTANT = ('_BEGIN_CONSTANTS\n_OLD_TYPE base_type\n_NEW_TYPE const_type\n'
+  FAKE_CONSTANT = ('_BEGIN_CONSTANTS\n_OLD_TYPE base_type\n'
+                   '_NEW_TYPE const_type\n'
                    '_NAME const_name\n_RETURN return_name\n_END\n')
   FAKE_ATT_STRUCT = ('_BEGIN_ATTRIBUTE_STRUCTS\n_OLD_TYPE base_type\n'
                      '_NEW_TYPE att_type\n_RESERVED 4_7\n_RESERVED 9\n_END\n')
@@ -138,7 +140,8 @@ class TestParser(unittest.TestCase):
   FAKE_STRUCTURE = ('_BEGIN_STRUCTURES\n_STRUCTURE struct_type\n_TYPE UINT16\n'
                     '_NAME field1\n_MIN field1 min\n_TYPE UINT16\n'
                     '_NAME field2\n_TYPE UINT16\n_NAME field3 _ARRAY field1\n'
-                    '_MAX field1 max\n_TYPE UINT16\n_NAME field4 _UNION field2\n'
+                    '_MAX field1 max\n'
+                    '_TYPE UINT16\n_NAME field4 _UNION field2\n'
                     '_TYPE interface_type\n_NAME field5 _PLUS\n_END\n')
   FAKE_UNION = ('_BEGIN_UNIONS\n_UNION union_type\n_TYPE field1_type\n'
                 '_NAME field1\n_TYPE field2_type\n_NAME field2\n_END\n')
@@ -163,7 +166,7 @@ class TestParser(unittest.TestCase):
                   self.FAKE_STRUCTURE + self.FAKE_UNION)
     in_file = StringIO.StringIO(input_data)
     parser = structure_generator.StructureParser(in_file)
-    types, typemap = parser.Parse()
+    types, _ = parser.Parse()
     self.assertEqual(len(types), 6)
     self.assertEqual(types[0].old_type, 'uint16_t')
     self.assertEqual(types[0].new_type, 'UINT16')

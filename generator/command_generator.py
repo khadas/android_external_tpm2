@@ -628,7 +628,7 @@ class CommandParser(object):
       if not cmd:
         break
       commands.append(cmd)
-    return sorted(commands, cmp=lambda x,y: cmp(x.name, y.name))
+    return sorted(commands, cmp=lambda x, y: cmp(x.name, y.name))
 
   def _ParseCommand(self):
     """Parses inputs and outputs for a single TPM command.
@@ -716,13 +716,13 @@ def OutputCommandDispatcher(commands):
     out_file.write(_COPYRIGHT_HEADER)
     for command in commands:
       out_file.write(_COMMAND_DISPATCHER_INCLUDES %
-          {'command_name': command.MethodName()})
+                     {'command_name': command.MethodName()})
     out_file.write(_COMMAND_DISPATCHER_START)
     for command in commands:
       command_code = "TPM_CC_" + command.MethodName()
       out_file.write(_COMMAND_DISPATCHER_CASE %
-          {'command_code': command_code,
-           'command_name': command.MethodName()})
+                     {'command_code': command_code,
+                      'command_name': command.MethodName()})
     out_file.write(_COMMAND_DISPATCHER_END)
   call(['clang-format', '-i', '-style=Chromium', 'CommandDispatcher.c'])
 
@@ -740,15 +740,15 @@ def OutputHandleProcess(commands, typemap):
     for command in commands:
       command_code = "TPM_CC_" + command.MethodName()
       out_file.write(_HANDLE_PROCESS_CASE_START %
-          {'command_code': command_code})
+                     {'command_code': command_code})
       for handle in command.GetRequestHandles():
         if typemap[handle['type']].HasConditional():
           out_file.write(_HANDLE_PROCESS_CASE_UNMARSHAL_FLAG %
-              {'handle_type': handle['type'],
-               'flag_val': handle['has_conditional']})
+                         {'handle_type': handle['type'],
+                          'flag_val': handle['has_conditional']})
         else:
           out_file.write(_HANDLE_PROCESS_CASE_UNMARSHAL %
-              {'handle_type': handle['type']})
+                         {'handle_type': handle['type']})
         out_file.write(_HANDLE_PROCESS_CASE_CHECK)
       out_file.write(_HANDLE_PROCESS_CASE_END)
     out_file.write(_HANDLE_PROCESS_END)
@@ -769,7 +769,7 @@ def OutputGetCommandCodeString(commands):
     out_file.write(_GET_COMMAND_CODE_STRING_START)
     for command in commands:
       out_file.write(_GET_COMMAND_CODE_STRING_CASE %
-          {'command_name': command.MethodName()})
+                     {'command_name': command.MethodName()})
     out_file.write(_GET_COMMAND_CODE_STRING_END)
   call(['clang-format', '-i', '-style=Chromium', 'GetCommandCodeString.c'])
 
@@ -803,8 +803,8 @@ def GenerateImplementation(commands, typemap):
     marshal_command_file = 'Marshal_'+command.MethodName()+'.c'
     with open(marshal_command_file, 'w') as out_file:
       out_file.write(_COPYRIGHT_HEADER)
-      out_file.write(
-          _IMPLEMENTATION_FILE_INCLUDES % {'command_name': command.MethodName()})
+      out_file.write(_IMPLEMENTATION_FILE_INCLUDES %
+                     {'command_name': command.MethodName()})
       command.OutputMarshalFunction(out_file, typemap)
       command.OutputUnmarshalFunction(out_file, typemap)
       command.OutputExecFunction(out_file)
