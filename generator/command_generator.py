@@ -628,7 +628,7 @@ class CommandParser(object):
       if not cmd:
         break
       commands.append(cmd)
-    return commands
+    return sorted(commands, cmp=lambda x,y: cmp(x.name, y.name))
 
   def _ParseCommand(self):
     """Parses inputs and outputs for a single TPM command.
