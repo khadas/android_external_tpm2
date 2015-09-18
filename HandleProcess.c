@@ -1090,7 +1090,7 @@ TPM_RC ParseHandleBuffer(TPM_CC command_code,
     case TPM_CC_Quote:
       result = TPMI_DH_OBJECT_Unmarshal(
           (TPMI_DH_OBJECT*)&request_handles[*num_request_handles],
-          request_handle_buffer_start, request_buffer_remaining_size, FALSE);
+          request_handle_buffer_start, request_buffer_remaining_size, TRUE);
       if (result != TPM_RC_SUCCESS) {
         return result;
       }
@@ -1209,9 +1209,9 @@ TPM_RC ParseHandleBuffer(TPM_CC command_code,
 #endif
 #ifdef TPM_CC_SetPrimaryPolicy
     case TPM_CC_SetPrimaryPolicy:
-      result = TPMI_RH_HIERARCHY_Unmarshal(
-          (TPMI_RH_HIERARCHY*)&request_handles[*num_request_handles],
-          request_handle_buffer_start, request_buffer_remaining_size, FALSE);
+      result = TPMI_RH_HIERARCHY_AUTH_Unmarshal(
+          (TPMI_RH_HIERARCHY_AUTH*)&request_handles[*num_request_handles],
+          request_handle_buffer_start, request_buffer_remaining_size);
       if (result != TPM_RC_SUCCESS) {
         return result;
       }

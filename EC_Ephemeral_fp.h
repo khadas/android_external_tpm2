@@ -9,13 +9,9 @@
 
 #include "tpm_generated.h"
 
-typedef struct {
-  UINT32 paramSize;
-  TPMI_ECC_CURVE curveID;
-} EC_Ephemeral_In;
+typedef struct { TPMI_ECC_CURVE curveID; } EC_Ephemeral_In;
 
 typedef struct {
-  UINT32 paramSize_out;
   TPM2B_ECC_POINT Q;
   UINT16 counter;
 } EC_Ephemeral_Out;

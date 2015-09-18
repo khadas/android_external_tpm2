@@ -24,7 +24,6 @@ UINT16 Commit_Out_Marshal(Commit_Out* source,
     UINT32_Marshal(&parameter_size, buffer, size);
   }
   // Marshal response parameters.
-  total_size += UINT32_Marshal(&source->paramSize_out, buffer, size);
   total_size += TPM2B_ECC_POINT_Marshal(&source->K, buffer, size);
   total_size += TPM2B_ECC_POINT_Marshal(&source->L, buffer, size);
   total_size += TPM2B_ECC_POINT_Marshal(&source->E, buffer, size);
@@ -46,10 +45,6 @@ TPM_RC Commit_In_Unmarshal(Commit_In* target,
   // Get request handles from request_handles array.
   target->signHandle = request_handles[0];
   // Unmarshal request parameters.
-  result = UINT32_Unmarshal(&target->paramSize, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   result = TPM2B_ECC_POINT_Unmarshal(&target->P1, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;

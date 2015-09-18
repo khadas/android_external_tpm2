@@ -453,6 +453,14 @@ TPM_RC TPMI_ALG_SYM_OBJECT_Unmarshal(TPMI_ALG_SYM_OBJECT* target,
                                      INT32* size,
                                      BOOL allow_conditioanl_value);
 
+UINT16 TPMI_CAMELLIA_KEY_BITS_Marshal(TPMI_CAMELLIA_KEY_BITS* source,
+                                      BYTE** buffer,
+                                      INT32* size);
+
+TPM_RC TPMI_CAMELLIA_KEY_BITS_Unmarshal(TPMI_CAMELLIA_KEY_BITS* target,
+                                        BYTE** buffer,
+                                        INT32* size);
+
 UINT16 TPM_HANDLE_Marshal(TPM_HANDLE* source, BYTE** buffer, INT32* size);
 
 TPM_RC TPM_HANDLE_Unmarshal(TPM_HANDLE* target, BYTE** buffer, INT32* size);
@@ -866,6 +874,34 @@ TPM_RC TPMS_ECC_POINT_Unmarshal(TPMS_ECC_POINT* target,
                                 BYTE** buffer,
                                 INT32* size);
 
+UINT16 TPMS_EMPTY_Marshal(TPMS_EMPTY* source, BYTE** buffer, INT32* size);
+
+TPM_RC TPMS_EMPTY_Unmarshal(TPMS_EMPTY* target, BYTE** buffer, INT32* size);
+
+UINT16 TPMS_SCHEME_HASH_Marshal(TPMS_SCHEME_HASH* source,
+                                BYTE** buffer,
+                                INT32* size);
+
+TPM_RC TPMS_SCHEME_HASH_Unmarshal(TPMS_SCHEME_HASH* target,
+                                  BYTE** buffer,
+                                  INT32* size);
+
+UINT16 TPMS_ENC_SCHEME_OAEP_Marshal(TPMS_ENC_SCHEME_OAEP* source,
+                                    BYTE** buffer,
+                                    INT32* size);
+
+TPM_RC TPMS_ENC_SCHEME_OAEP_Unmarshal(TPMS_ENC_SCHEME_OAEP* target,
+                                      BYTE** buffer,
+                                      INT32* size);
+
+UINT16 TPMS_ENC_SCHEME_RSAES_Marshal(TPMS_ENC_SCHEME_RSAES* source,
+                                     BYTE** buffer,
+                                     INT32* size);
+
+TPM_RC TPMS_ENC_SCHEME_RSAES_Unmarshal(TPMS_ENC_SCHEME_RSAES* target,
+                                       BYTE** buffer,
+                                       INT32* size);
+
 UINT16 TPMS_KEYEDHASH_PARMS_Marshal(TPMS_KEYEDHASH_PARMS* source,
                                     BYTE** buffer,
                                     INT32* size);
@@ -873,6 +909,22 @@ UINT16 TPMS_KEYEDHASH_PARMS_Marshal(TPMS_KEYEDHASH_PARMS* source,
 TPM_RC TPMS_KEYEDHASH_PARMS_Unmarshal(TPMS_KEYEDHASH_PARMS* target,
                                       BYTE** buffer,
                                       INT32* size);
+
+UINT16 TPMS_KEY_SCHEME_ECDH_Marshal(TPMS_KEY_SCHEME_ECDH* source,
+                                    BYTE** buffer,
+                                    INT32* size);
+
+TPM_RC TPMS_KEY_SCHEME_ECDH_Unmarshal(TPMS_KEY_SCHEME_ECDH* target,
+                                      BYTE** buffer,
+                                      INT32* size);
+
+UINT16 TPMS_KEY_SCHEME_ECMQV_Marshal(TPMS_KEY_SCHEME_ECMQV* source,
+                                     BYTE** buffer,
+                                     INT32* size);
+
+TPM_RC TPMS_KEY_SCHEME_ECMQV_Unmarshal(TPMS_KEY_SCHEME_ECMQV* target,
+                                       BYTE** buffer,
+                                       INT32* size);
 
 UINT16 TPMS_NV_CERTIFY_INFO_Marshal(TPMS_NV_CERTIFY_INFO* source,
                                     BYTE** buffer,
@@ -930,38 +982,6 @@ TPM_RC TPMS_SCHEME_ECDAA_Unmarshal(TPMS_SCHEME_ECDAA* target,
                                    BYTE** buffer,
                                    INT32* size);
 
-UINT16 TPMS_SCHEME_ECDH_Marshal(TPMS_SCHEME_ECDH* source,
-                                BYTE** buffer,
-                                INT32* size);
-
-TPM_RC TPMS_SCHEME_ECDH_Unmarshal(TPMS_SCHEME_ECDH* target,
-                                  BYTE** buffer,
-                                  INT32* size);
-
-UINT16 TPMS_SCHEME_SIGHASH_Marshal(TPMS_SCHEME_SIGHASH* source,
-                                   BYTE** buffer,
-                                   INT32* size);
-
-TPM_RC TPMS_SCHEME_SIGHASH_Unmarshal(TPMS_SCHEME_SIGHASH* target,
-                                     BYTE** buffer,
-                                     INT32* size);
-
-UINT16 TPMS_SCHEME_ECDSA_Marshal(TPMS_SCHEME_ECDSA* source,
-                                 BYTE** buffer,
-                                 INT32* size);
-
-TPM_RC TPMS_SCHEME_ECDSA_Unmarshal(TPMS_SCHEME_ECDSA* target,
-                                   BYTE** buffer,
-                                   INT32* size);
-
-UINT16 TPMS_SCHEME_ECSCHNORR_Marshal(TPMS_SCHEME_ECSCHNORR* source,
-                                     BYTE** buffer,
-                                     INT32* size);
-
-TPM_RC TPMS_SCHEME_ECSCHNORR_Unmarshal(TPMS_SCHEME_ECSCHNORR* target,
-                                       BYTE** buffer,
-                                       INT32* size);
-
 UINT16 TPMS_SCHEME_HMAC_Marshal(TPMS_SCHEME_HMAC* source,
                                 BYTE** buffer,
                                 INT32* size);
@@ -978,11 +998,11 @@ TPM_RC TPMS_SCHEME_KDF1_SP800_108_Unmarshal(TPMS_SCHEME_KDF1_SP800_108* target,
                                             BYTE** buffer,
                                             INT32* size);
 
-UINT16 TPMS_SCHEME_KDF1_SP800_56a_Marshal(TPMS_SCHEME_KDF1_SP800_56a* source,
+UINT16 TPMS_SCHEME_KDF1_SP800_56A_Marshal(TPMS_SCHEME_KDF1_SP800_56A* source,
                                           BYTE** buffer,
                                           INT32* size);
 
-TPM_RC TPMS_SCHEME_KDF1_SP800_56a_Unmarshal(TPMS_SCHEME_KDF1_SP800_56a* target,
+TPM_RC TPMS_SCHEME_KDF1_SP800_56A_Unmarshal(TPMS_SCHEME_KDF1_SP800_56A* target,
                                             BYTE** buffer,
                                             INT32* size);
 
@@ -1001,38 +1021,6 @@ UINT16 TPMS_SCHEME_MGF1_Marshal(TPMS_SCHEME_MGF1* source,
 TPM_RC TPMS_SCHEME_MGF1_Unmarshal(TPMS_SCHEME_MGF1* target,
                                   BYTE** buffer,
                                   INT32* size);
-
-UINT16 TPMS_SCHEME_OAEP_Marshal(TPMS_SCHEME_OAEP* source,
-                                BYTE** buffer,
-                                INT32* size);
-
-TPM_RC TPMS_SCHEME_OAEP_Unmarshal(TPMS_SCHEME_OAEP* target,
-                                  BYTE** buffer,
-                                  INT32* size);
-
-UINT16 TPMS_SCHEME_RSAPSS_Marshal(TPMS_SCHEME_RSAPSS* source,
-                                  BYTE** buffer,
-                                  INT32* size);
-
-TPM_RC TPMS_SCHEME_RSAPSS_Unmarshal(TPMS_SCHEME_RSAPSS* target,
-                                    BYTE** buffer,
-                                    INT32* size);
-
-UINT16 TPMS_SCHEME_RSASSA_Marshal(TPMS_SCHEME_RSASSA* source,
-                                  BYTE** buffer,
-                                  INT32* size);
-
-TPM_RC TPMS_SCHEME_RSASSA_Unmarshal(TPMS_SCHEME_RSASSA* target,
-                                    BYTE** buffer,
-                                    INT32* size);
-
-UINT16 TPMS_SCHEME_SM2_Marshal(TPMS_SCHEME_SM2* source,
-                               BYTE** buffer,
-                               INT32* size);
-
-TPM_RC TPMS_SCHEME_SM2_Unmarshal(TPMS_SCHEME_SM2* target,
-                                 BYTE** buffer,
-                                 INT32* size);
 
 UINT16 TPMS_SCHEME_XOR_Marshal(TPMS_SCHEME_XOR* source,
                                BYTE** buffer,
@@ -1058,6 +1046,22 @@ TPM_RC TPMS_SESSION_AUDIT_INFO_Unmarshal(TPMS_SESSION_AUDIT_INFO* target,
                                          BYTE** buffer,
                                          INT32* size);
 
+UINT16 TPMS_SIGNATURE_ECC_Marshal(TPMS_SIGNATURE_ECC* source,
+                                  BYTE** buffer,
+                                  INT32* size);
+
+TPM_RC TPMS_SIGNATURE_ECC_Unmarshal(TPMS_SIGNATURE_ECC* target,
+                                    BYTE** buffer,
+                                    INT32* size);
+
+UINT16 TPMS_SIGNATURE_ECDAA_Marshal(TPMS_SIGNATURE_ECDAA* source,
+                                    BYTE** buffer,
+                                    INT32* size);
+
+TPM_RC TPMS_SIGNATURE_ECDAA_Unmarshal(TPMS_SIGNATURE_ECDAA* target,
+                                      BYTE** buffer,
+                                      INT32* size);
+
 UINT16 TPMS_SIGNATURE_ECDSA_Marshal(TPMS_SIGNATURE_ECDSA* source,
                                     BYTE** buffer,
                                     INT32* size);
@@ -1065,6 +1069,22 @@ UINT16 TPMS_SIGNATURE_ECDSA_Marshal(TPMS_SIGNATURE_ECDSA* source,
 TPM_RC TPMS_SIGNATURE_ECDSA_Unmarshal(TPMS_SIGNATURE_ECDSA* target,
                                       BYTE** buffer,
                                       INT32* size);
+
+UINT16 TPMS_SIGNATURE_ECSCHNORR_Marshal(TPMS_SIGNATURE_ECSCHNORR* source,
+                                        BYTE** buffer,
+                                        INT32* size);
+
+TPM_RC TPMS_SIGNATURE_ECSCHNORR_Unmarshal(TPMS_SIGNATURE_ECSCHNORR* target,
+                                          BYTE** buffer,
+                                          INT32* size);
+
+UINT16 TPMS_SIGNATURE_RSA_Marshal(TPMS_SIGNATURE_RSA* source,
+                                  BYTE** buffer,
+                                  INT32* size);
+
+TPM_RC TPMS_SIGNATURE_RSA_Unmarshal(TPMS_SIGNATURE_RSA* target,
+                                    BYTE** buffer,
+                                    INT32* size);
 
 UINT16 TPMS_SIGNATURE_RSAPSS_Marshal(TPMS_SIGNATURE_RSAPSS* source,
                                      BYTE** buffer,
@@ -1081,6 +1101,62 @@ UINT16 TPMS_SIGNATURE_RSASSA_Marshal(TPMS_SIGNATURE_RSASSA* source,
 TPM_RC TPMS_SIGNATURE_RSASSA_Unmarshal(TPMS_SIGNATURE_RSASSA* target,
                                        BYTE** buffer,
                                        INT32* size);
+
+UINT16 TPMS_SIGNATURE_SM2_Marshal(TPMS_SIGNATURE_SM2* source,
+                                  BYTE** buffer,
+                                  INT32* size);
+
+TPM_RC TPMS_SIGNATURE_SM2_Unmarshal(TPMS_SIGNATURE_SM2* target,
+                                    BYTE** buffer,
+                                    INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_ECDAA_Marshal(TPMS_SIG_SCHEME_ECDAA* source,
+                                     BYTE** buffer,
+                                     INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_ECDAA_Unmarshal(TPMS_SIG_SCHEME_ECDAA* target,
+                                       BYTE** buffer,
+                                       INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_ECDSA_Marshal(TPMS_SIG_SCHEME_ECDSA* source,
+                                     BYTE** buffer,
+                                     INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_ECDSA_Unmarshal(TPMS_SIG_SCHEME_ECDSA* target,
+                                       BYTE** buffer,
+                                       INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_ECSCHNORR_Marshal(TPMS_SIG_SCHEME_ECSCHNORR* source,
+                                         BYTE** buffer,
+                                         INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_ECSCHNORR_Unmarshal(TPMS_SIG_SCHEME_ECSCHNORR* target,
+                                           BYTE** buffer,
+                                           INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_RSAPSS_Marshal(TPMS_SIG_SCHEME_RSAPSS* source,
+                                      BYTE** buffer,
+                                      INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_RSAPSS_Unmarshal(TPMS_SIG_SCHEME_RSAPSS* target,
+                                        BYTE** buffer,
+                                        INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_RSASSA_Marshal(TPMS_SIG_SCHEME_RSASSA* source,
+                                      BYTE** buffer,
+                                      INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_RSASSA_Unmarshal(TPMS_SIG_SCHEME_RSASSA* target,
+                                        BYTE** buffer,
+                                        INT32* size);
+
+UINT16 TPMS_SIG_SCHEME_SM2_Marshal(TPMS_SIG_SCHEME_SM2* source,
+                                   BYTE** buffer,
+                                   INT32* size);
+
+TPM_RC TPMS_SIG_SCHEME_SM2_Unmarshal(TPMS_SIG_SCHEME_SM2* target,
+                                     BYTE** buffer,
+                                     INT32* size);
 
 UINT16 TPMS_SYMCIPHER_PARMS_Marshal(TPMS_SYMCIPHER_PARMS* source,
                                     BYTE** buffer,
@@ -1360,6 +1436,16 @@ TPM_RC TPMU_SIG_SCHEME_Unmarshal(TPMU_SIG_SCHEME* target,
                                  INT32* size,
                                  UINT32 selector);
 
+UINT16 TPMU_SYM_DETAILS_Marshal(TPMU_SYM_DETAILS* source,
+                                BYTE** buffer,
+                                INT32* size,
+                                UINT32 selector);
+
+TPM_RC TPMU_SYM_DETAILS_Unmarshal(TPMU_SYM_DETAILS* target,
+                                  BYTE** buffer,
+                                  INT32* size,
+                                  UINT32 selector);
+
 UINT16 TPMU_SYM_KEY_BITS_Marshal(TPMU_SYM_KEY_BITS* source,
                                  BYTE** buffer,
                                  INT32* size,
@@ -1449,6 +1535,10 @@ UINT16 TPM_PARAMETER_SIZE_Marshal(TPM_PARAMETER_SIZE* source,
 TPM_RC TPM_PARAMETER_SIZE_Unmarshal(TPM_PARAMETER_SIZE* target,
                                     BYTE** buffer,
                                     INT32* size);
+
+UINT16 TPM_PS_Marshal(TPM_PS* source, BYTE** buffer, INT32* size);
+
+TPM_RC TPM_PS_Unmarshal(TPM_PS* target, BYTE** buffer, INT32* size);
 
 UINT16 TPM_PT_Marshal(TPM_PT* source, BYTE** buffer, INT32* size);
 
