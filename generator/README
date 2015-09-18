@@ -2,68 +2,22 @@
 TPM2 CODE GENERATION
 ********************
 
-Code generation scripts for libtpm2 were taken from src/platform2/trunks and
-modified to generate code appropriate for libtpm2 (in particular, generated
-code needs to be C as opposed to C++).
+Code generation scripts for libtpm2 process TCG TPM2 library specification in
+HTML form and generate the appropriate type definitions and interface code.
+
 
 ====================
  TPM SPECIFICATION
 ====================
 
 See http://www.trustedcomputinggroup.org.  This version of libtpm2 is based on
-TPM 2.0 rev 00.99.
+Family TPM 2.0 Level 00 Revision 01.16.
 
---- Structures ---
-raw_structures.txt
-raw_structures_fixed.txt
+Parts 2,3 and 4 of the specification were converted from PDF into HTML using
+Adobe Acrobat editor, and tarred and zipped into TPM2_Parts_2_3_4.tgz.
 
-This file is a direct PDF scrape* of 'Part 2 - Structures'.  The '_fixed'
-version includes some manual fixes to make processing easier.
-
---- Commands ---
-raw_commands.txt
-raw_commands_fixed.txt
-
-This file is a direct PDF scrape* of 'Part 3 - Commands'.  The '_fixed' version
-includes some manual fixes to make processing easier.
-
----
-*Scraping for this version of trunks used Poppler's pdftotext utility v0.18.4.
-
-====================
-      SCRIPTS
-====================
-
--------- extract_structures.sh ---------
-
-Extracts structured information about typedefs, constants types, attribute
-structures, interface types, structures, and unions from
-raw_structures_fixed.txt. The output of this script (structures.txt) is intended
-to be parsed by structure_generator.py.
-
---------- extract_commands.sh ----------
-
-Extracts structured information about commands from from raw_commands_fixed.txt.
-The output of this script (commands.txt) is intended to be parsed by
-command_generator.py.
-
--------- structure_generator.py --------
-
-Generates C marshaling and unmarshaling code for TPM structures. Value
-validation code as defined in 'Part 2 - Structures' is generated alongside
-unmarshaling code. Input must be formatted as by the extract_structures.sh
-script.
-
-output files: tpm_generated.{c,h}
-
---------- command_generator.py ---------
-
-Generates C code to marshal TPM command responses, unmarshal TPM requests, parse
-the handle buffer, and dispatch and execute a command. Input must be formatted
-as by the extract_commands.sh script.
-
-output files: Marshal_$COMMAND.c, $COMMAND_fp.h, CommandDispatcher.c,
-              HandleProcess.c, GetCommandCodeString.{c,h}
+Note that presently the scripts still do not process part4, and ignore all
+source code included in part 3.
 
 =========================================
       REGENERATING TPM2 SOURCE CODE
@@ -71,4 +25,9 @@ output files: Marshal_$COMMAND.c, $COMMAND_fp.h, CommandDispatcher.c,
 
 Run this command in the root tpm2 directory:
 
-$ generator/generator.py generator/structures.txt generator/commands.txt
+$ generator/generator.py generator/TPM2_Parts_2_3_4.tgz
+
+The generator can also be invoked with separate html files as command line
+arguments:
+
+$ generator/generator.py <part2>.html <part3>.html
