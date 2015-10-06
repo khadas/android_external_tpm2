@@ -613,6 +613,44 @@ class Table(object):
     else:
       self._ProcessTypedefs(type_name)
 
+  def _StructOrUnionToHfile(self, body_fields, type_name, union_mode, tpm_obj):
+    body_lines = []
+    for field in body_fields:
+      tpm_obj.AddField(field)
+      body_lines.append([field.field_type, field.field_name])
+      if field.array_size:
+        body_lines[-1][-1] += '[%s]' % field.array_size
+      if field.selector_value:
+        body_lines[-1].append(field.selector_value)
+    max_type_len, _ = self._GetMaxLengths(body_lines)
+    tpm2b_mode = type_name.startswith('TPM2B_')
+    space_prefix = ''
+    if union_mode:
+      self._AddToHfile('typedef union {')
+    else:
+      if tpm2b_mode:
+        self._AddToHfile('typedef union {')
+        space_prefix = '  '
+        self._AddToHfile('  struct {')
+      else:
+        self._AddToHfile('typedef struct {')
+    for line in body_lines:
+      guard_required = len(line) > 2 and line[2].startswith('TPM_ALG_')
+      if not line[1]:
+        continue
+      if guard_required:
+        self._AddToHfile('#ifdef %s' % line[2])
+      self._AddToHfile(space_prefix + '  %-*s  %s;' % (
+          max_type_len, line[0], line[1]))
+      if guard_required:
+        self._AddToHfile('#endif')
+    if tpm2b_mode:
+      self._AddToHfile('  } t;')
+      self._AddToHfile('  TPM2B b;')
+    self._AddToHfile('} %s;\n' % type_name)
+    self._type_map[type_name] = tpm_obj
+
+
   def _ProcessStructureOrUnion(self, type_name):
     """Processes spec tables describing structure and unions.
 
@@ -693,34 +731,7 @@ class Table(object):
                                  selector=selector,
                                  conditional_value=conditional))
 
-    body_lines = []
-    for field in body_fields:
-      tpm_obj.AddField(field)
-      body_lines.append([field.field_type, field.field_name])
-      if field.array_size:
-        body_lines[-1][-1] += '[%s]' % field.array_size
-    max_type_len, _ = self._GetMaxLengths(body_lines)
-    tpm2b_mode = type_name.startswith('TPM2B_')
-    space_prefix = ''
-    if union_mode:
-      self._AddToHfile('typedef union {')
-    else:
-      if tpm2b_mode:
-        self._AddToHfile('typedef union {')
-        space_prefix = '  '
-        self._AddToHfile('  struct {')
-      else:
-        self._AddToHfile('typedef struct {')
-    for line in body_lines:
-      if not line[1]:
-        continue
-      self._AddToHfile(space_prefix + '  %-*s  %s;' % (
-          max_type_len, line[0], line[1]))
-    if tpm2b_mode:
-      self._AddToHfile('  } t;')
-      self._AddToHfile('  TPM2B b;')
-    self._AddToHfile('} %s;\n' % type_name)
-    self._type_map[type_name] = tpm_obj
+    self._StructOrUnionToHfile(body_fields, type_name, union_mode, tpm_obj)
 
   def _ProcessEnum(self, _):
     """Processes spec tables describing enums."""
