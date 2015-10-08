@@ -42,9 +42,12 @@ TPM_RC SequenceComplete_In_Unmarshal(SequenceComplete_In* target,
   TPM_RC result = TPM_RC_SUCCESS;
   // Get request handles from request_handles array.
   target->sequenceHandle = request_handles[0];
-  target->hierarchy = request_handles[1];
   // Unmarshal request parameters.
   result = TPM2B_MAX_BUFFER_Unmarshal(&target->buffer, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }

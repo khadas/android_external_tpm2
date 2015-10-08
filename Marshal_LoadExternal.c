@@ -41,14 +41,16 @@ TPM_RC LoadExternal_In_Unmarshal(LoadExternal_In* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result = TPM_RC_SUCCESS;
-  // Get request handles from request_handles array.
-  target->hierarchy = request_handles[0];
   // Unmarshal request parameters.
   result = TPM2B_SENSITIVE_Unmarshal(&target->inPrivate, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
   result = TPM2B_PUBLIC_Unmarshal(&target->inPublic, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
