@@ -2206,18 +2206,6 @@ TPM_RC TPMI_ALG_RSA_SCHEME_Unmarshal(TPMI_ALG_RSA_SCHEME* target,
 #ifdef TPM_ALG_RSAPSS
     case TPM_ALG_RSAPSS:
 #endif
-#ifdef TPM_ALG_ECDSA
-    case TPM_ALG_ECDSA:
-#endif
-#ifdef TPM_ALG_ECDAA
-    case TPM_ALG_ECDAA:
-#endif
-#ifdef TPM_ALG_SM2
-    case TPM_ALG_SM2:
-#endif
-#ifdef TPM_ALG_ECSCHNORR
-    case TPM_ALG_ECSCHNORR:
-#endif
       has_valid_value = TRUE;
       break;
   }
@@ -2926,12 +2914,6 @@ TPM_RC TPMI_ALG_ECC_SCHEME_Unmarshal(TPMI_ALG_ECC_SCHEME* target,
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SCHEME;
   }
   switch (*target) {
-#ifdef TPM_ALG_RSASSA
-    case TPM_ALG_RSASSA:
-#endif
-#ifdef TPM_ALG_RSAPSS
-    case TPM_ALG_RSAPSS:
-#endif
 #ifdef TPM_ALG_ECDSA
     case TPM_ALG_ECDSA:
 #endif
