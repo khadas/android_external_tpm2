@@ -7,15 +7,7 @@
 #ifndef TPM2_TPM_TYPES_H_
 #define TPM2_TPM_TYPES_H_
 // Unprocessed: Table 1  Name Prefix Convention
-// Table 2  Unmarshaling Errors
-enum {
-  TPM_RC_INSUFFICIENT = 1,
-  TPM_RC_RESERVED = 2,
-  TPM_RC_SIZE = 3,
-  TPM_RC_VALUE = 4,
-  TPM_RC_TAG = 5,
-};
-
+// Skipped: Table 2  Unmarshaling Errors
 // Table 3  Definition of Base Types
 typedef uint8_t UINT8;
 typedef uint8_t BYTE;
