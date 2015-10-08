@@ -15,7 +15,7 @@ TPM_RC PolicyCommandCode_In_Unmarshal(PolicyCommandCode_In* target,
   // Get request handles from request_handles array.
   target->policySession = request_handles[0];
   // Unmarshal request parameters.
-  result = TPM_CC_Unmarshal(&target->code, buffer, size);
+  result = UINT32_Unmarshal(&target->code, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
