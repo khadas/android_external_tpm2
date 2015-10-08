@@ -1027,6 +1027,7 @@ UINT16 %(name)s_Marshal(
     BYTE **buffer,
     INT32 *size,
     UINT32 selector) {
+  %(array_extras)s
   switch(selector) {"""
   _UNION_UNMARSHAL_START = """
 TPM_RC %(name)s_Unmarshal(
@@ -1199,10 +1200,13 @@ TPM_RC %(type)s_Unmarshal(
         typemap[field_type].OutputMarshalImpl(
             out_file, marshalled_types, typemap)
         marshalled_types.add(field_type)
-    out_file.write(self._UNION_MARSHAL_START % {'name': self.name})
-    # Set up variables if Union is an array type.
     if self.fields[0].array_size:
-      out_file.write(self._SETUP_MARSHAL_FIELD_ARRAY)
+      array_extras = self._SETUP_MARSHAL_FIELD_ARRAY
+    else:
+      array_extras = ''
+    out_file.write(self._UNION_MARSHAL_START % {'name': self.name,
+                                                'array_extras': array_extras})
+    # Set up variables if Union is an array type.
     for field in self.fields:
       selector = field.selector_value
       if not selector:
