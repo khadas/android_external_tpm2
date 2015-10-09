@@ -366,7 +366,7 @@ const ECC_CURVE    eccCurves[] = {
 #   undef comma
 #   define comma ,
 #endif // ECC_NIST_P256
-#if defined ECC_NIST_P384 && ECC_NIST_P384 == YES
+#if defined ECC_NIST_P384 && ECC_NIST_P384 == YES && ALG_SHA384 == YES
    comma
    {TPM_ECC_NIST_P384,
    384,
