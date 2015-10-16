@@ -280,14 +280,6 @@ CRYPT_RESULT _cpri__GenerateKeyRSA(
   return CRYPT_FAIL;
 }
 
-UINT16 _cpri__GenerateRandom(
-  INT32 randomSize,
-  BYTE * buffer)
-{
-  ecprintf("%s called\n", __func__);
-  return randomSize;
-}
-
 UINT16 _cpri__GenerateSeededRandom(
   INT32 randomSize,             //   IN: the size of the request
   BYTE * random,                //   OUT: receives the data
