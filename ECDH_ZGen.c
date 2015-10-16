@@ -33,7 +33,7 @@ TPM2_ECDH_ZGen(
 
    // Input key must be a non-restricted, decrypt ECC key
    if(   eccKey->publicArea.type != TPM_ALG_ECC)
-       return TPM_RCS_KEY + RC_ECDH_ZGen_keyHandle;
+       return TPM_RC_KEY + RC_ECDH_ZGen_keyHandle;
 
    if(     eccKey->publicArea.objectAttributes.restricted == SET
       ||   eccKey->publicArea.objectAttributes.decrypt != SET

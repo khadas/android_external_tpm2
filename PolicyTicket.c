@@ -40,7 +40,7 @@ TPM2_PolicyTicket(
    // should use the intended authorization for which the ticket
    // would be a substitute.
    if(session->attributes.isTrialPolicy)
-       return TPM_RCS_ATTRIBUTES + RC_PolicyTicket_policySession;
+       return TPM_RC_ATTRIBUTES + RC_PolicyTicket_policySession;
 
    // Restore timeout data. The format of timeout buffer is TPM-specific.
    // In this implementation, we simply copy the value of timeout to the

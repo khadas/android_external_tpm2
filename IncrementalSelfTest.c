@@ -28,6 +28,6 @@ TPM2_IncrementalSelfTest(
    // not implemented.
    result = CryptIncrementalSelfTest(&in->toTest, &out->toDoList);
    if(result == TPM_RC_VALUE)
-       return TPM_RCS_VALUE + RC_IncrementalSelfTest_toTest;
+       return TPM_RC_VALUE + RC_IncrementalSelfTest_toTest;
    return result;
 }

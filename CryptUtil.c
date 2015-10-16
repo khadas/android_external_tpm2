@@ -3464,7 +3464,7 @@ CryptVerifySignature(
 #endif // TPM_ALG_ECC
     case TPM_ALG_KEYEDHASH:
         if(authObject->attributes.publicOnly)
-             result = TPM_RCS_HANDLE;
+             result = TPM_RC_HANDLE;
         else
              result = CryptHMACVerifySignature(authObject, digest, signature);
         break;

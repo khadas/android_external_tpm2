@@ -106,11 +106,11 @@ TPM2_Import(
        // If input symmetric algorithm is NULL, input symmetric key size must
        // be 0 as well
        if(in->encryptionKey.t.size != 0)
-           return TPM_RCS_SIZE + RC_Import_encryptionKey;
+           return TPM_RC_SIZE + RC_Import_encryptionKey;
        // If encryptedDuplication is SET, then the object must have an inner
        // wrapper
        if(in->objectPublic.t.publicArea.objectAttributes.encryptedDuplication)
-           return TPM_RCS_ATTRIBUTES + RC_Import_encryptionKey;
+           return TPM_RC_ATTRIBUTES + RC_Import_encryptionKey;
    }
 
    // See if there is an outer wrapper
@@ -131,7 +131,7 @@ TPM2_Import(
        // If encrytpedDuplication is set, then the object must have an outer
        // wrapper
        if(in->objectPublic.t.publicArea.objectAttributes.encryptedDuplication)
-           return TPM_RCS_ATTRIBUTES + RC_Import_inSymSeed;
+           return TPM_RC_ATTRIBUTES + RC_Import_inSymSeed;
        data.t.size = 0;
    }
 
