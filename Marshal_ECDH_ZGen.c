@@ -46,6 +46,9 @@ TPM_RC ECDH_ZGen_In_Unmarshal(ECDH_ZGen_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

@@ -41,6 +41,9 @@ TPM_RC ContextSave_In_Unmarshal(ContextSave_In* target,
   TPM_RC result = TPM_RC_SUCCESS;
   // Get request handles from request_handles array.
   target->saveHandle = request_handles[0];
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

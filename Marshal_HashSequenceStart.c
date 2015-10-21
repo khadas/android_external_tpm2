@@ -48,6 +48,9 @@ TPM_RC HashSequenceStart_In_Unmarshal(HashSequenceStart_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

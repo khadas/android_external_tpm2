@@ -15,6 +15,9 @@ TPM_RC NV_UndefineSpaceSpecial_In_Unmarshal(NV_UndefineSpaceSpecial_In* target,
   // Get request handles from request_handles array.
   target->nvIndex = request_handles[0];
   target->platform = request_handles[1];
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

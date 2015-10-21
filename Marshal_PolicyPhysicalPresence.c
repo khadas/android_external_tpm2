@@ -14,6 +14,9 @@ TPM_RC PolicyPhysicalPresence_In_Unmarshal(PolicyPhysicalPresence_In* target,
   TPM_RC result = TPM_RC_SUCCESS;
   // Get request handles from request_handles array.
   target->policySession = request_handles[0];
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

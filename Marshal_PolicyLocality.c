@@ -19,6 +19,9 @@ TPM_RC PolicyLocality_In_Unmarshal(PolicyLocality_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 
