@@ -5,9 +5,25 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
-#include <time.h>
 #include "PlatformData.h"
 #include "Platform.h"
+
+#ifdef __linux__
+
+#include <sys/time.h>
+// Function clock() does not provide accurate wall clock time on linux, let's
+// substitite it with our own caclulations.
+//
+// Return current wall clock modulo milliseconds.
+static UINT64 clock(void)
+{
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return (UINT64)tv.tv_sec * 1000 + tv.tv_usec / 1000;
+}
+#else
+#include <time.h>
+#endif
 //
 //
 //          Functions
