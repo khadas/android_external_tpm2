@@ -9,7 +9,7 @@
 UINT16 uint8_t_Marshal(uint8_t* source, BYTE** buffer, INT32* size) {
   uint8_t value_net = *source;
   if (!size || *size < sizeof(uint8_t)) {
-    return sizeof(uint8_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(uint8_t)) {
     case 2:
@@ -57,7 +57,7 @@ TPM_RC uint8_t_Unmarshal(uint8_t* target, BYTE** buffer, INT32* size) {
 UINT16 int8_t_Marshal(int8_t* source, BYTE** buffer, INT32* size) {
   int8_t value_net = *source;
   if (!size || *size < sizeof(int8_t)) {
-    return sizeof(int8_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(int8_t)) {
     case 2:
@@ -105,7 +105,7 @@ TPM_RC int8_t_Unmarshal(int8_t* target, BYTE** buffer, INT32* size) {
 UINT16 uint16_t_Marshal(uint16_t* source, BYTE** buffer, INT32* size) {
   uint16_t value_net = *source;
   if (!size || *size < sizeof(uint16_t)) {
-    return sizeof(uint16_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(uint16_t)) {
     case 2:
@@ -153,7 +153,7 @@ TPM_RC uint16_t_Unmarshal(uint16_t* target, BYTE** buffer, INT32* size) {
 UINT16 int16_t_Marshal(int16_t* source, BYTE** buffer, INT32* size) {
   int16_t value_net = *source;
   if (!size || *size < sizeof(int16_t)) {
-    return sizeof(int16_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(int16_t)) {
     case 2:
@@ -201,7 +201,7 @@ TPM_RC int16_t_Unmarshal(int16_t* target, BYTE** buffer, INT32* size) {
 UINT16 uint32_t_Marshal(uint32_t* source, BYTE** buffer, INT32* size) {
   uint32_t value_net = *source;
   if (!size || *size < sizeof(uint32_t)) {
-    return sizeof(uint32_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(uint32_t)) {
     case 2:
@@ -249,7 +249,7 @@ TPM_RC uint32_t_Unmarshal(uint32_t* target, BYTE** buffer, INT32* size) {
 UINT16 int32_t_Marshal(int32_t* source, BYTE** buffer, INT32* size) {
   int32_t value_net = *source;
   if (!size || *size < sizeof(int32_t)) {
-    return sizeof(int32_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(int32_t)) {
     case 2:
@@ -297,7 +297,7 @@ TPM_RC int32_t_Unmarshal(int32_t* target, BYTE** buffer, INT32* size) {
 UINT16 uint64_t_Marshal(uint64_t* source, BYTE** buffer, INT32* size) {
   uint64_t value_net = *source;
   if (!size || *size < sizeof(uint64_t)) {
-    return sizeof(uint64_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(uint64_t)) {
     case 2:
@@ -345,7 +345,7 @@ TPM_RC uint64_t_Unmarshal(uint64_t* target, BYTE** buffer, INT32* size) {
 UINT16 int64_t_Marshal(int64_t* source, BYTE** buffer, INT32* size) {
   int64_t value_net = *source;
   if (!size || *size < sizeof(int64_t)) {
-    return sizeof(int64_t);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(int64_t)) {
     case 2:
