@@ -40,12 +40,12 @@ TPM2_EncryptDecrypt(
 
    // If the input mode is TPM_ALG_NULL, use the key's mode
    if( in->mode == TPM_ALG_NULL)
-       in->mode = symKey->publicArea.parameters.symDetail.mode.sym;
+       in->mode = symKey->publicArea.parameters.symDetail.sym.mode.sym;
 
    // If the key is restricted, the input symmetric mode should match the key's
    // symmetric mode
    if(   symKey->publicArea.objectAttributes.restricted == SET
-      && symKey->publicArea.parameters.symDetail.mode.sym != in->mode)
+      && symKey->publicArea.parameters.symDetail.sym.mode.sym != in->mode)
        return TPM_RC_VALUE + RC_EncryptDecrypt_mode;
 
    // If the mode is null, then we have a problem.
@@ -58,8 +58,8 @@ TPM2_EncryptDecrypt(
    // The input iv for ECB mode should be null. All the other modes should
    // have an iv size same as encryption block size
 
-   keySize = symKey->publicArea.parameters.symDetail.keyBits.sym;
-   alg = symKey->publicArea.parameters.symDetail.algorithm;
+   keySize = symKey->publicArea.parameters.symDetail.sym.keyBits.sym;
+   alg = symKey->publicArea.parameters.symDetail.sym.algorithm;
    blockSize = CryptGetSymmetricBlockSize(alg, keySize);
    if(   (in->mode == TPM_ALG_ECB && in->ivIn.t.size != 0)
       || (in->mode != TPM_ALG_ECB && in->ivIn.t.size != blockSize))
