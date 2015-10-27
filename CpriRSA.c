@@ -486,6 +486,12 @@ OaepDecode(
        if(*pm++ != 0)
            break;
    }
+
+   // Magic value in the end of the fill area must be 1, anything else must be
+   // rejected.
+   if (pm[-1] != 1)
+     return CRYPT_FAIL;
+
    if(i == 0)
        return CRYPT_PARAMETER;
    // pm should be pointing at the first part of the data
