@@ -1286,7 +1286,7 @@ typedef TPM_ECC_CURVE TPMI_ECC_CURVE;
 // Table 166  Definition of TPMT_ECC_SCHEME Structure
 typedef struct {
   TPMI_ALG_ECC_SCHEME  scheme;
-  TPMU_SIG_SCHEME      details;
+  TPMU_ASYM_SCHEME     details;
 } TPMT_ECC_SCHEME;
 
 // Table 167  Definition of TPMS_ALGORITHM_DETAIL_ECC Structure <  OUT>
@@ -1435,7 +1435,7 @@ typedef union {
   TPMS_KEYEDHASH_PARMS  keyedHashDetail;
 #endif
 #ifdef TPM_ALG_SYMCIPHER
-  TPMT_SYM_DEF_OBJECT   symDetail;
+  TPMS_SYMCIPHER_PARMS  symDetail;
 #endif
 #ifdef TPM_ALG_RSA
   TPMS_RSA_PARMS        rsaDetail;
