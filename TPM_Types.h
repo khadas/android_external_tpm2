@@ -1428,6 +1428,11 @@ enum {
         RC_Unseal_itemHandle,
         RC_VerifySignature_keyHandle,
         RC_VerifySignature_signature,
+        RC_ZGen_2Phase_counter,
+        RC_ZGen_2Phase_inQeB,
+        RC_ZGen_2Phase_inQsB,
+        RC_ZGen_2Phase_inScheme,
+        RC_ZGen_2Phase_keyA,
 };
 
 enum {
