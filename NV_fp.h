@@ -77,6 +77,10 @@ TPM_RC NvWriteIndexData(
         UINT32                    size,                 //   IN: size of NV data
         void                     *data                  //   OUT: data buffer
         );
+TPM_RC NvWriteIndexInfo(
+        TPMI_RH_NV_INDEX            handle,                // IN: handle
+        NV_INDEX                   *nvIndex                // IN: NV Index info to be written
+        );
 void NvWriteReserved(
         NV_RESERVE   type,              // IN: type of reserved data
         void        *buffer             // IN: data buffer
