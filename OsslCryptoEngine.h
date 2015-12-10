@@ -13,7 +13,7 @@
 #include <openssl/ec.h>
 #include <openssl/rand.h>
 #include <openssl/bn.h>
-#include <openSSL/ec_lcl.h>
+//#include <openSSL/ec_lcl.h>
 #define     CRYPTO_ENGINE
 #include "CryptoEngine.h"
 #include "CpriMisc_fp.h"
