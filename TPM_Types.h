@@ -1097,6 +1097,7 @@ typedef union {
                 UINT16      size;
                 TPMT_PUBLIC publicArea;
         } t;
+       TPM2B     b;
 } TPM2B_PUBLIC;
 
 // Table 185 - TPM2B_PRIVATE_VENDOR_SPECIFIC Structure

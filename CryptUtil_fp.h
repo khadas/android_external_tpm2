@@ -242,6 +242,12 @@ TPM_RC CryptNewEccKey(
         TPMS_ECC_POINT                  *publicPoint,           // OUT: public point
         TPM2B_ECC_PARAMETER             *sensitive              // OUT: private area
                       );
+BOOL CryptObjectIsPublicConsistent(
+        TPMT_PUBLIC         *publicArea           // IN: public area
+        );
+TPM_RC CryptObjectPublicPrivateMatch(
+        OBJECT              *object                // IN: the object to check
+        );
 TPM_RC CryptSecretDecrypt(
         TPM_HANDLE      tpmKey,               // IN: decrypt key
         TPM2B_NONCE     *nonceCaller,         // IN: nonceCaller. It is needed for
@@ -274,6 +280,17 @@ LIB_EXPORT UINT16 CryptStartHMAC2B(
         HMAC_STATE         *hmacState           // OUT: the state of HMAC stack. It will be used
                                             //     in HMAC update and completion
                                    );
+UINT16 CryptStartHMACSequence2B(
+        TPMI_ALG_HASH       hashAlg,            // IN: hash algorithm
+        TPM2B              *key,                // IN: HMAC key
+        HMAC_STATE         *hmacState           // OUT: the state of HMAC stack. It will be used
+        //     in HMAC update and completion
+        );
+UINT16 CryptStartHashSequence(
+        TPMI_ALG_HASH       hashAlg,            // IN: hash algorithm
+        HASH_STATE         *hashState           // OUT: the state of hash stack. It will be used
+        //     in hash update and completion
+        );
 void CryptStopUnits(
         void
         );
