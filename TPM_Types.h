@@ -33,6 +33,9 @@ typedef UINT32 TPM_GENERATED;
 
 // Table 7 - TPM_ALG_ID Constants
 typedef UINT16 TPM_ALG_ID;
+//
+// NOTE: Comment some algo which has same name as TPM1.2 (value is same, so not runtime issue)
+//
 
 // Table 15 - TPM_RC Constants (Actions)
 typedef UINT32 TPM_RC;
@@ -1060,6 +1063,10 @@ enum {
         RC_ECDH_KeyGen_keyHandle,
         RC_ECDH_ZGen_keyHandle,
         RC_ECDH_ZGen_inPoint,
+        RC_EncryptDecrypt_inData,
+        RC_EncryptDecrypt_ivIn,
+        RC_EncryptDecrypt_keyHandle,
+        RC_EncryptDecrypt_mode,
 };
 
 enum {
