@@ -12,9 +12,24 @@ LIB_EXPORT UINT16 _cpri__CompleteHash(
         UINT32                   dOutSize,              // IN: size of digest buffer
         BYTE                    *dOut                   // OUT: hash digest
 );
+LIB_EXPORT UINT16 _cpri__CopyHashState (
+        CPRI_HASH_STATE         *out,                  // OUT: destination of the state
+        CPRI_HASH_STATE         *in                    // IN: source of the state
+);
+LIB_EXPORT UINT16 _cpri__HashBlock(
+        TPM_ALG_ID         hashAlg,            //   IN: The hash algorithm
+        UINT32             dataSize,           //   IN: size of buffer to hash
+        BYTE              *data,               //   IN: the buffer to hash
+        UINT32             digestSize,         //   IN: size of the digest buffer
+        BYTE              *digest              //   OUT: hash digest
+);
 LIB_EXPORT BOOL _cpri__HashStartup(void);
 LIB_EXPORT UINT16 _cpri__GetDigestSize(
         TPM_ALG_ID           hashAlg               // IN: hash algorithm to look up
+);
+LIB_EXPORT UINT16 _cpri__GetHashDER(
+        TPM_ALG_ID           hashAlg,            // IN: the algorithm to look up
+        const BYTE          **p
 );
 LIB_EXPORT UINT16 _cpri__KDFa(
         TPM_ALG_ID          hashAlg,             //   IN: hash algorithm used in HMAC
@@ -30,6 +45,22 @@ LIB_EXPORT UINT16 _cpri__KDFa(
         BOOL                once                 //   IN: TRUE if only one iteration is performed
                                              //       FALSE if iteration count determined by
                                              //       "sizeInBits"
+);
+LIB_EXPORT CRYPT_RESULT _cpri__MGF1(
+        UINT32              mSize,          //   IN: length of the mask to be produced
+        BYTE               *mask,           //   OUT: buffer to receive the mask
+        TPM_ALG_ID          hashAlg,        //   IN: hash to use
+        UINT32              sSize,          //   IN: size of the seed
+        BYTE               *seed            //   IN: seed size
+);
+LIB_EXPORT UINT16 _cpri__StartHMAC(
+        TPM_ALG_ID              hashAlg,          //   IN: the algorithm to use
+        BOOL                    sequence,         //   IN: indicates if the state should be
+                                                //       saved
+        CPRI_HASH_STATE        *state,            //   IN/OUT: the state buffer
+        UINT16                  keySize,          //   IN: the size of the HMAC key
+        BYTE                   *key,              //   IN: the HMAC key
+        TPM2B                  *oPadKey           //   OUT: the key prepared for the oPad round
 );
 LIB_EXPORT UINT16 _cpri__StartHash(
         TPM_ALG_ID               hashAlg,              // IN: hash algorithm

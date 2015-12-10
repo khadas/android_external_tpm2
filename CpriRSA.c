@@ -5,6 +5,8 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include <string.h>
+
 #include "OsslCryptoEngine.h"
 #ifdef TPM_ALG_RSA
 //
@@ -26,7 +28,7 @@
 //                                       divisible by the prime, or no private exponent could be computed
 //                                       from the input parameters
 //
-static CRYPT_RESULT
+CRYPT_RESULT
 RsaPrivateExponent(
    RSA_KEY             *key                  // IN: the key to augment with the private
                                              //     exponent
@@ -787,7 +789,7 @@ RSASSA_Encode(
    BYTE               *hIn               //   IN: hash buffer
    )
 {
-   BYTE               *der;
+   const BYTE         *der;
    INT32               derSize = _cpri__GetHashDER(hashAlg, &der);
    INT32               fillSize;
    pAssert(eOut != NULL && hIn != NULL);
@@ -836,7 +838,7 @@ RSASSA_Decode(
    )
 {
    BOOL                fail = FALSE;
-   BYTE               *der;
+   const BYTE         *der;
    INT32               derSize = _cpri__GetHashDER(hashAlg, &der);
    INT32               hashSize = _cpri__GetDigestSize(hashAlg);
    INT32               fillSize;
