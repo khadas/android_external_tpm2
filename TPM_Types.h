@@ -820,6 +820,8 @@ enum {
         RC_ActivateCredential_credentialBlob,
         RC_ActivateCredential_keyHandle,
         RC_ActivateCredential_secret,
+        RC_Certify_inScheme,
+        RC_Certify_signHandle,
 };
 
 #endif // __TPM2_TPM_TYPES_H

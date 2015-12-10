@@ -10,6 +10,10 @@
 OBJECT* ObjectGet(
         TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
+UINT16 ObjectGetName(
+        TPMI_DH_OBJECT       handle,            // IN: handle of the object
+        NAME                *name               // OUT: name of the object
+);
 void ObjectGetQualifiedName(
         TPMI_DH_OBJECT       handle,            // IN: handle of the object
         TPM2B_NAME          *qualifiedName      // OUT: qualified name of the object
