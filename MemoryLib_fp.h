@@ -24,6 +24,9 @@ LIB_EXPORT void MemoryMove(
         UINT32             size,                 //   IN: number of octets to moved
         UINT32             dSize                 //   IN: size of the receive buffer
                            );
+UINT16 MemoryRemoveTrailingZeros (
+        TPM2B_AUTH        *auth               // IN/OUT: value to adjust
+);
 LIB_EXPORT void MemorySet(
     void                 *destination,           // OUT: memory destination
     char                  value,                 // IN: fill value

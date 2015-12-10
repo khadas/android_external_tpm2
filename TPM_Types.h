@@ -568,6 +568,20 @@ TPM2B_TYPE(SYM_KEY, MAX_SYM_KEY_BYTES);
 // Table 129 - TPM2B_SENSITIVE_DATA Structure
 TPM2B_TYPE(SENSITIVE_DATA, MAX_SYM_DATA);
 
+// Table 130 - TPMS_SENSITIVE_CREATE Structure
+typedef struct {
+  TPM2B_AUTH           userAuth;
+  TPM2B_SENSITIVE_DATA data;
+} TPMS_SENSITIVE_CREATE;
+
+// Table 131 - TPM2B_SENSITIVE_CREATE Structure
+typedef union {
+        struct {
+                UINT16                size;
+                TPMS_SENSITIVE_CREATE sensitive;
+        } t;
+} TPM2B_SENSITIVE_CREATE;
+
 // Table 132 - TPMS_SCHEME_SIGHASH Structure
 typedef struct {
   TPMI_ALG_HASH hashAlg;
@@ -856,6 +870,14 @@ typedef struct {
   TPMU_PUBLIC_ID    unique;
 } TPMT_PUBLIC;
 
+// Table 184 - TPM2B_PUBLIC Structure
+typedef union {
+        struct {
+                UINT16      size;
+                TPMT_PUBLIC publicArea;
+        } t;
+} TPM2B_PUBLIC;
+
 // Table 185 - TPM2B_PRIVATE_VENDOR_SPECIFIC Structure
 TPM2B_TYPE(PRIVATE_VENDOR_SPECIFIC, PRIVATE_VENDOR_SPECIFIC_BYTES);
 
@@ -875,6 +897,22 @@ typedef struct {
   TPM2B_DIGEST             seedValue;
   TPMU_SENSITIVE_COMPOSITE sensitive;
 } TPMT_SENSITIVE;
+
+// Table 188 - TPM2B_SENSITIVE Structure
+typedef struct {
+  UINT16         size;
+  TPMT_SENSITIVE sensitiveArea;
+} TPM2B_SENSITIVE;
+
+// Table 189 - _PRIVATE Structure
+typedef struct {
+  TPM2B_DIGEST   integrityOuter;
+  TPM2B_DIGEST   integrityInner;
+  TPMT_SENSITIVE sensitive;
+} _PRIVATE;
+
+// Table 190 - TPM2B_PRIVATE Structure
+TPM2B_TYPE(PRIVATE, sizeof(_PRIVATE));
 
 // Table 191 - _ID_OBJECT Structure
 typedef struct {
@@ -934,7 +972,7 @@ typedef struct {
 } TPMS_CONTEXT_DATA;
 
 // Table 200 - TPM2B_CONTEXT_DATA Structure
-TPM2B_TYPE(CONTEXT_DATA,sizeof(TPMS_CONTEXT_DATA));
+TPM2B_TYPE(CONTEXT_DATA, sizeof(TPMS_CONTEXT_DATA));
 
 // Table 201 - TPMS_CONTEXT Structure
 typedef struct {
@@ -943,6 +981,22 @@ typedef struct {
   TPMI_RH_HIERARCHY  hierarchy;
   TPM2B_CONTEXT_DATA contextBlob;
 } TPMS_CONTEXT;
+
+// 15 Creation Data
+
+// Table 203 - TPMS_CREATION_DATA Structure
+typedef struct {
+  TPML_PCR_SELECTION pcrSelect;
+  TPM2B_DIGEST       pcrDigest;
+  TPMA_LOCALITY      locality;
+  TPM_ALG_ID         parentNameAlg;
+  TPM2B_NAME         parentName;
+  TPM2B_NAME         parentQualifiedName;
+  TPM2B_DATA         outsideInfo;
+} TPMS_CREATION_DATA;
+
+// Table 204 - TPM2B_CREATION_DATA Structure
+TPM2B_TYPE(CREATION_DATA, sizeof(TPMS_CREATION_DATA));
 
 //
 // Unknown defines to be investigated and resolved
@@ -962,6 +1016,9 @@ enum {
         RC_Commit_signHandle,
         RC_Commit_y2,
         RC_ContextLoad_context,
+        RC_Create_inPublic,
+        RC_Create_inSensitive,
+        RC_Create_parentHandle,
 };
 
 #endif // __TPM2_TPM_TYPES_H
