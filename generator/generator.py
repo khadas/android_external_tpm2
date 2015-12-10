@@ -30,15 +30,14 @@ def main():
   args = parser.parse_args()
   structure_parser = structure_generator.StructureParser(
       open(args.structures_file))
-  _, typemap = structure_parser.Parse()
-  types = [typemap[x] for x in sorted(typemap.keys())]
+  typemap = structure_parser.Parse()
   command_parser = command_generator.CommandParser(open(args.commands_file))
   commands = command_parser.Parse()
-  structure_generator.GenerateHeader(types, typemap)
-  structure_generator.GenerateImplementation(types, typemap)
+  structure_generator.GenerateHeader(typemap)
+  structure_generator.GenerateImplementation(typemap)
   command_generator.GenerateHeader(commands)
   command_generator.GenerateImplementation(commands, typemap)
-  print('Processed %d TPM types.' % len(types))
+  print('Processed %d TPM types.' % len(typemap))
   print('Processed %d commands.' % len(commands))
 
 if __name__ == '__main__':
