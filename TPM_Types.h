@@ -1057,10 +1057,12 @@ enum {
         RC_Duplicate_objectHandle,
         RC_Duplicate_symmetricAlg,
         RC_ECC_Parameters_curveID,
+        RC_ECDH_KeyGen_keyHandle,
 };
 
 enum {
         TPM_RCS_HANDLE,
+        TPM_RCS_KEY,
 };
 
 #endif // __TPM2_TPM_TYPES_H
