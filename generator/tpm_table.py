@@ -651,7 +651,12 @@ class Table(object):
                 tpm_obj.AddLowerBound(value, lower)
       if self._has_selector_column:
         selector = row[2]
-      field_type = row[1].strip('+')
+      field_type = row[1]
+      if field_type.startswith('+') or field_type.endswith('+'):
+        field_type = field_type.strip('+')
+        conditional = 'TRUE'
+      else:
+        conditional = 'FALSE'
       if type_name in field_fixes and field_type in field_fixes[type_name]:
         field_type = field_fixes[type_name][field_type]
       if field_type or value:
@@ -659,7 +664,8 @@ class Table(object):
                                  value,
                                  array_size=array_size,
                                  run_time_size=run_time_size,
-                                 selector=selector))
+                                 selector=selector,
+                                 conditional_value=conditional))
 
     body_lines = []
     for field in body_fields:
