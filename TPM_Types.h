@@ -1299,6 +1299,9 @@ enum {
         RC_NV_UndefineSpace_nvIndex,
         RC_NV_UndefineSpaceSpecial_nvIndex,
         RC_NV_WriteLock_nvIndex,
+        RC_ObjectChangeAuth_newAuth,
+        RC_ObjectChangeAuth_objectHandle,
+        RC_ObjectChangeAuth_parentHandle,
 };
 
 enum {
