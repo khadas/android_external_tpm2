@@ -79,7 +79,6 @@ SOURCES += Locality.c
 SOURCES += LocalityPlat.c
 SOURCES += MakeCredential.c
 SOURCES += Manufacture.c
-SOURCES += Marshal.c
 SOURCES += MathFunctions.c
 SOURCES += MemoryLib.c
 SOURCES += NV.c
