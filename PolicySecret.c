@@ -57,7 +57,7 @@ TPM2_PolicySecret(
 
 // Internal Data Update
    // Need the name of the authorizing entity
-   entityName.t.size = EntityGetName(in->authHandle, &entityName.t.name);
+   entityName.t.size = EntityGetName(in->authHandle, &entityName.t.buffer);
 
    // Update policy context with input policyRef and name of auth key
    // This value is computed even for trial sessions. Possibly update the cpHash
@@ -81,7 +81,7 @@ TPM2_PolicySecret(
        // used has the side-effect of making the returned value a big-endian,
        // 64-bit value that is byte aligned.
        out->timeout.t.size = sizeof(UINT64);
-       UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
+       (void)UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
 
        // Compute policy ticket
        TicketComputeAuth(TPM_ST_AUTH_SECRET, EntityGetHierarchy(in->authHandle),

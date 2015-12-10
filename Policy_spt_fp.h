@@ -15,5 +15,15 @@ void PolicyContextUpdate(
         UINT64              policyTimeout,
         SESSION            *session          // IN/OUT: policy session to be updated
         );
+TPM_RC PolicyParameterChecks(
+        SESSION          *session,
+        UINT64            authTimeout,
+        TPM2B_DIGEST     *cpHashA,
+        TPM2B_NONCE      *nonce,
+        TPM_RC            nonceParameterNumber,
+        TPM_RC            cpHashParameterNumber,
+        TPM_RC            expirationParameterNumber
+        );
 
 #endif // __TPM2_POLICY_SPT_FP_H_
+
