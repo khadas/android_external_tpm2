@@ -141,6 +141,9 @@ INT16 CryptGetSymmetricBlockSize(
         TPMI_ALG_SYM         algorithm,           // IN: symmetric algorithm
         UINT16               keySize              // IN: key size in bit
                                  );
+TPM_RC CryptGetTestResult(
+        TPM2B_MAX_BUFFER            *outData                 // OUT: test result data
+);
 LIB_EXPORT UINT16 CryptHashBlock(
         TPM_ALG_ID          algId,               //   IN: the hash algorithm to use
         UINT16              blockSize,           //   IN: size of the data block
