@@ -5512,9 +5512,9 @@ UINT16 TPMU_HA_Marshal(TPMU_HA* source,
                        BYTE** buffer,
                        INT32* size,
                        UINT32 selector) {
+  INT32 i;
+  UINT16 total_size = 0;
   switch (selector) {
-    INT32 i;
-    UINT16 total_size = 0;
 #ifdef TPM_ALG_SHA
     case TPM_ALG_SHA:
       for (i = 0; i < SHA_DIGEST_SIZE; ++i) {
