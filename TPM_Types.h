@@ -547,6 +547,13 @@ typedef struct {
   TPM2B_DIGEST      digest;
 } TPMT_TK_CREATION;
 
+// Table 87 - TPMT_TK_HASHCHECK Structure
+typedef struct {
+  TPM_ST            tag;
+  TPMI_RH_HIERARCHY hierarchy;
+  TPM2B_DIGEST      digest;
+} TPMT_TK_HASHCHECK;
+
 // Table 88 - TPMS_ALG_PROPERTY Structure
 typedef struct {
   TPM_ALG_ID     alg;
