@@ -7,10 +7,10 @@
 #include "tpm_generated.h"
 
 UINT16 uint8_t_Marshal(uint8_t* source, BYTE** buffer, INT32* size) {
+  uint8_t value_net = *source;
   if (!size || *size < sizeof(uint8_t)) {
     return sizeof(uint8_t);
   }
-  uint8_t value_net = *source;
   switch (sizeof(uint8_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -31,10 +31,10 @@ UINT16 uint8_t_Marshal(uint8_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC uint8_t_Unmarshal(uint8_t* target, BYTE** buffer, INT32* size) {
+  uint8_t value_net = 0;
   if (!size || *size < sizeof(uint8_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  uint8_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(uint8_t));
   switch (sizeof(uint8_t)) {
     case 2:
@@ -55,10 +55,10 @@ TPM_RC uint8_t_Unmarshal(uint8_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 int8_t_Marshal(int8_t* source, BYTE** buffer, INT32* size) {
+  int8_t value_net = *source;
   if (!size || *size < sizeof(int8_t)) {
     return sizeof(int8_t);
   }
-  int8_t value_net = *source;
   switch (sizeof(int8_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -79,10 +79,10 @@ UINT16 int8_t_Marshal(int8_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC int8_t_Unmarshal(int8_t* target, BYTE** buffer, INT32* size) {
+  int8_t value_net = 0;
   if (!size || *size < sizeof(int8_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  int8_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(int8_t));
   switch (sizeof(int8_t)) {
     case 2:
@@ -103,10 +103,10 @@ TPM_RC int8_t_Unmarshal(int8_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 uint16_t_Marshal(uint16_t* source, BYTE** buffer, INT32* size) {
+  uint16_t value_net = *source;
   if (!size || *size < sizeof(uint16_t)) {
     return sizeof(uint16_t);
   }
-  uint16_t value_net = *source;
   switch (sizeof(uint16_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -127,10 +127,10 @@ UINT16 uint16_t_Marshal(uint16_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC uint16_t_Unmarshal(uint16_t* target, BYTE** buffer, INT32* size) {
+  uint16_t value_net = 0;
   if (!size || *size < sizeof(uint16_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  uint16_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(uint16_t));
   switch (sizeof(uint16_t)) {
     case 2:
@@ -151,10 +151,10 @@ TPM_RC uint16_t_Unmarshal(uint16_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 int16_t_Marshal(int16_t* source, BYTE** buffer, INT32* size) {
+  int16_t value_net = *source;
   if (!size || *size < sizeof(int16_t)) {
     return sizeof(int16_t);
   }
-  int16_t value_net = *source;
   switch (sizeof(int16_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -175,10 +175,10 @@ UINT16 int16_t_Marshal(int16_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC int16_t_Unmarshal(int16_t* target, BYTE** buffer, INT32* size) {
+  int16_t value_net = 0;
   if (!size || *size < sizeof(int16_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  int16_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(int16_t));
   switch (sizeof(int16_t)) {
     case 2:
@@ -199,10 +199,10 @@ TPM_RC int16_t_Unmarshal(int16_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 uint32_t_Marshal(uint32_t* source, BYTE** buffer, INT32* size) {
+  uint32_t value_net = *source;
   if (!size || *size < sizeof(uint32_t)) {
     return sizeof(uint32_t);
   }
-  uint32_t value_net = *source;
   switch (sizeof(uint32_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -223,10 +223,10 @@ UINT16 uint32_t_Marshal(uint32_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC uint32_t_Unmarshal(uint32_t* target, BYTE** buffer, INT32* size) {
+  uint32_t value_net = 0;
   if (!size || *size < sizeof(uint32_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  uint32_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(uint32_t));
   switch (sizeof(uint32_t)) {
     case 2:
@@ -247,10 +247,10 @@ TPM_RC uint32_t_Unmarshal(uint32_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 int32_t_Marshal(int32_t* source, BYTE** buffer, INT32* size) {
+  int32_t value_net = *source;
   if (!size || *size < sizeof(int32_t)) {
     return sizeof(int32_t);
   }
-  int32_t value_net = *source;
   switch (sizeof(int32_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -271,10 +271,10 @@ UINT16 int32_t_Marshal(int32_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC int32_t_Unmarshal(int32_t* target, BYTE** buffer, INT32* size) {
+  int32_t value_net = 0;
   if (!size || *size < sizeof(int32_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  int32_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(int32_t));
   switch (sizeof(int32_t)) {
     case 2:
@@ -295,10 +295,10 @@ TPM_RC int32_t_Unmarshal(int32_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 uint64_t_Marshal(uint64_t* source, BYTE** buffer, INT32* size) {
+  uint64_t value_net = *source;
   if (!size || *size < sizeof(uint64_t)) {
     return sizeof(uint64_t);
   }
-  uint64_t value_net = *source;
   switch (sizeof(uint64_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -319,10 +319,10 @@ UINT16 uint64_t_Marshal(uint64_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC uint64_t_Unmarshal(uint64_t* target, BYTE** buffer, INT32* size) {
+  uint64_t value_net = 0;
   if (!size || *size < sizeof(uint64_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  uint64_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(uint64_t));
   switch (sizeof(uint64_t)) {
     case 2:
@@ -343,10 +343,10 @@ TPM_RC uint64_t_Unmarshal(uint64_t* target, BYTE** buffer, INT32* size) {
 }
 
 UINT16 int64_t_Marshal(int64_t* source, BYTE** buffer, INT32* size) {
+  int64_t value_net = *source;
   if (!size || *size < sizeof(int64_t)) {
     return sizeof(int64_t);
   }
-  int64_t value_net = *source;
   switch (sizeof(int64_t)) {
     case 2:
       value_net = htobe16(*source);
@@ -367,10 +367,10 @@ UINT16 int64_t_Marshal(int64_t* source, BYTE** buffer, INT32* size) {
 }
 
 TPM_RC int64_t_Unmarshal(int64_t* target, BYTE** buffer, INT32* size) {
+  int64_t value_net = 0;
   if (!size || *size < sizeof(int64_t)) {
     return TPM_RC_INSUFFICIENT;
   }
-  int64_t value_net = 0;
   memcpy(&value_net, *buffer, sizeof(int64_t));
   switch (sizeof(int64_t)) {
     case 2:
@@ -540,8 +540,8 @@ TPM_RC TPM_HANDLE_Unmarshal(TPM_HANDLE* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPM2B_DIGEST_Marshal(TPM2B_DIGEST* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -552,6 +552,7 @@ TPM_RC TPM2B_DIGEST_Unmarshal(TPM2B_DIGEST* target,
                               BYTE** buffer,
                               INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -562,7 +563,6 @@ TPM_RC TPM2B_DIGEST_Unmarshal(TPM2B_DIGEST* target,
   if (target->t.size > sizeof(TPMU_HA)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -809,6 +809,7 @@ TPM_RC TPMI_ALG_HASH_Unmarshal(TPMI_ALG_HASH* target,
                                INT32* size,
                                BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -816,7 +817,6 @@ TPM_RC TPMI_ALG_HASH_Unmarshal(TPMI_ALG_HASH* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_HASH;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_SHA1
     case TPM_ALG_SHA1:
@@ -2898,11 +2898,11 @@ UINT16 TPMI_YES_NO_Marshal(TPMI_YES_NO* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPMI_YES_NO_Unmarshal(TPMI_YES_NO* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = BYTE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case NO:
     case YES:
@@ -2926,6 +2926,7 @@ TPM_RC TPMI_DH_OBJECT_Unmarshal(TPMI_DH_OBJECT* target,
                                 INT32* size,
                                 BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -2933,7 +2934,6 @@ TPM_RC TPMI_DH_OBJECT_Unmarshal(TPMI_DH_OBJECT* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= TRANSIENT_FIRST) && (*target <= TRANSIENT_LAST)) {
     has_valid_value = TRUE;
   }
@@ -2956,11 +2956,11 @@ TPM_RC TPMI_DH_PERSISTENT_Unmarshal(TPMI_DH_PERSISTENT* target,
                                     BYTE** buffer,
                                     INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= PERSISTENT_FIRST) && (*target <= PERSISTENT_LAST)) {
     has_valid_value = TRUE;
   }
@@ -2981,6 +2981,7 @@ TPM_RC TPMI_DH_ENTITY_Unmarshal(TPMI_DH_ENTITY* target,
                                 INT32* size,
                                 BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -2988,7 +2989,6 @@ TPM_RC TPMI_DH_ENTITY_Unmarshal(TPMI_DH_ENTITY* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
     case TPM_RH_ENDORSEMENT:
@@ -3024,6 +3024,7 @@ TPM_RC TPMI_DH_PCR_Unmarshal(TPMI_DH_PCR* target,
                              INT32* size,
                              BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3031,7 +3032,6 @@ TPM_RC TPMI_DH_PCR_Unmarshal(TPMI_DH_PCR* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= PCR_FIRST) && (*target <= PCR_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3052,6 +3052,7 @@ TPM_RC TPMI_SH_AUTH_SESSION_Unmarshal(TPMI_SH_AUTH_SESSION* target,
                                       INT32* size,
                                       BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3059,7 +3060,6 @@ TPM_RC TPMI_SH_AUTH_SESSION_Unmarshal(TPMI_SH_AUTH_SESSION* target,
   if (*target == TPM_RS_PW) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= HMAC_SESSION_FIRST) && (*target <= HMAC_SESSION_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3080,11 +3080,11 @@ TPM_RC TPMI_SH_HMAC_Unmarshal(TPMI_SH_HMAC* target,
                               BYTE** buffer,
                               INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= HMAC_SESSION_FIRST) && (*target <= HMAC_SESSION_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3104,11 +3104,11 @@ TPM_RC TPMI_SH_POLICY_Unmarshal(TPMI_SH_POLICY* target,
                                 BYTE** buffer,
                                 INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= POLICY_SESSION_FIRST) && (*target <= POLICY_SESSION_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3128,11 +3128,11 @@ TPM_RC TPMI_DH_CONTEXT_Unmarshal(TPMI_DH_CONTEXT* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= HMAC_SESSION_FIRST) && (*target <= HMAC_SESSION_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3159,6 +3159,7 @@ TPM_RC TPMI_RH_HIERARCHY_Unmarshal(TPMI_RH_HIERARCHY* target,
                                    INT32* size,
                                    BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3166,7 +3167,6 @@ TPM_RC TPMI_RH_HIERARCHY_Unmarshal(TPMI_RH_HIERARCHY* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
     case TPM_RH_PLATFORM:
@@ -3191,6 +3191,7 @@ TPM_RC TPMI_RH_ENABLES_Unmarshal(TPMI_RH_ENABLES* target,
                                  INT32* size,
                                  BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3198,7 +3199,6 @@ TPM_RC TPMI_RH_ENABLES_Unmarshal(TPMI_RH_ENABLES* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
     case TPM_RH_PLATFORM:
@@ -3223,11 +3223,11 @@ TPM_RC TPMI_RH_HIERARCHY_AUTH_Unmarshal(TPMI_RH_HIERARCHY_AUTH* target,
                                         BYTE** buffer,
                                         INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
     case TPM_RH_PLATFORM:
@@ -3252,11 +3252,11 @@ TPM_RC TPMI_RH_PLATFORM_Unmarshal(TPMI_RH_PLATFORM* target,
                                   BYTE** buffer,
                                   INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_PLATFORM:
       has_valid_value = TRUE;
@@ -3279,6 +3279,7 @@ TPM_RC TPMI_RH_OWNER_Unmarshal(TPMI_RH_OWNER* target,
                                INT32* size,
                                BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3286,7 +3287,6 @@ TPM_RC TPMI_RH_OWNER_Unmarshal(TPMI_RH_OWNER* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
       has_valid_value = TRUE;
@@ -3309,6 +3309,7 @@ TPM_RC TPMI_RH_ENDORSEMENT_Unmarshal(TPMI_RH_ENDORSEMENT* target,
                                      INT32* size,
                                      BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3316,7 +3317,6 @@ TPM_RC TPMI_RH_ENDORSEMENT_Unmarshal(TPMI_RH_ENDORSEMENT* target,
   if (*target == TPM_RH_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_ENDORSEMENT:
       has_valid_value = TRUE;
@@ -3338,11 +3338,11 @@ TPM_RC TPMI_RH_PROVISION_Unmarshal(TPMI_RH_PROVISION* target,
                                    BYTE** buffer,
                                    INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_OWNER:
     case TPM_RH_PLATFORM:
@@ -3365,11 +3365,11 @@ TPM_RC TPMI_RH_CLEAR_Unmarshal(TPMI_RH_CLEAR* target,
                                BYTE** buffer,
                                INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_LOCKOUT:
     case TPM_RH_PLATFORM:
@@ -3392,11 +3392,11 @@ TPM_RC TPMI_RH_NV_AUTH_Unmarshal(TPMI_RH_NV_AUTH* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_PLATFORM:
     case TPM_RH_OWNER:
@@ -3422,11 +3422,11 @@ TPM_RC TPMI_RH_LOCKOUT_Unmarshal(TPMI_RH_LOCKOUT* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_RH_LOCKOUT:
       has_valid_value = TRUE;
@@ -3448,11 +3448,11 @@ TPM_RC TPMI_RH_NV_INDEX_Unmarshal(TPMI_RH_NV_INDEX* target,
                                   BYTE** buffer,
                                   INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   if ((*target >= NV_INDEX_FIRST) && (*target <= NV_INDEX_LAST)) {
     has_valid_value = TRUE;
   }
@@ -3473,6 +3473,7 @@ TPM_RC TPMI_ALG_ASYM_Unmarshal(TPMI_ALG_ASYM* target,
                                INT32* size,
                                BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3480,7 +3481,6 @@ TPM_RC TPMI_ALG_ASYM_Unmarshal(TPMI_ALG_ASYM* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_ASYMMETRIC;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_RSA
     case TPM_ALG_RSA:
@@ -3506,6 +3506,7 @@ TPM_RC TPMI_ALG_SYM_Unmarshal(TPMI_ALG_SYM* target,
                               INT32* size,
                               BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3513,7 +3514,6 @@ TPM_RC TPMI_ALG_SYM_Unmarshal(TPMI_ALG_SYM* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SYMMETRIC;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_AES
     case TPM_ALG_AES:
@@ -3544,6 +3544,7 @@ TPM_RC TPMI_ALG_SYM_OBJECT_Unmarshal(TPMI_ALG_SYM_OBJECT* target,
                                      INT32* size,
                                      BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3551,7 +3552,6 @@ TPM_RC TPMI_ALG_SYM_OBJECT_Unmarshal(TPMI_ALG_SYM_OBJECT* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SYMMETRIC;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_AES
     case TPM_ALG_AES:
@@ -3579,6 +3579,7 @@ TPM_RC TPMI_ALG_SYM_MODE_Unmarshal(TPMI_ALG_SYM_MODE* target,
                                    INT32* size,
                                    BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3586,7 +3587,6 @@ TPM_RC TPMI_ALG_SYM_MODE_Unmarshal(TPMI_ALG_SYM_MODE* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_MODE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_CTR
     case TPM_ALG_CTR:
@@ -3621,6 +3621,7 @@ TPM_RC TPMI_ALG_KDF_Unmarshal(TPMI_ALG_KDF* target,
                               INT32* size,
                               BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3628,7 +3629,6 @@ TPM_RC TPMI_ALG_KDF_Unmarshal(TPMI_ALG_KDF* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_KDF;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_MGF1
     case TPM_ALG_MGF1:
@@ -3662,6 +3662,7 @@ TPM_RC TPMI_ALG_SIG_SCHEME_Unmarshal(TPMI_ALG_SIG_SCHEME* target,
                                      INT32* size,
                                      BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3669,7 +3670,6 @@ TPM_RC TPMI_ALG_SIG_SCHEME_Unmarshal(TPMI_ALG_SIG_SCHEME* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SCHEME;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_RSASSA
     case TPM_ALG_RSASSA:
@@ -3712,6 +3712,7 @@ TPM_RC TPMI_ECC_KEY_EXCHANGE_Unmarshal(TPMI_ECC_KEY_EXCHANGE* target,
                                        INT32* size,
                                        BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3719,7 +3720,6 @@ TPM_RC TPMI_ECC_KEY_EXCHANGE_Unmarshal(TPMI_ECC_KEY_EXCHANGE* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SCHEME;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_ECDH
     case TPM_ALG_ECDH:
@@ -3749,11 +3749,11 @@ TPM_RC TPMI_ST_COMMAND_TAG_Unmarshal(TPMI_ST_COMMAND_TAG* target,
                                      BYTE** buffer,
                                      INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ST_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_ST_NO_SESSIONS:
     case TPM_ST_SESSIONS:
@@ -3776,11 +3776,11 @@ TPM_RC TPMI_ST_ATTEST_Unmarshal(TPMI_ST_ATTEST* target,
                                 BYTE** buffer,
                                 INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ST_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
     case TPM_ST_ATTEST_CERTIFY:
     case TPM_ST_ATTEST_QUOTE:
@@ -3808,14 +3808,14 @@ TPM_RC TPMI_AES_KEY_BITS_Unmarshal(TPMI_AES_KEY_BITS* target,
                                    BYTE** buffer,
                                    INT32* size) {
   TPM_RC result;
-  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   uint16_t supported_values[] = AES_KEY_SIZES_BITS;
   size_t length = sizeof(supported_values) / sizeof(supported_values[0]);
   size_t i;
   BOOL is_supported_value = FALSE;
+  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
   for (i = 0; i < length; ++i) {
     if (*target == supported_values[i]) {
       is_supported_value = TRUE;
@@ -3838,14 +3838,14 @@ TPM_RC TPMI_SM4_KEY_BITS_Unmarshal(TPMI_SM4_KEY_BITS* target,
                                    BYTE** buffer,
                                    INT32* size) {
   TPM_RC result;
-  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   uint16_t supported_values[] = SM4_KEY_SIZES_BITS;
   size_t length = sizeof(supported_values) / sizeof(supported_values[0]);
   size_t i;
   BOOL is_supported_value = FALSE;
+  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
   for (i = 0; i < length; ++i) {
     if (*target == supported_values[i]) {
       is_supported_value = TRUE;
@@ -3869,6 +3869,7 @@ TPM_RC TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(TPMI_ALG_KEYEDHASH_SCHEME* target,
                                            INT32* size,
                                            BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3876,7 +3877,6 @@ TPM_RC TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(TPMI_ALG_KEYEDHASH_SCHEME* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_HMAC
     case TPM_ALG_HMAC:
@@ -3904,6 +3904,7 @@ TPM_RC TPMI_ALG_ASYM_SCHEME_Unmarshal(TPMI_ALG_ASYM_SCHEME* target,
                                       INT32* size,
                                       BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3911,7 +3912,6 @@ TPM_RC TPMI_ALG_ASYM_SCHEME_Unmarshal(TPMI_ALG_ASYM_SCHEME* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_RSASSA
     case TPM_ALG_RSASSA:
@@ -3957,6 +3957,7 @@ TPM_RC TPMI_ALG_RSA_SCHEME_Unmarshal(TPMI_ALG_RSA_SCHEME* target,
                                      INT32* size,
                                      BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -3964,7 +3965,6 @@ TPM_RC TPMI_ALG_RSA_SCHEME_Unmarshal(TPMI_ALG_RSA_SCHEME* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_RSASSA
     case TPM_ALG_RSASSA:
@@ -3998,6 +3998,7 @@ TPM_RC TPMI_ALG_RSA_DECRYPT_Unmarshal(TPMI_ALG_RSA_DECRYPT* target,
                                       INT32* size,
                                       BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4005,7 +4006,6 @@ TPM_RC TPMI_ALG_RSA_DECRYPT_Unmarshal(TPMI_ALG_RSA_DECRYPT* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_VALUE;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_RSAES
     case TPM_ALG_RSAES:
@@ -4032,14 +4032,14 @@ TPM_RC TPMI_RSA_KEY_BITS_Unmarshal(TPMI_RSA_KEY_BITS* target,
                                    BYTE** buffer,
                                    INT32* size) {
   TPM_RC result;
-  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   uint16_t supported_values[] = RSA_KEY_SIZES_BITS;
   size_t length = sizeof(supported_values) / sizeof(supported_values[0]);
   size_t i;
   BOOL is_supported_value = FALSE;
+  result = TPM_KEY_BITS_Unmarshal(target, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
   for (i = 0; i < length; ++i) {
     if (*target == supported_values[i]) {
       is_supported_value = TRUE;
@@ -4063,6 +4063,7 @@ TPM_RC TPMI_ALG_ECC_SCHEME_Unmarshal(TPMI_ALG_ECC_SCHEME* target,
                                      INT32* size,
                                      BOOL allow_conditional_value) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4070,7 +4071,6 @@ TPM_RC TPMI_ALG_ECC_SCHEME_Unmarshal(TPMI_ALG_ECC_SCHEME* target,
   if (*target == TPM_ALG_NULL) {
     return allow_conditional_value ? TPM_RC_SUCCESS : TPM_RC_SCHEME;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_ECDSA
     case TPM_ALG_ECDSA:
@@ -4106,14 +4106,14 @@ TPM_RC TPMI_ECC_CURVE_Unmarshal(TPMI_ECC_CURVE* target,
                                 BYTE** buffer,
                                 INT32* size) {
   TPM_RC result;
-  result = TPM_ECC_CURVE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   uint16_t supported_values[] = ECC_CURVES;
   size_t length = sizeof(supported_values) / sizeof(supported_values[0]);
   size_t i;
   BOOL is_supported_value = FALSE;
+  result = TPM_ECC_CURVE_Unmarshal(target, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
   for (i = 0; i < length; ++i) {
     if (*target == supported_values[i]) {
       is_supported_value = TRUE;
@@ -4136,11 +4136,11 @@ TPM_RC TPMI_ALG_PUBLIC_Unmarshal(TPMI_ALG_PUBLIC* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  BOOL has_valid_value = FALSE;
   switch (*target) {
 #ifdef TPM_ALG_KEYEDHASH
     case TPM_ALG_KEYEDHASH:
@@ -4316,8 +4316,8 @@ TPM_RC TPMT_HA_Unmarshal(TPMT_HA* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPM2B_DATA_Marshal(TPM2B_DATA* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4326,6 +4326,7 @@ UINT16 TPM2B_DATA_Marshal(TPM2B_DATA* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPM2B_DATA_Unmarshal(TPM2B_DATA* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4336,7 +4337,6 @@ TPM_RC TPM2B_DATA_Unmarshal(TPM2B_DATA* target, BYTE** buffer, INT32* size) {
   if (target->t.size > sizeof(TPMT_HA)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4348,8 +4348,8 @@ TPM_RC TPM2B_DATA_Unmarshal(TPM2B_DATA* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPM2B_EVENT_Marshal(TPM2B_EVENT* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4358,6 +4358,7 @@ UINT16 TPM2B_EVENT_Marshal(TPM2B_EVENT* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPM2B_EVENT_Unmarshal(TPM2B_EVENT* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4368,7 +4369,6 @@ TPM_RC TPM2B_EVENT_Unmarshal(TPM2B_EVENT* target, BYTE** buffer, INT32* size) {
   if (target->t.size > 1024) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4382,8 +4382,8 @@ UINT16 TPM2B_MAX_BUFFER_Marshal(TPM2B_MAX_BUFFER* source,
                                 BYTE** buffer,
                                 INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4394,6 +4394,7 @@ TPM_RC TPM2B_MAX_BUFFER_Unmarshal(TPM2B_MAX_BUFFER* target,
                                   BYTE** buffer,
                                   INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4404,7 +4405,6 @@ TPM_RC TPM2B_MAX_BUFFER_Unmarshal(TPM2B_MAX_BUFFER* target,
   if (target->t.size > MAX_DIGEST_BUFFER) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4418,8 +4418,8 @@ UINT16 TPM2B_MAX_NV_BUFFER_Marshal(TPM2B_MAX_NV_BUFFER* source,
                                    BYTE** buffer,
                                    INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4430,6 +4430,7 @@ TPM_RC TPM2B_MAX_NV_BUFFER_Unmarshal(TPM2B_MAX_NV_BUFFER* target,
                                      BYTE** buffer,
                                      INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4440,7 +4441,6 @@ TPM_RC TPM2B_MAX_NV_BUFFER_Unmarshal(TPM2B_MAX_NV_BUFFER* target,
   if (target->t.size > MAX_NV_BUFFER_SIZE) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4454,8 +4454,8 @@ UINT16 TPM2B_TIMEOUT_Marshal(TPM2B_TIMEOUT* source,
                              BYTE** buffer,
                              INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4466,6 +4466,7 @@ TPM_RC TPM2B_TIMEOUT_Unmarshal(TPM2B_TIMEOUT* target,
                                BYTE** buffer,
                                INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4476,7 +4477,6 @@ TPM_RC TPM2B_TIMEOUT_Unmarshal(TPM2B_TIMEOUT* target,
   if (target->t.size > sizeof(UINT64)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4488,8 +4488,8 @@ TPM_RC TPM2B_TIMEOUT_Unmarshal(TPM2B_TIMEOUT* target,
 
 UINT16 TPM2B_IV_Marshal(TPM2B_IV* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -4498,6 +4498,7 @@ UINT16 TPM2B_IV_Marshal(TPM2B_IV* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPM2B_IV_Unmarshal(TPM2B_IV* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4508,7 +4509,6 @@ TPM_RC TPM2B_IV_Unmarshal(TPM2B_IV* target, BYTE** buffer, INT32* size) {
   if (target->t.size > MAX_SYM_BLOCK_SIZE) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4520,8 +4520,8 @@ TPM_RC TPM2B_IV_Unmarshal(TPM2B_IV* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPM2B_NAME_Marshal(TPM2B_NAME* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.name[i], buffer, size);
   }
@@ -4530,6 +4530,7 @@ UINT16 TPM2B_NAME_Marshal(TPM2B_NAME* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPM2B_NAME_Unmarshal(TPM2B_NAME* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4540,7 +4541,6 @@ TPM_RC TPM2B_NAME_Unmarshal(TPM2B_NAME* target, BYTE** buffer, INT32* size) {
   if (target->t.size > sizeof(TPMU_NAME)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.name[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4554,8 +4554,8 @@ UINT16 TPMS_PCR_SELECT_Marshal(TPMS_PCR_SELECT* source,
                                BYTE** buffer,
                                INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT8_Marshal(&source->sizeofSelect, buffer, size);
   INT32 i;
+  total_size += UINT8_Marshal(&source->sizeofSelect, buffer, size);
   for (i = 0; i < source->sizeofSelect; ++i) {
     total_size += BYTE_Marshal(&source->pcrSelect[i], buffer, size);
   }
@@ -4566,6 +4566,7 @@ TPM_RC TPMS_PCR_SELECT_Unmarshal(TPMS_PCR_SELECT* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT8_Unmarshal(&target->sizeofSelect, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4576,7 +4577,6 @@ TPM_RC TPMS_PCR_SELECT_Unmarshal(TPMS_PCR_SELECT* target,
   if (target->sizeofSelect < PCR_SELECT_MIN) {
     return TPM_RC_VALUE;
   }
-  INT32 i;
   for (i = 0; i < target->sizeofSelect; ++i) {
     result = BYTE_Unmarshal(&target->pcrSelect[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4590,9 +4590,9 @@ UINT16 TPMS_PCR_SELECTION_Marshal(TPMS_PCR_SELECTION* source,
                                   BYTE** buffer,
                                   INT32* size) {
   UINT16 total_size = 0;
+  INT32 i;
   total_size += TPMI_ALG_HASH_Marshal(&source->hash, buffer, size);
   total_size += UINT8_Marshal(&source->sizeofSelect, buffer, size);
-  INT32 i;
   for (i = 0; i < source->sizeofSelect; ++i) {
     total_size += BYTE_Marshal(&source->pcrSelect[i], buffer, size);
   }
@@ -4603,6 +4603,7 @@ TPM_RC TPMS_PCR_SELECTION_Unmarshal(TPMS_PCR_SELECTION* target,
                                     BYTE** buffer,
                                     INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = TPMI_ALG_HASH_Unmarshal(&target->hash, buffer, size, FALSE);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4617,7 +4618,6 @@ TPM_RC TPMS_PCR_SELECTION_Unmarshal(TPMS_PCR_SELECTION* target,
   if (target->sizeofSelect < PCR_SELECT_MIN) {
     return TPM_RC_VALUE;
   }
-  INT32 i;
   for (i = 0; i < target->sizeofSelect; ++i) {
     result = BYTE_Unmarshal(&target->pcrSelect[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4818,9 +4818,9 @@ UINT16 TPMS_TAGGED_PCR_SELECT_Marshal(TPMS_TAGGED_PCR_SELECT* source,
                                       BYTE** buffer,
                                       INT32* size) {
   UINT16 total_size = 0;
+  INT32 i;
   total_size += TPM_PT_Marshal(&source->tag, buffer, size);
   total_size += UINT8_Marshal(&source->sizeofSelect, buffer, size);
-  INT32 i;
   for (i = 0; i < source->sizeofSelect; ++i) {
     total_size += BYTE_Marshal(&source->pcrSelect[i], buffer, size);
   }
@@ -4831,6 +4831,7 @@ TPM_RC TPMS_TAGGED_PCR_SELECT_Unmarshal(TPMS_TAGGED_PCR_SELECT* target,
                                         BYTE** buffer,
                                         INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = TPM_PT_Unmarshal(&target->tag, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4845,7 +4846,6 @@ TPM_RC TPMS_TAGGED_PCR_SELECT_Unmarshal(TPMS_TAGGED_PCR_SELECT* target,
   if (target->sizeofSelect < PCR_SELECT_MIN) {
     return TPM_RC_VALUE;
   }
-  INT32 i;
   for (i = 0; i < target->sizeofSelect; ++i) {
     result = BYTE_Unmarshal(&target->pcrSelect[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4857,8 +4857,8 @@ TPM_RC TPMS_TAGGED_PCR_SELECT_Unmarshal(TPMS_TAGGED_PCR_SELECT* target,
 
 UINT16 TPML_CC_Marshal(TPML_CC* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPM_CC_Marshal(&source->commandCodes[i], buffer, size);
   }
@@ -4867,6 +4867,7 @@ UINT16 TPML_CC_Marshal(TPML_CC* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPML_CC_Unmarshal(TPML_CC* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4874,7 +4875,6 @@ TPM_RC TPML_CC_Unmarshal(TPML_CC* target, BYTE** buffer, INT32* size) {
   if (target->count > MAX_CAP_CC) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPM_CC_Unmarshal(&target->commandCodes[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4886,8 +4886,8 @@ TPM_RC TPML_CC_Unmarshal(TPML_CC* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPML_CCA_Marshal(TPML_CCA* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPMA_CC_Marshal(&source->commandAttributes[i], buffer, size);
   }
@@ -4896,6 +4896,7 @@ UINT16 TPML_CCA_Marshal(TPML_CCA* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPML_CCA_Unmarshal(TPML_CCA* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4903,7 +4904,6 @@ TPM_RC TPML_CCA_Unmarshal(TPML_CCA* target, BYTE** buffer, INT32* size) {
   if (target->count > MAX_CAP_CC) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPMA_CC_Unmarshal(&target->commandAttributes[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4915,8 +4915,8 @@ TPM_RC TPML_CCA_Unmarshal(TPML_CCA* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPML_ALG_Marshal(TPML_ALG* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPM_ALG_ID_Marshal(&source->algorithms[i], buffer, size);
   }
@@ -4925,6 +4925,7 @@ UINT16 TPML_ALG_Marshal(TPML_ALG* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPML_ALG_Unmarshal(TPML_ALG* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4932,7 +4933,6 @@ TPM_RC TPML_ALG_Unmarshal(TPML_ALG* target, BYTE** buffer, INT32* size) {
   if (target->count > MAX_ALG_LIST_SIZE) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPM_ALG_ID_Unmarshal(&target->algorithms[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4944,8 +4944,8 @@ TPM_RC TPML_ALG_Unmarshal(TPML_ALG* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPML_HANDLE_Marshal(TPML_HANDLE* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPM_HANDLE_Marshal(&source->handle[i], buffer, size);
   }
@@ -4954,6 +4954,7 @@ UINT16 TPML_HANDLE_Marshal(TPML_HANDLE* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPML_HANDLE_Unmarshal(TPML_HANDLE* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4961,7 +4962,6 @@ TPM_RC TPML_HANDLE_Unmarshal(TPML_HANDLE* target, BYTE** buffer, INT32* size) {
   if (target->count > MAX_CAP_HANDLES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPM_HANDLE_Unmarshal(&target->handle[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -4973,8 +4973,8 @@ TPM_RC TPML_HANDLE_Unmarshal(TPML_HANDLE* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPML_DIGEST_Marshal(TPML_DIGEST* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPM2B_DIGEST_Marshal(&source->digests[i], buffer, size);
   }
@@ -4983,6 +4983,7 @@ UINT16 TPML_DIGEST_Marshal(TPML_DIGEST* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPML_DIGEST_Unmarshal(TPML_DIGEST* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -4993,7 +4994,6 @@ TPM_RC TPML_DIGEST_Unmarshal(TPML_DIGEST* target, BYTE** buffer, INT32* size) {
   if (target->count < 2) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPM2B_DIGEST_Unmarshal(&target->digests[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5007,8 +5007,8 @@ UINT16 TPML_DIGEST_VALUES_Marshal(TPML_DIGEST_VALUES* source,
                                   BYTE** buffer,
                                   INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPMT_HA_Marshal(&source->digests[i], buffer, size);
   }
@@ -5019,6 +5019,7 @@ TPM_RC TPML_DIGEST_VALUES_Unmarshal(TPML_DIGEST_VALUES* target,
                                     BYTE** buffer,
                                     INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5026,7 +5027,6 @@ TPM_RC TPML_DIGEST_VALUES_Unmarshal(TPML_DIGEST_VALUES* target,
   if (target->count > HASH_COUNT) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPMT_HA_Unmarshal(&target->digests[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5040,8 +5040,8 @@ UINT16 TPM2B_DIGEST_VALUES_Marshal(TPM2B_DIGEST_VALUES* source,
                                    BYTE** buffer,
                                    INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -5052,6 +5052,7 @@ TPM_RC TPM2B_DIGEST_VALUES_Unmarshal(TPM2B_DIGEST_VALUES* target,
                                      BYTE** buffer,
                                      INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5062,7 +5063,6 @@ TPM_RC TPM2B_DIGEST_VALUES_Unmarshal(TPM2B_DIGEST_VALUES* target,
   if (target->t.size > sizeof(TPML_DIGEST_VALUES)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5076,8 +5076,8 @@ UINT16 TPML_PCR_SELECTION_Marshal(TPML_PCR_SELECTION* source,
                                   BYTE** buffer,
                                   INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size +=
         TPMS_PCR_SELECTION_Marshal(&source->pcrSelections[i], buffer, size);
@@ -5089,6 +5089,7 @@ TPM_RC TPML_PCR_SELECTION_Unmarshal(TPML_PCR_SELECTION* target,
                                     BYTE** buffer,
                                     INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5096,7 +5097,6 @@ TPM_RC TPML_PCR_SELECTION_Unmarshal(TPML_PCR_SELECTION* target,
   if (target->count > HASH_COUNT) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result =
         TPMS_PCR_SELECTION_Unmarshal(&target->pcrSelections[i], buffer, size);
@@ -5111,8 +5111,8 @@ UINT16 TPML_ALG_PROPERTY_Marshal(TPML_ALG_PROPERTY* source,
                                  BYTE** buffer,
                                  INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size +=
         TPMS_ALG_PROPERTY_Marshal(&source->algProperties[i], buffer, size);
@@ -5124,6 +5124,7 @@ TPM_RC TPML_ALG_PROPERTY_Unmarshal(TPML_ALG_PROPERTY* target,
                                    BYTE** buffer,
                                    INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5131,7 +5132,6 @@ TPM_RC TPML_ALG_PROPERTY_Unmarshal(TPML_ALG_PROPERTY* target,
   if (target->count > MAX_CAP_ALGS) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result =
         TPMS_ALG_PROPERTY_Unmarshal(&target->algProperties[i], buffer, size);
@@ -5146,8 +5146,8 @@ UINT16 TPML_TAGGED_TPM_PROPERTY_Marshal(TPML_TAGGED_TPM_PROPERTY* source,
                                         BYTE** buffer,
                                         INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size +=
         TPMS_TAGGED_PROPERTY_Marshal(&source->tpmProperty[i], buffer, size);
@@ -5159,6 +5159,7 @@ TPM_RC TPML_TAGGED_TPM_PROPERTY_Unmarshal(TPML_TAGGED_TPM_PROPERTY* target,
                                           BYTE** buffer,
                                           INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5166,7 +5167,6 @@ TPM_RC TPML_TAGGED_TPM_PROPERTY_Unmarshal(TPML_TAGGED_TPM_PROPERTY* target,
   if (target->count > MAX_TPM_PROPERTIES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result =
         TPMS_TAGGED_PROPERTY_Unmarshal(&target->tpmProperty[i], buffer, size);
@@ -5181,8 +5181,8 @@ UINT16 TPML_TAGGED_PCR_PROPERTY_Marshal(TPML_TAGGED_PCR_PROPERTY* source,
                                         BYTE** buffer,
                                         INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size +=
         TPMS_TAGGED_PCR_SELECT_Marshal(&source->pcrProperty[i], buffer, size);
@@ -5194,6 +5194,7 @@ TPM_RC TPML_TAGGED_PCR_PROPERTY_Unmarshal(TPML_TAGGED_PCR_PROPERTY* target,
                                           BYTE** buffer,
                                           INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5201,7 +5202,6 @@ TPM_RC TPML_TAGGED_PCR_PROPERTY_Unmarshal(TPML_TAGGED_PCR_PROPERTY* target,
   if (target->count > MAX_PCR_PROPERTIES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result =
         TPMS_TAGGED_PCR_SELECT_Unmarshal(&target->pcrProperty[i], buffer, size);
@@ -5216,8 +5216,8 @@ UINT16 TPML_ECC_CURVE_Marshal(TPML_ECC_CURVE* source,
                               BYTE** buffer,
                               INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT32_Marshal(&source->count, buffer, size);
   INT32 i;
+  total_size += UINT32_Marshal(&source->count, buffer, size);
   for (i = 0; i < source->count; ++i) {
     total_size += TPM_ECC_CURVE_Marshal(&source->eccCurves[i], buffer, size);
   }
@@ -5228,6 +5228,7 @@ TPM_RC TPML_ECC_CURVE_Unmarshal(TPML_ECC_CURVE* target,
                                 BYTE** buffer,
                                 INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT32_Unmarshal(&target->count, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5235,7 +5236,6 @@ TPM_RC TPML_ECC_CURVE_Unmarshal(TPML_ECC_CURVE* target,
   if (target->count > MAX_ECC_CURVES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->count; ++i) {
     result = TPM_ECC_CURVE_Unmarshal(&target->eccCurves[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5685,8 +5685,8 @@ TPM_RC TPMS_ATTEST_Unmarshal(TPMS_ATTEST* target, BYTE** buffer, INT32* size) {
 
 UINT16 TPM2B_ATTEST_Marshal(TPM2B_ATTEST* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.attestationData[i], buffer, size);
   }
@@ -5697,6 +5697,7 @@ TPM_RC TPM2B_ATTEST_Unmarshal(TPM2B_ATTEST* target,
                               BYTE** buffer,
                               INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5707,7 +5708,6 @@ TPM_RC TPM2B_ATTEST_Unmarshal(TPM2B_ATTEST* target,
   if (target->t.size > sizeof(TPMS_ATTEST)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.attestationData[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5933,8 +5933,8 @@ UINT16 TPM2B_SYM_KEY_Marshal(TPM2B_SYM_KEY* source,
                              BYTE** buffer,
                              INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -5945,6 +5945,7 @@ TPM_RC TPM2B_SYM_KEY_Unmarshal(TPM2B_SYM_KEY* target,
                                BYTE** buffer,
                                INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -5955,7 +5956,6 @@ TPM_RC TPM2B_SYM_KEY_Unmarshal(TPM2B_SYM_KEY* target,
   if (target->t.size > MAX_SYM_KEY_BYTES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -5988,8 +5988,8 @@ UINT16 TPM2B_SENSITIVE_DATA_Marshal(TPM2B_SENSITIVE_DATA* source,
                                     BYTE** buffer,
                                     INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -6000,6 +6000,7 @@ TPM_RC TPM2B_SENSITIVE_DATA_Unmarshal(TPM2B_SENSITIVE_DATA* target,
                                       BYTE** buffer,
                                       INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6010,7 +6011,6 @@ TPM_RC TPM2B_SENSITIVE_DATA_Unmarshal(TPM2B_SENSITIVE_DATA* target,
   if (target->t.size > MAX_SYM_DATA) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -6059,6 +6059,7 @@ TPM_RC TPM2B_SENSITIVE_CREATE_Unmarshal(TPM2B_SENSITIVE_CREATE* target,
                                         INT32* size) {
   TPM_RC result;
   UINT32 start_size = *size;
+  UINT32 struct_size;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6070,7 +6071,7 @@ TPM_RC TPM2B_SENSITIVE_CREATE_Unmarshal(TPM2B_SENSITIVE_CREATE* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }
@@ -6683,8 +6684,8 @@ UINT16 TPM2B_PUBLIC_KEY_RSA_Marshal(TPM2B_PUBLIC_KEY_RSA* source,
                                     BYTE** buffer,
                                     INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -6695,6 +6696,7 @@ TPM_RC TPM2B_PUBLIC_KEY_RSA_Unmarshal(TPM2B_PUBLIC_KEY_RSA* target,
                                       BYTE** buffer,
                                       INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6705,7 +6707,6 @@ TPM_RC TPM2B_PUBLIC_KEY_RSA_Unmarshal(TPM2B_PUBLIC_KEY_RSA* target,
   if (target->t.size > MAX_RSA_KEY_BYTES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -6719,8 +6720,8 @@ UINT16 TPM2B_PRIVATE_KEY_RSA_Marshal(TPM2B_PRIVATE_KEY_RSA* source,
                                      BYTE** buffer,
                                      INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -6731,6 +6732,7 @@ TPM_RC TPM2B_PRIVATE_KEY_RSA_Unmarshal(TPM2B_PRIVATE_KEY_RSA* target,
                                        BYTE** buffer,
                                        INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6741,7 +6743,6 @@ TPM_RC TPM2B_PRIVATE_KEY_RSA_Unmarshal(TPM2B_PRIVATE_KEY_RSA* target,
   if (target->t.size > MAX_RSA_KEY_BYTES / 2) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -6755,8 +6756,8 @@ UINT16 TPM2B_ECC_PARAMETER_Marshal(TPM2B_ECC_PARAMETER* source,
                                    BYTE** buffer,
                                    INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -6767,6 +6768,7 @@ TPM_RC TPM2B_ECC_PARAMETER_Unmarshal(TPM2B_ECC_PARAMETER* target,
                                      BYTE** buffer,
                                      INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6777,7 +6779,6 @@ TPM_RC TPM2B_ECC_PARAMETER_Unmarshal(TPM2B_ECC_PARAMETER* target,
   if (target->t.size > MAX_ECC_KEY_BYTES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -6825,6 +6826,7 @@ TPM_RC TPM2B_ECC_POINT_Unmarshal(TPM2B_ECC_POINT* target,
                                  INT32* size) {
   TPM_RC result;
   UINT32 start_size = *size;
+  UINT32 struct_size;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -6836,7 +6838,7 @@ TPM_RC TPM2B_ECC_POINT_Unmarshal(TPM2B_ECC_POINT* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }
@@ -7131,8 +7133,8 @@ UINT16 TPM2B_ENCRYPTED_SECRET_Marshal(TPM2B_ENCRYPTED_SECRET* source,
                                       BYTE** buffer,
                                       INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.secret[i], buffer, size);
   }
@@ -7143,6 +7145,7 @@ TPM_RC TPM2B_ENCRYPTED_SECRET_Unmarshal(TPM2B_ENCRYPTED_SECRET* target,
                                         BYTE** buffer,
                                         INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7153,7 +7156,6 @@ TPM_RC TPM2B_ENCRYPTED_SECRET_Unmarshal(TPM2B_ENCRYPTED_SECRET* target,
   if (target->t.size > sizeof(TPMU_ENCRYPTED_SECRET)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.secret[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -7470,6 +7472,7 @@ TPM_RC TPM2B_PUBLIC_Unmarshal(TPM2B_PUBLIC* target,
                               INT32* size) {
   TPM_RC result;
   UINT32 start_size = *size;
+  UINT32 struct_size;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7481,7 +7484,7 @@ TPM_RC TPM2B_PUBLIC_Unmarshal(TPM2B_PUBLIC* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }
@@ -7493,8 +7496,8 @@ UINT16 TPM2B_PRIVATE_VENDOR_SPECIFIC_Marshal(
     BYTE** buffer,
     INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -7506,6 +7509,7 @@ TPM_RC TPM2B_PRIVATE_VENDOR_SPECIFIC_Unmarshal(
     BYTE** buffer,
     INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7516,7 +7520,6 @@ TPM_RC TPM2B_PRIVATE_VENDOR_SPECIFIC_Unmarshal(
   if (target->t.size > PRIVATE_VENDOR_SPECIFIC_BYTES) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -7675,8 +7678,8 @@ UINT16 TPM2B_PRIVATE_Marshal(TPM2B_PRIVATE* source,
                              BYTE** buffer,
                              INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -7687,6 +7690,7 @@ TPM_RC TPM2B_PRIVATE_Unmarshal(TPM2B_PRIVATE* target,
                                BYTE** buffer,
                                INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7697,7 +7701,6 @@ TPM_RC TPM2B_PRIVATE_Unmarshal(TPM2B_PRIVATE* target,
   if (target->t.size > sizeof(_PRIVATE)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -7731,8 +7734,8 @@ UINT16 TPM2B_ID_OBJECT_Marshal(TPM2B_ID_OBJECT* source,
                                BYTE** buffer,
                                INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.credential[i], buffer, size);
   }
@@ -7743,6 +7746,7 @@ TPM_RC TPM2B_ID_OBJECT_Unmarshal(TPM2B_ID_OBJECT* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7753,7 +7757,6 @@ TPM_RC TPM2B_ID_OBJECT_Unmarshal(TPM2B_ID_OBJECT* target,
   if (target->t.size > sizeof(_ID_OBJECT)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.credential[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -7819,6 +7822,7 @@ TPM_RC TPM2B_NV_PUBLIC_Unmarshal(TPM2B_NV_PUBLIC* target,
                                  INT32* size) {
   TPM_RC result;
   UINT32 start_size = *size;
+  UINT32 struct_size;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7830,7 +7834,7 @@ TPM_RC TPM2B_NV_PUBLIC_Unmarshal(TPM2B_NV_PUBLIC* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }
@@ -7841,8 +7845,8 @@ UINT16 TPM2B_CONTEXT_SENSITIVE_Marshal(TPM2B_CONTEXT_SENSITIVE* source,
                                        BYTE** buffer,
                                        INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -7853,6 +7857,7 @@ TPM_RC TPM2B_CONTEXT_SENSITIVE_Unmarshal(TPM2B_CONTEXT_SENSITIVE* target,
                                          BYTE** buffer,
                                          INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7863,7 +7868,6 @@ TPM_RC TPM2B_CONTEXT_SENSITIVE_Unmarshal(TPM2B_CONTEXT_SENSITIVE* target,
   if (target->t.size > MAX_CONTEXT_SIZE) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -7902,8 +7906,8 @@ UINT16 TPM2B_CONTEXT_DATA_Marshal(TPM2B_CONTEXT_DATA* source,
                                   BYTE** buffer,
                                   INT32* size) {
   UINT16 total_size = 0;
-  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   INT32 i;
+  total_size += UINT16_Marshal(&source->t.size, buffer, size);
   for (i = 0; i < source->t.size; ++i) {
     total_size += BYTE_Marshal(&source->t.buffer[i], buffer, size);
   }
@@ -7914,6 +7918,7 @@ TPM_RC TPM2B_CONTEXT_DATA_Unmarshal(TPM2B_CONTEXT_DATA* target,
                                     BYTE** buffer,
                                     INT32* size) {
   TPM_RC result;
+  INT32 i;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -7924,7 +7929,6 @@ TPM_RC TPM2B_CONTEXT_DATA_Unmarshal(TPM2B_CONTEXT_DATA* target,
   if (target->t.size > sizeof(TPMS_CONTEXT_DATA)) {
     return TPM_RC_SIZE;
   }
-  INT32 i;
   for (i = 0; i < target->t.size; ++i) {
     result = BYTE_Unmarshal(&target->t.buffer[i], buffer, size);
     if (result != TPM_RC_SUCCESS) {
@@ -8030,6 +8034,7 @@ TPM_RC TPM2B_CREATION_DATA_Unmarshal(TPM2B_CREATION_DATA* target,
                                      INT32* size) {
   TPM_RC result;
   UINT32 start_size = *size;
+  UINT32 struct_size;
   result = UINT16_Unmarshal(&target->t.size, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
@@ -8041,7 +8046,7 @@ TPM_RC TPM2B_CREATION_DATA_Unmarshal(TPM2B_CREATION_DATA* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }
