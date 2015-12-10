@@ -7,6 +7,9 @@
 
 #include "PlatformData.h"
 #include "TpmError.h"
+
+static BOOL s_RsaKeyCacheEnabled;
+
 //
 //
 //          Functions
