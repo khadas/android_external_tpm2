@@ -10,9 +10,13 @@
 TPMI_RH_HIERARCHY EntityGetHierarchy(
         TPMI_DH_ENTITY       handle             // IN :handle of entity
 );
-
-#endif // __SOURCE_ENTITY_FP_H
 TPM_RC EntityGetLoadStatus(
         TPM_HANDLE          *handle,              // IN/OUT: handle of the entity
         TPM_CC               commandCode          // IN: the commmandCode
         );
+UINT16 EntityGetName(
+        TPMI_DH_ENTITY       handle,           // IN: handle of entity
+        NAME                *name              // OUT: name of entity
+        );
+
+#endif // __SOURCE_ENTITY_FP_H
