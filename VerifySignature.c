@@ -58,7 +58,7 @@ TPM2_VerifySignature(
    else
    {
        // Get object name that verifies the signature
-       name.t.size = ObjectGetName(in->keyHandle, &name.t.name);
+       name.t.size = ObjectGetName(in->keyHandle, &name.t.buffer);
        // Compute ticket
        TicketComputeVerified(hierarchy, &in->digest, &name, &out->validation);
    }
