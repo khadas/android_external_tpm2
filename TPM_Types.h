@@ -214,6 +214,12 @@ typedef UINT16 TPM_SU;
 #define TPM_SU_CLEAR (TPM_SU)(0x0000)
 #define TPM_SU_STATE (TPM_SU)(0x0001)
 
+// Table 20 - TPM_SE Constants
+typedef UINT8 TPM_SE;
+#define TPM_SE_HMAC   (TPM_SE)(0x00)
+#define TPM_SE_POLICY (TPM_SE)(0x01)
+#define TPM_SE_TRIAL  (TPM_SE)(0x03)
+
 // Table 21 - TPM_CAP Constants
 typedef UINT32 TPM_CAP;
 #define TPM_CAP_FIRST           (TPM_CAP)(0x00000000)

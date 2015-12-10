@@ -21,6 +21,9 @@ TPM_RC CheckAuthNoSession(
         BYTE                *parmBufferStart,           //   IN:   start of parameter buffer
         UINT32               parmBufferSize             //   IN:   size of parameter buffer
         );
+BOOL IsDAExempted(
+        TPM_HANDLE          handle              // IN: entity handle
+        );
 TPM_RC ParseSessionBuffer(
         TPM_CC              commandCode,                    //   IN:   Command code
         UINT32              handleNum,                      //   IN:   number of element in handle array
