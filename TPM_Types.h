@@ -1394,6 +1394,9 @@ enum {
         RC_RSA_Decrypt_inScheme,
         RC_RSA_Decrypt_keyHandle,
         RC_RSA_Decrypt_label,
+        RC_RSA_Encrypt_inScheme,
+        RC_RSA_Encrypt_keyHandle,
+        RC_RSA_Encrypt_label,
 };
 
 enum {
