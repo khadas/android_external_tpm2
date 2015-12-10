@@ -258,6 +258,19 @@ typedef struct {
   UINT8 Extended : 3;
 } TPMA_LOCALITY;
 
+// Table 36 - TPMA_CC Bits
+typedef struct {
+  UINT32 commandIndex  : 16;
+  UINT32 reserved16_21 : 6;
+  UINT32 nv            : 1;
+  UINT32 extensive     : 1;
+  UINT32 flushed       : 1;
+  UINT32 cHandles      : 3;
+  UINT32 rHandle       : 1;
+  UINT32 V             : 1;
+  UINT32 Res           : 2;
+} TPMA_CC;
+
 // Table 37 - TPMI_YES_NO Type
 typedef BYTE TPMI_YES_NO;
 
@@ -358,6 +371,12 @@ typedef struct {
   UINT32 count;
   TPM_CC commandCodes[MAX_CAP_CC];
 } TPML_CC;
+
+// Table 92 - TPML_CCA Structure
+typedef struct {
+  UINT32  count;
+  TPMA_CC commandAttributes[MAX_CAP_CC];
+} TPML_CCA;
 
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
