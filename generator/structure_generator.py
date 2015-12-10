@@ -893,6 +893,14 @@ TPM_RC %(name)s_Unmarshal(
   if (target->%(name)s %(operator)s %(bound_value)s) {
     return %(error_code)s;
   }"""
+  _FIX_SIZE_FIELD = """
+  {
+    BYTE *size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(%(size_field_type)s);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    %(size_field_type)s_Marshal(&payload_size,
+      &size_location, &size_field_size);
+  }"""
 
   def __init__(self, name):
     """Initializes a Structure instance.
@@ -995,6 +1003,8 @@ TPM_RC %(name)s_Unmarshal(
         if field.run_time_size:
           field.run_time_size = 't.' + field.run_time_size
       field.OutputMarshal(out_file, typemap)
+    if self.size_check:
+      out_file.write(self._FIX_SIZE_FIELD % {'size_field_type': self.fields[0].field_type})
     out_file.write(self._MARSHAL_END)
 
     out_file.write(self._STRUCTURE_UNMARSHAL_START % {'name': self.name})
