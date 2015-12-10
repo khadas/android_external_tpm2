@@ -41,5 +41,8 @@ BOOL PCRIsExtendAllowed(
 BOOL PCRIsStateSaved(
         TPMI_DH_PCR         handle                // IN: PCR handle to be extended
                      );
+void PCRSimStart(
+        void
+        );
 
 #endif // __TPM2_PCR_FP_H

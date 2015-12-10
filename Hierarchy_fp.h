@@ -19,3 +19,6 @@ BOOL HierarchyIsEnabled(
 
 #endif // __TPM2_HIERARCHY_FP_H
 
+void HierarchyPreInstall_Init(
+        void
+        );

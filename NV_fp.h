@@ -43,6 +43,9 @@ TPM_RC NvIndexIsAccessible(
         TPMI_RH_NV_INDEX         handle,                // IN: handle
         TPM_CC                   commandCode            // IN: the command
                            );
+void NvInit(
+        void
+        );
 TPM_RC NvIsAvailable(
         void
 );

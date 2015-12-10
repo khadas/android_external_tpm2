@@ -274,6 +274,9 @@ LIB_EXPORT UINT16 CryptStartHMAC2B(
         HMAC_STATE         *hmacState           // OUT: the state of HMAC stack. It will be used
                                             //     in HMAC update and completion
                                    );
+void CryptStopUnits(
+        void
+        );
 void CryptSymmetricDecrypt(
         BYTE                      *decrypted,
         TPM_ALG_ID                 algorithm,       //   IN: algorithm for encryption
