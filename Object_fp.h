@@ -35,6 +35,9 @@ void ObjectGetQualifiedName(
 BOOL ObjectIsSequence(
         OBJECT              *object               // IN: handle to be checked
                       );
+BOOL ObjectIsStorage(
+        TPMI_DH_OBJECT     handle              // IN: object handle
+        );
 TPM_RC ObjectLoad(
         TPMI_RH_HIERARCHY        hierarchy,               //   IN: hierarchy to which the object belongs
         TPMT_PUBLIC             *publicArea,              //   IN: public area
