@@ -18,7 +18,9 @@ TPM_RC TimeGetRange(
 void TimeSetAdjustRate(
         TPM_CLOCK_ADJUST          adjust            // IN: adjust constant
 );
-
+void TimeStartup(
+        STARTUP_TYPE          type                // IN: start up type
+        );
 void TimeUpdateToCurrent(
         void
         );

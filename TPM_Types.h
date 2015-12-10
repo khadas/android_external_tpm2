@@ -1424,6 +1424,7 @@ enum {
         RC_StartAuthSession_nonceCaller,
         RC_StartAuthSession_symmetric,
         RC_StartAuthSession_tpmKey,
+        RC_Startup_startupType,
 };
 
 enum {

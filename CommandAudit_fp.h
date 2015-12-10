@@ -29,3 +29,6 @@ BOOL CommandAuditSet(
 );
 
 #endif // __TPM2_COMMANDAUDIT_FP_H
+void CommandAuditStartup(
+        STARTUP_TYPE        type               // IN: start up type
+        );

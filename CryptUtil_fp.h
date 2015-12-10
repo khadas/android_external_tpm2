@@ -389,6 +389,9 @@ void CryptUpdateDigestInt(
         UINT32   intSize,           // IN: the size of 'intValue' in byte
         void    *intValue           // IN: integer value to be hashed
                           );
+BOOL CryptUtilStartup(
+        STARTUP_TYPE         type               // IN: the startup type
+        );
 TPM_RC CryptVerifySignature(
         TPMI_DH_OBJECT       keyHandle,         // IN: The handle of sign key
         TPM2B_DIGEST        *digest,            // IN: The digest being validated
