@@ -2416,7 +2416,7 @@ CryptSecretEncrypt(
            TPM2B_ECC_PARAMETER    eccPrivate;
            TPMS_ECC_POINT         eccSecret;
            BYTE                   *buffer = secret->t.secret;
-           INT32                  bufferSize = secret->t.size;
+           INT32                  bufferSize = sizeof(TPMS_ECC_POINT);
              // Need to make sure that the public point of the key is on the
              // curve defined by the key.
              if(!_cpri__EccIsPointOnCurve(

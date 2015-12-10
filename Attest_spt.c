@@ -43,7 +43,7 @@ FillInAttestInfo(
          INT32     bufferSize;
          // For null sign handle, the QN is TPM_RH_NULL
          buffer = attest->qualifiedSigner.t.name;
-         bufferSize = attest->qualifiedSigner.t.size;
+         bufferSize = sizeof(TPM_HANDLE);
          attest->qualifiedSigner.t.size =
               TPM_HANDLE_Marshal(&signHandle, &buffer, &bufferSize);
      }
@@ -136,7 +136,7 @@ SignAttestInfo(
    TPM2B_DIGEST                   digest;
    // Marshal TPMS_ATTEST structure for hash
    buffer = attest->t.attestationData;
-   bufferSize = attest->t.size;
+   bufferSize = sizeof(TPMS_ATTEST);
    attest->t.size = TPMS_ATTEST_Marshal(certifyInfo, &buffer, &bufferSize);
    if(signHandle == TPM_RH_NULL)
    {

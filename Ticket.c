@@ -35,7 +35,7 @@ TicketIsSafe(
       if(buffer->size < sizeof(valueToCompare))
           return FALSE;
       marshalBuffer = bufferToCompare;
-      bufferSize = sizeof(valueToCompare);
+      bufferSize = sizeof(TPM_GENERATED);
    TPM_GENERATED_Marshal(&valueToCompare, &marshalBuffer, &bufferSize);
    if(MemoryEqual(buffer->buffer, bufferToCompare, sizeof(valueToCompare)))
        return FALSE;
