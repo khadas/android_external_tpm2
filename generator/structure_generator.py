@@ -52,7 +52,7 @@ _MARSHAL_BASIC_TYPE = """
 UINT16 %(type)s_Marshal(%(type)s *source, BYTE **buffer, INT32 *size) {
   %(type)s value_net = *source;
   if (!size || *size < sizeof(%(type)s)) {
-    return sizeof(%(type)s);
+    return TPM_RC_INSUFFICIENT;
   }
   switch (sizeof(%(type)s)) {
     case 2:
