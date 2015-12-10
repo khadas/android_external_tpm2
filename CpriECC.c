@@ -12,17 +12,6 @@
 #ifdef TPM_ALG_ECC
 #include   "CpriDataEcc.h"
 #include   "CpriDataEcc.c"
-
-/*
- * TODO(vbendeb): this structure is supposed to be defined in the openssl
- * include files, but is not. Adding missing fields to it by hand, this will
- * have to be validated.
- */
-struct ec_group_st {
-        BIGNUM  field;
-        BIGNUM  order;
-};
-
 //
 //
 //      Functions
@@ -448,7 +437,7 @@ _cpri__EccPointMultiply(
         bnU = NULL;
     // Use the generator of the curve
     if((retVal = PointMul(group, R, bnD, Q, bnU, context)) == CRYPT_SUCCESS)
-        Point2B(group, Rout, R, (INT16) BN_num_bytes(&group->field), context);
+        Point2B(group, Rout, R, (INT16) ((EC_GROUP_get_degree(group)+7)/8), context);
     if (Q)
         EC_POINT_free(Q);
     if(R)
@@ -536,7 +525,7 @@ _cpri__EccCommitCompute(
         retVal = CRYPT_PARAMETER;
         goto Cleanup2;
     }
-    keySizeInBytes = (UINT16) BN_num_bytes(&group->field);
+    keySizeInBytes = (UINT16) ((EC_GROUP_get_degree(group)+7)/8);
     // Sizes of the r and d parameters may not be zero
     pAssert(((int) r->t.size > 0) && ((int) d->t.size > 0));
     // Convert scalars to BIGNUM
@@ -1632,6 +1621,7 @@ ValidateSignatureSM2Dsa(
    BIGNUM                         *bnT;
    BIGNUM                         *bnS;
    BIGNUM                         *bnE;
+   BIGNUM                         *order;
    EC_POINT                       *pQ;
    BN_CTX                         *context;
    EC_GROUP                       *group = NULL;
@@ -1645,7 +1635,8 @@ ValidateSignatureSM2Dsa(
    bnE = BN_CTX_get(context);
    bnT = BN_CTX_get(context);
    bnS = BN_CTX_get(context);
-   if(   bnS == NULL
+   order = BN_CTX_get(context);
+   if(   order == NULL
       || (group = EccCurveInit(curveId, context)) == NULL)
        FAIL(FATAL_ERROR_INTERNAL);
 #ifdef _SM2_SIGN_DEBUG
@@ -1677,15 +1668,16 @@ pAssert(cmp_2B2hex(&sIn->b,
        "6FC6DAC32C5D5CF10C77DFB20F7C2EB667A457872FB09EC56327A67EC7DEEBE7") == 0);
 #endif
 // a) verify that r and s are in the inclusive interval 1 to (n   1)
-   fail = (BN_ucmp(bnR, &group->order) >= 0);
-   fail = (BN_ucmp(bnS, &group->order) >= 0) || fail;
+   if (!EC_GROUP_get_order(group, order, context)) goto Cleanup;
+   fail = (BN_ucmp(bnR, order) >= 0);
+   fail = (BN_ucmp(bnS, order) >= 0) || fail;
    if(fail)
    // There is no reason to continue. Since r and s are inputs from the caller,
    // they can know that the values are not in the proper range. So, exiting here
    // does not disclose any information.
        goto Cleanup;
 // b) compute t := (r + s) mod n
-   if(!BN_mod_add(bnT, bnR, bnS, &group->order, context))
+   if(!BN_mod_add(bnT, bnR, bnS, order, context))
        FAIL(FATAL_ERROR_INTERNAL);
 #ifdef _SM2_SIGN_DEBUG
    pAssert(cmp_bn2hex(bnT,
@@ -1711,7 +1703,7 @@ pAssert(cmp_2B2hex(&sIn->b,
                == 0);
 #endif
 // e) compute r' := (e + x) mod n (the x coordinate is in bnT)
-   if(!BN_mod_add(bnRp, bnE, bnT, &group->order, context))
+   if(!BN_mod_add(bnRp, bnE, bnT, order, context))
        FAIL(FATAL_ERROR_INTERNAL);
 // f) verify that r' = r
    fail = BN_ucmp(bnR, bnRp) != 0 || fail;
@@ -2083,6 +2075,7 @@ C_2_2_ECDH(
    TPMS_ECC_POINT                *QeB            //   IN: ephemeral public party B key
    )
 {
+   BIGNUM                        *order;
    BN_CTX                        *context;
    EC_POINT                      *pQ = NULL;
    EC_GROUP                      *group = NULL;
@@ -2093,12 +2086,15 @@ C_2_2_ECDH(
    if(context == NULL || curveData == NULL)
        FAIL(FATAL_ERROR_ALLOCATION);
    BN_CTX_start(context);
+   order = BN_CTX_get(context);
    if((bnD = BN_CTX_get(context)) == NULL)
        FAIL(FATAL_ERROR_INTERNAL);
    // Initialize group parameters and local values of input
    if((group = EccCurveInit(curveId, context)) == NULL)
        FAIL(FATAL_ERROR_INTERNAL);
-   size = (INT16)BN_num_bytes(&group->order);
+   if (!EC_GROUP_get_order(group, order, context))
+       FAIL(FATAL_ERROR_INTERNAL);
+   size = (INT16)BN_num_bytes(order);
    // Get the static private key of A
    BnFrom2B(bnD, &dsA->b);
    // Initialize the static public point from B
