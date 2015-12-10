@@ -48,6 +48,9 @@ TPMI_RH_HIERARCHY ObjectDataGetHierarchy(
 OBJECT* ObjectGet(
         TPMI_DH_OBJECT       handle             // IN: handle of the object
 );
+TPMI_RH_HIERARCHY ObjectGetHierarchy(
+        TPMI_DH_OBJECT        handle              // IN :object handle
+        );
 TPM_RC ObjectLoadEvict(
         TPM_HANDLE           *handle,             // IN:OUT: evict object handle. If success, it
                                               // will be replace by the loaded object handle
