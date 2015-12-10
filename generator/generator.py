@@ -130,7 +130,7 @@ def main(argv):
   # The tables included in the below tuple are defined twice in the
   # specification, once in part 2 and once in part 4. Let's ignore the part 2
   # definitions to avoid collisions.
-  tpm_table.SetSkipTables((6, 9, 10, 13))
+  tpm_table.SetSkipTables((2, 6, 9, 10, 13))
   html_parser.feed(open(structures_file).read())
   html_parser.close()
   tpm_defines = tpm_table.GetHFile()
