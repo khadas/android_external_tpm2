@@ -24,6 +24,7 @@ typedef UINT32 TPM_CAP;
 
 #define MAX_CAP_DATA       (MAX_CAP_BUFFER - sizeof(TPM_CAP) - sizeof(UINT32))
 #define MAX_CAP_ALGS       (MAX_CAP_DATA / sizeof(TPMS_ALG_PROPERTY))
+#define MAX_CAP_CC         (MAX_CAP_DATA / sizeof(TPM_CC))
 
 // Table 6 - TPM_GENERATED Constants
 typedef UINT32 TPM_GENERATED;
@@ -351,6 +352,12 @@ typedef struct {
   TPM_ALG_ID     alg;
   TPMA_ALGORITHM algProperties;
 } TPMS_ALG_PROPERTY;
+
+// Table 91 - TPML_CC Structure
+typedef struct {
+  UINT32 count;
+  TPM_CC commandCodes[MAX_CAP_CC];
+} TPML_CC;
 
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
