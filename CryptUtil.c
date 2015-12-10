@@ -709,7 +709,7 @@ CryptGenerateKeyedHash(
    if(scheme->scheme == TPM_ALG_NULL)
        hashAlg = publicArea->nameAlg;
    else if(scheme->scheme == TPM_ALG_XOR)
-       hashAlg = scheme->details.xor.hashAlg;
+       hashAlg = scheme->details.xor_.hashAlg;
    else
        hashAlg = scheme->details.hmac.hashAlg;
    hashBlockSize = CryptGetHashBlockSize(hashAlg);

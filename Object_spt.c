@@ -467,9 +467,9 @@ SchemeChecks(
        else if(publicArea->objectAttributes.decrypt)
        {
            if(    scheme->scheme != TPM_ALG_XOR
-               || scheme->details.xor.hashAlg == TPM_ALG_NULL)
+               || scheme->details.xor_.hashAlg == TPM_ALG_NULL)
                 return TPM_RC_SCHEME;
-           if(scheme->details.xor.kdf == TPM_ALG_NULL)
+           if(scheme->details.xor_.kdf == TPM_ALG_NULL)
                 return TPM_RC_KDF;
            return TPM_RC_SUCCESS;
         }
