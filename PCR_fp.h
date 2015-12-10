@@ -7,10 +7,24 @@
 #ifndef __TPM2_PCR_FP_H
 #define __TPM2_PCR_FP_H
 
+TPMI_YES_NO PCRCapGetAllocation(
+        UINT32                   count,               // IN: count of return
+        TPML_PCR_SELECTION      *pcrSelection         // OUT: PCR allocation list
+);
 TPMI_ALG_HASH PCRGetAuthPolicy(
         TPMI_DH_PCR          handle,            // IN: PCR handle
         TPM2B_DIGEST        *policy             // OUT: policy of PCR
                                );
+TPMI_YES_NO PCRCapGetHandles(
+        TPMI_DH_PCR       handle,             // IN: start handle
+        UINT32            count,              // IN: count of returned handle
+        TPML_HANDLE      *handleList          // OUT: list of handle
+);
+TPMI_YES_NO PCRCapGetProperties(
+        TPM_PT_PCR                       property,             // IN: the starting PCR property
+        UINT32                           count,                // IN: count of returned propertie
+        TPML_TAGGED_PCR_PROPERTY        *select                // OUT: PCR select
+);
 void PCRGetAuthValue(
         TPMI_DH_PCR          handle,            // IN: PCR handle
         TPM2B_AUTH          *auth               // OUT: authValue of PCR

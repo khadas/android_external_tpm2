@@ -25,7 +25,10 @@ typedef UINT32 TPM_CAP;
 #define MAX_CAP_DATA       (MAX_CAP_BUFFER - sizeof(TPM_CAP) - sizeof(UINT32))
 #define MAX_CAP_ALGS       (MAX_CAP_DATA / sizeof(TPMS_ALG_PROPERTY))
 #define MAX_CAP_CC         (MAX_CAP_DATA / sizeof(TPM_CC))
+#define MAX_CAP_HANDLES    (MAX_CAP_DATA / sizeof(TPM_HANDLE))
 #define MAX_ECC_CURVES     (MAX_CAP_DATA / sizeof(TPM_ECC_CURVE))
+#define MAX_PCR_PROPERTIES (MAX_CAP_DATA / sizeof(TPMS_TAGGED_PCR_SELECT))
+#define MAX_TPM_PROPERTIES (MAX_CAP_DATA / sizeof(TPMS_TAGGED_PROPERTY))
 
 // Table 6 - TPM_GENERATED Constants
 typedef UINT32 TPM_GENERATED;
@@ -196,6 +199,112 @@ typedef UINT16 TPM_SU;
 #define TPM_SU_CLEAR (TPM_SU)(0x0000)
 #define TPM_SU_STATE (TPM_SU)(0x0001)
 
+// Table 21 - TPM_CAP Constants
+typedef UINT32 TPM_CAP;
+#define TPM_CAP_FIRST           (TPM_CAP)(0x00000000)
+#define TPM_CAP_ALGS            (TPM_CAP)(0x00000000)
+#define TPM_CAP_HANDLES         (TPM_CAP)(0x00000001)
+#define TPM_CAP_COMMANDS        (TPM_CAP)(0x00000002)
+#define TPM_CAP_PP_COMMANDS     (TPM_CAP)(0x00000003)
+#define TPM_CAP_AUDIT_COMMANDS  (TPM_CAP)(0x00000004)
+#define TPM_CAP_PCRS            (TPM_CAP)(0x00000005)
+#define TPM_CAP_TPM_PROPERTIES  (TPM_CAP)(0x00000006)
+#define TPM_CAP_PCR_PROPERTIES  (TPM_CAP)(0x00000007)
+#define TPM_CAP_ECC_CURVES      (TPM_CAP)(0x00000008)
+#define TPM_CAP_LAST            (TPM_CAP)(0x00000008)
+#define TPM_CAP_VENDOR_PROPERTY (TPM_CAP)(0x00000100)
+
+// Table 22 - TPM_PT Constants
+typedef UINT32 TPM_PT;
+#define TPM_PT_NONE                (TPM_PT)(0x00000000)
+#define PT_GROUP                   (TPM_PT)(0x00000100)
+#define PT_FIXED                   (TPM_PT)(PT_GROUP * 1)
+#define TPM_PT_FAMILY_INDICATOR    (TPM_PT)(PT_FIXED + 0)
+#define TPM_PT_LEVEL               (TPM_PT)(PT_FIXED + 1)
+#define TPM_PT_REVISION            (TPM_PT)(PT_FIXED + 2)
+#define TPM_PT_DAY_OF_YEAR         (TPM_PT)(PT_FIXED + 3)
+#define TPM_PT_YEAR                (TPM_PT)(PT_FIXED + 4)
+#define TPM_PT_MANUFACTURER        (TPM_PT)(PT_FIXED + 5)
+#define TPM_PT_VENDOR_STRING_1     (TPM_PT)(PT_FIXED + 6)
+#define TPM_PT_VENDOR_STRING_2     (TPM_PT)(PT_FIXED + 7)
+#define TPM_PT_VENDOR_STRING_3     (TPM_PT)(PT_FIXED + 8)
+#define TPM_PT_VENDOR_STRING_4     (TPM_PT)(PT_FIXED + 9)
+#define TPM_PT_VENDOR_TPM_TYPE     (TPM_PT)(PT_FIXED + 10)
+#define TPM_PT_FIRMWARE_VERSION_1  (TPM_PT)(PT_FIXED + 11)
+#define TPM_PT_FIRMWARE_VERSION_2  (TPM_PT)(PT_FIXED + 12)
+#define TPM_PT_INPUT_BUFFER        (TPM_PT)(PT_FIXED + 13)
+#define TPM_PT_HR_TRANSIENT_MIN    (TPM_PT)(PT_FIXED + 14)
+#define TPM_PT_HR_PERSISTENT_MIN   (TPM_PT)(PT_FIXED + 15)
+#define TPM_PT_HR_LOADED_MIN       (TPM_PT)(PT_FIXED + 16)
+#define TPM_PT_ACTIVE_SESSIONS_MAX (TPM_PT)(PT_FIXED + 17)
+#define TPM_PT_PCR_COUNT           (TPM_PT)(PT_FIXED + 18)
+#define TPM_PT_PCR_SELECT_MIN      (TPM_PT)(PT_FIXED + 19)
+#define TPM_PT_CONTEXT_GAP_MAX     (TPM_PT)(PT_FIXED + 20)
+#define TPM_PT_NV_COUNTERS_MAX     (TPM_PT)(PT_FIXED + 22)
+#define TPM_PT_NV_INDEX_MAX        (TPM_PT)(PT_FIXED + 23)
+#define TPM_PT_MEMORY              (TPM_PT)(PT_FIXED + 24)
+#define TPM_PT_CLOCK_UPDATE        (TPM_PT)(PT_FIXED + 25)
+#define TPM_PT_CONTEXT_HASH        (TPM_PT)(PT_FIXED + 26)
+#define TPM_PT_CONTEXT_SYM         (TPM_PT)(PT_FIXED + 27)
+#define TPM_PT_CONTEXT_SYM_SIZE    (TPM_PT)(PT_FIXED + 28)
+#define TPM_PT_ORDERLY_COUNT       (TPM_PT)(PT_FIXED + 29)
+#define TPM_PT_MAX_COMMAND_SIZE    (TPM_PT)(PT_FIXED + 30)
+#define TPM_PT_MAX_RESPONSE_SIZE   (TPM_PT)(PT_FIXED + 31)
+#define TPM_PT_MAX_DIGEST          (TPM_PT)(PT_FIXED + 32)
+#define TPM_PT_MAX_OBJECT_CONTEXT  (TPM_PT)(PT_FIXED + 33)
+#define TPM_PT_MAX_SESSION_CONTEXT (TPM_PT)(PT_FIXED + 34)
+#define TPM_PT_PS_FAMILY_INDICATOR (TPM_PT)(PT_FIXED + 35)
+#define TPM_PT_PS_LEVEL            (TPM_PT)(PT_FIXED + 36)
+#define TPM_PT_PS_REVISION         (TPM_PT)(PT_FIXED + 37)
+#define TPM_PT_PS_DAY_OF_YEAR      (TPM_PT)(PT_FIXED + 38)
+#define TPM_PT_PS_YEAR             (TPM_PT)(PT_FIXED + 39)
+#define TPM_PT_SPLIT_MAX           (TPM_PT)(PT_FIXED + 40)
+#define TPM_PT_TOTAL_COMMANDS      (TPM_PT)(PT_FIXED + 41)
+#define TPM_PT_LIBRARY_COMMANDS    (TPM_PT)(PT_FIXED + 42)
+#define TPM_PT_VENDOR_COMMANDS     (TPM_PT)(PT_FIXED + 43)
+#define PT_VAR                     (TPM_PT)(PT_GROUP * 2)
+#define TPM_PT_PERMANENT           (TPM_PT)(PT_VAR + 0)
+#define TPM_PT_STARTUP_CLEAR       (TPM_PT)(PT_VAR + 1)
+#define TPM_PT_HR_NV_INDEX         (TPM_PT)(PT_VAR + 2)
+#define TPM_PT_HR_LOADED           (TPM_PT)(PT_VAR + 3)
+#define TPM_PT_HR_LOADED_AVAIL     (TPM_PT)(PT_VAR + 4)
+#define TPM_PT_HR_ACTIVE           (TPM_PT)(PT_VAR + 5)
+#define TPM_PT_HR_ACTIVE_AVAIL     (TPM_PT)(PT_VAR + 6)
+#define TPM_PT_HR_TRANSIENT_AVAIL  (TPM_PT)(PT_VAR + 7)
+#define TPM_PT_HR_PERSISTENT       (TPM_PT)(PT_VAR + 8)
+#define TPM_PT_HR_PERSISTENT_AVAIL (TPM_PT)(PT_VAR + 9)
+#define TPM_PT_NV_COUNTERS         (TPM_PT)(PT_VAR + 10)
+#define TPM_PT_NV_COUNTERS_AVAIL   (TPM_PT)(PT_VAR + 11)
+#define TPM_PT_ALGORITHM_SET       (TPM_PT)(PT_VAR + 12)
+#define TPM_PT_LOADED_CURVES       (TPM_PT)(PT_VAR + 13)
+#define TPM_PT_LOCKOUT_COUNTER     (TPM_PT)(PT_VAR + 14)
+#define TPM_PT_MAX_AUTH_FAIL       (TPM_PT)(PT_VAR + 15)
+#define TPM_PT_LOCKOUT_INTERVAL    (TPM_PT)(PT_VAR + 16)
+#define TPM_PT_LOCKOUT_RECOVERY    (TPM_PT)(PT_VAR + 17)
+#define TPM_PT_NV_WRITE_RECOVERY   (TPM_PT)(PT_VAR + 18)
+#define TPM_PT_AUDIT_COUNTER_0     (TPM_PT)(PT_VAR + 19)
+#define TPM_PT_AUDIT_COUNTER_1     (TPM_PT)(PT_VAR + 20)
+
+// Table 23 - TPM_PT_PCR Constants
+typedef UINT32 TPM_PT_PCR;
+#define TPM_PT_PCR_FIRST        (TPM_PT_PCR)(0x00000000)
+#define TPM_PT_PCR_SAVE         (TPM_PT_PCR)(0x00000000)
+#define TPM_PT_PCR_EXTEND_L0    (TPM_PT_PCR)(0x00000001)
+#define TPM_PT_PCR_RESET_L0     (TPM_PT_PCR)(0x00000002)
+#define TPM_PT_PCR_EXTEND_L1    (TPM_PT_PCR)(0x00000003)
+#define TPM_PT_PCR_RESET_L1     (TPM_PT_PCR)(0x00000004)
+#define TPM_PT_PCR_EXTEND_L2    (TPM_PT_PCR)(0x00000005)
+#define TPM_PT_PCR_RESET_L2     (TPM_PT_PCR)(0x00000006)
+#define TPM_PT_PCR_EXTEND_L3    (TPM_PT_PCR)(0x00000007)
+#define TPM_PT_PCR_RESET_L3     (TPM_PT_PCR)(0x00000008)
+#define TPM_PT_PCR_EXTEND_L4    (TPM_PT_PCR)(0x00000009)
+#define TPM_PT_PCR_RESET_L4     (TPM_PT_PCR)(0x0000000A)
+#define TPM_PT_PCR_NO_INCREMENT (TPM_PT_PCR)(0x00000011)
+#define TPM_PT_PCR_DRTM_RESET   (TPM_PT_PCR)(0x00000012)
+#define TPM_PT_PCR_POLICY       (TPM_PT_PCR)(0x00000013)
+#define TPM_PT_PCR_AUTH         (TPM_PT_PCR)(0x00000014)
+#define TPM_PT_PCR_LAST         (TPM_PT_PCR)(0x00000014)
+
 // Table 26 - TPM_HT Constants
 typedef UINT8 TPM_HT;
 #define TPM_HT_PCR            (TPM_HT)(0x00)
@@ -331,6 +440,12 @@ typedef TPM_HANDLE TPMI_DH_ENTITY;
 // Table 41 - TPMI_DH_PCR Type
 typedef TPM_HANDLE TPMI_DH_PCR;
 
+// Table 43 - TPMI_SH_HMAC Type
+typedef TPM_HANDLE TPMI_SH_HMAC;
+
+// Table 44 - TPMI_SH_POLICY Type
+typedef TPM_HANDLE TPMI_SH_POLICY;
+
 // Table 45 - TPMI_DH_CONTEXT Type
 typedef TPM_HANDLE TPMI_DH_CONTEXT;
 
@@ -426,6 +541,19 @@ typedef struct {
   TPMA_ALGORITHM algProperties;
 } TPMS_ALG_PROPERTY;
 
+// Table 89 - TPMS_TAGGED_PROPERTY Structure
+typedef struct {
+  TPM_PT property;
+  UINT32 value;
+} TPMS_TAGGED_PROPERTY;
+
+// Table 90 - TPMS_TAGGED_PCR_SELECT Structure
+typedef struct {
+  TPM_PT tag;
+  UINT8  sizeofSelect;
+  BYTE   pcrSelect[PCR_SELECT_MAX];
+} TPMS_TAGGED_PCR_SELECT;
+
 // Table 91 - TPML_CC Structure
 typedef struct {
   UINT32 count;
@@ -444,6 +572,12 @@ typedef struct {
   TPM_ALG_ID algorithms[MAX_ALG_LIST_SIZE];
 } TPML_ALG;
 
+// Table 94 - TPML_HANDLE Structure
+typedef struct {
+  UINT32     count;
+  TPM_HANDLE handle[MAX_CAP_HANDLES];
+} TPML_HANDLE;
+
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
   UINT32             count;
@@ -456,11 +590,42 @@ typedef struct {
   TPMS_ALG_PROPERTY algProperties[MAX_CAP_ALGS];
 } TPML_ALG_PROPERTY;
 
+// Table 100 - TPML_TAGGED_TPM_PROPERTY Structure
+typedef struct {
+  UINT32               count;
+  TPMS_TAGGED_PROPERTY tpmProperty[MAX_TPM_PROPERTIES];
+} TPML_TAGGED_TPM_PROPERTY;
+
+// Table 101 - TPML_TAGGED_PCR_PROPERTY Structure
+typedef struct {
+  UINT32                 count;
+  TPMS_TAGGED_PCR_SELECT pcrProperty[MAX_PCR_PROPERTIES];
+} TPML_TAGGED_PCR_PROPERTY;
+
 // Table 102 - TPML_ECC_CURVE Structure
 typedef struct {
   UINT32        count;
   TPM_ECC_CURVE eccCurves[MAX_ECC_CURVES];
 } TPML_ECC_CURVE;
+
+// Table 103 - TPMU_CAPABILITIES Union
+typedef union {
+  TPML_ALG_PROPERTY        algorithms;
+  TPML_HANDLE              handles;
+  TPML_CCA                 command;
+  TPML_CC                  ppCommands;
+  TPML_CC                  auditCommands;
+  TPML_PCR_SELECTION       assignedPCR;
+  TPML_TAGGED_TPM_PROPERTY tpmProperties;
+  TPML_TAGGED_PCR_PROPERTY pcrProperties;
+  TPML_ECC_CURVE           eccCurves;
+} TPMU_CAPABILITIES;
+
+// Table 104 - TPMS_CAPABILITY_DATA Structure
+typedef struct {
+  TPM_CAP           capability;
+  TPMU_CAPABILITIES data;
+} TPMS_CAPABILITY_DATA;
 
 // Table 105 - TPMS_CLOCK_INFO Structure
 typedef struct {
@@ -1073,6 +1238,7 @@ enum {
         RC_EventSequenceComplete_sequenceHandle,
         RC_EvictControl_objectHandle,
         RC_EvictControl_persistentHandle,
+        RC_GetCapability_property,
 };
 
 enum {

@@ -10,5 +10,10 @@
 TPM_HT HandleGetType(
         TPM_HANDLE           handle             // IN: a handle to be checked
 );
+TPMI_YES_NO PermanentCapGetHandles(
+        TPM_HANDLE         handle,              // IN: start handle
+        UINT32             count,               // IN: count of returned handle
+        TPML_HANDLE       *handleList           // OUT: list of handle
+);
 
 #endif // __TPM2_HANDLE_FP_H

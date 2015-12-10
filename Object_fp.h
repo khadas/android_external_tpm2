@@ -7,9 +7,17 @@
 #ifndef __TPM2_OBJECT_FP_H
 #define __TPM2_OBJECT_FP_H
 
+BOOL AreAttributesForParent(
+        OBJECT             *parentObject        // IN: parent handle
+                            );
+TPMI_YES_NO ObjectCapGetLoaded(
+        TPMI_DH_OBJECT     handle,             // IN: start handle
+        UINT32             count,              // IN: count of returned handles
+        TPML_HANDLE       *handleList          // OUT: list of handle
+);
 void ObjectCleanupEvict(
         void
-);
+        );
 void ObjectComputeName(
         TPMT_PUBLIC         *publicArea,       // IN: public area of an object
         TPM2B_NAME          *name              // OUT: name of the object

@@ -7,6 +7,11 @@
 #ifndef __TPM2_COMMANDAUDIT_FP_H
 #define __TPM2_COMMANDAUDIT_FP_H
 
+TPMI_YES_NO CommandAuditCapGetCCList(
+        TPM_CC            commandCode,          // IN: start command code
+        UINT32            count,                // IN: count of returned TPM_CC
+        TPML_CC          *commandList           // OUT: list of TPM_CC
+);
 BOOL CommandAuditSet(
         TPM_CC   commandCode  // IN: command code
 );
