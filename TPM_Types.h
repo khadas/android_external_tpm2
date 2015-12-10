@@ -1326,6 +1326,7 @@ enum {
         RC_PolicyAuthorize_approvedPolicy,
         RC_PolicyAuthorize_checkTicket,
         RC_PolicyAuthorize_keySign,
+        RC_PolicyCommandCode_code,
 };
 
 enum {
