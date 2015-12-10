@@ -1285,6 +1285,8 @@ enum {
         RC_LoadExternal_inPublic,
         RC_MakeCredential_credential,
         RC_MakeCredential_handle,
+        RC_NV_Certify_signHandle,
+        RC_NV_Certify_inScheme,
 };
 
 enum {

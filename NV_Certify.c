@@ -83,7 +83,7 @@ TPM2_NV_Certify(
 
   // Get the name of the index
   certifyInfo.attested.nv.indexName.t.size =
-      NvGetName(in->nvIndex, &certifyInfo.attested.nv.indexName.t.name);
+      NvGetName(in->nvIndex, &certifyInfo.attested.nv.indexName.t.buffer);
 
   // Set the return size
   certifyInfo.attested.nv.nvContents.t.size = in->size;
