@@ -232,12 +232,40 @@ class Table(object):
   def _AddToHfile(self, text=''):
     self._h_file += text + '\n'
 
+  def _SetBaseType(self, old_type, tpm_obj):
+    """Set the base type for a new object.
+
+    Many TPM objects are typedefed hierarchically, for instance
+
+    uint16_t => UINT16 => TPM_ALG_ID_Marshal => TPMI_ALG_HASH_Marshal
+
+    This causes excessive nesting when marshaling and unmarshaling, which is
+    bad from both performance and stack size requirements point of view.
+
+    This function will discover the 'basest' type and set it in the tpm
+    object, this would help to generate direct marshaling/unmarshaling
+    functions.
+
+    Args:
+      old_type: a string, name of the immediate type this tpm object typedefed
+                from.
+      tpm_obj: a tpm object, derived from TPMType
+    """
+    base_type = old_type
+    while base_type in self._type_map:
+      try:
+        base_type = self._type_map[base_type].old_type
+      except AttributeError:
+        break  # The underlying type is not a typedef
+    tpm_obj.SetBaseType(base_type)
+
   def _AddTypedef(self, old_type, new_type):
     if not self._skip_printing:
       self._AddToHfile('typedef %s %s;' % (old_type, new_type))
     # No need to generate marshaling/unmarshaling code for BOOL type.
     if new_type != 'BOOL':
       self._type_map[new_type] = Typedef(old_type, new_type)
+      self._SetBaseType(old_type, self._type_map[new_type])
 
   def InProgress(self):
     """Return True when the parser is in the middle of a table."""
@@ -469,6 +497,7 @@ class Table(object):
     new_if = Interface(self._title_type, type_name)
     self._AddTypedef(self._title_type, type_name)
     self._type_map[type_name] = new_if
+    self._SetBaseType(type_name, new_if)
     for row in self._body:
       new_value = row[0]
       result = self._ParseAlgorithmRegex(new_value)
@@ -514,6 +543,7 @@ class Table(object):
     base_bit = 0
     tpm_obj = AttributeStructure(self._title_type, type_name)
     self._type_map[type_name] = tpm_obj
+    self._SetBaseType(self._title_type, tpm_obj)
     for bits_line in self._body:
       field, name = tuple(bits_line[:2])
       if not field:
@@ -787,6 +817,7 @@ class Table(object):
       tpm_obj.valid_values.append(name)
     if self._title_type:
       self._type_map[type_name] = tpm_obj
+      self._SetBaseType(self._title_type, tpm_obj)
     if self._skip_printing:
       return
     max_name_len, max_value_len = self._GetMaxLengths(constant_defs)

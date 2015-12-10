@@ -243,6 +243,11 @@ class TPMType(object):
   """Base type for all TPMTypes.
 
      Contains functions and string literals common to all TPM types.
+
+     Attributes:
+      _base_type: a string, when set - the very basic type this type is
+                  derived from (should be used for marshaling/unmarshaling to
+                  shortcut multiple nested invocations).
   """
   # A function to marshal a TPM typedef.
   _TYPEDEF_MARSHAL_FUNCTION = """
@@ -291,6 +296,41 @@ TPM_RC %(new_type)s_Unmarshal(
   if (result != TPM_RC_SUCCESS) {
     return result;
   }"""
+
+  def __init__(self):
+    self._base_type = None
+
+  def SetBaseType(self, base_type):
+    self._base_type = base_type
+
+  def _GetBaseType(self, out_file, marshalled_types, typemap):
+    '''Return base type for this object.
+
+    The base type is used for shortcutting marshaling/unmarshaling code.
+
+    If _base_type is not set, return the old_type value as the base type.
+
+    If the base type's marshaling/unmarshaling code has not been generated
+    yet, issue it before continuing processing.
+
+    Args:
+      out_file: The output file.
+      marshalled_types: A set of types for which marshal and unmarshal functions
+          have already been generated.
+      typemap: A dict mapping type names to the corresponding object.
+
+    Returns:
+      A string, the name of the type to use for marshaling/unmarshaling.
+
+    '''
+    if self._base_type:
+      base_type = self._base_type
+    else:
+      base_type = self.old_type
+    if base_type not in marshalled_types:
+      typemap[base_type].OutputMarshalImpl(
+        out_file, marshalled_types, typemap)
+    return base_type
 
   def HasConditional(self):
     """Returns true if TPMType has a conditional value."""
@@ -389,6 +429,7 @@ TPM_RC %(new_type)s_Unmarshal(
       old_type: The base type of the attribute structure.
       new_type: The name of the type.
     """
+    super(Typedef, self).__init__()
     self.old_type = old_type
     self.new_type = new_type
 
@@ -403,13 +444,11 @@ TPM_RC %(new_type)s_Unmarshal(
     """
     if self.new_type in marshalled_types:
       return
-    if self.old_type not in marshalled_types:
-      typemap[self.old_type].OutputMarshalImpl(
-          out_file, marshalled_types, typemap)
-    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': self.old_type,
+    base_type = self._GetBaseType(out_file, marshalled_types, typemap)
+    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': base_type,
                                                      'new_type': self.new_type})
     out_file.write(
-        self._TYPEDEF_UNMARSHAL_FUNCTION % {'old_type': self.old_type,
+        self._TYPEDEF_UNMARSHAL_FUNCTION % {'old_type': base_type,
                                             'new_type': self.new_type})
     marshalled_types.add(self.new_type)
 
@@ -460,6 +499,7 @@ class ConstantType(TPMType):
       old_type: The base type of the constant type.
       new_type: The name of the type.
     """
+    super(ConstantType, self).__init__()
     self.old_type = old_type
     self.new_type = new_type
     self.valid_values = []
@@ -480,12 +520,10 @@ class ConstantType(TPMType):
     """
     if self.new_type in marshalled_types:
       return
-    if self.old_type not in marshalled_types:
-      typemap[self.old_type].OutputMarshalImpl(
-          out_file, marshalled_types, typemap)
-    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': self.old_type,
+    base_type = self._GetBaseType(out_file, marshalled_types, typemap)
+    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': base_type,
                                                      'new_type': self.new_type})
-    out_file.write(self._TYPEDEF_UNMARSHAL_START % {'old_type': self.old_type,
+    out_file.write(self._TYPEDEF_UNMARSHAL_START % {'old_type': base_type,
                                                     'new_type': self.new_type})
     for value in self.valid_values:
       if self._NeedsIfdef():
@@ -548,6 +586,7 @@ TPM_RC %(new_type)s_Unmarshal(
       old_type: The base type of the attribute structure.
       new_type: The name of the type.
     """
+    super(AttributeStructure, self).__init__()
     self.old_type = old_type
     self.new_type = new_type
     self.reserved = []
@@ -563,14 +602,12 @@ TPM_RC %(new_type)s_Unmarshal(
     """
     if self.new_type in marshalled_types:
       return
-    if self.old_type not in marshalled_types:
-      typemap[self.old_type].OutputMarshalImpl(
-          out_file, marshalled_types, typemap)
+    base_type = self._GetBaseType(out_file, marshalled_types, typemap)
     out_file.write(self._ATTRIBUTE_MARSHAL_FUNCTION %
-                   {'old_type': self.old_type,
+                   {'old_type': base_type,
                     'new_type': self.new_type})
     out_file.write(self._ATTRIBUTE_UNMARSHAL_START %
-                   {'old_type': self.old_type,
+                   {'old_type': base_type,
                     'new_type': self.new_type})
     for bits in self.reserved:
       out_file.write(self._CHECK_RESERVED % {'bits': bits})
@@ -692,6 +729,7 @@ TPM_RC %(type)s_Unmarshal(
       old_type: The base type of the interface.
       new_type: The name of the type.
     """
+    super(Interface, self).__init__()
     self.old_type = old_type
     self.new_type = new_type
     self.valid_values = []
@@ -719,18 +757,16 @@ TPM_RC %(type)s_Unmarshal(
     """
     if self.new_type in marshalled_types:
       return
-    if self.old_type not in marshalled_types:
-      typemap[self.old_type].OutputMarshalImpl(
-          out_file, marshalled_types, typemap)
-    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': self.old_type,
+    base_type = self._GetBaseType(out_file, marshalled_types, typemap)
+    out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': base_type,
                                                      'new_type': self.new_type})
     if self.conditional_value:
       out_file.write(self._INTERFACE_CONDITIONAL_UNMARSHAL_START %
-                     {'old_type': self.old_type,
+                     {'old_type': base_type,
                       'new_type': self.new_type})
     else:
       out_file.write(
-          self._INTERFACE_UNMARSHAL_START % {'old_type': self.old_type,
+          self._INTERFACE_UNMARSHAL_START % {'old_type': base_type,
                                              'new_type': self.new_type})
     # Creating necessary local variables.
     if self.supported_values:
@@ -739,9 +775,9 @@ TPM_RC %(type)s_Unmarshal(
     if len(self.valid_values)+len(self.bounds) > 0:
       out_file.write(self._SETUP_CHECK_VALUES)
       out_file.write(self._UNMARSHAL_VALUE_ALLOW_RC_VALUE %
-                     {'old_type': self.old_type})
+                     {'old_type': base_type})
     else:
-      out_file.write(self._UNMARSHAL_VALUE % {'old_type': self.old_type})
+      out_file.write(self._UNMARSHAL_VALUE % {'old_type': base_type})
 
     if self.supported_values:
       out_file.write(self._CHECK_SUPPORTED_VALUES %
@@ -868,6 +904,7 @@ TPM_RC %(name)s_Unmarshal(
     Args:
       name: The name of the structure.
     """
+    super(Structure, self).__init__()
     self.name = name
     self.fields = []
     self.upper_bounds = {}
@@ -1119,6 +1156,7 @@ TPM_RC %(type)s_Unmarshal(
     Args:
       name: The name of the structure.
     """
+    super(Union, self).__init__()
     self.name = name
     self.fields = []
 
