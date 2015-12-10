@@ -299,7 +299,6 @@ ifeq ($(EMBEDDED_MODE),)
 SOURCES += $(HOST_SOURCES)
 CFLAGS += -Wall -Werror -fPIC
 else
-SOURCES += stubs.c
 CFLAGS += -DEMBEDDED_MODE
 ifneq ($(ROOTDIR),)
 CFLAGS += -I$(ROOTDIR)
