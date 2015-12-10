@@ -12,5 +12,10 @@ TPM_RC NvReadAccessChecks(
         //     authorization
         TPM_HANDLE          nvHandle                // IN: the handle of the NV index to be written
         );
+TPM_RC NvWriteAccessChecks(
+        TPM_HANDLE        authHandle,           // IN: the handle that provided the
+        //     authorization
+        TPM_HANDLE        nvHandle              // IN: the handle of the NV index to be written
+        );
 
 #endif // __TPM2_NV_SPT_FP_H
