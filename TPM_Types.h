@@ -1244,6 +1244,8 @@ enum {
         RC_GetSessionAuditDigest_inScheme,
         RC_GetSessionAuditDigest_sessionHandle,
         RC_GetSessionAuditDigest_signHandle,
+        RC_GetTime_inScheme,
+        RC_GetTime_signHandle,
 };
 
 enum {
