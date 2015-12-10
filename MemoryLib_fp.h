@@ -11,6 +11,11 @@ LIB_EXPORT BOOL Memory2BEqual(
         const TPM2B         *aIn,                 // IN: compare value
         const TPM2B         *bIn                  // IN: compare value
 );
+LIB_EXPORT INT16 MemoryCopy2B(
+        TPM2B               *dest,                // OUT: receiving TPM2B
+        const TPM2B         *source,              // IN: source TPM2B
+        UINT16               dSize                // IN: size of the receiving buffer
+);
 LIB_EXPORT void MemorySet(
     void                 *destination,           // OUT: memory destination
     char                  value,                 // IN: fill value

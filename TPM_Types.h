@@ -665,6 +665,15 @@ typedef struct {
   TPM2B_ECC_PARAMETER y;
 } TPMS_ECC_POINT;
 
+// Table 163 -- TPM2B_ECC_POINT Structure <I/O>
+typedef union {
+        struct {
+                UINT16 size;
+                TPMS_ECC_POINT point;
+        } t;
+        TPM2B     b;                            \
+} TPM2B_ECC_POINT;
+
 // Table 164 - TPMI_ALG_ECC_SCHEME Type
 typedef TPM_ALG_ID TPMI_ALG_ECC_SCHEME;
 
@@ -856,6 +865,9 @@ typedef struct {
   UINT16           dataSize;
 } TPMS_NV_PUBLIC;
 
+// Table 198 - TPM2B_CONTEXT_SENSITIVE Structure
+TPM2B_TYPE(CONTEXT_SENSITIVE, MAX_CONTEXT_SIZE);
+
 //
 // Unknown defines to be investigated and resolved
 //
@@ -869,6 +881,10 @@ enum {
         RC_Certify_inScheme,
         RC_Certify_signHandle,
         RC_ClockSet_newTime,
+        RC_Commit_P1,
+        RC_Commit_s2,
+        RC_Commit_signHandle,
+        RC_Commit_y2,
 };
 
 #endif // __TPM2_TPM_TYPES_H

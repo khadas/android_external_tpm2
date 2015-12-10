@@ -10,6 +10,17 @@
 BOOL CryptIsAsymAlgorithm(
         TPM_ALG_ID           algID                // IN: algorithm ID
 );
+UINT16 CryptCommit(void);
+TPM_RC CryptCommitCompute(
+        TPMS_ECC_POINT                *K,                     //   OUT: [d]B
+        TPMS_ECC_POINT                *L,                     //   OUT: [r]B
+        TPMS_ECC_POINT                *E,                     //   OUT: [r]M
+        TPM_ECC_CURVE                  curveID,               //   IN: The curve for the computation
+        TPMS_ECC_POINT                *M,                     //   IN: M (P1)
+        TPMS_ECC_POINT                *B,                     //   IN: B (x2, y2)
+        TPM2B_ECC_PARAMETER           *d,                     //   IN: the private scalar
+        TPM2B_ECC_PARAMETER           *r                      //   IN: the computed r value
+                          );
 UINT16 CryptCompleteHash2B(
         void      *state,       // IN: the state of hash stack
         TPM2B     *digest       // IN: the size of the buffer Out: requested
@@ -18,10 +29,38 @@ UINT16 CryptCompleteHash2B(
 void CryptDrbgGetPutState(
         GET_PUT              direction         // IN: Get from or put to DRBG
 );
+TPM_RC CryptDivide(
+        TPM2B               *numerator,           //   IN: numerator
+        TPM2B               *denominator,         //   IN: denominator
+        TPM2B               *quotient,            //   OUT: quotient = numerator / denominator.
+        TPM2B               *remainder            //   OUT: numerator mod denominator.
+                   );
+LIB_EXPORT const TPM2B * CryptEccGetParameter(
+        char                 p,                  // IN: the parameter selector
+        TPM_ECC_CURVE        curveId             // IN: the curve id
+                                              );
+BOOL CryptEccIsPointOnCurve(
+        TPM_ECC_CURVE        curveID,            // IN: ECC curve ID
+        TPMS_ECC_POINT      *Q                   // IN: ECC point
+                            );
+BOOL CryptGenerateR(
+        TPM2B_ECC_PARAMETER           *r,                 //   OUT: the generated random value
+        UINT16                        *c,                 //   IN/OUT: count value.
+        TPMI_ECC_CURVE                 curveID,           //   IN: the curve for the value
+        TPM2B_NAME                    *name               //   IN: optional name of a key to
+                                                     //       associate with 'r'
+);
 UINT16 CryptGenerateRandom(
         UINT16               randomSize,       // IN: size of random number
         BYTE                *buffer            // OUT: buffer of random number
 );
+LIB_EXPORT UINT16 CryptHashBlock(
+        TPM_ALG_ID          algId,               //   IN: the hash algorithm to use
+        UINT16              blockSize,           //   IN: size of the data block
+        BYTE               *block,               //   IN: address of the block to hash
+        UINT16              retSize,             //   IN: size of the return buffer
+        BYTE               *ret                  //   OUT: address of the buffer
+                                 );
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );
