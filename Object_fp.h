@@ -26,6 +26,9 @@ TPM_RC ObjectLoadEvict(
                                               // will be replace by the loaded object handle
         TPM_CC                commandCode         // IN: the command being processed
                        );
+void ObjectFlush(
+        TPMI_DH_OBJECT        handle               // IN: handle to be freed
+);
 void ObjectFlushHierarchy(
         TPMI_RH_HIERARCHY          hierarchy             // IN: hierarchy to be flush
 );
