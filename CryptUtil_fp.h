@@ -109,6 +109,17 @@ void CryptSymmetricDecrypt(
         UINT32                     dataSize,        //   IN: data size in byte
         BYTE                      *data             //   IN/OUT: data buffer
                            );
+void CryptSymmetricEncrypt(
+        BYTE                    *encrypted,         //   OUT: the encrypted data
+        TPM_ALG_ID               algorithm,         //   IN: algorithm for encryption
+        UINT16                   keySizeInBits,     //   IN: key size in bit
+        TPMI_ALG_SYM_MODE        mode,              //   IN: symmetric encryption mode
+        BYTE                    *key,               //   IN: encryption key
+        TPM2B_IV                *ivIn,              //   IN/OUT: Input IV and output chaining
+                                               //       value for the next block
+        UINT32                   dataSize,          //   IN: data size in byte
+        BYTE                    *data               //   IN/OUT: data buffer
+                           );
 UINT16 CryptStartHash(
         TPMI_ALG_HASH        hashAlg,      // IN: hash algorithm
         HASH_STATE          *hashState     // OUT: the state of hash stack. It will be used
