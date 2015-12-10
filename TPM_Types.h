@@ -1241,6 +1241,9 @@ enum {
         RC_GetCapability_property,
         RC_GetCommandAuditDigest_signHandle,
         RC_GetCommandAuditDigest_inScheme,
+        RC_GetSessionAuditDigest_inScheme,
+        RC_GetSessionAuditDigest_sessionHandle,
+        RC_GetSessionAuditDigest_signHandle,
 };
 
 enum {
