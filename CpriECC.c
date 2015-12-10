@@ -317,32 +317,6 @@ GetRandomPrivate(
 }
 //
 //
-//       Mod2B()
-//
-//      Function does modular reduction of TPM2B values.
-//
-static CRYPT_RESULT
-Mod2B(
-    TPM2B                *x,                 // IN/OUT: value to reduce
-    const TPM2B          *n                  // IN: mod
-    )
-{
-    int         compare;
-    compare = _math__uComp(x->size, x->buffer, n->size, n->buffer);
-    if(compare < 0)
-        // if x < n, then mod is x
-        return CRYPT_SUCCESS;
-    if(compare == 0)
-    {
-        // if x == n then mod is 0
-        x->size = 0;
-        x->buffer[0] = 0;
-        return CRYPT_SUCCESS;
-    }
-   return _math__Div(x, n, NULL, x);
-}
-//
-//
 //       _cpri__EccPointMultiply
 //
 //      This function computes 'R := [dIn]G + [uIn]QIn. Where dIn and uIn are scalars, G and QIn are points on
@@ -1035,6 +1009,33 @@ EcDaa(
 }
 #endif //%
 #ifdef TPM_ALG_ECSCHNORR //%
+//
+//
+//       Mod2B()
+//
+//      Function does modular reduction of TPM2B values.
+//
+static CRYPT_RESULT
+Mod2B(
+    TPM2B                *x,                 // IN/OUT: value to reduce
+    const TPM2B          *n                  // IN: mod
+    )
+{
+    int         compare;
+    compare = _math__uComp(x->size, x->buffer, n->size, n->buffer);
+    if(compare < 0)
+        // if x < n, then mod is x
+        return CRYPT_SUCCESS;
+    if(compare == 0)
+    {
+        // if x == n then mod is 0
+        x->size = 0;
+        x->buffer[0] = 0;
+        return CRYPT_SUCCESS;
+    }
+   return _math__Div(x, n, NULL, x);
+}
+
 //
 //
 //       SchnorrEcc()

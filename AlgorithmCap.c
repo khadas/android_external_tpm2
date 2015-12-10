@@ -80,8 +80,8 @@ static const ALGORITHM    s_algorithms[]      =
 #ifdef TPM_ALG_ECSCHNORR
    {TPM_ALG_ECSCHNORR,     {1, 0, 0, 0, 0, 1, 0, 0, 0}},
 #endif
-#ifdef TPM_ALG_KDF1_SP800_56a
-   {TPM_ALG_KDF1_SP800_56a,{0, 0, 1, 0, 0, 0, 0, 1, 0}},
+#ifdef TPM_ALG_KDF1_SP800_56A
+   {TPM_ALG_KDF1_SP800_56A,{0, 0, 1, 0, 0, 0, 0, 1, 0}},
 #endif
 #ifdef TPM_ALG_KDF2
    {TPM_ALG_KDF2,          {0, 0, 1, 0, 0, 0, 0, 1, 0}},
