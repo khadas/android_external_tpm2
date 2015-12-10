@@ -35,7 +35,6 @@ _END
 
 from __future__ import print_function
 
-import argparse
 import re
 import collections
 from subprocess import call
@@ -194,7 +193,7 @@ TPM_RC %(new_type)s_Unmarshal(
     """Returns true if TPMType has a conditional value."""
     return False
 
-  def OutputMarshalCall(self, out_file, field_type, field_name, extra_argument):
+  def OutputMarshalCall(self, out_file, field_type, field_name, _):
     """Write a call to Marshal function for TPMType to |out_file|.
 
        Accumulates a variable 'total_size' with the result of marshaling
@@ -204,14 +203,12 @@ TPM_RC %(new_type)s_Unmarshal(
       out_file: The output file.
       field_type: The type of the field in 'source' struct to be marshalled.
       field_name: The name of the field in 'source' struct to be marshalled.
-      extra_argument: Value representing a BOOL value, selector value, or array
-          length depending on context. Not used here.
     """
     out_file.write(self._MARSHAL_CALL % {'type': field_type,
                                          'name': field_name})
 
   def OutputUnmarshalCall(
-      self, out_file, field_type, field_name, extra_argument):
+      self, out_file, field_type, field_name, _):
     """Write a call to Unmarshal function for TPMType to |out_file|.
 
        Assigns result of unmarshaling field |field_name| in structure 'source'
@@ -221,8 +218,6 @@ TPM_RC %(new_type)s_Unmarshal(
       out_file: The output file.
       field_type: The type of the field in 'target' struct to be unmarshalled.
       field_name: The name of the field in 'target' struct to be unmarshalled.
-      extra_argument: Value representing a BOOL value or selector value
-          depending on context. Not used here.
     """
     out_file.write(self._UNMARSHAL_CALL % {'type': field_type,
                                            'name': field_name})
@@ -247,7 +242,7 @@ TPM_RC %(new_type)s_Unmarshal(
     out_file.write(self._MARSHAL_DECLARATION % {'type': self.new_type})
     declared_types.add(self.new_type)
 
-  def _OutputStructOrUnionMarshalDecl(self, out_file, declared_types, typemap):
+  def _OutputStructOrUnionMarshalDecl(self, out_file, declared_types):
     """Write marshal declarations for a TPM Structure or Union.
 
        Can only be called on Structure and Union objects.
@@ -256,7 +251,6 @@ TPM_RC %(new_type)s_Unmarshal(
       out_file: The output file.
       declared_types: A set of types for which marshal and unmarshal function
         declarations have already been generated.
-      typemap: A dict mapping type names to the corresponding object.
     """
     # TPMU_NAME and TPMU_ENCRYPTED_SECRET type are never used across the
     # interface.
@@ -466,11 +460,11 @@ TPM_RC %(new_type)s_Unmarshal(
       typemap[self.old_type].OutputMarshalImpl(
           out_file, marshalled_types, typemap)
     out_file.write(self._ATTRIBUTE_MARSHAL_FUNCTION %
-        {'old_type': self.old_type,
-         'new_type': self.new_type})
+                   {'old_type': self.old_type,
+                    'new_type': self.new_type})
     out_file.write(self._ATTRIBUTE_UNMARSHAL_START %
-        {'old_type': self.old_type,
-         'new_type': self.new_type})
+                   {'old_type': self.old_type,
+                    'new_type': self.new_type})
     for bits in self.reserved:
       out_file.write(self._CHECK_RESERVED % {'bits': bits})
     out_file.write(self._UNMARSHAL_END)
@@ -619,8 +613,8 @@ TPM_RC %(type)s_Unmarshal(
                                                      'new_type': self.new_type})
     if self.conditional_value:
       out_file.write(self._INTERFACE_CONDITIONAL_UNMARSHAL_START %
-          {'old_type': self.old_type,
-           'new_type': self.new_type})
+                     {'old_type': self.old_type,
+                      'new_type': self.new_type})
     else:
       out_file.write(
           self._INTERFACE_UNMARSHAL_START % {'old_type': self.old_type,
@@ -628,7 +622,7 @@ TPM_RC %(type)s_Unmarshal(
     # Creating necessary local variables.
     if self.supported_values:
       out_file.write(self._SETUP_CHECK_SUPPORTED_VALUES %
-          {'supported_values': self.supported_values})
+                     {'supported_values': self.supported_values})
     if len(self.valid_values)+len(self.bounds) > 0:
       out_file.write(self._SETUP_CHECK_VALUES)
 
@@ -636,8 +630,8 @@ TPM_RC %(type)s_Unmarshal(
 
     if self.supported_values:
       out_file.write(self._CHECK_SUPPORTED_VALUES %
-          {'supported_values': self.supported_values,
-           'error_code': self.error_code})
+                     {'supported_values': self.supported_values,
+                      'error_code': self.error_code})
     if self.conditional_value:
       out_file.write(
           self._CHECK_CONDITIONAL % {'name': self.conditional_value,
@@ -953,20 +947,20 @@ TPM_RC %(name)s_Unmarshal(
             field.field_name == 'size'):
           return_value = 'TPM_RC_SIZE'
         out_file.write(self._CHECK_BOUND %
-            {'name': field.field_name,
-             'operator': '>',
-             'bound_value': self.upper_bounds[field.field_name],
-             'error_code': return_value})
+                       {'name': field.field_name,
+                        'operator': '>',
+                        'bound_value': self.upper_bounds[field.field_name],
+                        'error_code': return_value})
       if field.field_name in self.lower_bounds:
         if (field.field_name == 'count' or
             field.field_name == 't.size' or
             field.field_name == 'size'):
           return_value = 'TPM_RC_SIZE'
         out_file.write(self._CHECK_BOUND %
-            {'name': field.field_name,
-             'operator': '<',
-             'bound_value': self.lower_bounds[field.field_name],
-             'error_code': return_value})
+                       {'name': field.field_name,
+                        'operator': '<',
+                        'bound_value': self.lower_bounds[field.field_name],
+                        'error_code': return_value})
       if field.field_name == 'tag' and len(self.valid_tag_values) != 0:
         out_file.write(self._VALUE_START_SWITCH % {'name': 'target->tag'})
         for value in self.valid_tag_values:
@@ -978,16 +972,15 @@ TPM_RC %(name)s_Unmarshal(
 
     marshalled_types.add(self.name)
 
-  def OutputMarshalDecl(self, out_file, declared_types, typemap):
+  def OutputMarshalDecl(self, out_file, declared_types, _):
     """Writes marshal declarations for Structure to |out_file|.
 
     Args:
       out_file: The output file.
       declared_types: A set of types for which marshal and unmarshal function
           declarations have already been generated.
-      typemap: A dict mapping type names to the corresponding object.
     """
-    self._OutputStructOrUnionMarshalDecl(out_file, declared_types, typemap)
+    self._OutputStructOrUnionMarshalDecl(out_file, declared_types)
 
 class Union(TPMType):
   """Represents a TPM union.
@@ -1109,7 +1102,7 @@ TPM_RC %(type)s_Unmarshal(
     self.fields.append(self.Field(field_type, field_name, array_length))
 
   def _OutputMarshalField(
-      self, out_file, field_type, field_name, array_length, selector, typemap):
+      self, out_file, field_type, field_name, array_length):
     """Write a call to marshal a field in this union.
 
     Args:
@@ -1118,8 +1111,6 @@ TPM_RC %(type)s_Unmarshal(
       field_type: The type of field.
       array_length: Variable indicating length of array, None if field is not
           an array.
-      selector: Selector value associated with field.
-      typemap: A dict mapping type names to the corresponding object.
     """
     if array_length:
       out_file.write(self._MARSHAL_FIELD_ARRAY % {'type': field_type,
@@ -1130,7 +1121,7 @@ TPM_RC %(type)s_Unmarshal(
                                             'name': field_name})
 
   def _OutputUnmarshalField(
-      self, out_file, field_type, field_name, array_length, selector, typemap):
+      self, out_file, field_type, field_name, array_length, typemap):
     """Write a call to unmarshal a field in this union.
 
     Args:
@@ -1139,7 +1130,6 @@ TPM_RC %(type)s_Unmarshal(
       field_type: The type of field.
       array_length: Variable indicating length of array, None if field is not
           an array.
-      selector: Selector value associated with field.
       typemap: A dict mapping type names to the corresponding object.
     """
     if array_length:
@@ -1195,8 +1185,7 @@ TPM_RC %(type)s_Unmarshal(
         continue
       field_type = field_types[field_name]
       array_length = array_lengths[field_name]
-      self._OutputMarshalField(
-          out_file, field_type, field_name, array_length, selector, typemap)
+      self._OutputMarshalField(out_file, field_type, field_name, array_length)
       if self._NeedsIfdef(selector):
         out_file.write(self._ENDIF)
     out_file.write(self._MARSHAL_END)
@@ -1218,22 +1207,21 @@ TPM_RC %(type)s_Unmarshal(
       field_type = field_types[field_name]
       array_length = array_lengths[field_name]
       self._OutputUnmarshalField(
-          out_file, field_type, field_name, array_length, selector, typemap)
+          out_file, field_type, field_name, array_length, typemap)
       if self._NeedsIfdef(selector):
         out_file.write(self._ENDIF)
     out_file.write(self._UNMARSHAL_END)
     marshalled_types.add(self.name)
 
-  def OutputMarshalDecl(self, out_file, declared_types, typemap):
+  def OutputMarshalDecl(self, out_file, declared_types, _):
     """Writes marshal declarations for Union to |out_file|.
 
     Args:
       out_file: The output file.
       declared_types: A set of types for which marshal and unmarshal function
           declarations have already been generated.
-      typemap: A dict mapping type names to the corresponding object.
     """
-    self._OutputStructOrUnionMarshalDecl(out_file, declared_types, typemap)
+    self._OutputStructOrUnionMarshalDecl(out_file, declared_types)
 
   def OutputMarshalCall(self, out_file, field_type, field_name, selector):
     """Write a call to marshal function for Union type to |out_file|.

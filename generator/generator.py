@@ -4,15 +4,17 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-import argparse
-import structure_generator
-import command_generator
-
 """A main file for command and structure generators.
 
 Takes in structures.txt and commands.txt as outputted by extract_*.sh, then
 passes files as input to structure_generator and command_generator objects.
 """
+
+from __future__ import print_function
+
+import argparse
+import structure_generator
+import command_generator
 
 def main():
   """A main function.
