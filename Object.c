@@ -739,7 +739,7 @@ ObjectComputeName(
    // Complete hash leaving room for the name algorithm
    CryptCompleteHash(&hashState, name->t.size, &name->t.buffer[2]);
    // set the nameAlg
-   (void)UINT16_TO_BYTE_ARRAY(publicArea->nameAlg, name->t.buffer);
+   UINT16_TO_BYTE_ARRAY(publicArea->nameAlg, name->t.buffer);
 //
    name->t.size += 2;
    return;

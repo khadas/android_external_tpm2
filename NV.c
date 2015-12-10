@@ -1381,7 +1381,7 @@ NvGetName(
     // Complete digest leaving room for the nameAlg
     CryptCompleteHash(&hashState, digestSize, &((BYTE *)name)[2]);
     // Include the nameAlg
-    (void)UINT16_TO_BYTE_ARRAY(nvIndex.publicArea.nameAlg, (BYTE *)name);
+    UINT16_TO_BYTE_ARRAY(nvIndex.publicArea.nameAlg, (BYTE *)name);
     return digestSize + 2;
 }
 //
