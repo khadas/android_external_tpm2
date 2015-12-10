@@ -35,5 +35,15 @@ void ObjectGetQualifiedName(
 BOOL ObjectIsSequence(
         OBJECT              *object               // IN: handle to be checked
                       );
+TPM_RC ObjectLoad(
+        TPMI_RH_HIERARCHY        hierarchy,               //   IN: hierarchy to which the object belongs
+        TPMT_PUBLIC             *publicArea,              //   IN: public area
+        TPMT_SENSITIVE          *sensitive,               //   IN: sensitive area (may be null)
+        TPM2B_NAME              *name,                    //   IN: object's name (may be null)
+        TPM_HANDLE               parentHandle,            //   IN: handle of parent
+        BOOL                     skipChecks,              //   IN: flag to indicate if it is OK to skip
+                                                     //       consistency checks.
+        TPMI_DH_OBJECT          *handle                   //   OUT: object handle
+);
 
 #endif // __TPM2_OBJECT_FP_H

@@ -8,7 +8,7 @@
 #include "InternalRoutines.h"
 #include "CreatePrimary_fp.h"
 #include "Object_spt_fp.h"
-#include <Platform.h>
+#include "Platform.h"
 //
 //
 //     Error Returns                  Meaning
