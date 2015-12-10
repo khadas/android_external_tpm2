@@ -27,7 +27,6 @@ SOURCES += ContextLoad.c
 SOURCES += ContextSave.c
 SOURCES += Context_spt.c
 SOURCES += CpriCryptPri.c
-SOURCES += CpriDataEcc.c
 SOURCES += CpriECC.c
 SOURCES += CpriHash.c
 SOURCES += CpriHashData.c
