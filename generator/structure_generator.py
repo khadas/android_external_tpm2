@@ -74,10 +74,10 @@ _IMPLEMENTATION_FILE_INCLUDES = """
 # Library Specification, Part 4: Supporting Routines, sections 4.2.2 and 4.2.3.
 _MARSHAL_BASIC_TYPE = """
 UINT16 %(type)s_Marshal(%(type)s *source, BYTE **buffer, INT32 *size) {
+  %(type)s value_net = *source;
   if (!size || *size < sizeof(%(type)s)) {
     return sizeof(%(type)s);
   }
-  %(type)s value_net = *source;
   switch (sizeof(%(type)s)) {
     case 2:
       value_net = htobe16(*source);
@@ -98,10 +98,10 @@ UINT16 %(type)s_Marshal(%(type)s *source, BYTE **buffer, INT32 *size) {
 }
 
 TPM_RC %(type)s_Unmarshal(%(type)s *target, BYTE **buffer, INT32 *size) {
+  %(type)s value_net = 0;
   if (!size || *size < sizeof(%(type)s)) {
     return TPM_RC_INSUFFICIENT;
   }
-  %(type)s value_net = 0;
   memcpy(&value_net, *buffer, sizeof(%(type)s));
   switch (sizeof(%(type)s)) {
     case 2:
@@ -505,22 +505,30 @@ class Interface(TPMType):
          implementation.
      error_code: Return code when an unmarshalling error occurs.
   """
-  _CONDITIONAL_UNMARSHAL_START = """
+  _INTERFACE_CONDITIONAL_UNMARSHAL_START = """
 TPM_RC %(new_type)s_Unmarshal(
     %(new_type)s *target,
     BYTE **buffer,
     INT32 *size,
     BOOL allow_conditional_value) {
-  TPM_RC result;
+  TPM_RC result;"""
+  _INTERFACE_UNMARSHAL_START = """
+TPM_RC %(new_type)s_Unmarshal(
+    %(new_type)s *target,
+    BYTE **buffer,
+    INT32 *size) {
+  TPM_RC result;"""
+  _UNMARSHAL_VALUE = """
   result = %(old_type)s_Unmarshal(target, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }"""
-  _CHECK_SUPPORTED_VALUES = """
+  _SETUP_CHECK_SUPPORTED_VALUES = """
   uint16_t supported_values[] = %(supported_values)s;
   size_t length = sizeof(supported_values)/sizeof(supported_values[0]);
   size_t i;
-  BOOL is_supported_value = FALSE;
+  BOOL is_supported_value = FALSE;"""
+  _CHECK_SUPPORTED_VALUES = """
   for (i = 0; i < length; ++i) {
     if (*target == supported_values[i]) {
       is_supported_value = TRUE;
@@ -534,7 +542,7 @@ TPM_RC %(new_type)s_Unmarshal(
   if (*target == %(name)s) {
     return allow_conditional_value ? TPM_RC_SUCCESS : %(error_code)s;
   }"""
-  _CHECK_VALUES_START = '\n  BOOL has_valid_value = FALSE;'
+  _SETUP_CHECK_VALUES = '\n  BOOL has_valid_value = FALSE;'
   _VALUE_END_SWITCH = """
       has_valid_value = TRUE;
       break;
@@ -610,13 +618,22 @@ TPM_RC %(type)s_Unmarshal(
     out_file.write(self._TYPEDEF_MARSHAL_FUNCTION % {'old_type': self.old_type,
                                                      'new_type': self.new_type})
     if self.conditional_value:
-      out_file.write(
-          self._CONDITIONAL_UNMARSHAL_START % {'old_type': self.old_type,
-                                               'new_type': self.new_type})
+      out_file.write(self._INTERFACE_CONDITIONAL_UNMARSHAL_START %
+          {'old_type': self.old_type,
+           'new_type': self.new_type})
     else:
       out_file.write(
-          self._TYPEDEF_UNMARSHAL_START % {'old_type': self.old_type,
-                                           'new_type': self.new_type})
+          self._INTERFACE_UNMARSHAL_START % {'old_type': self.old_type,
+                                             'new_type': self.new_type})
+    # Creating necessary local variables.
+    if self.supported_values:
+      out_file.write(self._SETUP_CHECK_SUPPORTED_VALUES %
+          {'supported_values': self.supported_values})
+    if len(self.valid_values)+len(self.bounds) > 0:
+      out_file.write(self._SETUP_CHECK_VALUES)
+
+    out_file.write(self._UNMARSHAL_VALUE % {'old_type': self.old_type})
+
     if self.supported_values:
       out_file.write(self._CHECK_SUPPORTED_VALUES %
           {'supported_values': self.supported_values,
@@ -627,7 +644,6 @@ TPM_RC %(type)s_Unmarshal(
                                      'error_code': self.error_code})
     # Checking for valid values.
     if len(self.valid_values)+len(self.bounds) > 0:
-      out_file.write(self._CHECK_VALUES_START)
       if len(self.valid_values) > 0:
         out_file.write(self._VALUE_START_SWITCH % {'name': '*target'})
         for value in self.valid_values:
@@ -717,9 +733,12 @@ TPM_RC %(name)s_Unmarshal(
     INT32 *size) {
   TPM_RC result;"""
   _MARSHAL_END = '\n  return total_size;\n}\n'
-  _CHECK_SIZE_START = '\n  UINT32 start_size = *size;'
+  _SETUP_ARRAY_FIELD = '\n  INT32 i;'
+  _CHECK_SIZE_START = """
+  UINT32 start_size = *size;
+  UINT32 struct_size;"""
   _CHECK_SIZE_END = """
-  UINT32 struct_size = start_size - *size - sizeof(target->t.size);
+  struct_size = start_size - *size - sizeof(target->t.size);
   if (struct_size != target->t.size) {
     return TPM_RC_SIZE;
   }"""
@@ -761,13 +780,11 @@ TPM_RC %(name)s_Unmarshal(
       is_array: Boolean indicating whether field is an array.
     """
     _MARSHAL_FIELD_ARRAY = """
-  INT32 i;
   for (i = 0; i < source->%(array_length)s; ++i) {
     total_size += %(type)s_Marshal(
         &source->%(name)s[i], buffer, size);
   }"""
     _UNMARSHAL_FIELD_ARRAY = """
-  INT32 i;
   for (i = 0; i < target->%(array_length)s; ++i) {
     result = %(type)s_Unmarshal(
         &target->%(name)s[i], buffer, size);
@@ -905,6 +922,11 @@ TPM_RC %(name)s_Unmarshal(
         marshalled_types.add(field_type)
 
     out_file.write(self._STRUCTURE_MARSHAL_START % {'name': self.name})
+    # If any field is an array, create local variable INT32 i.
+    for field in self.fields:
+      if field.is_array:
+        out_file.write(self._SETUP_ARRAY_FIELD)
+        break
     for field in self.fields:
       field.OutputMarshal(out_file, typemap)
     out_file.write(self._MARSHAL_END)
@@ -912,6 +934,11 @@ TPM_RC %(name)s_Unmarshal(
     out_file.write(self._STRUCTURE_UNMARSHAL_START % {'name': self.name})
     if self.size_check:
       out_file.write(self._CHECK_SIZE_START)
+    # If any field is an array, create local variable INT32 i.
+    for field in self.fields:
+      if field.is_array:
+        out_file.write(self._SETUP_ARRAY_FIELD)
+        break
     for field in self.fields:
       field.OutputUnmarshal(out_file, typemap)
       return_value = self.error_code
@@ -1726,24 +1753,3 @@ def GenerateImplementation(types, typemap):
     tpm_type.OutputMarshalImpl(out_file, marshalled_types, typemap)
   out_file.close()
   call(['clang-format', '-i', '-style=Chromium', 'tpm_generated.c'])
-
-def main():
-  """A main function.
-
-  TPM structures file is parsed and C header and C implementation files are
-  generated.
-
-  Positional Args:
-    structures_file: The extracted TPM structures file.
-  """
-  parser = argparse.ArgumentParser(description='TPM 2.0 code generator')
-  parser.add_argument('structures_file')
-  args = parser.parse_args()
-  structure_parser = StructureParser(open(args.structures_file))
-  types, typemap = structure_parser.Parse()
-  GenerateHeader(types, typemap)
-  GenerateImplementation(types, typemap)
-  print('Processed %d TPM types.' % len(types))
-
-if __name__ == '__main__':
-  main()
