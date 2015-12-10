@@ -65,6 +65,9 @@ TPM_RC NvIndexIsAccessible(
 void NvInit(
         void
         );
+UINT64 NvInitialCounter(
+        void
+        );
 TPM_RC NvIsAvailable(
         void
 );
