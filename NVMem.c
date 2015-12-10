@@ -6,7 +6,9 @@
 // October 30, 2014
 
 #include     <memory.h>
+#include     <stdio.h>
 #include     <string.h>
+
 #include     "PlatformData.h"
 #include     "TpmError.h"
 #include     "assert.h"
@@ -51,15 +53,13 @@ _plat__NVEnable(
      void                *platParameter       // IN: platform specific parameter
      )
 {
-     (platParameter);                              // to keep compiler quiet
      // Start assuming everything is OK
    s_NV_unrecoverable = FALSE;
    s_NV_recoverable = FALSE;
 #ifdef FILE_BACKED_NV
    if(s_NVFile != NULL) return 0;
    // Try to open an exist NVChip file for read/write
-   if(0 != fopen_s(&s_NVFile, "NVChip", "r+b"))
-       s_NVFile = NULL;
+   s_NVFile = fopen("NVChip", "r+b");
    if(NULL != s_NVFile)
    {
        // See if the NVChip file is empty
@@ -72,7 +72,7 @@ _plat__NVEnable(
        // Initialize all the byte in the new file to 0
        memset(s_NV, 0, NV_MEMORY_SIZE);
           // If NVChip file does not exist, try to create it for read/write
-          fopen_s(&s_NVFile, "NVChip", "w+b");
+          s_NVFile = fopen("NVChip", "w+b");
           // Start initialize at the end of new file
           fseek(s_NVFile, 0, SEEK_END);
           // Write 0s to NVChip file
