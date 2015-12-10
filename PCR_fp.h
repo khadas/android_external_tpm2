@@ -17,6 +17,9 @@ TPMI_YES_NO PCRCapGetAllocation(
         UINT32                   count,               // IN: count of return
         TPML_PCR_SELECTION      *pcrSelection         // OUT: PCR allocation list
 );
+void PCRChanged(
+        TPM_HANDLE           pcrHandle         // IN: the handle of the PCR that changed.
+        );
 void PCRComputeCurrentDigest(
         TPMI_ALG_HASH             hashAlg,            // IN: hash algorithm to compute digest
         TPML_PCR_SELECTION       *selection,          // IN/OUT: PCR selection (filtered on
@@ -50,6 +53,9 @@ void PCRExtend(
 BOOL PCRIsExtendAllowed(
         TPMI_DH_PCR          handle               // IN: PCR handle to be extended
                         );
+BOOL PCRIsResetAllowed(
+        TPMI_DH_PCR          handle            // IN: PCR handle to be extended
+        );
 BOOL PCRIsStateSaved(
         TPMI_DH_PCR         handle                // IN: PCR handle to be extended
                      );
@@ -59,6 +65,10 @@ void PCRRead(
         TPML_DIGEST              *digest,             // OUT: digest
         UINT32                   *pcrCounter          // OUT: the current value of PCR generation
         //     number
+        );
+void PCRSetValue(
+        TPM_HANDLE           handle,            // IN: the handle of the PCR to set
+        INT8                 initialValue       // IN: the value to set
         );
 void PCRSimStart(
         void
