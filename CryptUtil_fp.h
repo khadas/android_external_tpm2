@@ -231,9 +231,15 @@ void CryptHashStateImportExport(
 BOOL CryptIsAsymAlgorithm(
         TPM_ALG_ID           algID                // IN: algorithm ID
 );
+BOOL CryptIsDecryptScheme(
+        TPMI_ALG_ASYM_SCHEME           scheme
+        );
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );
+BOOL CryptIsSignScheme(
+        TPMI_ALG_ASYM_SCHEME           scheme
+        );
 BOOL CryptIsSplitSign(
         TPM_ALG_ID           scheme             // IN: the algorithm selector
         );
@@ -263,6 +269,9 @@ TPM_RC CryptSecretEncrypt(
         const char                    *label,               //   IN: a null-terminated string as L
         TPM2B_DATA                    *data,                //   OUT: secret value
         TPM2B_ENCRYPTED_SECRET        *secret               //   OUT: secret structure
+        );
+const TPMT_ECC_SCHEME * CryptGetCurveSignScheme(
+        TPM_ECC_CURVE         curveId            // IN: The curve selector
         );
 TPM_RC CryptSelectSignScheme(
         TPMI_DH_OBJECT   signHandle,        // IN: handle of signing key
