@@ -68,8 +68,14 @@ typedef struct {
 //
 #define ALIGNED_SIZE(x, b) ((((x) + (b) - 1) / (b)) * (b))
 #define MAX_HASH_STATE_SIZE ((2 * MAX_HASH_BLOCK_SIZE) + 16)
+#if defined USER_MIN_HASH_STATE_SIZE && \
+  (MAX_HASH_STATE_SIZE < (USER_MIN_HASH_STATE_SIZE))
+#define REQUIRED_HASH_STATE_SIZE USER_MIN_HASH_STATE_SIZE
+#else
+#define REQUIRED_HASH_STATE_SIZE MAX_HASH_STATE_SIZE
+#endif
 #define MAX_HASH_STATE_SIZE_ALIGNED                                                              \
-                   ALIGNED_SIZE(MAX_HASH_STATE_SIZE, CRYPTO_ALIGNMENT)
+                   ALIGNED_SIZE(REQUIRED_HASH_STATE_SIZE, CRYPTO_ALIGNMENT)
 //
 //     This is an byte array that will hold any of the hash contexts.
 //
@@ -214,7 +220,6 @@ typedef INT16      CRYPT_RESULT;
 #define CRYPT_UNDERFLOW     ((CRYPT_RESULT) -4)
 #define CRYPT_POINT         ((CRYPT_RESULT) -5)
 #define CRYPT_CANCEL        ((CRYPT_RESULT) -6)
-typedef UINT64              HASH_CONTEXT[MAX_HASH_STATE_SIZE/sizeof(UINT64)];
 #include    "CpriCryptPri_fp.h"
 #ifdef TPM_ALG_ECC
 #   include "CpriDataEcc.h"
