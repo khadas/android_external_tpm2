@@ -1171,7 +1171,6 @@ TPM_RC %(type)s_Unmarshal(
     selector_values = union_selectors.GetUnionSelectorValues(self.name)
     field_types = {f.field_name: f.field_type for f in self.fields}
     array_lengths = {f.field_name: f.array_length for f in self.fields}
-    out_file.write(self._UNION_MARSHAL_START % {'name': self.name})
     # Make sure any dependencies already have marshal functions defined.
     for field_name in field_types:
       field_type = field_types[field_name]
@@ -1179,6 +1178,7 @@ TPM_RC %(type)s_Unmarshal(
         typemap[field_type].OutputMarshalImpl(
             out_file, marshalled_types, typemap)
         marshalled_types.add(field_type)
+    out_file.write(self._UNION_MARSHAL_START % {'name': self.name})
     # Set up variables if Union is an array type.
     if self.fields[0].array_length:
       out_file.write(self._SETUP_MARSHAL_FIELD_ARRAY)
