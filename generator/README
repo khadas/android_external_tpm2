@@ -3,7 +3,8 @@ TPM2 CODE GENERATION
 ********************
 
 Code generation scripts for libtpm2 were taken from src/platform2/trunks and
-modified to generate code appropriate for libtpm2.
+modified to generate code appropriate for libtpm2 (in particular, generated
+code needs to be C as opposed to C++).
 
 ====================
  TPM SPECIFICATION
@@ -63,3 +64,11 @@ as by the extract_commands.sh script.
 
 output files: Marshal_$COMMAND.c, $COMMAND_fp.h, CommandDispatcher.c,
               HandleProcess.c, GetCommandCodeString.{c,h}
+
+=========================================
+      REGENERATING TPM2 SOURCE CODE
+=========================================
+
+Run this command in the root tpm2 directory:
+
+$ generator/generator.py generator/structures.txt generator/commands.txt

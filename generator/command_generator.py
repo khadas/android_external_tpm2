@@ -51,8 +51,8 @@ _COPYRIGHT_HEADER = (
     '\n'
     '// THIS CODE IS GENERATED - DO NOT MODIFY!\n')
 _HEADER_FILE_GUARD_HEADER = """
-#ifndef TPM2_%(name)s_FP_H_
-/define TPM2_%(name)s_FP_H_
+#ifndef TPM2_%(name)s_FP_H
+#define TPM2_%(name)s_FP_H
 """
 _HEADER_FILE_GUARD_FOOTER = """
 #endif  // TPM2_%(name)s_FP_H
@@ -191,18 +191,18 @@ TPM_RC TPM2_%(command_name)s(
     %(command_name)s_In *in,
     %(command_name)s_Out *out);
 
-// Initializes handle fields in |target| from |request_handles|. Unmarshals
+// Initializes handle fields in |target| from |req_handles|. Unmarshals
 // parameter fields in |target| from |buffer|.
 TPM_RC %(command_name)s_In_Unmarshal(
     %(command_name)s_In *target,
-    TPM_HANDLE request_handles[],
+    TPM_HANDLE req_handles[],
     BYTE **buffer,
     INT32 *size);
 
 // Marshals response handles and parameters from |source| to |buffer|. Computes
 // and marshals the size of the parameter area (parameter_size) if |tag| ==
 // TPM_ST_SESSIONS. Returns size of (parameter area + handle area) in bytes.
-// Return value does not include parameter_size field.
+// Does not include parameter_size field.
 UINT16 %(command_name)s_Out_Marshal(
     %(command_name)s_Out *source,
     TPMI_ST_COMMAND_TAG tag,
@@ -214,11 +214,11 @@ UINT16 %(command_name)s_Out_Marshal(
 TPM_RC TPM2_%(command_name)s(
     %(command_name)s_In *in);
 
-// Initializes handle fields in |target| from |request_handles|. Unmarshals
+// Initializes handle fields in |target| from |req_handles|. Unmarshals
 // parameter fields in |target| from |buffer|.
 TPM_RC %(command_name)s_In_Unmarshal(
     %(command_name)s_In *target,
-    TPM_HANDLE request_handles[],
+    TPM_HANDLE req_handles[],
     BYTE **buffer,
     INT32 *size);
 """
@@ -239,19 +239,19 @@ UINT16 %(command_name)s_Out_Marshal(
     INT32 *size);
 """
   _EXEC_DECL = """
-// Unmarshals any request parameters starting at |request_parameter_buffer|.
+// Unmarshals any request parameters starting at |req_parameter_buffer|.
 // Executes command. Marshals any response handles and parameters to the
-// global response buffer and computes |*response_handle_buffer_size| and
-// |*response_parameter_buffer_size|. If |tag| == TPM_ST_SESSIONS, marshals
+// global response buffer and computes |*res_handle_buffer_size| and
+// |*res_parameter_buffer_size|. If |tag| == TPM_ST_SESSIONS, marshals
 // parameter_size indicating the size of the parameter area. parameter_size
 // field is located between the handle area and parameter area.
 TPM_RC Exec_%(command_name)s(
     TPMI_ST_COMMAND_TAG tag,
-    BYTE **request_parameter_buffer,
-    INT32 *request_parameter_buffer_size,
-    TPM_HANDLE request_handles[],
-    UINT32 *response_handle_buffer_size,
-    UINT32 *response_parameter_buffer_size);
+    BYTE **req_parameter_buffer,
+    INT32 *req_parameter_buffer_size,
+    TPM_HANDLE req_handles[],
+    UINT32 *res_handle_buffer_size,
+    UINT32 *res_parameter_buffer_size);
 """
   _EXEC_COMMAND_IMPL_START = """
 TPM_RC Exec_%(command_name)s(
