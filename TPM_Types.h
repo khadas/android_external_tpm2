@@ -25,6 +25,10 @@ typedef UINT32 TPM_CAP;
 #define MAX_CAP_DATA       (MAX_CAP_BUFFER - sizeof(TPM_CAP) - sizeof(UINT32))
 #define MAX_CAP_ALGS       (MAX_CAP_DATA / sizeof(TPMS_ALG_PROPERTY))
 
+// Table 6 - TPM_GENERATED Constants
+typedef UINT32 TPM_GENERATED;
+#define TPM_GENERATED_VALUE (TPM_GENERATED)(0xff544347)
+
 // Table 7 - TPM_ALG_ID Constants
 typedef UINT16 TPM_ALG_ID;
 
@@ -177,6 +181,25 @@ typedef UINT16 TPM_SU;
 #define TPM_SU_CLEAR (TPM_SU)(0x0000)
 #define TPM_SU_STATE (TPM_SU)(0x0001)
 
+// Table 27 - TPM_RH Constants
+typedef UINT32 TPM_RH;
+#define TPM_RH_FIRST       (TPM_RH)(0x40000000)
+#define TPM_RH_SRK         (TPM_RH)(0x40000000)
+#define TPM_RH_OWNER       (TPM_RH)(0x40000001)
+#define TPM_RH_REVOKE      (TPM_RH)(0x40000002)
+#define TPM_RH_TRANSPORT   (TPM_RH)(0x40000003)
+#define TPM_RH_OPERATOR    (TPM_RH)(0x40000004)
+#define TPM_RH_ADMIN       (TPM_RH)(0x40000005)
+#define TPM_RH_EK          (TPM_RH)(0x40000006)
+#define TPM_RH_NULL        (TPM_RH)(0x40000007)
+#define TPM_RH_UNASSIGNED  (TPM_RH)(0x40000008)
+#define TPM_RS_PW          (TPM_RH)(0x40000009)
+#define TPM_RH_LOCKOUT     (TPM_RH)(0x4000000A)
+#define TPM_RH_ENDORSEMENT (TPM_RH)(0x4000000B)
+#define TPM_RH_PLATFORM    (TPM_RH)(0x4000000C)
+#define TPM_RH_PLATFORM_NV (TPM_RH)(0x4000000D)
+#define TPM_RH_LAST        (TPM_RH)(0x4000000D)
+
 // 8 Attribute Structures
 // Table 29 - TPMA_ALGORITHM Bits
 typedef struct {
@@ -230,6 +253,12 @@ typedef BYTE TPMI_YES_NO;
 // Table 38 - TPMI_DH_OBJECT Type
 typedef TPM_HANDLE TPMI_DH_OBJECT;
 
+// Table 40 - TPMI_DH_ENTITY Type
+typedef TPM_HANDLE TPMI_DH_ENTITY;
+
+// Table 46 - TPMI_RH_HIERARCHY Type
+typedef TPM_HANDLE TPMI_RH_HIERARCHY;
+
 // Table 55 - TPMI_RH_NV_INDEX Type
 typedef TPM_HANDLE TPMI_RH_NV_INDEX;
 
@@ -247,6 +276,9 @@ typedef TPM_ALG_ID TPMI_ALG_SYM_MODE;
 
 // Table 61 - TPMI_ALG_KDF Type
 typedef TPM_ALG_ID TPMI_ALG_KDF;
+
+// Table 62 - TPMI_ALG_SIG_SCHEME Type
+typedef TPM_ALG_ID TPMI_ALG_SIG_SCHEME;
 
 // Table 64 - TPMI_ST_COMMAND_TAG Type
 typedef TPM_ST TPMI_ST_COMMAND_TAG;
@@ -277,6 +309,9 @@ typedef TPM2B_DIGEST TPM2B_NONCE;
 
 // Table 71 - TPM2B_AUTH Types
 typedef TPM2B_DIGEST TPM2B_AUTH;
+
+// Table 75 - TPM2B_MAX_NV_BUFFER Structure
+TPM2B_TYPE(MAX_NV_BUFFER, MAX_NV_INDEX_SIZE);
 
 // Table 78 - TPMU_NAME Union
 typedef union {
@@ -326,8 +361,78 @@ typedef struct {
   TPMS_CLOCK_INFO clockInfo;
 } TPMS_TIME_INFO;
 
+// Table 107 - TPMS_TIME_ATTEST_INFO Structure
+typedef struct {
+  TPMS_TIME_INFO time;
+  UINT64         firmwareVersion;
+} TPMS_TIME_ATTEST_INFO;
+
+// Table 108 - TPMS_CERTIFY_INFO Structure
+typedef struct {
+  TPM2B_NAME name;
+  TPM2B_NAME qualifiedName;
+} TPMS_CERTIFY_INFO;
+
+// Table 109 - TPMS_QUOTE_INFO Structure
+typedef struct {
+  TPML_PCR_SELECTION pcrSelect;
+  TPM2B_DIGEST       pcrDigest;
+} TPMS_QUOTE_INFO;
+
+// Table 110 - TPMS_COMMAND_AUDIT_INFO Structure
+typedef struct {
+  UINT64       auditCounter;
+  TPM_ALG_ID   digestAlg;
+  TPM2B_DIGEST auditDigest;
+  TPM2B_DIGEST commandDigest;
+} TPMS_COMMAND_AUDIT_INFO;
+
+// Table 111 - TPMS_SESSION_AUDIT_INFO Structure
+typedef struct {
+  TPMI_YES_NO  exclusiveSession;
+  TPM2B_DIGEST sessionDigest;
+} TPMS_SESSION_AUDIT_INFO;
+
+// Table 112 - TPMS_CREATION_INFO Structure
+typedef struct {
+  TPM2B_NAME   objectName;
+  TPM2B_DIGEST creationHash;
+} TPMS_CREATION_INFO;
+
+// Table 113 - TPMS_NV_CERTIFY_INFO Structure
+typedef struct {
+  TPM2B_NAME          indexName;
+  UINT16              offset;
+  TPM2B_MAX_NV_BUFFER nvContents;
+} TPMS_NV_CERTIFY_INFO;
+
 // Table 114 - TPMI_ST_ATTEST Type
 typedef TPM_ST TPMI_ST_ATTEST;
+
+// Table 115 - TPMU_ATTEST Union
+typedef union {
+  TPMS_CERTIFY_INFO       certify;
+  TPMS_CREATION_INFO      creation;
+  TPMS_QUOTE_INFO         quote;
+  TPMS_COMMAND_AUDIT_INFO commandAudit;
+  TPMS_SESSION_AUDIT_INFO sessionAudit;
+  TPMS_TIME_ATTEST_INFO   time;
+  TPMS_NV_CERTIFY_INFO    nv;
+} TPMU_ATTEST;
+
+// Table 116 - TPMS_ATTEST Structure
+typedef struct {
+  TPM_GENERATED   magic;
+  TPMI_ST_ATTEST  type;
+  TPM2B_NAME      qualifiedSigner;
+  TPM2B_DATA      extraData;
+  TPMS_CLOCK_INFO clockInfo;
+  UINT64          firmwareVersion;
+  TPMU_ATTEST     attested;
+} TPMS_ATTEST;
+
+// Table 117 - TPM2B_ATTEST Structure
+TPM2B_TYPE(ATTEST, sizeof(TPMS_ATTEST));
 
 // Table 120 - TPMI_AES_KEY_BITS Type
 typedef TPM_KEY_BITS TPMI_AES_KEY_BITS;
@@ -424,6 +529,12 @@ typedef union {
   TPMS_SCHEME_HMAC      hmac;
   TPMS_SCHEME_SIGHASH   any;
 } TPMU_SIG_SCHEME;
+
+// Table 142 - TPMT_SIG_SCHEME Structure
+typedef struct {
+  TPMI_ALG_SIG_SCHEME scheme;
+  TPMU_SIG_SCHEME     details;
+} TPMT_SIG_SCHEME;
 
 // Table 143 - TPMS_SCHEME_OAEP Structure
 typedef struct {
@@ -522,6 +633,43 @@ typedef struct {
   TPMI_ALG_ECC_SCHEME scheme;
   TPMU_SIG_SCHEME     details;
 } TPMT_ECC_SCHEME;
+
+// Table 168 - TPMS_SIGNATURE_RSASSA Structure
+typedef struct {
+  TPMI_ALG_HASH        hash;
+  TPM2B_PUBLIC_KEY_RSA sig;
+} TPMS_SIGNATURE_RSASSA;
+
+// Table 169 - TPMS_SIGNATURE_RSAPSS Structure
+typedef struct {
+  TPMI_ALG_HASH        hash;
+  TPM2B_PUBLIC_KEY_RSA sig;
+} TPMS_SIGNATURE_RSAPSS;
+
+// Table 170 - TPMS_SIGNATURE_ECDSA Structure
+typedef struct {
+  TPMI_ALG_HASH       hash;
+  TPM2B_ECC_PARAMETER signatureR;
+  TPM2B_ECC_PARAMETER signatureS;
+} TPMS_SIGNATURE_ECDSA;
+
+// Table 171 - TPMU_SIGNATURE Union
+typedef union {
+  TPMS_SIGNATURE_RSASSA rsassa;
+  TPMS_SIGNATURE_RSAPSS rsapss;
+  TPMS_SIGNATURE_ECDSA  ecdsa;
+  TPMS_SIGNATURE_ECDSA  sm2;
+  TPMS_SIGNATURE_ECDSA  ecdaa;
+  TPMS_SIGNATURE_ECDSA  ecschnorr;
+  TPMT_HA               hmac;
+  TPMS_SCHEME_SIGHASH   any;
+} TPMU_SIGNATURE;
+
+// Table 172 - TPMT_SIGNATURE Structure
+typedef struct {
+  TPMI_ALG_SIG_SCHEME sigAlg;
+  TPMU_SIGNATURE      signature;
+} TPMT_SIGNATURE;
 
 // Table 173 - TPMU_ENCRYPTED_SECRET Union
 typedef union {
