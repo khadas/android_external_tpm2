@@ -2157,7 +2157,7 @@ TPM_RC TPMT_SYM_DEF_OBJECT_Unmarshal(TPMT_SYM_DEF_OBJECT* target,
                                      INT32* size) {
   TPM_RC result;
   result =
-      TPMI_ALG_SYM_OBJECT_Unmarshal(&target->algorithm, buffer, size, FALSE);
+      TPMI_ALG_SYM_OBJECT_Unmarshal(&target->algorithm, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -2542,7 +2542,7 @@ TPM_RC TPMT_RSA_SCHEME_Unmarshal(TPMT_RSA_SCHEME* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_RSA_SCHEME_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_RSA_SCHEME_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -2691,7 +2691,7 @@ TPM_RC TPMT_ASYM_SCHEME_Unmarshal(TPMT_ASYM_SCHEME* target,
                                   BYTE** buffer,
                                   INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_ASYM_SCHEME_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_ASYM_SCHEME_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -2894,7 +2894,7 @@ TPM_RC TPMT_KDF_SCHEME_Unmarshal(TPMT_KDF_SCHEME* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_KDF_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_KDF_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -3081,7 +3081,7 @@ TPM_RC TPMT_ECC_SCHEME_Unmarshal(TPMT_ECC_SCHEME* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_ECC_SCHEME_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_ECC_SCHEME_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -3249,7 +3249,7 @@ TPM_RC TPMS_SCHEME_XOR_Unmarshal(TPMS_SCHEME_XOR* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_HASH_Unmarshal(&target->hashAlg, buffer, size, FALSE);
+  result = TPMI_ALG_HASH_Unmarshal(&target->hashAlg, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -3322,7 +3322,7 @@ TPM_RC TPMT_KEYEDHASH_SCHEME_Unmarshal(TPMT_KEYEDHASH_SCHEME* target,
                                        INT32* size) {
   TPM_RC result;
   result =
-      TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(&target->scheme, buffer, size, FALSE);
+      TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -3430,7 +3430,7 @@ TPM_RC TPMT_PUBLIC_Unmarshal(TPMT_PUBLIC* target, BYTE** buffer, INT32* size) {
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_ALG_HASH_Unmarshal(&target->nameAlg, buffer, size, FALSE);
+  result = TPMI_ALG_HASH_Unmarshal(&target->nameAlg, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -5649,7 +5649,7 @@ UINT16 TPMT_HA_Marshal(TPMT_HA* source, BYTE** buffer, INT32* size) {
 
 TPM_RC TPMT_HA_Unmarshal(TPMT_HA* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_HASH_Unmarshal(&target->hashAlg, buffer, size, FALSE);
+  result = TPMI_ALG_HASH_Unmarshal(&target->hashAlg, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -6595,7 +6595,7 @@ TPM_RC TPMS_AUTH_COMMAND_Unmarshal(TPMS_AUTH_COMMAND* target,
                                    INT32* size) {
   TPM_RC result;
   result = TPMI_SH_AUTH_SESSION_Unmarshal(&target->sessionHandle, buffer, size,
-                                          FALSE);
+                                          TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -6804,7 +6804,7 @@ TPM_RC TPMS_CONTEXT_Unmarshal(TPMS_CONTEXT* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, FALSE);
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7060,7 +7060,7 @@ TPM_RC TPMT_RSA_DECRYPT_Unmarshal(TPMT_RSA_DECRYPT* target,
                                   BYTE** buffer,
                                   INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_RSA_DECRYPT_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_RSA_DECRYPT_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7180,7 +7180,7 @@ TPM_RC TPMT_SIGNATURE_Unmarshal(TPMT_SIGNATURE* target,
                                 BYTE** buffer,
                                 INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_SIG_SCHEME_Unmarshal(&target->sigAlg, buffer, size, FALSE);
+  result = TPMI_ALG_SIG_SCHEME_Unmarshal(&target->sigAlg, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7206,7 +7206,7 @@ TPM_RC TPMT_SIG_SCHEME_Unmarshal(TPMT_SIG_SCHEME* target,
                                  BYTE** buffer,
                                  INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_SIG_SCHEME_Unmarshal(&target->scheme, buffer, size, FALSE);
+  result = TPMI_ALG_SIG_SCHEME_Unmarshal(&target->scheme, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7232,7 +7232,7 @@ TPM_RC TPMT_SYM_DEF_Unmarshal(TPMT_SYM_DEF* target,
                               BYTE** buffer,
                               INT32* size) {
   TPM_RC result;
-  result = TPMI_ALG_SYM_Unmarshal(&target->algorithm, buffer, size, FALSE);
+  result = TPMI_ALG_SYM_Unmarshal(&target->algorithm, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7265,7 +7265,7 @@ TPM_RC TPMT_TK_AUTH_Unmarshal(TPMT_TK_AUTH* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, FALSE);
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7294,7 +7294,7 @@ TPM_RC TPMT_TK_CREATION_Unmarshal(TPMT_TK_CREATION* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, FALSE);
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7323,7 +7323,7 @@ TPM_RC TPMT_TK_HASHCHECK_Unmarshal(TPMT_TK_HASHCHECK* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, FALSE);
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -7352,7 +7352,7 @@ TPM_RC TPMT_TK_VERIFIED_Unmarshal(TPMT_TK_VERIFIED* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, FALSE);
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
