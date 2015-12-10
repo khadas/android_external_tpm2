@@ -5,6 +5,9 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+typedef void   FirmwareRead_In;
+typedef void   FirmwareRead_Out;
+
 #include "InternalRoutines.h"
 #include "FirmwareRead_fp.h"
 TPM_RC
