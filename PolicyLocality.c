@@ -25,6 +25,7 @@ TPM2_PolicyLocality(
     BYTE            prevSetting[sizeof(TPMA_LOCALITY)];
     UINT32          marshalSize;
     BYTE           *buffer;
+    INT32           bufferSize;
     TPM_CC          commandCode = TPM_CC_PolicyLocality;
     HASH_STATE      hashState;
 
@@ -35,7 +36,8 @@ TPM2_PolicyLocality(
 
     // Get new locality setting in canonical form
     buffer = marshalBuffer;
-    marshalSize = TPMA_LOCALITY_Marshal(&in->locality, &buffer, NULL);
+    bufferSize = sizeof(TPMA_LOCALITY);
+    marshalSize = TPMA_LOCALITY_Marshal(&in->locality, &buffer, &bufferSize);
 
     // Its an error if the locality parameter is zero
     if(marshalBuffer[0] == 0)
@@ -43,7 +45,8 @@ TPM2_PolicyLocality(
 
     // Get existing locality setting in canonical form
     buffer = prevSetting;
-    TPMA_LOCALITY_Marshal(&session->commandLocality, &buffer, NULL);
+    bufferSize = sizeof(TPMA_LOCALITY);
+    TPMA_LOCALITY_Marshal(&session->commandLocality, &buffer, &bufferSize);
 
     // If the locality has previously been set
     if(    prevSetting[0] != 0

@@ -563,6 +563,7 @@ ComputeCommandHMAC(
    TPM2B_KEY           key;
    BYTE                marshalBuffer[sizeof(TPMA_SESSION)];
    BYTE               *buffer;
+   INT32               bufferSize;
    UINT32              marshalSize;
    HMAC_STATE          hmacState;
    TPM2B_NONCE        *nonceDecrypt;
@@ -653,8 +654,9 @@ ComputeCommandHMAC(
         CryptUpdateDigest2B(&hmacState, &nonceEncrypt->b);
     // Add sessionAttributes
     buffer = marshalBuffer;
+    bufferSize = sizeof(TPMA_SESSION);
     marshalSize = TPMA_SESSION_Marshal(&(s_attributes[sessionIndex]),
-                                       &buffer, NULL);
+                                       &buffer, &bufferSize);
     CryptUpdateDigest(&hmacState, marshalSize, marshalBuffer);
     // Complete the HMAC computation
     CryptCompleteHMAC2B(&hmacState, &hmac->b);
@@ -784,8 +786,9 @@ CheckPolicyAuthSession(
    {
        BYTE          sessionLocality[sizeof(TPMA_LOCALITY)];
        BYTE         *buffer = sessionLocality;
+       INT32         bufferSize = sizeof(TPMA_LOCALITY);
         // Get existing locality setting in canonical form
-        TPMA_LOCALITY_Marshal(&session->commandLocality, &buffer, NULL);
+        TPMA_LOCALITY_Marshal(&session->commandLocality, &buffer, &bufferSize);
        // See if the locality has been set
        if(sessionLocality[0] != 0)
        {
@@ -1681,6 +1684,7 @@ ComputeResponseHMAC(
    TPM2B_KEY        key;       // HMAC key
    BYTE             marshalBuffer[sizeof(TPMA_SESSION)];
    BYTE            *buffer;
+   INT32            bufferSize;
    UINT32           marshalSize;
    HMAC_STATE       hmacState;
    TPM2B_DIGEST     rp_hash;
@@ -1721,7 +1725,8 @@ ComputeResponseHMAC(
    CryptUpdateDigest2B(&hmacState, &s_nonceCaller[sessionIndex].b);
    // Add session attributes.
    buffer = marshalBuffer;
-   marshalSize = TPMA_SESSION_Marshal(&s_attributes[sessionIndex], &buffer, NULL);
+   bufferSize = sizeof(TPMA_SESSION);
+   marshalSize = TPMA_SESSION_Marshal(&s_attributes[sessionIndex], &buffer, &bufferSize);
    CryptUpdateDigest(&hmacState, marshalSize, marshalBuffer);
    // Finalize HMAC.
    CryptCompleteHMAC2B(&hmacState, &hmac->b);
@@ -1856,13 +1861,18 @@ BuildResponseSession(
    )
 {
    BYTE                *resParmBuffer;
+   INT32                bufferSize;
    TPM2B_NONCE      responseNonces[MAX_SESSION_NUM];
    // Compute response parameter buffer start.
    resParmBuffer = MemoryGetResponseBuffer(commandCode) + sizeof(TPM_ST) +
                    sizeof(UINT32) + sizeof(TPM_RC) + resHandleSize;
+   bufferSize = MAX_RESPONSE_SIZE - sizeof(TPM_ST) - sizeof(UINT32) -
+                sizeof(TPM_RC) - resHandleSize;
    // For TPM_ST_SESSIONS, there is parameterSize field.
-   if(tag == TPM_ST_SESSIONS)
+   if(tag == TPM_ST_SESSIONS) {
        resParmBuffer += sizeof(UINT32);
+       bufferSize -= sizeof(UINT32);
+   }
    // Session nonce should be updated before parameter encryption
    if(tag == TPM_ST_SESSIONS)
    {
@@ -1934,14 +1944,15 @@ BuildResponseSession(
         // Assemble Response Sessions.
         *resSessionSize = 0;
         buffer = resParmBuffer + resParmSize;
+        bufferSize -= resParmSize;
         for(i = 0; i < s_sessionNum; i++)
         {
             *resSessionSize += TPM2B_NONCE_Marshal(&responseNonces[i],
-                                                   &buffer, NULL);
+                                                   &buffer, &bufferSize);
             *resSessionSize += TPMA_SESSION_Marshal(&s_attributes[i],
-                                                    &buffer, NULL);
+                                                    &buffer, &bufferSize);
             *resSessionSize += TPM2B_DIGEST_Marshal(&responseAuths[i],
-                                                    &buffer, NULL);
+                                                    &buffer, &bufferSize);
         }
         // Update internal sessions after completing response buffer computation.
         UpdateInternalSession();

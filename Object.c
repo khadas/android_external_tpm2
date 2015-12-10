@@ -722,6 +722,7 @@ ObjectComputeName(
 {
    TPM2B_PUBLIC               marshalBuffer;
    BYTE                      *buffer;               // auxiliary marshal buffer pointer
+   INT32                      bufferSize;
    HASH_STATE                 hashState;            // hash state
    // if the nameAlg is NULL then there is no name.
    if(publicArea->nameAlg == TPM_ALG_NULL)
@@ -733,7 +734,8 @@ ObjectComputeName(
    name->t.size = CryptStartHash(publicArea->nameAlg, &hashState);
    // Marshal the public area into its canonical form
    buffer = marshalBuffer.b.buffer;
-   marshalBuffer.t.size = TPMT_PUBLIC_Marshal(publicArea, &buffer, NULL);
+   bufferSize = marshalBuffer.b.size;
+   marshalBuffer.t.size = TPMT_PUBLIC_Marshal(publicArea, &buffer, &bufferSize);
    // Adding public area
    CryptUpdateDigest2B(&hashState, &marshalBuffer.b);
    // Complete hash leaving room for the name algorithm

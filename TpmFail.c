@@ -80,10 +80,11 @@ static BYTE response[sizeof(RESPONSES)];
 static INT32
 MarshalUint16(
     UINT16               integer,
-    BYTE                 **buffer
+    BYTE                 **buffer,
+    INT32                *size
     )
 {
-    return UINT16_Marshal(&integer, buffer, NULL);
+    return UINT16_Marshal(&integer, buffer, size);
 }
 //
 //
@@ -93,10 +94,11 @@ MarshalUint16(
 static INT32
 MarshalUint32(
     UINT32               integer,
-    BYTE                **buffer
+    BYTE                **buffer,
+    INT32               *size
     )
 {
-    return UINT32_Marshal(&integer, buffer, NULL);
+    return UINT32_Marshal(&integer, buffer, size);
 }
 //
 //
@@ -181,6 +183,7 @@ TpmFailureMode (
     )
 {
     BYTE                *buffer;
+    INT32                bufferSize;
     UINT32               marshalSize;
     UINT32               capability;
     HEADER               header;     // unmarshaled command header
@@ -203,14 +206,15 @@ TpmFailureMode (
          if(header.size != 10)
               goto FailureModeReturn;
          buffer = &response[10];
-         marshalSize = MarshalUint16(3 * sizeof(UINT32), &buffer);
-         marshalSize += MarshalUint32(s_failFunction, &buffer);
-         marshalSize += MarshalUint32(s_failLine, &buffer);
-         marshalSize += MarshalUint32(s_failCode, &buffer);
+         bufferSize = MAX_RESPONSE_SIZE-10;
+         marshalSize = MarshalUint16(3 * sizeof(UINT32), &buffer, &bufferSize);
+         marshalSize += MarshalUint32(s_failFunction, &buffer, &bufferSize);
+         marshalSize += MarshalUint32(s_failLine, &buffer, &bufferSize);
+         marshalSize += MarshalUint32(s_failCode, &buffer, &bufferSize);
          if(s_failCode == FATAL_ERROR_NV_UNRECOVERABLE)
-              marshalSize += MarshalUint32(TPM_RC_NV_UNINITIALIZED, &buffer);
+              marshalSize += MarshalUint32(TPM_RC_NV_UNINITIALIZED, &buffer, &bufferSize);
          else
-              marshalSize += MarshalUint32(TPM_RC_FAILURE, &buffer);
+              marshalSize += MarshalUint32(TPM_RC_FAILURE, &buffer, &bufferSize);
 //
         break;
    case TPM_CC_GetCapability:
@@ -248,6 +252,7 @@ TpmFailureMode (
             pt = TPM_PT_MANUFACTURER;
         // set up for return
         buffer = &response[10];
+        bufferSize = MAX_RESPONSE_SIZE-10;
         // if the request was for a PT less than the last one
         // then we indicate more, otherwise, not.
         if(pt < TPM_PT_FIRMWARE_VERSION_2)
@@ -256,11 +261,11 @@ TpmFailureMode (
              *buffer++ = NO;
         marshalSize = 1;
         // indicate     the capability type
-        marshalSize     += MarshalUint32(capability, &buffer);
+        marshalSize     += MarshalUint32(capability, &buffer, &bufferSize);
         // indicate     the number of values that are being returned (0 or 1)
-        marshalSize     += MarshalUint32(count, &buffer);
+        marshalSize     += MarshalUint32(count, &buffer, &bufferSize);
         // indicate     the property
-        marshalSize     += MarshalUint32(pt, &buffer);
+        marshalSize     += MarshalUint32(pt, &buffer, &bufferSize);
         if(count > 0)
             switch (pt) {
             case TPM_PT_MANUFACTURER:
@@ -327,26 +332,28 @@ TpmFailureMode (
 #endif
            break;
        }
-       marshalSize += MarshalUint32(pt, &buffer);
+       marshalSize += MarshalUint32(pt, &buffer, &bufferSize);
        break;
    default: // default for switch (cc)
        goto FailureModeReturn;
    }
    // Now do the header
    buffer = response;
+   bufferSize = 10;
    marshalSize = marshalSize + 10; // Add the header size to the
                                    // stuff already marshaled
-   MarshalUint16(TPM_ST_NO_SESSIONS, &buffer); // structure tag
-   MarshalUint32(marshalSize, &buffer); // responseSize
-   MarshalUint32(TPM_RC_SUCCESS, &buffer); // response code
+   MarshalUint16(TPM_ST_NO_SESSIONS, &buffer, &bufferSize); // structure tag
+   MarshalUint32(marshalSize, &buffer, &bufferSize); // responseSize
+   MarshalUint32(TPM_RC_SUCCESS, &buffer, &bufferSize); // response code
    *outResponseSize = marshalSize;
    *outResponse = (unsigned char *)&response;
    return;
 FailureModeReturn:
    buffer = response;
-   marshalSize = MarshalUint16(TPM_ST_NO_SESSIONS, &buffer);
-   marshalSize += MarshalUint32(10, &buffer);
-   marshalSize += MarshalUint32(TPM_RC_FAILURE, &buffer);
+   bufferSize = 10;
+   marshalSize = MarshalUint16(TPM_ST_NO_SESSIONS, &buffer, &bufferSize);
+   marshalSize += MarshalUint32(10, &buffer, &bufferSize);
+   marshalSize += MarshalUint32(TPM_RC_FAILURE, &buffer, &bufferSize);
    *outResponseSize = marshalSize;
    *outResponse = (unsigned char *)response;
    return;

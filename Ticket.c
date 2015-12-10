@@ -29,12 +29,14 @@ TicketIsSafe(
       TPM_GENERATED        valueToCompare = TPM_GENERATED_VALUE;
       BYTE                 bufferToCompare[sizeof(valueToCompare)];
       BYTE                 *marshalBuffer;
+      INT32                bufferSize;
       // If the buffer size is less than the size of TPM_GENERATED_VALUE, assume
       // it is not safe to generate a ticket
       if(buffer->size < sizeof(valueToCompare))
           return FALSE;
       marshalBuffer = bufferToCompare;
-   TPM_GENERATED_Marshal(&valueToCompare, &marshalBuffer, NULL);
+      bufferSize = sizeof(valueToCompare);
+   TPM_GENERATED_Marshal(&valueToCompare, &marshalBuffer, &bufferSize);
    if(MemoryEqual(buffer->buffer, bufferToCompare, sizeof(valueToCompare)))
        return FALSE;
    else

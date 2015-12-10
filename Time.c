@@ -195,12 +195,14 @@ TimeGetRange(
    UINT16                    infoSize;
    BYTE                      infoData[sizeof(TPMS_TIME_INFO)];
    BYTE                      *buffer;
+   INT32                     bufferSize;
    // Fill TPMS_TIME_INFO structure
    timeInfo.time = g_time;
    TimeFillInfo(&timeInfo.clockInfo);
    // Marshal TPMS_TIME_INFO to canonical form
    buffer = infoData;
-   infoSize = TPMS_TIME_INFO_Marshal(&timeInfo, &buffer, NULL);
+   bufferSize = sizeof(TPMS_TIME_INFO);
+   infoSize = TPMS_TIME_INFO_Marshal(&timeInfo, &buffer, &bufferSize);
    // Check if the input range is valid
    if(offset + size > infoSize) return TPM_RC_RANGE;
    // Copy info data to output buffer
