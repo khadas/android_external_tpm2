@@ -147,7 +147,7 @@ ObjectGetName(
     if(object->publicArea.nameAlg == TPM_ALG_NULL)
         return 0;
     // Copy the Name data to the output
-    MemoryCopy(name, object->name.t.buffer, object->name.t.size, sizeof(NAME));
+    MemoryCopy(name, object->name.t.name, object->name.t.size, sizeof(NAME));
     return object->name.t.size;
 }
 //
@@ -347,7 +347,7 @@ ObjectLoad(
        // initialize QN
        parentQN.t.size = 4;
         // for a primary key, parent qualified name is the handle of hierarchy
-        UINT32_TO_BYTE_ARRAY(parentHandle, parentQN.t.buffer);
+        UINT32_TO_BYTE_ARRAY(parentHandle, parentQN.t.name);
    }
    else
    {
@@ -737,9 +737,9 @@ ObjectComputeName(
    // Adding public area
    CryptUpdateDigest2B(&hashState, &marshalBuffer.b);
    // Complete hash leaving room for the name algorithm
-   CryptCompleteHash(&hashState, name->t.size, &name->t.buffer[2]);
+   CryptCompleteHash(&hashState, name->t.size, &name->t.name[2]);
    // set the nameAlg
-   UINT16_TO_BYTE_ARRAY(publicArea->nameAlg, name->t.buffer);
+   UINT16_TO_BYTE_ARRAY(publicArea->nameAlg, name->t.name);
 //
    name->t.size += 2;
    return;
@@ -768,8 +768,8 @@ ObjectComputeQualifiedName(
    CryptUpdateDigest2B(&hashState, &name->b);
    // Complete hash leaving room for the name algorithm
    CryptCompleteHash(&hashState, qualifiedName->t.size,
-                     &qualifiedName->t.buffer[2]);
-   UINT16_TO_BYTE_ARRAY(nameAlg, qualifiedName->t.buffer);
+                     &qualifiedName->t.name[2]);
+   UINT16_TO_BYTE_ARRAY(nameAlg, qualifiedName->t.name);
    qualifiedName->t.size += 2;
    return;
 }

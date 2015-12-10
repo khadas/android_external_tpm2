@@ -174,6 +174,7 @@ SOURCES += _TPM_Hash_Data.c
 SOURCES += _TPM_Hash_End.c
 SOURCES += _TPM_Hash_Start.c
 SOURCES += _TPM_Init.c
+SOURCES += tpm_generated.c
 
 OBJS = $(patsubst %.c,$(obj)/%.o,$(SOURCES))
 DEPS = $(patsubst %.c,$(obj)/.%.d,$(SOURCES))

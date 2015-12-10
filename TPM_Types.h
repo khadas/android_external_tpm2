@@ -30,6 +30,27 @@ typedef UINT32 TPM_CAP;
 #define MAX_PCR_PROPERTIES (MAX_CAP_DATA / sizeof(TPMS_TAGGED_PCR_SELECT))
 #define MAX_TPM_PROPERTIES (MAX_CAP_DATA / sizeof(TPMS_TAGGED_PROPERTY))
 
+typedef UINT32 TPM_ALGORITHM_ID;
+typedef UINT32 TPM_MODIFIER_INDICATOR;
+typedef UINT32 TPM_AUTHORIZATION_SIZE;
+typedef UINT32 TPM_PARAMETER_SIZE;
+typedef UINT16 TPM_KEY_SIZE;
+typedef UINT32 TPM_SPEC;
+typedef UINT32 TPM_NV_INDEX;
+
+typedef TPM_HANDLE TPMI_DH_PERSISTENT;
+typedef TPM_HANDLE TPMI_RH_ENABLES;
+typedef TPM_HANDLE TPMI_RH_HIERARCHY_AUTH;
+typedef TPM_HANDLE TPMI_RH_PLATFORM;
+typedef TPM_HANDLE TPMI_RH_OWNER;
+typedef TPM_HANDLE TPMI_RH_ENDORSEMENT;
+typedef TPM_HANDLE TPMI_RH_PROVISION;
+typedef TPM_HANDLE TPMI_RH_CLEAR;
+typedef TPM_HANDLE TPMI_RH_NV_AUTH;
+typedef TPM_HANDLE TPMI_RH_LOCKOUT;
+typedef TPM_ALG_ID TPMI_ALG_ASYM;
+typedef TPM_ALG_ID TPMI_ECC_KEY_EXCHANGE;
+
 // Table 6 - TPM_GENERATED Constants
 typedef UINT32 TPM_GENERATED;
 #define TPM_GENERATED_VALUE (TPM_GENERATED)(0xff544347)
@@ -284,6 +305,7 @@ typedef UINT32 TPM_PT;
 #define TPM_PT_TOTAL_COMMANDS (TPM_PT)(PT_FIXED + 41)
 #define TPM_PT_LIBRARY_COMMANDS (TPM_PT)(PT_FIXED + 42)
 #define TPM_PT_VENDOR_COMMANDS (TPM_PT)(PT_FIXED + 43)
+#define TPM_PT_NV_BUFFER_MAX (TPM_PT)(PT_FIXED + 44)
 #define PT_VAR (TPM_PT)(PT_GROUP * 2)
 #define TPM_PT_PERMANENT (TPM_PT)(PT_VAR + 0)
 #define TPM_PT_STARTUP_CLEAR (TPM_PT)(PT_VAR + 1)
@@ -407,10 +429,10 @@ typedef struct {
 
 // Table 30 - TPMA_OBJECT Bits
 typedef struct {
-  UINT32 reserved1 : 1;
+  UINT32 reserved0 : 1;
   UINT32 fixedTPM : 1;
   UINT32 stClear : 1;
-  UINT32 reserved4 : 1;
+  UINT32 reserved3 : 1;
   UINT32 fixedParent : 1;
   UINT32 sensitiveDataOrigin : 1;
   UINT32 userWithAuth : 1;
@@ -467,7 +489,7 @@ typedef struct {
   UINT32 shEnable : 1;
   UINT32 ehEnable : 1;
   UINT32 phEnableNV : 1;
-  UINT32 reserved3_30 : 27;
+  UINT32 reserved4_30 : 27;
   UINT32 orderly : 1;
 } TPMA_STARTUP_CLEAR;
 
@@ -552,6 +574,11 @@ typedef union {
   BYTE sha512[SHA512_DIGEST_SIZE];
 } TPMU_HA;
 
+// not in spec ?
+typedef struct {
+  TPMI_ALG_HASH hashAlg;
+} TPMS_SCHEME_ECDH;
+
 // Table 67 - TPMT_HA Structure
 typedef struct {
   TPMI_ALG_HASH hashAlg;
@@ -560,9 +587,16 @@ typedef struct {
 
 // Table 68 - TPM2B_DIGEST Structure
 TPM2B_TYPE(DIGEST, sizeof(TPMU_HA));
+typedef TPM2B_DIGEST TPM2B_OPERAND;
 
 // Table 69 - TPM2B_DATA Structure
 TPM2B_TYPE(DATA, sizeof(TPMT_HA));
+
+// Table 69 - TPMA_ALGORITHM_DESCRIPTION*
+typedef struct {
+  TPM_ALG_ID alg;
+  TPMA_ALGORITHM attributes;
+} TPMS_ALGORITHM_DESCRIPTION;
 
 // Table 70 - TPM2B_NONCE Types
 typedef TPM2B_DIGEST TPM2B_NONCE;
@@ -579,6 +613,9 @@ TPM2B_TYPE(MAX_NV_BUFFER, MAX_NV_INDEX_SIZE);
 // Table 77 -- TPM2B_IV Structure <I/O>
 TPM2B_TYPE(IV, MAX_SYM_BLOCK_SIZE);
 
+// Table 77 - TPM2B_EVENT Structure*
+TPM2B_TYPE(EVENT, 1024);
+
 // Table 78 - TPMU_NAME Union
 typedef union {
   TPMT_HA digest;
@@ -586,7 +623,16 @@ typedef union {
 } TPMU_NAME;
 
 // Table 79 - TPM2B_NAME Structure
-TPM2B_TYPE(NAME, sizeof(TPMU_NAME));
+typedef union {
+  struct {
+    UINT16 size;
+    BYTE name[sizeof(TPMU_NAME)];
+  } t;
+  TPM2B b;
+} TPM2B_NAME;
+
+// Table 80 - TPM2B_TIMEOUT
+TPM2B_TYPE(TIMEOUT, sizeof(UINT64));
 
 // Table 81 - TPMS_PCR_SELECTION Structure
 typedef struct {
@@ -601,6 +647,12 @@ typedef struct {
   TPMI_RH_HIERARCHY hierarchy;
   TPM2B_DIGEST digest;
 } TPMT_TK_COMMON;
+
+// Table 84 - TPMS_PCR_SELECT Structure
+typedef struct {
+  UINT8 sizeofSelect;
+  BYTE pcrSelect[PCR_SELECT_MAX];
+} TPMS_PCR_SELECT;
 
 typedef TPMT_TK_COMMON TPMT_TK_CREATION;
 
@@ -685,6 +737,15 @@ typedef struct {
   UINT32 count;
   TPMS_TAGGED_PCR_SELECT pcrProperty[MAX_PCR_PROPERTIES];
 } TPML_TAGGED_PCR_PROPERTY;
+
+// Table 100 - TPML_DIGEST_VALUES Structure*
+typedef struct {
+  UINT32 count;
+  TPMT_HA digests[HASH_COUNT];
+} TPML_DIGEST_VALUES;
+
+// Table 101 - TPM2B_DIGEST_VALUES Structure*
+TPM2B_TYPE(DIGEST_VALUES, sizeof(TPML_DIGEST_VALUES));
 
 // Table 102 - TPML_ECC_CURVE Structure
 typedef struct {
@@ -798,10 +859,31 @@ typedef struct {
 } TPMS_ATTEST;
 
 // Table 117 - TPM2B_ATTEST Structure
-TPM2B_TYPE(ATTEST, sizeof(TPMS_ATTEST));
+typedef union {
+  struct {
+    UINT16 size;
+    BYTE attestationData[sizeof(TPMS_ATTEST)];
+  } t;
+  TPM2B b;
+} TPM2B_ATTEST;
 
 // Table 120 - TPMI_AES_KEY_BITS Type
 typedef TPM_KEY_BITS TPMI_AES_KEY_BITS;
+
+// Table 121 - TPMS_AUTH_COMMAND Structure*
+typedef struct {
+  TPMI_SH_AUTH_SESSION sessionHandle;
+  TPM2B_NONCE nonce;
+  TPMA_SESSION sessionAttributes;
+  TPM2B_AUTH hmac;
+} TPMS_AUTH_COMMAND;
+
+// Table 122 - TPMS_AUTH_RESPONSE Structure*
+typedef struct {
+  TPM2B_NONCE nonce;
+  TPMA_SESSION sessionAttributes;
+  TPM2B_AUTH hmac;
+} TPMS_AUTH_RESPONSE;
 
 // Table 121 - TPMI_SM4_KEY_BITS Type
 typedef TPM_KEY_BITS TPMI_SM4_KEY_BITS;
@@ -846,6 +928,11 @@ typedef struct {
   TPM2B_AUTH userAuth;
   TPM2B_SENSITIVE_DATA data;
 } TPMS_SENSITIVE_CREATE;
+
+// Table 131 - TPMS_SYMCIPHER_PARMS Structure
+typedef struct {
+  TPMT_SYM_DEF_OBJECT sym;
+} TPMS_SYMCIPHER_PARMS;
 
 // Table 131 - TPM2B_SENSITIVE_CREATE Structure
 typedef union {
@@ -902,6 +989,7 @@ typedef union {
   TPMS_SCHEME_RSASSA rsassa;
   TPMS_SCHEME_RSAPSS rsapss;
   TPMS_SCHEME_ECDSA ecdsa;
+  TPMS_SCHEME_SM2 sm2;
   TPMS_SCHEME_ECDAA ecdaa;
   TPMS_SCHEME_ECSCHNORR ecSchnorr;
   TPMS_SCHEME_HMAC hmac;
@@ -952,8 +1040,10 @@ typedef union {
   TPMS_SCHEME_RSAPSS rsapss;
   TPMS_SCHEME_OAEP oaep;
   TPMS_SCHEME_ECDSA ecdsa;
+  TPMS_SCHEME_SM2 sm2;
   TPMS_SCHEME_ECDAA ecdaa;
   TPMS_SCHEME_ECSCHNORR ecSchnorr;
+  TPMS_SCHEME_ECDH ecdh;
   TPMS_SCHEME_SIGHASH anySig;
 } TPMU_ASYM_SCHEME;
 
@@ -1081,7 +1171,13 @@ typedef union {
 } TPMU_ENCRYPTED_SECRET;
 
 // Table 174 - TPM2B_ENCRYPTED_SECRET Structure
-TPM2B_TYPE(ENCRYPTED_SECRET, sizeof(TPMU_ENCRYPTED_SECRET));
+typedef union {
+  struct {
+    UINT16 size;
+    BYTE secret[sizeof(TPMU_ENCRYPTED_SECRET)];
+  } t;
+  TPM2B b;
+} TPM2B_ENCRYPTED_SECRET;
 
 // Table 175 - TPMI_ALG_PUBLIC Type
 typedef TPM_ALG_ID TPMI_ALG_PUBLIC;
@@ -1197,8 +1293,15 @@ typedef struct {
   TPM2B_DIGEST encIdentity;
 } _ID_OBJECT;
 
+
 // Table 192 - TPM2B_ID_OBJECT Structure
-TPM2B_TYPE(ID_OBJECT, sizeof(_ID_OBJECT));
+typedef union {
+  struct {
+    UINT16 size;
+    BYTE credential[sizeof(_ID_OBJECT)];
+  } t;
+  TPM2B b;
+} TPM2B_ID_OBJECT;
 
 // Table 195 - TPMA_NV Bits
 typedef struct {
@@ -1238,6 +1341,16 @@ typedef struct {
   TPM2B_DIGEST authPolicy;
   UINT16 dataSize;
 } TPMS_NV_PUBLIC;
+
+// Table 197 - TPM2B_NV_PUBLIC Structure
+typedef union {
+  struct {
+    UINT16 size;
+    TPMS_NV_PUBLIC nvPublic;
+  } t __attribute__((packed));
+  TPM2B b;
+} TPM2B_NV_PUBLIC;
+
 
 // Table 198 - TPM2B_CONTEXT_SENSITIVE Structure
 TPM2B_TYPE(CONTEXT_SENSITIVE, MAX_CONTEXT_SIZE);

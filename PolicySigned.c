@@ -104,7 +104,7 @@ TPM2_PolicySigned(
    }
 // Internal Data Update
    // Need the Name of the signing entity
-   entityName.t.size = EntityGetName(in->authObject, &entityName.t.buffer);
+   entityName.t.size = EntityGetName(in->authObject, &entityName.t.name);
 
    // Update policy with input policyRef and name of auth key
    // These values are updated even if the session is a trial session

@@ -57,7 +57,7 @@ TPM2_PolicySecret(
 
 // Internal Data Update
    // Need the name of the authorizing entity
-   entityName.t.size = EntityGetName(in->authHandle, &entityName.t.buffer);
+   entityName.t.size = EntityGetName(in->authHandle, &entityName.t.name);
 
    // Update policy context with input policyRef and name of auth key
    // This value is computed even for trial sessions. Possibly update the cpHash

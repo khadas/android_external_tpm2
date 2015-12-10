@@ -13,22 +13,6 @@ FAIL_FUNCTION       TpmFailFunction = (FAIL_FUNCTION)&Trap;
 //
 //          Functions
 //
-//          TpmFail()
-//
-//     This is a shim function that is called when a failure occurs. It simply relays the call to the callback pointed
-//     to by TpmFailFunction(). It is only defined for the sake of NO_RETURN specifier that cannot be added to
-//     a function pointer with some compilers.
-//
-void
-TpmFail(
-     const char               *function,
-     int                       line,
-     int                       code)
-{
-     TpmFailFunction(function, line, code);
-}
-//
-//
 //          FAILURE_TRAP()
 //
 //     This function is called if the caller to _cpri__InitCryptoUnits() doesn't provide a call back address.

@@ -607,14 +607,14 @@ FillInCreationData(
    // and QN of the parent are the parent's handle.
    if(HandleGetType(parentHandle) == TPM_HT_PERMANENT)
    {
-       BYTE         *buffer = &outCreation->t.creationData.parentName.t.buffer[0];
+       BYTE         *buffer = &outCreation->t.creationData.parentName.t.name[0];
        outCreation->t.creationData.parentName.t.size =
             TPM_HANDLE_Marshal(&parentHandle, &buffer, NULL);
          // Parent qualified name of a Temporary Object is the same as parent's
          // name
          MemoryCopy2B(&outCreation->t.creationData.parentQualifiedName.b,
                       &outCreation->t.creationData.parentName.b,
-                     sizeof(outCreation->t.creationData.parentQualifiedName.t.buffer));
+                     sizeof(outCreation->t.creationData.parentQualifiedName.t.name));
    }
    else           // Regular object
    {
@@ -1245,7 +1245,7 @@ SecretToCredential(
    // use protector's name algorithm as outer hash
    outerHash = ObjectGetNameAlg(protector);
    // Marshal secret area to credential buffer, leave space for integrity
-   sensitiveData = outIDObject->t.buffer
+   sensitiveData = outIDObject->t.credential
                    + sizeof(UINT16) + CryptGetHashDigestSize(outerHash);
    // Marshal secret area
    buffer = sensitiveData;
@@ -1257,7 +1257,7 @@ SecretToCredential(
                                           seed,
                                           FALSE,
                                           dataSize,
-                                          outIDObject->t.buffer);
+                                          outIDObject->t.credential);
    return;
 }
 //
@@ -1296,11 +1296,11 @@ CredentialToSecret(
    outerHash = ObjectGetNameAlg(protector);
    // Unwrap outer, a TPM_RC_INTEGRITY error may be returned at this point
    result = UnwrapOuter(protector, name, outerHash, seed, FALSE,
-                        inIDObject->t.size, inIDObject->t.buffer);
+                        inIDObject->t.size, inIDObject->t.credential);
    if(result == TPM_RC_SUCCESS)
    {
        // Compute the beginning of sensitive data
-       sensitiveData = inIDObject->t.buffer
+       sensitiveData = inIDObject->t.credential
                        + sizeof(UINT16) + CryptGetHashDigestSize(outerHash);
        dataSize = inIDObject->t.size
                   - (sizeof(UINT16) + CryptGetHashDigestSize(outerHash));

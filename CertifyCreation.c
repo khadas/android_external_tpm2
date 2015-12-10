@@ -35,7 +35,7 @@ TPM2_CertifyCreation(
 
    // CertifyCreation specific input validation
    // Get certified object name
-   name.t.size = ObjectGetName(in->objectHandle, &name.t.buffer);
+   name.t.size = ObjectGetName(in->objectHandle, &name.t.name);
    // Re-compute ticket
    TicketComputeCreation(in->creationTicket.hierarchy, &name,
                          &in->creationHash, &ticket);

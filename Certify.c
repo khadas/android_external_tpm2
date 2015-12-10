@@ -49,7 +49,7 @@ TPM2_Certify(
    // Certified object name
    certifyInfo.attested.certify.name.t.size =
        ObjectGetName(in->objectHandle,
-                     &certifyInfo.attested.certify.name.t.buffer);
+                     &certifyInfo.attested.certify.name.t.name);
    // Certified object qualified name
    ObjectGetQualifiedName(in->objectHandle,
                           &certifyInfo.attested.certify.qualifiedName);

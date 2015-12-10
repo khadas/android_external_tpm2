@@ -94,7 +94,7 @@ TPM2_Rewrap(
        // Make new encrypt key and its associated secret structure. A
        // TPM_RC_VALUE error may be returned at this point if RSA algorithm is
        // enabled in TPM
-       out->outSymSeed.t.size = sizeof(out->outSymSeed.t.buffer);
+       out->outSymSeed.t.size = sizeof(out->outSymSeed.t.secret);
        result = CryptSecretEncrypt(in->newParent,
                                    "DUPLICATE", &data, &out->outSymSeed);
        if(result != TPM_RC_SUCCESS) return result;
