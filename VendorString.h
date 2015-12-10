@@ -8,17 +8,18 @@
 #ifndef         _VENDOR_STRING_H
 #define         _VENDOR_STRING_H
 //
-//     Define up to 4-byte values for MANUFACTURER.         This value defines the response for
-//     TPM_PT_MANUFACTURER in TPM2_GetCapability(). The following line should be un-commented and a
-//     vendor specific string should be provided here.
+//     Define up to 4-byte values for MANUFACTURER. This value defines the
+//     response for TPM_PT_MANUFACTURER in TPM2_GetCapability(). The
+//     definition should be replaced as appropriate when this code is used for
+//     actual implementations.
 //
-#define        MANUFACTURER       "MSFT"
+#define        MANUFACTURER       "CROS"
 //
 //     The following #if macro may be deleted after a proper MANUFACTURER is provided.
 //
 #ifndef MANUFACTURER
 #error MANUFACTURER is not provided. \
-Please modify include\VendorString.h to provide a specific \
+Please modify VendorString.h to provide a specific \
 manufacturer name.
 #endif
 //
@@ -41,15 +42,17 @@ string.
 //
 #endif
 //
-//     the more significant 32-bits of a vendor-specific value indicating the version of the firmware The following
-//     line should be un-commented and a vendor specific firmware V1 should be provided here. The
-//     FIRMWARE_V2 may also be defined as appropriate.
+//     the more significant 32-bits of a vendor-specific value indicating the
+//     version of the firmware. Some instrumentation could be added to replace
+//     the following definition(s) with some release tag, SHA1, build date,
+//     etc.
 //
-#define     FIRMWARE_V1               (0x20140504)
+#define     FIRMWARE_V1               (0)
 //
-//     the less significant 32-bits of a vendor-specific value indicating the version of the firmware
+//     the optional less significant 32-bits of a vendor-specific value
+//     indicating the version of the firmware.
 //
-#define     FIRMWARE_V2               (0x00200136)
+#define     FIRMWARE_V2               (1)
 //
 //     The following #if macro may be deleted after a proper FIRMWARE_V1 is provided.
 //
