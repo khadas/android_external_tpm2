@@ -23,9 +23,9 @@ static const PCR_Attributes s_initAttributes[] =
     {0,   0x10,   0x1C},         //   PCR    17,   Locality 4
     {0,   0x10,   0x1C},         //   PCR    18,   Locality 3
     {0,   0x10,   0x0C},         //   PCR    19,   Locality 2
-    {0,   0x14,   0x0E},         //   PCR    20,   Locality 1
-    {0,   0x14,   0x04},         //   PCR    21,   Dynamic OS
-    {0,   0x14,   0x04},         //   PCR    22,   Dynamic OS
+    {0,   0x1C,   0x0E},         //   PCR    20,   Locality 1
+    {0,   0x1C,   0x04},         //   PCR    21,   Dynamic OS
+    {0,   0x1C,   0x04},         //   PCR    22,   Dynamic OS
     {0,   0x0F,   0x1F},         //   PCR    23,   App specific
     {0,   0x0F,   0x1F}          //   PCR    24,   testing policy
 };
@@ -54,18 +54,10 @@ PCRBelongsAuthGroup(
                                               //      invalid
 )
 {
-#if NUM_AUTHVALUE_PCR_GROUP > 0
-   // Platform specification determines to which auth group a PCR belongs (if
-   // any). In this implementation, we assume there is only
-   // one auth group which contains PCR[20-22]. If the platform specification
-   // requires differently, the implementation should be changed accordingly
-   if(handle >= 20 && handle <= 22)
-   {
-       *groupIndex = 0;
-       return TRUE;
-   }
-#endif
-   return FALSE;
+  // None of the PCRs belong to a group requiring an authValue, as defined in
+  // Table 4 "PCR Attributes" of the "TCG PC Client Platform TPM Profile (TPT)
+  // Specification Level 00 Revision 00.43".
+  return FALSE;
 }
 //
 //
@@ -93,18 +85,10 @@ PCRBelongsPolicyGroup(
                                              //     parameter is invalid
    )
 {
-#if NUM_POLICY_PCR_GROUP > 0
-   // Platform specification decides if a PCR belongs to a policy group and
-   // belongs to which group. In this implementation, we assume there is only
-   // one policy group which contains PCR20-22. If the platform specification
-   // requires differently, the implementation should be changed accordingly
-   if(handle >= 20 && handle <= 22)
-   {
-       *groupIndex = 0;
-       return TRUE;
-   }
-#endif
-   return FALSE;
+  // None of the PCRs belong to the policy group, as defined in Table 4
+  // "PCR Attributes" of the "TCG PC Client Platform TPM Profile (TPT)
+  // Specification Level 00 Revision 00.43".
+  return FALSE;
 }
 //
 //
@@ -123,12 +107,12 @@ PCRBelongsTCBGroup(
     )
 {
 #if ENABLE_PCR_NO_INCREMENT == YES
-   // Platform specification decides if a PCR belongs to a TCB group. In this
-   // implementation, we assume PCR[20-22] belong to TCB group. If the platform
-   // specification requires differently, the implementation should be
-   // changed accordingly
-   if(handle >= 20 && handle <= 22)
-       return TRUE;
+  // Platform specification decides if a PCR belongs to a TCB group. In this
+  // implementation, we assume PCR[16, 21-23] belong to TCB group as defined
+  // in Table 4. If the platform specification requires differently, the
+  // implementation should be changed accordingly
+  if(handle == 16 || (handle >= 21 && handle <= 23))
+    return TRUE;
 #endif
    return FALSE;
 }
