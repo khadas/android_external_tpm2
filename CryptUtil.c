@@ -951,11 +951,13 @@ CryptSelectRSAScheme(
    }
    // get here if both the object scheme and the input scheme are
    // not TPM_ALG_NULL. Need to insure that they are the same.
+   // The hash algorithm match has to be verified for OAEP.
    // IMPLEMENTATION NOTE: This could cause problems if future versions have
    // schemes that have more values than just a hash algorithm. A new function
    // (IsSchemeSame()) might be needed then.
-   else if(    keyScheme->scheme == scheme->scheme
-            && keyScheme->details.anySig.hashAlg == scheme->details.anySig.hashAlg)
+   else if (keyScheme->scheme == scheme->scheme
+            && ((keyScheme->scheme != TPM_ALG_OAEP) ||
+                (keyScheme->details.anySig.hashAlg == scheme->details.anySig.hashAlg)))
    {
        retVal = scheme;
    }
