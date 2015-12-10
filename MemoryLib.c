@@ -6,7 +6,7 @@
 // October 30, 2014
 
 #define MEMORY_LIB_C
-#include "InternalRoutines.h"
+#include "MemoryLib_fp.h"
 //
 //     These buffers are set aside to hold command and response values. In this implementation, it is not
 //     guaranteed that the code will stop accessing the s_actionInputBuffer before starting to put values in the
@@ -233,7 +233,7 @@ MemoryGetActionOutputBuffer(
 //      This function returns the address into which the command response is marshaled from values in the
 //      action output buffer.
 //
-BYTE *
+BYTE*
 MemoryGetResponseBuffer(
       TPM_CC             command            // Command that requires the buffer
       )

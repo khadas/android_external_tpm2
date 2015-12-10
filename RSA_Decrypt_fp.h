@@ -1,23 +1,54 @@
-/*
- * Copyright 2015 The Chromium OS Authors. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be
- * found in the LICENSE file.
- */
+// Copyright 2015 The Chromium OS Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-#ifndef __TPM2_RSA_DECRYPT_FP_H_
-#define __TPM2_RSA_DECRYPT_FP_H_
+// THIS CODE IS GENERATED - DO NOT MODIFY!
+
+#ifndef TPM2_RSA_DECRYPT_FP_H
+#define TPM2_RSA_DECRYPT_FP_H
+
+#include "tpm_generated.h"
 
 typedef struct {
-  TPM_HANDLE keyHandle;
-  TPM2B_DATA cipherText;
-  TPM2B_DATA label;
+  TPMI_DH_OBJECT keyHandle;
+  TPM2B_PUBLIC_KEY_RSA cipherText;
   TPMT_RSA_DECRYPT inScheme;
+  TPM2B_DATA label;
 } RSA_Decrypt_In;
 
-typedef struct { TPM2B_DATA message; } RSA_Decrypt_Out;
+typedef struct { TPM2B_PUBLIC_KEY_RSA message; } RSA_Decrypt_Out;
 
-TPM_RC TPM2_RSA_Decrypt(RSA_Decrypt_In *in,   // IN: input parameter list
-                        RSA_Decrypt_Out *out  // OUT: output parameter list
-                        );
+// Executes RSA_Decrypt with request handles and parameters from
+// |in| and computes response handles and parameters to |out|.
+TPM_RC TPM2_RSA_Decrypt(RSA_Decrypt_In* in, RSA_Decrypt_Out* out);
 
-#endif  // __TPM2_RSA_DECRYPT_FP_H_
+// Initializes handle fields in |target| from |req_handles|. Unmarshals
+// parameter fields in |target| from |buffer|.
+TPM_RC RSA_Decrypt_In_Unmarshal(RSA_Decrypt_In* target,
+                                TPM_HANDLE req_handles[],
+                                BYTE** buffer,
+                                INT32* size);
+
+// Marshals response handles and parameters from |source| to |buffer|. Computes
+// and marshals the size of the parameter area (parameter_size) if |tag| ==
+// TPM_ST_SESSIONS. Returns size of (parameter area + handle area) in bytes.
+// Does not include parameter_size field.
+UINT16 RSA_Decrypt_Out_Marshal(RSA_Decrypt_Out* source,
+                               TPMI_ST_COMMAND_TAG tag,
+                               BYTE** buffer,
+                               INT32* size);
+
+// Unmarshals any request parameters starting at |req_parameter_buffer|.
+// Executes command. Marshals any response handles and parameters to the
+// global response buffer and computes |*res_handle_buffer_size| and
+// |*res_parameter_buffer_size|. If |tag| == TPM_ST_SESSIONS, marshals
+// parameter_size indicating the size of the parameter area. parameter_size
+// field is located between the handle area and parameter area.
+TPM_RC Exec_RSA_Decrypt(TPMI_ST_COMMAND_TAG tag,
+                        BYTE** req_parameter_buffer,
+                        INT32* req_parameter_buffer_size,
+                        TPM_HANDLE req_handles[],
+                        UINT32* res_handle_buffer_size,
+                        UINT32* res_parameter_buffer_size);
+
+#endif  // TPM2_RSA_DECRYPT_FP_H

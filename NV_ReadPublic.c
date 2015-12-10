@@ -21,7 +21,7 @@ TPM2_NV_ReadPublic(
    NvGetIndexInfo(in->nvIndex, &nvIndex);
 
    // Copy data to output
-   out->nvPublic = nvIndex.publicArea;
+   out->nvPublic.t.nvPublic = nvIndex.publicArea;
 
    // Compute NV name
    out->nvName.t.size = NvGetName(in->nvIndex, &out->nvName.t.name);

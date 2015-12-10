@@ -5,20 +5,18 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
-#ifndef _COMMANDDISPATCHER_FP_H_
-#define _COMMANDDISPATCHER_FP_H_
+#ifndef TPM2_COMMANDDISPATCHER_FP_H_
+#define TPM2_COMMANDDISPATCHER_FP_H_
 
 TPM_RC CommandDispatcher(
-    TPMI_ST_COMMAND_TAG tag,  //             IN: Input command tag
-    TPM_CC commandCode,       //             IN: Command code
-    INT32 *parmBufferSize,    //             IN: size of parameter buffer
-    BYTE *parmBufferStart,    //             IN: pointer to start of parameter
-                              //             buffer
-    TPM_HANDLE handles[],     //             IN: handle array
-    UINT32 *responseHandleSize,  //             OUT: size of handle buffer in
-                                 //             response
-    UINT32 *
-        respParmSize  //             OUT: size of parameter buffer in response
+    TPMI_ST_COMMAND_TAG tag,           // IN: Input command tag
+    TPM_CC command_code,               // IN: Command code
+    INT32 *req_parameter_buffer_size,  // IN: size of parameter buffer
+    BYTE *req_parameter_buffer_start,  // IN: pointer to start of the request
+                                       //     parameter buffer
+    TPM_HANDLE req_handles[],          // IN: request handle array
+    UINT32 *res_handle_buffer_size,    // OUT: size of handle buffer in response
+    UINT32 *res_parameter_buffer_size  // OUT: size of parameter buffer in response
     );
 
 #endif  // _COMMANDDISPATCHER_FP_H_

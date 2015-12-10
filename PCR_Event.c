@@ -52,17 +52,14 @@ TPM2_PCR_Event(
    for(i = 0; i < HASH_COUNT; i++)
    {
        TPM_ALG_ID hash = CryptGetHashAlgByIndex(i);
-       TPMT_HA *pHa;
-
-       pHa = (TPMT_HA *)out->digests.digests[i].t.buffer;
-       pHa->hashAlg = hash;
+       out->digests.digests[i].hashAlg = hash;
        size = CryptStartHash(hash, &hashState);
        CryptUpdateDigest2B(&hashState, &in->eventData.b);
        CryptCompleteHash(&hashState, size,
-                         (BYTE *) &out->digests.digests[i].t.buffer);
+                         (BYTE *) &out->digests.digests[i].digest);
        if(in->pcrHandle != TPM_RH_NULL)
            PCRExtend(in->pcrHandle, hash, size,
-                     (BYTE *) &out->digests.digests[i].t.buffer);
+                     (BYTE *) &out->digests.digests[i].digest);
    }
 
    return TPM_RC_SUCCESS;
