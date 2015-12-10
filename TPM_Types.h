@@ -1288,6 +1288,9 @@ enum {
         RC_NV_Certify_signHandle,
         RC_NV_Certify_inScheme,
         RC_NV_ChangeAuth_newAuth,
+        RC_NV_DefineSpace_auth,
+        RC_NV_DefineSpace_authHandle,
+        RC_NV_DefineSpace_publicInfo,
 };
 
 enum {

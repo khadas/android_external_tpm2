@@ -18,6 +18,10 @@ void NvCheckState(void);
 BOOL NvCommit(
         void
         );
+TPM_RC NvDefineIndex(
+        TPMS_NV_PUBLIC      *publicArea,          // IN: A template for an area to create.
+        TPM2B_AUTH          *authValue            // IN: The initial authorization value
+        );
 void NvDeleteEntity(
         TPM_HANDLE           handle              // IN: handle of entity to be deleted
                     );
@@ -70,6 +74,9 @@ BOOL NvIsOwnerPersistentHandle(
 BOOL NvIsPlatformPersistentHandle(
         TPM_HANDLE           handle              // IN: handle
                                   );
+BOOL NvIsUndefinedIndex(
+        TPMI_RH_NV_INDEX         handle                 // IN: handle
+        );
 TPM_RC NvWriteIndexData(
         TPMI_RH_NV_INDEX          handle,               //   IN: handle
         NV_INDEX                 *nvIndex,              //   IN: RAM copy of NV Index
