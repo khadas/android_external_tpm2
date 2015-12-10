@@ -18,6 +18,9 @@ TPM_RC SessionContextSave (
 SESSION *SessionGet(
         TPM_HANDLE           handle              // IN: session handle
 );
+BOOL SessionIsLoaded(
+        TPM_HANDLE             handle                // IN: session handle
+                     );
 BOOL SessionIsSaved(
         TPM_HANDLE            handle                // IN: session handle
                     );
