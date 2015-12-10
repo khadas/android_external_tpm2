@@ -1348,6 +1348,7 @@ enum {
         RC_PolicyLocality_locality,
         RC_PolicyNV_operandB,
         RC_PolicyNameHash_nameHash,
+        RC_PolicyNvWritten_writtenSet,
 };
 
 enum {
