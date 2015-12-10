@@ -45,7 +45,11 @@
 #define    ALG_XOR                     ALG_YES
 #define    ALG_KEYEDHASH               ALG_YES
 #define    ALG_SHA256                  ALG_YES
+#ifdef EMBEDDED_MODE
+#define    ALG_SHA384                  ALG_NO
+#else
 #define    ALG_SHA384                  ALG_YES
+#endif
 #define    ALG_SHA512                  ALG_NO
 #define    ALG_SM3_256                 ALG_NO
 #define    ALG_SM4                     ALG_NO
