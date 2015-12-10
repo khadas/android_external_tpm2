@@ -7,7 +7,16 @@
 #ifndef __SOURCE_CRYPTUTIL_FP_H
 #define __SOURCE_CRYPTUTIL_FP_H
 
+BOOL CryptAreKeySizesConsistent(
+        TPMT_PUBLIC           *publicArea              // IN: the public area to check
+        );
 UINT16 CryptCommit(void);
+LIB_EXPORT int CryptCompare(
+        const   UINT32         aSize,                  //   IN:   size of a
+        const   BYTE          *a,                      //   IN:   a buffer
+        const   UINT32         bSize,                  //   IN:   size of b
+        const   BYTE          *b                       //   IN:   b buffer
+        );
 TPM_RC CryptCommitCompute(
         TPMS_ECC_POINT                *K,                     //   OUT: [d]B
         TPMS_ECC_POINT                *L,                     //   OUT: [r]B
@@ -18,6 +27,11 @@ TPM_RC CryptCommitCompute(
         TPM2B_ECC_PARAMETER           *d,                     //   IN: the private scalar
         TPM2B_ECC_PARAMETER           *r                      //   IN: the computed r value
                           );
+void CryptComputeSymmetricUnique(
+        TPMI_ALG_HASH        nameAlg,           // IN: object name algorithm
+        TPMT_SENSITIVE      *sensitive,         // IN: sensitive area
+        TPM2B_DIGEST        *unique             // OUT: unique buffer
+        );
 LIB_EXPORT UINT16 CryptCompleteHMAC2B(
         HMAC_STATE         *hmacState,           // IN: the state of HMAC stack
         TPM2B              *digest               // OUT: HMAC
@@ -55,6 +69,16 @@ TPM_RC CryptDivide(
 void CryptDrbgGetPutState(
         GET_PUT              direction         // IN: Get from or put to DRBG
 );
+//
+//
+//      10.2.6.3    CryptEccGetKeySizeBytes()
+//
+//  This macro returns the size of the ECC key in bytes. It uses
+//  CryptEccGetKeySizeInBits().
+//
+#define CryptEccGetKeySizeInBytes(curve)            \
+       ((CryptEccGetKeySizeInBits(curve)+7)/8)
+
 LIB_EXPORT const TPM2B * CryptEccGetParameter(
         char                 p,                  // IN: the parameter selector
         TPM_ECC_CURVE        curveId             // IN: the curve id
@@ -63,6 +87,9 @@ BOOL CryptEccIsPointOnCurve(
         TPM_ECC_CURVE        curveID,            // IN: ECC curve ID
         TPMS_ECC_POINT      *Q                   // IN: ECC point
                             );
+void CryptEndCommit(
+        UINT16               c                    // IN: the counter value of the commitment
+        );
 BOOL CryptGenerateR(
         TPM2B_ECC_PARAMETER           *r,                 //   OUT: the generated random value
         UINT16                        *c,                 //   IN/OUT: count value.
@@ -74,6 +101,13 @@ UINT16 CryptGenerateRandom(
         UINT16               randomSize,       // IN: size of random number
         BYTE                *buffer            // OUT: buffer of random number
 );
+void CryptGenerateNewSymmetric(
+        TPMS_SENSITIVE_CREATE        *sensitiveCreate,       //   IN: sensitive creation data
+        TPMT_SENSITIVE               *sensitive,             //   OUT: sensitive area
+        TPM_ALG_ID                    hashAlg,               //   IN: hash algorithm for the KDF
+        TPM2B_SEED                   *seed,                  //   IN: seed used in creation
+        TPM2B_NAME                   *name                   //   IN: name of the object
+        );
 LIB_EXPORT UINT16 CryptGetHashDigestSize(
         TPM_ALG_ID           hashAlg              // IN: hash algorithm
                                          );
@@ -88,6 +122,78 @@ LIB_EXPORT UINT16 CryptHashBlock(
         UINT16              retSize,             //   IN: size of the return buffer
         BYTE               *ret                  //   OUT: address of the buffer
                                  );
+//
+//
+//
+//      10.2.4.23 CryptKDFa()
+//
+// This function generates a key using the KDFa() formulation in Part 1 of the
+// TPM specification. In this implementation, this is a macro invocation of
+// _cpri__KDFa() in the hash module of the CryptoEngine(). This macro sets
+// once to FALSE so that KDFa() will iterate as many times as necessary to
+// generate sizeInBits number of bits.
+//
+#define CryptKDFa(hashAlg, key, label, contextU, contextV,              \
+                  sizeInBits, keyStream, counterInOut)                 \
+       TEST_HASH(hashAlg);                                             \
+        _cpri__KDFa(                                                   \
+       ((TPM_ALG_ID)hashAlg),                                          \
+               ((TPM2B *)key),                                         \
+               ((const char *)label),                                  \
+               ((TPM2B *)contextU),                                    \
+               ((TPM2B *)contextV),                                    \
+               ((UINT32)sizeInBits),                                   \
+               ((BYTE *)keyStream),                                    \
+               ((UINT32 *)counterInOut),                               \
+               ((BOOL) FALSE)                                          \
+       )
+
+//
+//
+//      10.2.4.24 CryptKDFaOnce()
+//
+// This function generates a key using the KDFa() formulation in Part 1 of the
+// TPM specification. In this implementation, this is a macro invocation of
+// _cpri__KDFa() in the hash module of the CryptoEngine(). This macro will
+// call _cpri__KDFa() with once TRUE so that only one iteration is performed,
+// regardless of sizeInBits.
+//
+#define CryptKDFaOnce(hashAlg, key, label, contextU, contextV,       \
+                      sizeInBits, keyStream, counterInOut)             \
+       TEST_HASH(hashAlg);                                             \
+       _cpri__KDFa(                                                    \
+       ((TPM_ALG_ID)hashAlg),                                          \
+               ((TPM2B *)key),                                         \
+               ((const char *)label),                                  \
+               ((TPM2B *)contextU),                                    \
+               ((TPM2B *)contextV),                                    \
+               ((UINT32)sizeInBits),                                   \
+               ((BYTE *)keyStream),                                    \
+               ((UINT32 *)counterInOut),                               \
+               ((BOOL) TRUE)                                           \
+       )
+
+//
+//
+//    10.2.4.26 CryptKDFe()
+//
+//  This function generates a key using the KDFa() formulation in Part 1 of
+//  the TPM specification. In this implementation, this is a macro invocation
+//  of _cpri__KDFe() in the hash module of the CryptoEngine().
+//
+#define CryptKDFe(hashAlg, Z, label, partyUInfo, partyVInfo,           \
+                 sizeInBits, keyStream)                                \
+       TEST_HASH(hashAlg);                                             \
+       _cpri__KDFe(                                                    \
+       ((TPM_ALG_ID)hashAlg),                                          \
+               ((TPM2B *)Z),                                           \
+               ((const char *)label),                                  \
+               ((TPM2B *)partyUInfo),                                  \
+               ((TPM2B *)partyVInfo),                                  \
+               ((UINT32)sizeInBits),                                   \
+               ((BYTE *)keyStream)                                     \
+       )
+
 void CryptHashStateImportExport(
         HASH_STATE         *internalFmt,         // IN: state to LIB_EXPORT
         HASH_STATE         *externalFmt,         // OUT: exported state
@@ -99,6 +205,9 @@ BOOL CryptIsAsymAlgorithm(
 BOOL CryptIsSchemeAnonymous(
         TPM_ALG_ID           scheme     // IN: the scheme algorithm to test
 );
+BOOL CryptIsSplitSign(
+        TPM_ALG_ID           scheme             // IN: the algorithm selector
+        );
 TPM_RC CryptSecretDecrypt(
         TPM_HANDLE      tpmKey,               // IN: decrypt key
         TPM2B_NONCE     *nonceCaller,         // IN: nonceCaller. It is needed for

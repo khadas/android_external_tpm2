@@ -7,6 +7,9 @@
 #ifndef __TPM2_CRYPTSELFTEST_FP_H
 #define __TPM2_CRYPTSELFTEST_FP_H
 
+void CryptInitializeToTest(
+        void
+        );
 TPM_RC CryptTestAlgorithm(
         TPM_ALG_ID                 alg,
         ALGORITHM_VECTOR          *toTest

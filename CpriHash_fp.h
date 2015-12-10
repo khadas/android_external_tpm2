@@ -46,6 +46,16 @@ LIB_EXPORT UINT16 _cpri__KDFa(
                                              //       FALSE if iteration count determined by
                                              //       "sizeInBits"
 );
+LIB_EXPORT UINT16
+_cpri__KDFe(
+       TPM_ALG_ID          hashAlg,             //   IN: hash algorithm used in HMAC
+       TPM2B              *Z,                   //   IN: Z
+       const char         *label,               //   IN: a 0 terminated label using in KDF
+       TPM2B              *partyUInfo,          //   IN: PartyUInfo
+       TPM2B              *partyVInfo,          //   IN: PartyVInfo
+       UINT32              sizeInBits,          //   IN: size of generated key in bit
+       BYTE               *keyStream            //   OUT: key buffer
+);
 LIB_EXPORT CRYPT_RESULT _cpri__MGF1(
         UINT32              mSize,          //   IN: length of the mask to be produced
         BYTE               *mask,           //   OUT: buffer to receive the mask
@@ -75,3 +85,24 @@ LIB_EXPORT void _cpri__UpdateHash(
 );
 
 #endif // __TPM2_CPRIHASH_FP_H
+LIB_EXPORT UINT16 _cpri__CompleteHMAC(
+        CPRI_HASH_STATE        *hashState,          //   IN: the state of hash stack
+        TPM2B                  *oPadKey,            //   IN: the HMAC key in oPad format
+        UINT32                  dOutSize,           //   IN: size of digest buffer
+        BYTE                   *dOut                //   OUT: hash digest
+        );
+LIB_EXPORT TPM_ALG_ID _cpri__GetContextAlg(
+        CPRI_HASH_STATE         *hashState             // IN: the hash context
+        );
+LIB_EXPORT TPM_ALG_ID _cpri__GetHashAlgByIndex(
+        UINT32               index               // IN: the index
+        );
+LIB_EXPORT UINT16 _cpri__GetHashBlockSize(
+        TPM_ALG_ID           hashAlg             // IN: hash algorithm to look up
+        );
+LIB_EXPORT void _cpri__ImportExportHashState(
+        CPRI_HASH_STATE           *osslFmt,          // IN/OUT: the hash state formated for use
+        //     by openSSL
+        EXPORT_HASH_STATE         *externalFmt,      // IN/OUT: the exported hash state
+        IMPORT_EXPORT              direction         //
+        );
