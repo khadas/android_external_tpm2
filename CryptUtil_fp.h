@@ -79,10 +79,17 @@ void CryptDrbgGetPutState(
 #define CryptEccGetKeySizeInBytes(curve)            \
        ((CryptEccGetKeySizeInBits(curve)+7)/8)
 
+LIB_EXPORT UINT16 CryptGetHashDigestSize(
+        TPM_ALG_ID           hashAlg              // IN: hash algorithm
+                                         );
 LIB_EXPORT const TPM2B * CryptEccGetParameter(
         char                 p,                  // IN: the parameter selector
         TPM_ECC_CURVE        curveId             // IN: the curve id
                                               );
+BOOL CryptEccGetParameters(
+        TPM_ECC_CURVE                        curveId,            // IN: ECC curve ID
+        TPMS_ALGORITHM_DETAIL_ECC           *parameters          // OUT: ECC parameter
+                           );
 BOOL CryptEccIsPointOnCurve(
         TPM_ECC_CURVE        curveID,            // IN: ECC curve ID
         TPMS_ECC_POINT      *Q                   // IN: ECC point
