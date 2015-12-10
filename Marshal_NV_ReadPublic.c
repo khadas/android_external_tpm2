@@ -42,6 +42,9 @@ TPM_RC NV_ReadPublic_In_Unmarshal(NV_ReadPublic_In* target,
   TPM_RC result = TPM_RC_SUCCESS;
   // Get request handles from request_handles array.
   target->nvIndex = request_handles[0];
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

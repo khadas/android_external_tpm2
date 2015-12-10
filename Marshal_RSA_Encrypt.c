@@ -54,6 +54,9 @@ TPM_RC RSA_Encrypt_In_Unmarshal(RSA_Encrypt_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

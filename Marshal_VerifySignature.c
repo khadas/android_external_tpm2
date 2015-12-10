@@ -50,6 +50,9 @@ TPM_RC VerifySignature_In_Unmarshal(VerifySignature_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 

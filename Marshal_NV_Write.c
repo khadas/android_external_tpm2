@@ -24,6 +24,9 @@ TPM_RC NV_Write_In_Unmarshal(NV_Write_In* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 
