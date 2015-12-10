@@ -329,6 +329,13 @@ typedef struct {
   BYTE          pcrSelect[PCR_SELECT_MAX];
 } TPMS_PCR_SELECTION;
 
+// Table 84 - TPMT_TK_CREATION Structure
+typedef struct {
+  TPM_ST            tag;
+  TPMI_RH_HIERARCHY hierarchy;
+  TPM2B_DIGEST      digest;
+} TPMT_TK_CREATION;
+
 // Table 88 - TPMS_ALG_PROPERTY Structure
 typedef struct {
   TPM_ALG_ID     alg;
@@ -820,6 +827,9 @@ enum {
         RC_ActivateCredential_credentialBlob,
         RC_ActivateCredential_keyHandle,
         RC_ActivateCredential_secret,
+        RC_CertifyCreation_creationTicket,
+        RC_CertifyCreation_inScheme,
+        RC_CertifyCreation_signHandle,
         RC_Certify_inScheme,
         RC_Certify_signHandle,
 };
