@@ -151,7 +151,7 @@ TPMPropertyIsDefined(
             attributes.objectCopiedToRam = SET;
              // Note: Different compilers may require a different method to cast
              // a bit field structure to a UINT32.
-             *value = * (UINT32 *) &attributes;
+             memcpy(value, &attributes, sizeof(UINT32));
              break;
         }
         case TPM_PT_CLOCK_UPDATE:
@@ -302,7 +302,7 @@ TPMPropertyIsDefined(
             flags.tpmGeneratedEPS = SET;
              // Note: Different compilers may require a different method to cast
              // a bit field structure to a UINT32.
-             *value = * (UINT32 *) &flags;
+             memcpy(value, &flags, sizeof(UINT32));
              break;
         }
         case TPM_PT_STARTUP_CLEAR:
@@ -321,7 +321,7 @@ TPMPropertyIsDefined(
                   flags.orderly = SET;
               // Note: Different compilers may require a different method to cast
               // a bit field structure to a UINT32.
-              *value = * (UINT32 *) &flags;
+              memcpy(value, &flags, sizeof(UINT32));
               break;
         }
         case TPM_PT_HR_NV_INDEX:
