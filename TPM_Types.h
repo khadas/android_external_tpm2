@@ -597,6 +597,12 @@ typedef struct {
   TPM_HANDLE handle[MAX_CAP_HANDLES];
 } TPML_HANDLE;
 
+// Table 95 - TPML_DIGEST Structure
+typedef struct {
+  UINT32       count;
+  TPM2B_DIGEST digests[8];
+} TPML_DIGEST;
+
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
   UINT32             count;
