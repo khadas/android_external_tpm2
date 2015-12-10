@@ -35,7 +35,7 @@ TPM2_PolicyAuthorize(
    session = SessionGet(in->policySession);
 
    // Extract from the Name of the key, the algorithm used to compute it's Name
-   hashAlg = BYTE_ARRAY_TO_UINT16(in->keySign.t.name);
+   hashAlg = BYTE_ARRAY_TO_UINT16(in->keySign.t.buffer);
 
    // 'keySign' parameter needs to use a supported hash algorithm, otherwise
    // can't tell how large the digest should be

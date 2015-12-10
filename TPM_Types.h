@@ -547,6 +547,13 @@ typedef struct {
   TPM2B_DIGEST      digest;
 } TPMT_TK_CREATION;
 
+// Table 85 - TPMT_TK_VERIFIED Structure
+typedef struct {
+  TPM_ST            tag;
+  TPMI_RH_HIERARCHY hierarchy;
+  TPM2B_DIGEST      digest;
+} TPMT_TK_VERIFIED;
+
 // Table 87 - TPMT_TK_HASHCHECK Structure
 typedef struct {
   TPM_ST            tag;
@@ -1316,6 +1323,9 @@ enum {
         RC_ObjectChangeAuth_parentHandle,
         RC_PCR_SetAuthPolicy_authPolicy,
         RC_PCR_SetAuthPolicy_pcrNum,
+        RC_PolicyAuthorize_approvedPolicy,
+        RC_PolicyAuthorize_checkTicket,
+        RC_PolicyAuthorize_keySign,
 };
 
 enum {
