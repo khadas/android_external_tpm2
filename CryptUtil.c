@@ -1943,19 +1943,19 @@ CryptGenerateKeySymmetric(
    if(publicArea->objectAttributes.sensitiveDataOrigin == CLEAR)
    {
        if(     (sensitiveCreate->data.t.size * 8)
-           != publicArea->parameters.symDetail.keyBits.sym)
+           != publicArea->parameters.symDetail.sym.keyBits.sym)
            return TPM_RC_KEY_SIZE;
        // Make sure that the key size is OK.
        // This implementation only supports symmetric key sizes that are
        // multiples of 8
-       if(publicArea->parameters.symDetail.keyBits.sym % 8 != 0)
+       if(publicArea->parameters.symDetail.sym.keyBits.sym % 8 != 0)
            return TPM_RC_KEY_SIZE;
    }
    else
    {
        // TPM is going to generate the key so set the size
        sensitive->sensitive.sym.t.size
-           = publicArea->parameters.symDetail.keyBits.sym / 8;
+           = publicArea->parameters.symDetail.sym.keyBits.sym / 8;
        sensitiveCreate->data.t.size = 0;
    }
    // Fill in the sensitive area
@@ -2614,7 +2614,7 @@ CryptSecretDecrypt(
                     result = TPM_RC_VALUE;
                 else
                 {
-                    symDef = &decryptKey->publicArea.parameters.symDetail;
+                    symDef = &decryptKey->publicArea.parameters.symDetail.sym;
                     iv.t.size = CryptGetSymmetricBlockSize(symDef->algorithm,
                                                              symDef->keyBits.sym);
                     pAssert(iv.t.size != 0);
@@ -3101,7 +3101,7 @@ CryptObjectPublicPrivateMatch(
    case TPM_ALG_KEYEDHASH:
        break;
    case TPM_ALG_SYMCIPHER:
-       if(    (publicArea->parameters.symDetail.keyBits.sym + 7)/8
+       if(    (publicArea->parameters.symDetail.sym.keyBits.sym + 7)/8
            != sensitive->sensitive.sym.t.size)
             result = TPM_RC_BINDING;
        break;

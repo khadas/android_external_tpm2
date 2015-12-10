@@ -402,9 +402,9 @@ SchemeChecks(
                  if(keyScheme->scheme != curveScheme->scheme)
                       return TPM_RC_SCHEME;
                  // The scheme can allow any hash, or not...
-                 if(    curveScheme->details.any.hashAlg != TPM_ALG_NULL
+                 if(    curveScheme->details.anySig.hashAlg != TPM_ALG_NULL
                      && (   keyScheme->details.anySig.hashAlg
-                         != curveScheme->details.any.hashAlg
+                         != curveScheme->details.anySig.hashAlg
                         )
                    )
                       return TPM_RC_SCHEME;
