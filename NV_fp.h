@@ -11,6 +11,10 @@ TPM_RC NvAddEvictObject(
         TPMI_DH_OBJECT       evictHandle,         // IN: new evict handle
         OBJECT              *object              // IN: object to be added
                         );
+void NvCheckState(void);
+BOOL NvCommit(
+        void
+        );
 void NvDeleteEntity(
         TPM_HANDLE           handle              // IN: handle of entity to be deleted
                     );
@@ -39,7 +43,8 @@ BOOL NvIsPlatformPersistentHandle(
         TPM_HANDLE           handle              // IN: handle
                                   );
 void NvWriteReserved(
-	NV_RESERVE   type,              // IN: type of reserved data
+        NV_RESERVE   type,              // IN: type of reserved data
         void        *buffer             // IN: data buffer
                      );
+
 #endif // __TPM2_NV_FP_H

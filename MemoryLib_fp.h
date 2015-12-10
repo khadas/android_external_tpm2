@@ -7,6 +7,9 @@
 #ifndef __MEMORYLIB_FP_H
 #define __MEMORYLIB_FP_H
 
+BYTE * MemoryGetResponseBuffer(
+        TPM_CC             command            // Command that requires the buffer
+        );
 LIB_EXPORT BOOL Memory2BEqual(
         const TPM2B         *aIn,                 // IN: compare value
         const TPM2B         *bIn                  // IN: compare value
