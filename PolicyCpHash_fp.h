@@ -8,12 +8,11 @@
 #define __TPM2_POLICYCPHASH_FP_H_
 
 typedef struct {
-        TPM_HANDLE   policySession;
-        TPM2B_DIGEST cpHashA;
+  TPM_HANDLE policySession;
+  TPM2B_DIGEST cpHashA;
 } PolicyCpHash_In;
 
-TPM_RC TPM2_PolicyCpHash(
-        PolicyCpHash_In       *in                   // IN: input parameter list
-);
+TPM_RC TPM2_PolicyCpHash(PolicyCpHash_In *in  // IN: input parameter list
+                         );
 
-#endif // __TPM2_POLICYCPHASH_FP_H_
+#endif  // __TPM2_POLICYCPHASH_FP_H_

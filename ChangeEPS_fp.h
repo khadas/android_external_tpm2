@@ -7,10 +7,9 @@
 #ifndef __TPM2_CHANGEEPS_FP_H
 #define __TPM2_CHANGEEPS_FP_H
 
-typedef void ChangeEPS_In; //unused
+typedef void ChangeEPS_In;  // unused
 
-TPM_RC TPM2_ChangeEPS(
-        ChangeEPS_In     *in              // IN: input parameter list
-);
+TPM_RC TPM2_ChangeEPS(ChangeEPS_In *in  // IN: input parameter list
+                      );
 
-#endif // __TPM2_CHANGEEPS_FP_H
+#endif  // __TPM2_CHANGEEPS_FP_H

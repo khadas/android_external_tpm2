@@ -7,12 +7,10 @@
 #ifndef __TPM2_POLICYPHYSICALPRESENCE_FP_H_
 #define __TPM2_POLICYPHYSICALPRESENCE_FP_H_
 
-typedef struct {
-        TPM_HANDLE  policySession;
-} PolicyPhysicalPresence_In;
+typedef struct { TPM_HANDLE policySession; } PolicyPhysicalPresence_In;
 
 TPM_RC TPM2_PolicyPhysicalPresence(
-        PolicyPhysicalPresence_In   *in             // IN: input parameter list
-);
+    PolicyPhysicalPresence_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_POLICYPHYSICALPRESENCE_FP_H_
+#endif  // __TPM2_POLICYPHYSICALPRESENCE_FP_H_

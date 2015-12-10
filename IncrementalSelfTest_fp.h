@@ -7,17 +7,13 @@
 #ifndef __TPM2_INCREMENTALSELFTEST_FP_H
 #define __TPM2_INCREMENTALSELFTEST_FP_H
 
-typedef struct {
-        TPML_ALG        toTest;
-} IncrementalSelfTest_In;
+typedef struct { TPML_ALG toTest; } IncrementalSelfTest_In;
 
-typedef struct {
-        TPML_ALG        toDoList;
-} IncrementalSelfTest_Out;
+typedef struct { TPML_ALG toDoList; } IncrementalSelfTest_Out;
 
 TPM_RC TPM2_IncrementalSelfTest(
-        IncrementalSelfTest_In        *in,                // IN: input parameter list
-        IncrementalSelfTest_Out       *out                // OUT: output parameter list
-                                );
+    IncrementalSelfTest_In *in,   // IN: input parameter list
+    IncrementalSelfTest_Out *out  // OUT: output parameter list
+    );
 
-#endif // __TPM2_INCREMENTALSELFTEST_FP_H
+#endif  // __TPM2_INCREMENTALSELFTEST_FP_H

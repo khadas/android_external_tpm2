@@ -7,12 +7,9 @@
 #ifndef __TPM2_POLICYAUTHVALUE_FP_H_
 #define __TPM2_POLICYAUTHVALUE_FP_H_
 
-typedef struct {
-        TPM_HANDLE  policySession;
-} PolicyAuthValue_In;
+typedef struct { TPM_HANDLE policySession; } PolicyAuthValue_In;
 
-TPM_RC TPM2_PolicyAuthValue(
-        PolicyAuthValue_In    *in            // IN: input parameter list
-);
+TPM_RC TPM2_PolicyAuthValue(PolicyAuthValue_In *in  // IN: input parameter list
+                            );
 
-#endif // __TPM2_POLICYAUTHVALUE_FP_H_
+#endif  // __TPM2_POLICYAUTHVALUE_FP_H_

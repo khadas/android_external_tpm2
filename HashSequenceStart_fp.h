@@ -8,17 +8,15 @@
 #define __TPM2_HASHSEQUENCESTART_FP_H
 
 typedef struct {
-        TPMI_ALG_HASH   hashAlg;
-        TPM2B_AUTH      auth;
+  TPMI_ALG_HASH hashAlg;
+  TPM2B_AUTH auth;
 } HashSequenceStart_In;
 
-typedef struct {
-        TPMI_DH_OBJECT  sequenceHandle;
-} HashSequenceStart_Out;
+typedef struct { TPMI_DH_OBJECT sequenceHandle; } HashSequenceStart_Out;
 
 TPM_RC TPM2_HashSequenceStart(
-        HashSequenceStart_In      *in,                   // IN: input parameter list
-        HashSequenceStart_Out     *out                   // OUT: output parameter list
-                              );
+    HashSequenceStart_In *in,   // IN: input parameter list
+    HashSequenceStart_Out *out  // OUT: output parameter list
+    );
 
-#endif // __TPM2_HASHSEQUENCESTART_FP_H
+#endif  // __TPM2_HASHSEQUENCESTART_FP_H

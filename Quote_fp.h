@@ -8,20 +8,19 @@
 #define __TPM2_QUOTE_FP_H_
 
 typedef struct {
-        TPMI_DH_OBJECT      signHandle;
-        TPMT_SIG_SCHEME     inScheme;
-        TPM2B_DATA          qualifyingData;
-        TPML_PCR_SELECTION  PCRselect;
+  TPMI_DH_OBJECT signHandle;
+  TPMT_SIG_SCHEME inScheme;
+  TPM2B_DATA qualifyingData;
+  TPML_PCR_SELECTION PCRselect;
 } Quote_In;
 
 typedef struct {
-        TPM2B_ATTEST   quoted;
-        TPMT_SIGNATURE signature;
+  TPM2B_ATTEST quoted;
+  TPMT_SIGNATURE signature;
 } Quote_Out;
 
-TPM_RC TPM2_Quote(
-        Quote_In        *in,             // IN: input parameter list
-        Quote_Out       *out             // OUT: output parameter list
-);
+TPM_RC TPM2_Quote(Quote_In *in,   // IN: input parameter list
+                  Quote_Out *out  // OUT: output parameter list
+                  );
 
-#endif // __TPM2_QUOTE_FP_H_
+#endif  // __TPM2_QUOTE_FP_H_

@@ -8,12 +8,11 @@
 #define __TPM2_NV_INCREMENT_FP_H
 
 typedef struct {
-        TPM_HANDLE       authHandle;
-        TPMI_RH_NV_INDEX  nvIndex;
+  TPM_HANDLE authHandle;
+  TPMI_RH_NV_INDEX nvIndex;
 } NV_Increment_In;
 
-TPM_RC TPM2_NV_Increment(
-        NV_Increment_In       *in                  // IN: input parameter list
-);
+TPM_RC TPM2_NV_Increment(NV_Increment_In *in  // IN: input parameter list
+                         );
 
-#endif // __TPM2_NV_INCREMENT_FP_H
+#endif  // __TPM2_NV_INCREMENT_FP_H

@@ -7,10 +7,9 @@
 #ifndef __TPM2_TESTPARMS_FP_H_
 #define __TPM2_TESTPARMS_FP_H_
 
-typedef void TestParms_In; // unused.
+typedef void TestParms_In;  // unused.
 
-TPM_RC TPM2_TestParms(
-        TestParms_In   *in             // IN: input parameter list
-);
+TPM_RC TPM2_TestParms(TestParms_In *in  // IN: input parameter list
+                      );
 
-#endif // __TPM2_TESTPARMS_FP_H_
+#endif  // __TPM2_TESTPARMS_FP_H_

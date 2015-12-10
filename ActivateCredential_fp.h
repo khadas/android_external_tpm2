@@ -8,19 +8,17 @@
 #define __TPM2_ACTIVATECREDENTIAL_FP_H
 
 typedef struct {
-        TPMI_DH_OBJECT keyHandle;
-        TPMI_DH_OBJECT activateHandle;
-        TPM2B_ENCRYPTED_SECRET secret;
-        TPM2B_ID_OBJECT credentialBlob;
+  TPMI_DH_OBJECT keyHandle;
+  TPMI_DH_OBJECT activateHandle;
+  TPM2B_ENCRYPTED_SECRET secret;
+  TPM2B_ID_OBJECT credentialBlob;
 } ActivateCredential_In;
 
-typedef struct {
-        TPM2B_DIGEST certInfo;
-} ActivateCredential_Out;
+typedef struct { TPM2B_DIGEST certInfo; } ActivateCredential_Out;
 
 TPM_RC TPM2_ActivateCredential(
-        ActivateCredential_In    *in,                 // IN: input parameter list
-        ActivateCredential_Out   *out                 // OUT: output parameter list
-);
+    ActivateCredential_In *in,   // IN: input parameter list
+    ActivateCredential_Out *out  // OUT: output parameter list
+    );
 
-#endif // __TPM2_ACTIVATECREDENTIAL_FP_H
+#endif  // __TPM2_ACTIVATECREDENTIAL_FP_H

@@ -8,19 +8,16 @@
 #define __TPM2_RSA_ENCRYPT_FP_H_
 
 typedef struct {
-        TPMI_DH_OBJECT    keyHandle;
-        TPM2B_DATA        label;
-        TPM2B_DATA        message;
-        TPMT_RSA_DECRYPT  inScheme;
+  TPMI_DH_OBJECT keyHandle;
+  TPM2B_DATA label;
+  TPM2B_DATA message;
+  TPMT_RSA_DECRYPT inScheme;
 } RSA_Encrypt_In;
 
-typedef struct {
-        TPM2B_DATA  outData;
-} RSA_Encrypt_Out;
+typedef struct { TPM2B_DATA outData; } RSA_Encrypt_Out;
 
-TPM_RC TPM2_RSA_Encrypt(
-        RSA_Encrypt_In        *in,                 // IN: input parameter list
-        RSA_Encrypt_Out       *out                 // OUT: output parameter list
-);
+TPM_RC TPM2_RSA_Encrypt(RSA_Encrypt_In *in,   // IN: input parameter list
+                        RSA_Encrypt_Out *out  // OUT: output parameter list
+                        );
 
-#endif // __TPM2_RSA_ENCRYPT_FP_H_
+#endif  // __TPM2_RSA_ENCRYPT_FP_H_

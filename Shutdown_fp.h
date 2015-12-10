@@ -7,12 +7,9 @@
 #ifndef __TPM2_SHUTDOWN_FP_H_
 #define __TPM2_SHUTDOWN_FP_H_
 
-typedef struct {
-        TPM_SU  shutdownType;
-} Shutdown_In;
+typedef struct { TPM_SU shutdownType; } Shutdown_In;
 
-TPM_RC TPM2_Shutdown(
-        Shutdown_In       *in               // IN: input parameter list
-);
+TPM_RC TPM2_Shutdown(Shutdown_In *in  // IN: input parameter list
+                     );
 
-#endif // __TPM2_SHUTDOWN_FP_H_
+#endif  // __TPM2_SHUTDOWN_FP_H_

@@ -8,13 +8,12 @@
 #define __TPM2_POLICYPCR_FP_H_
 
 typedef struct {
-        TPM_HANDLE         policySession;
-        TPML_PCR_SELECTION pcrs;
-        TPM2B_DIGEST       pcrDigest;
+  TPM_HANDLE policySession;
+  TPML_PCR_SELECTION pcrs;
+  TPM2B_DIGEST pcrDigest;
 } PolicyPCR_In;
 
-TPM_RC TPM2_PolicyPCR(
-        PolicyPCR_In      *in                 // IN: input parameter list
-);
+TPM_RC TPM2_PolicyPCR(PolicyPCR_In *in  // IN: input parameter list
+                      );
 
-#endif // __TPM2_POLICYPCR_FP_H_
+#endif  // __TPM2_POLICYPCR_FP_H_

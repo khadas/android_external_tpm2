@@ -8,16 +8,15 @@
 #define __TPM2_DICTIONARYATTACKPARAMETERS_FP_H
 
 typedef struct {
-        UINT32  newMaxTries;    // number of unexpired authorization
-                                // failures before the TPM is in
-                                // lockout
-        UINT32  newRecoveryTime;// time between authorization failures
-                                // before failedTries is decremented
-        UINT32  lockoutRecovery;// time that must expire between
+  UINT32 newMaxTries;  // number of unexpired authorization failures before the
+                       // TPM is in lockout
+  UINT32 newRecoveryTime;  // time between authorization failures before
+                           // failedTries is decremented
+  UINT32 lockoutRecovery;  // time that must expire between
 } DictionaryAttackParameters_In;
 
 TPM_RC TPM2_DictionaryAttackParameters(
-        DictionaryAttackParameters_In    *in             // IN: input parameter list
-);
+    DictionaryAttackParameters_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_DICTIONARYATTACKPARAMETERS_FP_H
+#endif  // __TPM2_DICTIONARYATTACKPARAMETERS_FP_H

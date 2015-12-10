@@ -9,16 +9,16 @@
 
 UINT16 Common_Marshal(void *source, BYTE **buffer, INT32 *size,
                       UINT16 type_size);
-TPM_RC  Common_Unmarshal(void *source, BYTE **buffer, INT32 *size,
-                         UINT16 type_size);
+TPM_RC Common_Unmarshal(void *source, BYTE **buffer, INT32 *size,
+                        UINT16 type_size);
 
-#define MARSHAL_WRAPPER(name)   \
-        static inline UINT16 name##_Marshal(void *x, BYTE **y, INT32 *z) { \
-        return Common_Marshal(x, y, z, sizeof(name)); \
-        }\
-        static inline TPM_RC name##_Unmarshal(void *x, BYTE **y, INT32 *z) { \
-        return Common_Unmarshal(x, y, z, sizeof(name)); \
-        }
+#define MARSHAL_WRAPPER(name)                                          \
+  static inline UINT16 name##_Marshal(void *x, BYTE **y, INT32 *z) {   \
+    return Common_Marshal(x, y, z, sizeof(name));                      \
+  }                                                                    \
+  static inline TPM_RC name##_Unmarshal(void *x, BYTE **y, INT32 *z) { \
+    return Common_Unmarshal(x, y, z, sizeof(name));                    \
+  }
 
 MARSHAL_WRAPPER(SESSION)
 MARSHAL_WRAPPER(TPM2B_AUTH)
@@ -45,7 +45,7 @@ MARSHAL_WRAPPER(TPM_ST)
 MARSHAL_WRAPPER(UINT16)
 MARSHAL_WRAPPER(UINT32)
 
-UINT16 TPMU_PUBLIC_PARMS_Marshal(TPMU_PUBLIC_PARMS *x, BYTE **y,
-                                 INT32 *z, TPMI_ALG_PUBLIC type);
+UINT16 TPMU_PUBLIC_PARMS_Marshal(TPMU_PUBLIC_PARMS *x, BYTE **y, INT32 *z,
+                                 TPMI_ALG_PUBLIC type);
 
-#endif // __TPM2_MARSHAL_FP_H
+#endif  // __TPM2_MARSHAL_FP_H

@@ -8,12 +8,11 @@
 #define __TPM2_GETTESTRESULT_FP_H
 
 typedef struct {
-        TPM_RC testResult;
-        TPM2B_MAX_BUFFER outData;
+  TPM_RC testResult;
+  TPM2B_MAX_BUFFER outData;
 } GetTestResult_Out;
 
-TPM_RC TPM2_GetTestResult(
-        GetTestResult_Out      *out               // OUT: output parameter list
+TPM_RC TPM2_GetTestResult(GetTestResult_Out *out  // OUT: output parameter list
                           );
 
-#endif // __TPM2_GETTESTRESULT_FP_H
+#endif  // __TPM2_GETTESTRESULT_FP_H

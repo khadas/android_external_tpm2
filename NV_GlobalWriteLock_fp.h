@@ -10,7 +10,7 @@
 typedef void NV_GlobalWriteLock_In;
 
 TPM_RC TPM2_NV_GlobalWriteLock(
-        NV_GlobalWriteLock_In       *in             // IN: input parameter list
-);
+    NV_GlobalWriteLock_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_NV_GLOBALWRITELOCK_FP_H
+#endif  // __TPM2_NV_GLOBALWRITELOCK_FP_H

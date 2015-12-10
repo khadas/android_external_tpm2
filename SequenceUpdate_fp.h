@@ -8,12 +8,11 @@
 #define __TPM2_SEQUENCEUPDATE_FP_H_
 
 typedef struct {
-        TPMI_DH_OBJECT sequenceHandle;
-        TPM2B_DATA     buffer;
+  TPMI_DH_OBJECT sequenceHandle;
+  TPM2B_DATA buffer;
 } SequenceUpdate_In;
 
-TPM_RC TPM2_SequenceUpdate(
-        SequenceUpdate_In     *in               // IN: input parameter list
-);
+TPM_RC TPM2_SequenceUpdate(SequenceUpdate_In *in  // IN: input parameter list
+                           );
 
-#endif // __TPM2_SEQUENCEUPDATE_FP_H_
+#endif  // __TPM2_SEQUENCEUPDATE_FP_H_

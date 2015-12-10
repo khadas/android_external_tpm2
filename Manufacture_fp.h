@@ -8,8 +8,7 @@
 #define __TPM2_MANUFACTURE_FP_H
 
 LIB_EXPORT int TPM_Manufacture(
-        BOOL                 firstTime           // IN: indicates if this is the first call from
-        //     main()
-        );
+    BOOL firstTime  // IN: indicates if this is the first call from main()
+    );
 
-#endif // __TPM2_MANUFACTURE_FP_H
+#endif  // __TPM2_MANUFACTURE_FP_H

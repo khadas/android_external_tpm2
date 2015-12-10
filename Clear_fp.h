@@ -7,10 +7,9 @@
 #ifndef __TPM2_CLEAR_FP_H
 #define __TPM2_CLEAR_FP_H
 
-typedef void Clear_In; //unused.
+typedef void Clear_In;  // unused.
 
-TPM_RC TPM2_Clear(
-        Clear_In          *in                // IN: input parameter list
-);
+TPM_RC TPM2_Clear(Clear_In *in  // IN: input parameter list
+                  );
 
-#endif // __TPM2_CLEAR_FP_H
+#endif  // __TPM2_CLEAR_FP_H

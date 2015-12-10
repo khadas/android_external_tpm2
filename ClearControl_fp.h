@@ -8,12 +8,11 @@
 #define __TPM2_CLEARCONTROL_FP_H
 
 typedef struct {
-        TPMI_YES_NO disable;
-        TPM_RH  auth;
+  TPMI_YES_NO disable;
+  TPM_RH auth;
 } ClearControl_In;
 
-TPM_RC TPM2_ClearControl(
-        ClearControl_In       *in                 // IN: input parameter list
-);
+TPM_RC TPM2_ClearControl(ClearControl_In *in  // IN: input parameter list
+                         );
 
-#endif // __TPM2_CLEARCONTROL_FP_H
+#endif  // __TPM2_CLEARCONTROL_FP_H

@@ -8,12 +8,11 @@
 #define __TPM2_PP_COMMANDS_FP_H_
 
 typedef struct {
-        TPML_CC setList;
-        TPML_CC clearList;
+  TPML_CC setList;
+  TPML_CC clearList;
 } PP_Commands_In;
 
-TPM_RC TPM2_PP_Commands(
-        PP_Commands_In   *in           // IN: input parameter list
-);
+TPM_RC TPM2_PP_Commands(PP_Commands_In *in  // IN: input parameter list
+                        );
 
-#endif // __TPM2_PP_COMMANDS_FP_H_
+#endif  // __TPM2_PP_COMMANDS_FP_H_

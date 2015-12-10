@@ -7,6 +7,10 @@
 #ifndef __TPM2_DICTIONARYATTACKLOCKRESET_FP_H
 #define __TPM2_DICTIONARYATTACKLOCKRESET_FP_H
 
-typedef void  DictionaryAttackLockReset_In; // Unused.
+typedef void DictionaryAttackLockReset_In;  // Unused.
 
-#endif // __TPM2_DICTIONARYATTACKLOCKRESET_FP_H
+TPM_RC TPM2_DictionaryAttackLockReset(
+    DictionaryAttackLockReset_In *in  // IN: input parameter list
+    );
+
+#endif  // __TPM2_DICTIONARYATTACKLOCKRESET_FP_H

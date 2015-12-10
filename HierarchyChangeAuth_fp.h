@@ -8,12 +8,12 @@
 #define __TPM2_HIERARCHYCHANGEAUTH_FP_H
 
 typedef struct {
-        TPM_RH     authHandle;
-        TPM2B_AUTH newAuth;
+  TPM_RH authHandle;
+  TPM2B_AUTH newAuth;
 } HierarchyChangeAuth_In;
 
 TPM_RC TPM2_HierarchyChangeAuth(
-        HierarchyChangeAuth_In    *in                    // IN: input parameter list
-                                );
+    HierarchyChangeAuth_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_HIERARCHYCHANGEAUTH_FP_H
+#endif  // __TPM2_HIERARCHYCHANGEAUTH_FP_H

@@ -8,14 +8,13 @@
 #define __TPM2_NV_WRITE_FP_H_
 
 typedef struct {
-        TPM_HANDLE        authHandle;
-        TPMI_RH_NV_INDEX  nvIndex;
-        TPM2B_DATA        data;
-        UINT32            offset;
+  TPM_HANDLE authHandle;
+  TPMI_RH_NV_INDEX nvIndex;
+  TPM2B_DATA data;
+  UINT32 offset;
 } NV_Write_In;
 
-TPM_RC TPM2_NV_Write(
-        NV_Write_In       *in                 // IN: input parameter list
-);
+TPM_RC TPM2_NV_Write(NV_Write_In *in  // IN: input parameter list
+                     );
 
-#endif // __TPM2_NV_WRITE_FP_H_
+#endif  // __TPM2_NV_WRITE_FP_H_

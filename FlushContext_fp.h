@@ -7,12 +7,9 @@
 #ifndef __TPM2_FLUSHCONTEXT_FP_H
 #define __TPM2_FLUSHCONTEXT_FP_H
 
-typedef struct {
-        TPMI_DH_OBJECT        flushHandle;
-} FlushContext_In;
+typedef struct { TPMI_DH_OBJECT flushHandle; } FlushContext_In;
 
-TPM_RC TPM2_FlushContext(
-        FlushContext_In       *in                  // IN: input parameter list
-);
+TPM_RC TPM2_FlushContext(FlushContext_In *in  // IN: input parameter list
+                         );
 
-#endif // __TPM2_FLUSHCONTEXT_FP_H
+#endif  // __TPM2_FLUSHCONTEXT_FP_H

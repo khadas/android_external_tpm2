@@ -8,12 +8,10 @@
 #define __TPM2_NV_CHANGEAUTH_FP_H
 
 typedef struct {
-        TPMI_RH_NV_INDEX  nvIndex;
-        TPM2B_AUTH        newAuth;
+  TPMI_RH_NV_INDEX nvIndex;
+  TPM2B_AUTH newAuth;
 } NV_ChangeAuth_In;
 
-TPM_RC TPM2_NV_ChangeAuth(
-        NV_ChangeAuth_In   *in
-);
+TPM_RC TPM2_NV_ChangeAuth(NV_ChangeAuth_In *in);
 
-#endif // __TPM2_NV_CHANGEAUTH_FP_H
+#endif  // __TPM2_NV_CHANGEAUTH_FP_H

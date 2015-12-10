@@ -8,13 +8,13 @@
 #define __TPM2_HIERARCHYCONTROL_FP_H
 
 typedef struct {
-        TPM_RH      enable;
-        TPM_RH      authHandle;
-        TPMI_YES_NO state;
+  TPM_RH enable;
+  TPM_RH authHandle;
+  TPMI_YES_NO state;
 } HierarchyControl_In;
 
 TPM_RC TPM2_HierarchyControl(
-        HierarchyControl_In    *in                 // IN: input parameter list
-                             );
+    HierarchyControl_In *in  // IN: input parameter list
+    );
 
-#endif // __TPM2_HIERARCHYCONTROL_FP_H
+#endif  // __TPM2_HIERARCHYCONTROL_FP_H

@@ -8,19 +8,16 @@
 #define __TPM2_SIGN_FP_H_
 
 typedef struct {
-        TPMI_DH_OBJECT  keyHandle;
-        TPMT_SIG_SCHEME inScheme;
-        TPM2B_DIGEST    digest;
-        TPMT_TK_COMMON  validation;
+  TPMI_DH_OBJECT keyHandle;
+  TPMT_SIG_SCHEME inScheme;
+  TPM2B_DIGEST digest;
+  TPMT_TK_COMMON validation;
 } Sign_In;
 
-typedef struct {
-        TPMT_SIGNATURE  signature;
-} Sign_Out;
+typedef struct { TPMT_SIGNATURE signature; } Sign_Out;
 
-TPM_RC TPM2_Sign(
-        Sign_In          *in,                   // IN: input parameter list
-        Sign_Out         *out                   // OUT: output parameter list
-);
+TPM_RC TPM2_Sign(Sign_In *in,   // IN: input parameter list
+                 Sign_Out *out  // OUT: output parameter list
+                 );
 
-#endif // __TPM2_SIGN_FP_H_
+#endif  // __TPM2_SIGN_FP_H_

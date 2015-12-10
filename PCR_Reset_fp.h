@@ -7,12 +7,9 @@
 #ifndef __TPM2_PCR_RESET_FP_H_
 #define __TPM2_PCR_RESET_FP_H_
 
-typedef struct {
-        TPMI_DH_PCR pcrHandle;
-} PCR_Reset_In;
+typedef struct { TPMI_DH_PCR pcrHandle; } PCR_Reset_In;
 
-TPM_RC TPM2_PCR_Reset(
-        PCR_Reset_In      *in                 // IN: input parameter list
-);
+TPM_RC TPM2_PCR_Reset(PCR_Reset_In *in  // IN: input parameter list
+                      );
 
-#endif // __TPM2_PCR_RESET_FP_H_
+#endif  // __TPM2_PCR_RESET_FP_H_

@@ -7,15 +7,8 @@
 #ifndef __TPM2_POWER_FP_H
 #define __TPM2_POWER_FP_H
 
-BOOL TPMIsStarted(
-        void
-        );
-void TPMInit(
-        void
-        );
-void TPMRegisterStartup(
-        void
-        );
+BOOL TPMIsStarted(void);
+void TPMInit(void);
+void TPMRegisterStartup(void);
 
-#endif // __TPM2_POWER_FP_H
-
+#endif  // __TPM2_POWER_FP_H

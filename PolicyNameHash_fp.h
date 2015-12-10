@@ -8,12 +8,11 @@
 #define __TPM2_POLICYNAMEHASH_FP_H_
 
 typedef struct {
-        TPM_HANDLE   policySession;
-        TPM2B_DIGEST nameHash;
+  TPM_HANDLE policySession;
+  TPM2B_DIGEST nameHash;
 } PolicyNameHash_In;
 
-TPM_RC TPM2_PolicyNameHash(
-        PolicyNameHash_In     *in                  // IN: input parameter list
-);
+TPM_RC TPM2_PolicyNameHash(PolicyNameHash_In *in  // IN: input parameter list
+                           );
 
-#endif // __TPM2_POLICYNAMEHASH_FP_H_
+#endif  // __TPM2_POLICYNAMEHASH_FP_H_

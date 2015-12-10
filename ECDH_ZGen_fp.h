@@ -8,17 +8,14 @@
 #define __TPM2_ECDH_ZGEN_FP_H
 
 typedef struct {
-        TPMI_DH_OBJECT  keyHandle;
-        TPM2B_ECC_POINT inPoint;
+  TPMI_DH_OBJECT keyHandle;
+  TPM2B_ECC_POINT inPoint;
 } ECDH_ZGen_In;
 
-typedef struct {
-        TPM2B_ECC_POINT outPoint;
-} ECDH_ZGen_Out;
+typedef struct { TPM2B_ECC_POINT outPoint; } ECDH_ZGen_Out;
 
-TPM_RC TPM2_ECDH_ZGen(
-        ECDH_ZGen_In      *in,                  // IN: input parameter list
-        ECDH_ZGen_Out     *out                  // OUT: output parameter list
+TPM_RC TPM2_ECDH_ZGen(ECDH_ZGen_In *in,   // IN: input parameter list
+                      ECDH_ZGen_Out *out  // OUT: output parameter list
                       );
 
-#endif // __TPM2_ECDH_ZGEN_FP_H
+#endif  // __TPM2_ECDH_ZGEN_FP_H
