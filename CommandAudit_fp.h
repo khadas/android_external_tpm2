@@ -12,6 +12,9 @@ TPMI_YES_NO CommandAuditCapGetCCList(
         UINT32            count,                // IN: count of returned TPM_CC
         TPML_CC          *commandList           // OUT: list of TPM_CC
 );
+void CommandAuditGetDigest(
+        TPM2B_DIGEST     *digest                // OUT: command digest
+);
 BOOL CommandAuditSet(
         TPM_CC   commandCode  // IN: command code
 );

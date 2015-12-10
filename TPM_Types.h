@@ -1239,6 +1239,8 @@ enum {
         RC_EvictControl_objectHandle,
         RC_EvictControl_persistentHandle,
         RC_GetCapability_property,
+        RC_GetCommandAuditDigest_signHandle,
+        RC_GetCommandAuditDigest_inScheme,
 };
 
 enum {
