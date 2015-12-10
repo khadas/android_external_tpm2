@@ -13,7 +13,7 @@
 #include     "TpmError.h"
 #include     "swap.h"
 #include     "Implementation.h"
-#include     "TPM_types.h"
+#include     "TPM_Types.h"
 //#include     "TPMB.h"
 #include     "bool.h"
 #include     "Platform.h"
