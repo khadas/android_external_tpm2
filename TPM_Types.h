@@ -1250,7 +1250,7 @@ enum {
         RC_Duplicate_symmetricAlg,
         RC_ECC_Parameters_curveID,
         RC_ECDH_KeyGen_keyHandle,
-        RC_ECDH_ZGen_keyHandle,
+	RC_ECDH_ZGen_keyHandle,
         RC_ECDH_ZGen_inPoint,
         RC_EncryptDecrypt_inData,
         RC_EncryptDecrypt_ivIn,
@@ -1283,13 +1283,15 @@ enum {
         RC_Load_parentHandle,
         RC_LoadExternal_hierarchy,
         RC_LoadExternal_inPublic,
+        RC_MakeCredential_credential,
+        RC_MakeCredential_handle,
 };
 
 enum {
-        TPM_RCS_ATTRIBUTES,
+	TPM_RCS_ATTRIBUTES,
         TPM_RCS_HANDLE,
         TPM_RCS_KEY,
-        TPM_RCS_SIZE,
+	TPM_RCS_SIZE,
         TPM_RCS_TYPE,
         TPM_RCS_VALUE,
 };
