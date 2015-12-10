@@ -1389,6 +1389,8 @@ enum {
         RC_PolicyTicket_policySession,
         RC_PolicyTicket_ticket,
         RC_PolicyTicket_timeout,
+        RC_Quote_inScheme,
+        RC_Quote_signHandle,
 };
 
 enum {
