@@ -428,6 +428,12 @@ typedef struct {
   TPMA_CC commandAttributes[MAX_CAP_CC];
 } TPML_CCA;
 
+// Table 93 - TPML_ALG Structure
+typedef struct {
+  UINT32     count;
+  TPM_ALG_ID algorithms[MAX_ALG_LIST_SIZE];
+} TPML_ALG;
+
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
   UINT32             count;
