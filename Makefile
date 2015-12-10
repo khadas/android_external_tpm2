@@ -185,7 +185,7 @@ $(obj)/.%.d: %.c | $(obj)
 	$(CC) -M $<  > $@.tmp && mv $@.tmp $@
 	sed -i "s|^\([a-zA-Z0-9_]\+\.o:\)|$(obj)/\1 $@ |"  $@
 
-$(obj)/tpm2lib: $(OBJS)
+$(obj)/libtpm2.a: $(OBJS)
 	$(AR) scr $@  $^
 
 
