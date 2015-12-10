@@ -10,7 +10,6 @@
 #include "tpm_generated.h"
 
 typedef struct {
-  UINT32 paramSize;
   TPMI_DH_OBJECT signHandle;
   TPM2B_ECC_POINT P1;
   TPM2B_SENSITIVE_DATA s2;
@@ -18,7 +17,6 @@ typedef struct {
 } Commit_In;
 
 typedef struct {
-  UINT32 paramSize_out;
   TPM2B_ECC_POINT K;
   TPM2B_ECC_POINT L;
   TPM2B_ECC_POINT E;

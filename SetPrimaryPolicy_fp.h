@@ -10,7 +10,7 @@
 #include "tpm_generated.h"
 
 typedef struct {
-  TPMI_RH_HIERARCHY authHandle;
+  TPMI_RH_HIERARCHY_AUTH authHandle;
   TPM2B_DIGEST authPolicy;
   TPMI_ALG_HASH hashAlg;
 } SetPrimaryPolicy_In;

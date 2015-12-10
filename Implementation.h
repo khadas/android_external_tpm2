@@ -457,6 +457,7 @@ typedef    UINT16                 TPM_ECC_CURVE;
 //      Algorithm Registry: Table 12 - Defines for SHA1 Hash Values
 //
 #define SHA1_DIGEST_SIZE     20
+#define SHA_DIGEST_SIZE      SHA1_DIGEST_SIZE
 #define SHA1_BLOCK_SIZE      64
 #define SHA1_DER_SIZE        15
 #define SHA1_DER             \

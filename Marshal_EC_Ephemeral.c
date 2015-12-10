@@ -24,7 +24,6 @@ UINT16 EC_Ephemeral_Out_Marshal(EC_Ephemeral_Out* source,
     UINT32_Marshal(&parameter_size, buffer, size);
   }
   // Marshal response parameters.
-  total_size += UINT32_Marshal(&source->paramSize_out, buffer, size);
   total_size += TPM2B_ECC_POINT_Marshal(&source->Q, buffer, size);
   total_size += UINT16_Marshal(&source->counter, buffer, size);
   // Compute actual parameter_size. Don't add result to total_size.
@@ -42,10 +41,6 @@ TPM_RC EC_Ephemeral_In_Unmarshal(EC_Ephemeral_In* target,
                                  INT32* size) {
   TPM_RC result = TPM_RC_SUCCESS;
   // Unmarshal request parameters.
-  result = UINT32_Unmarshal(&target->paramSize, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
   result = TPMI_ECC_CURVE_Unmarshal(&target->curveID, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
