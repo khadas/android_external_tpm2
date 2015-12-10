@@ -4,7 +4,9 @@
 # found in the LICENSE file.
 
 obj ?= ./build
-CC ?= gcc
+CROSS_COMPILE ?=
+CC = $(CROSS_COMPILE)gcc
+AR = $(CROSS_COMPILE)ar
 
 SOURCES += ActivateCredential.c
 SOURCES += AlgorithmCap.c
@@ -179,12 +181,12 @@ DEPS = $(patsubst %.c,$(obj)/.%.d,$(SOURCES))
 $(obj)/%.o: %.c
 	$(CC) -Wall -Werror -c -o $@ $<
 
-$(obj)/.%.d: %.c
+$(obj)/.%.d: %.c | $(obj)
 	$(CC) -M $<  > $@.tmp && mv $@.tmp $@
 	sed -i "s|^\([a-zA-Z0-9_]\+\.o:\)|$(obj)/\1 $@ |"  $@
 
-$(obj)/tpm2lib: $(obj) $(OBJS)
-	ar $@ $^
+$(obj)/tpm2lib: $(OBJS)
+	$(AR) scr $@  $^
 
 
 $(obj):
