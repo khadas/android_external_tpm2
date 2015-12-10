@@ -12,4 +12,12 @@
 #include    "Implementation.h"
 #include    "TPM_Types.h"
 #include    "swap.h"
+
+           // from the title page of the specification
+#define TPM_SPEC_FAMILY      0x200
+#define TPM_SPEC_LEVEL       0
+#define TPM_SPEC_VERSION     0x116
+#define TPM_SPEC_DAY_OF_YEAR 303
+#define TPM_SPEC_YEAR        2014
+
 #endif // _TPM_H_

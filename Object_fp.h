@@ -15,6 +15,9 @@ TPMI_YES_NO ObjectCapGetLoaded(
         UINT32             count,              // IN: count of returned handles
         TPML_HANDLE       *handleList          // OUT: list of handle
 );
+UINT32 ObjectCapGetTransientAvail(
+        void
+        );
 void ObjectCleanupEvict(
         void
         );

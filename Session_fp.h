@@ -7,11 +7,23 @@
 #ifndef __TPM2_SESSION_FP_H
 #define __TPM2_SESSION_FP_H
 
+UINT32 SessionCapGetActiveAvail(
+        void
+        );
+UINT32 SessionCapGetActiveNumber(
+        void
+        );
 TPMI_YES_NO SessionCapGetLoaded(
         TPMI_SH_POLICY      handle,             // IN: start handle
         UINT32              count,              // IN: count of returned handle
         TPML_HANDLE        *handleList          // OUT: list of handle
 );
+UINT32 SessionCapGetLoadedAvail(
+        void
+        );
+UINT32 SessionCapGetLoadedNumber(
+        void
+        );
 TPMI_YES_NO SessionCapGetSaved(
         TPMI_SH_HMAC        handle,             // IN: start handle
         UINT32              count,              // IN: count of returned handle
