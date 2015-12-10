@@ -20,6 +20,11 @@
 typedef UINT32                      TPM_HANDLE;
 
 typedef UINT16 TPM_KEY_BITS;
+typedef UINT32 TPM_CAP;
+
+#define MAX_CAP_DATA       (MAX_CAP_BUFFER - sizeof(TPM_CAP) - sizeof(UINT32))
+#define MAX_CAP_ALGS       (MAX_CAP_DATA / sizeof(TPMS_ALG_PROPERTY))
+
 // Table 7 - TPM_ALG_ID Constants
 typedef UINT16 TPM_ALG_ID;
 
@@ -172,6 +177,20 @@ typedef UINT16 TPM_SU;
 #define TPM_SU_CLEAR (TPM_SU)(0x0000)
 #define TPM_SU_STATE (TPM_SU)(0x0001)
 
+// 8 Attribute Structures
+// Table 29 - TPMA_ALGORITHM Bits
+typedef struct {
+  UINT32 asymmetric    : 1;
+  UINT32 symmetric     : 1;
+  UINT32 hash          : 1;
+  UINT32 object        : 1;
+  UINT32 reserved4_7   : 4;
+  UINT32 signing       : 1;
+  UINT32 encrypting    : 1;
+  UINT32 method        : 1;
+  UINT32 reserved11_31 : 21;
+} TPMA_ALGORITHM;
+
 // Table 30 - TPMA_OBJECT Bits
 typedef struct {
   UINT32 reserved1            : 1;
@@ -275,11 +294,23 @@ typedef struct {
   BYTE          pcrSelect[PCR_SELECT_MAX];
 } TPMS_PCR_SELECTION;
 
+// Table 88 - TPMS_ALG_PROPERTY Structure
+typedef struct {
+  TPM_ALG_ID     alg;
+  TPMA_ALGORITHM algProperties;
+} TPMS_ALG_PROPERTY;
+
 // Table 98 - TPML_PCR_SELECTION Structure
 typedef struct {
   UINT32             count;
   TPMS_PCR_SELECTION pcrSelections[HASH_COUNT];
 } TPML_PCR_SELECTION;
+
+// Table 99 - TPML_ALG_PROPERTY Structure
+typedef struct {
+  UINT32            count;
+  TPMS_ALG_PROPERTY algProperties[MAX_CAP_ALGS];
+} TPML_ALG_PROPERTY;
 
 // Table 105 - TPMS_CLOCK_INFO Structure
 typedef struct {
