@@ -1296,6 +1296,7 @@ enum {
         RC_NV_ReadLock_nvIndex,
         RC_NV_SetBits_nvIndex,
         RC_NV_UndefineSpace_nvIndex,
+        RC_NV_UndefineSpaceSpecial_nvIndex,
 };
 
 enum {
