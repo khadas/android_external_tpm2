@@ -13,6 +13,13 @@ TPM_RC PCRAllocate(
         UINT32                    *sizeNeeded,         //   OUT: required space
         UINT32                    *sizeAvailable       //   OUT: available space
         );
+BOOL PCRBelongsPolicyGroup(
+        TPMI_DH_PCR           handle,            // IN: handle of PCR
+        UINT32               *groupIndex         // OUT: group index if PCR belongs a group that
+        //     allows policy. If PCR does not belong to
+        //     a policy group, the value in this
+        //     parameter is invalid
+        );
 TPMI_YES_NO PCRCapGetAllocation(
         UINT32                   count,               // IN: count of return
         TPML_PCR_SELECTION      *pcrSelection         // OUT: PCR allocation list
