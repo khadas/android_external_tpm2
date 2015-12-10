@@ -29,12 +29,24 @@ UINT16 CryptCompleteHash2B(
 void CryptDrbgGetPutState(
         GET_PUT              direction         // IN: Get from or put to DRBG
 );
+TPM_RC CryptDecryptRSA(
+        UINT16                    *dataOutSize,       // OUT: size of plain text in byte
+        BYTE                    *dataOut,        //   OUT: plain text
+        OBJECT                  *rsaKey,         //   IN: internal RSA key
+        TPMT_RSA_DECRYPT        *scheme,         //   IN: selects the padding scheme
+        UINT16                   cipherInSize,   //   IN: size of cipher text in byte
+        BYTE                    *cipherIn,       //   IN: cipher text
+        const char              *label           //   IN: a label, when needed
+);
 TPM_RC CryptDivide(
         TPM2B               *numerator,           //   IN: numerator
         TPM2B               *denominator,         //   IN: denominator
         TPM2B               *quotient,            //   OUT: quotient = numerator / denominator.
         TPM2B               *remainder            //   OUT: numerator mod denominator.
                    );
+void CryptDrbgGetPutState(
+        GET_PUT              direction         // IN: Get from or put to DRBG
+);
 LIB_EXPORT const TPM2B * CryptEccGetParameter(
         char                 p,                  // IN: the parameter selector
         TPM_ECC_CURVE        curveId             // IN: the curve id
@@ -54,6 +66,9 @@ UINT16 CryptGenerateRandom(
         UINT16               randomSize,       // IN: size of random number
         BYTE                *buffer            // OUT: buffer of random number
 );
+LIB_EXPORT UINT16 CryptGetHashDigestSize(
+        TPM_ALG_ID           hashAlg              // IN: hash algorithm
+                                         );
 LIB_EXPORT UINT16 CryptHashBlock(
         TPM_ALG_ID          algId,               //   IN: the hash algorithm to use
         UINT16              blockSize,           //   IN: size of the data block
@@ -84,6 +99,16 @@ TPM_RC CryptSign(
         TPM2B_DIGEST       *digest,        //   IN: The digest being signed
         TPMT_SIGNATURE     *signature      //   OUT: signature
 );
+void CryptSymmetricDecrypt(
+        BYTE                      *decrypted,
+        TPM_ALG_ID                 algorithm,       //   IN: algorithm for encryption
+        UINT16                     keySizeInBits,   //   IN: key size in bit
+        TPMI_ALG_SYM_MODE          mode,            //   IN: symmetric encryption mode
+        BYTE                      *key,             //   IN: encryption key
+        TPM2B_IV                  *ivIn,            //   IN/OUT: IV for next block
+        UINT32                     dataSize,        //   IN: data size in byte
+        BYTE                      *data             //   IN/OUT: data buffer
+                           );
 UINT16 CryptStartHash(
         TPMI_ALG_HASH        hashAlg,      // IN: hash algorithm
         HASH_STATE          *hashState     // OUT: the state of hash stack. It will be used

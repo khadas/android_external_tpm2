@@ -20,6 +20,7 @@ TPM_RC  Common_Unmarshal(void *source, BYTE **buffer, INT32 *size,
         return Common_Unmarshal(x, y, z, sizeof(name)); \
         }
 
+MARSHAL_WRAPPER(TPM2B_DIGEST)
 MARSHAL_WRAPPER(TPMS_ATTEST)
 MARSHAL_WRAPPER(TPMS_ECC_POINT)
 MARSHAL_WRAPPER(TPM_HANDLE)
