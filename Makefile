@@ -8,7 +8,8 @@ CROSS_COMPILE ?=
 CC = $(CROSS_COMPILE)gcc
 AR = $(CROSS_COMPILE)ar
 
-SOURCES += ActivateCredential.c
+HOST_SOURCES =
+SOURCES  = ActivateCredential.c
 SOURCES += AlgorithmCap.c
 SOURCES += Attest_spt.c
 SOURCES += Bits.c
@@ -29,13 +30,13 @@ SOURCES += Commit.c
 SOURCES += ContextLoad.c
 SOURCES += ContextSave.c
 SOURCES += Context_spt.c
-SOURCES += CpriCryptPri.c
-SOURCES += CpriECC.c
-SOURCES += CpriHash.c
-SOURCES += CpriMisc.c
-SOURCES += CpriRNG.c
-SOURCES += CpriRSA.c
-SOURCES += CpriSym.c
+HOST_SOURCES += CpriCryptPri.c
+HOST_SOURCES += CpriECC.c
+HOST_SOURCES += CpriHash.c
+HOST_SOURCES += CpriMisc.c
+HOST_SOURCES += CpriRNG.c
+HOST_SOURCES += CpriRSA.c
+HOST_SOURCES += CpriSym.c
 SOURCES += Create.c
 SOURCES += CreatePrimary.c
 SOURCES += CryptSelfTest.c
@@ -51,7 +52,7 @@ SOURCES += ECDH_ZGen.c
 SOURCES += EC_Ephemeral.c
 SOURCES += EncryptDecrypt.c
 SOURCES += Entity.c
-SOURCES += Entropy.c
+HOST_SOURCES += Entropy.c
 SOURCES += EventSequenceComplete.c
 SOURCES += EvictControl.c
 SOURCES += ExecCommand.c
@@ -192,7 +193,7 @@ SOURCES += Marshal_Unseal.c
 SOURCES += Marshal_VerifySignature.c
 SOURCES += Marshal_ZGen_2Phase.c
 SOURCES += Manufacture.c
-SOURCES += MathFunctions.c
+HOST_SOURCES += MathFunctions.c
 SOURCES += MemoryLib.c
 SOURCES += NV.c
 SOURCES += NVMem.c
@@ -250,8 +251,8 @@ SOURCES += Power.c
 SOURCES += PowerPlat.c
 SOURCES += PropertyCap.c
 SOURCES += Quote.c
-SOURCES += RSAData.c
-SOURCES += RSAKeySieve.c
+HOST_SOURCES += RSAData.c
+HOST_SOURCES += RSAKeySieve.c
 SOURCES += RSA_Decrypt.c
 SOURCES += RSA_Encrypt.c
 SOURCES += ReadClock.c
@@ -287,14 +288,25 @@ SOURCES += _TPM_Hash_Start.c
 SOURCES += _TPM_Init.c
 SOURCES += tpm_generated.c
 
+ifeq ($(EMBEDDED_MODE),)
+SOURCES += $(HOST_SOURCES)
+CFLAGS += -Wall -Werror
+else
+SOURCES += stubs.c
+CFLAGS += -DEMBEDDED_MODE
+ifneq ($(ROOTDIR),))
+CFLAGS += -I$(ROOTDIR)
+endif
+endif
+
 OBJS = $(patsubst %.c,$(obj)/%.o,$(SOURCES))
 DEPS = $(patsubst %.c,$(obj)/.%.d,$(SOURCES))
 
 $(obj)/%.o: %.c
-	$(CC) -Wall -Werror -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(obj)/.%.d: %.c | $(obj)
-	$(CC) -M $<  > $@.tmp && mv $@.tmp $@
+	$(CC) -MM $<  > $@.tmp && mv $@.tmp $@
 	sed -i "s|^\([a-zA-Z0-9_]\+\.o:\)|$(obj)/\1 $@ |"  $@
 
 $(obj)/libtpm2.a: $(OBJS)

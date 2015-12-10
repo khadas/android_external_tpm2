@@ -102,6 +102,7 @@ ExecuteCommand(
        TpmFailureMode (requestSize, request, responseSize, response);
        return;
    }
+#ifndef EMBEDDED_MODE
    if(setjmp(g_jumpBuffer) != 0)
    {
        // Get here if we got a longjump putting us into failure mode
@@ -109,6 +110,7 @@ ExecuteCommand(
        result = TPM_RC_FAILURE;
        goto Fail;
    }
+#endif  // EMBEDDED_MODE   ^^^ not defined
    // Assume that everything is going to work.
    result = TPM_RC_SUCCESS;
    // Query platform to get the NV state. The result state is saved internally
@@ -283,7 +285,9 @@ Cleanup:
    // access to any object is the same. These temporary objects need to be
    // cleared from RAM whether the command succeeds or fails.
    ObjectCleanupEvict();
+#ifndef EMBEDDED_MODE
 Fail:
+#endif  // EMBEDDED_MODE  ^^^ not defined
    // The response will contain at least a response header.
    *responseSize = sizeof(TPM_ST) + sizeof(UINT32) + sizeof(TPM_RC);
    // If the command completed successfully, then build the rest of the response.
