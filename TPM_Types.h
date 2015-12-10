@@ -1269,6 +1269,7 @@ enum {
         RC_HMAC_hashAlg,
         RC_HMAC_Start_handle,
         RC_HMAC_Start_hashAlg,
+        RC_HierarchyChangeAuth_newAuth,
 };
 
 enum {
