@@ -288,36 +288,45 @@ SOURCES += _TPM_Hash_Start.c
 SOURCES += _TPM_Init.c
 SOURCES += tpm_generated.c
 
+# Use V=1 for verbose output
+ifeq ($(V),)
+Q := @
+else
+Q :=
+endif
+
 ifeq ($(EMBEDDED_MODE),)
 SOURCES += $(HOST_SOURCES)
 CFLAGS += -Wall -Werror -fPIC
 else
 SOURCES += stubs.c
 CFLAGS += -DEMBEDDED_MODE
-ifneq ($(ROOTDIR),))
+ifneq ($(ROOTDIR),)
 CFLAGS += -I$(ROOTDIR)
 endif
 endif
 
 OBJS = $(patsubst %.c,$(obj)/%.o,$(SOURCES))
-DEPS = $(patsubst %.c,$(obj)/.%.d,$(SOURCES))
+DEPS = $(patsubst %.c,$(obj)/%.d,$(SOURCES))
 
-$(obj)/%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(obj)/.%.d: %.c | $(obj)
-	$(CC) -MM $<  > $@.tmp && mv $@.tmp $@
-	sed -i "s|^\([a-zA-Z0-9_]\+\.o:\)|$(obj)/\1 $@ |"  $@
-
+# This is the default target
 $(obj)/libtpm2.a: $(OBJS)
-	$(AR) scr $@  $^
-
+	@echo "  AR      $(notdir $@)"
+	$(Q)$(AR) scr $@ $^
 
 $(obj):
-	[ -d $(obj) ] || mkdir $(obj)
+	@echo "  MKDIR   $(obj)"
+	$(Q)mkdir -p $(obj)
+
+$(obj)/%.d $(obj)/%.o: %.c | $(obj)
+	@echo "  CC      $(notdir $<)"
+	$(Q)$(CC) $(CFLAGS) -c -MMD -MF $(basename $@).d -o $(basename $@).o $<
 
 .PHONY: clean
 clean:
-	\rm -f ${OBJS} ${DEPS} $(obj)/libtpm2.a
+	@echo "  RM      $(obj)"
+	$(Q)rm -rf $(obj)
 
+ifneq ($(MAKECMDGOALS),clean)
 -include $(DEPS)
+endif
