@@ -881,7 +881,7 @@ TPM_RC TPMI_ALG_HASH_Unmarshal(TPMI_ALG_HASH* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -1447,7 +1447,7 @@ TPM_RC TPMI_RH_NV_INDEX_Unmarshal(TPMI_RH_NV_INDEX* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if ((*target >= NV_INDEX_FIRST) && (*target <= NV_INDEX_LAST)) {
@@ -1715,7 +1715,7 @@ TPM_RC TPMI_ALG_PUBLIC_Unmarshal(TPMI_ALG_PUBLIC* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -2009,7 +2009,7 @@ TPM_RC TPMI_ALG_SYM_MODE_Unmarshal(TPMI_ALG_SYM_MODE* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -2115,7 +2115,7 @@ TPM_RC TPMI_ALG_SYM_OBJECT_Unmarshal(TPMI_ALG_SYM_OBJECT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -2187,7 +2187,7 @@ TPM_RC TPMI_ALG_RSA_SCHEME_Unmarshal(TPMI_ALG_RSA_SCHEME* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -2619,7 +2619,7 @@ TPM_RC TPMI_ALG_ASYM_SCHEME_Unmarshal(TPMI_ALG_ASYM_SCHEME* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -2726,7 +2726,7 @@ TPM_RC TPMI_ALG_KDF_Unmarshal(TPMI_ALG_KDF* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -2907,7 +2907,7 @@ TPM_RC TPMI_ALG_ECC_SCHEME_Unmarshal(TPMI_ALG_ECC_SCHEME* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -3196,7 +3196,7 @@ TPM_RC TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(TPMI_ALG_KEYEDHASH_SCHEME* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4456,7 +4456,7 @@ TPM_RC TPMI_ALG_ASYM_Unmarshal(TPMI_ALG_ASYM* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4491,7 +4491,7 @@ TPM_RC TPMI_ALG_RSA_DECRYPT_Unmarshal(TPMI_ALG_RSA_DECRYPT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4526,7 +4526,7 @@ TPM_RC TPMI_ALG_SIG_SCHEME_Unmarshal(TPMI_ALG_SIG_SCHEME* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4574,7 +4574,7 @@ TPM_RC TPMI_ALG_SYM_Unmarshal(TPMI_ALG_SYM* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4614,7 +4614,7 @@ TPM_RC TPMI_DH_CONTEXT_Unmarshal(TPMI_DH_CONTEXT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if ((*target >= HMAC_SESSION_FIRST) && (*target <= HMAC_SESSION_LAST)) {
@@ -4645,7 +4645,7 @@ TPM_RC TPMI_DH_ENTITY_Unmarshal(TPMI_DH_ENTITY* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4693,7 +4693,7 @@ TPM_RC TPMI_DH_OBJECT_Unmarshal(TPMI_DH_OBJECT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4722,7 +4722,7 @@ TPM_RC TPMI_DH_PCR_Unmarshal(TPMI_DH_PCR* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4749,7 +4749,7 @@ TPM_RC TPMI_DH_PERSISTENT_Unmarshal(TPMI_DH_PERSISTENT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if ((*target >= PERSISTENT_FIRST) && (*target <= PERSISTENT_LAST)) {
@@ -4774,7 +4774,7 @@ TPM_RC TPMI_ECC_KEY_EXCHANGE_Unmarshal(TPMI_ECC_KEY_EXCHANGE* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ALG_ID_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_ALG_NULL) {
@@ -4811,7 +4811,7 @@ TPM_RC TPMI_RH_CLEAR_Unmarshal(TPMI_RH_CLEAR* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -4839,7 +4839,7 @@ TPM_RC TPMI_RH_ENABLES_Unmarshal(TPMI_RH_ENABLES* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4872,7 +4872,7 @@ TPM_RC TPMI_RH_ENDORSEMENT_Unmarshal(TPMI_RH_ENDORSEMENT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4902,7 +4902,7 @@ TPM_RC TPMI_RH_HIERARCHY_Unmarshal(TPMI_RH_HIERARCHY* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -4933,7 +4933,7 @@ TPM_RC TPMI_RH_HIERARCHY_AUTH_Unmarshal(TPMI_RH_HIERARCHY_AUTH* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -4962,7 +4962,7 @@ TPM_RC TPMI_RH_LOCKOUT_Unmarshal(TPMI_RH_LOCKOUT* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -4988,7 +4988,7 @@ TPM_RC TPMI_RH_NV_AUTH_Unmarshal(TPMI_RH_NV_AUTH* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -5019,7 +5019,7 @@ TPM_RC TPMI_RH_OWNER_Unmarshal(TPMI_RH_OWNER* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RH_NULL) {
@@ -5048,7 +5048,7 @@ TPM_RC TPMI_RH_PLATFORM_Unmarshal(TPMI_RH_PLATFORM* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -5074,7 +5074,7 @@ TPM_RC TPMI_RH_PROVISION_Unmarshal(TPMI_RH_PROVISION* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -5102,7 +5102,7 @@ TPM_RC TPMI_SH_AUTH_SESSION_Unmarshal(TPMI_SH_AUTH_SESSION* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if (*target == TPM_RS_PW) {
@@ -5130,7 +5130,7 @@ TPM_RC TPMI_SH_HMAC_Unmarshal(TPMI_SH_HMAC* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if ((*target >= HMAC_SESSION_FIRST) && (*target <= HMAC_SESSION_LAST)) {
@@ -5154,7 +5154,7 @@ TPM_RC TPMI_SH_POLICY_Unmarshal(TPMI_SH_POLICY* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_HANDLE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   if ((*target >= POLICY_SESSION_FIRST) && (*target <= POLICY_SESSION_LAST)) {
@@ -5242,7 +5242,7 @@ TPM_RC TPMI_ST_ATTEST_Unmarshal(TPMI_ST_ATTEST* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ST_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -5274,7 +5274,7 @@ TPM_RC TPMI_ST_COMMAND_TAG_Unmarshal(TPMI_ST_COMMAND_TAG* target,
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = TPM_ST_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
@@ -5297,7 +5297,7 @@ TPM_RC TPMI_YES_NO_Unmarshal(TPMI_YES_NO* target, BYTE** buffer, INT32* size) {
   TPM_RC result;
   BOOL has_valid_value = FALSE;
   result = BYTE_Unmarshal(target, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
     return result;
   }
   switch (*target) {
