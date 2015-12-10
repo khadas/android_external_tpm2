@@ -350,6 +350,9 @@ UINT16 %(command_name)s_Out_Marshal(
   INT32 parameter_size_size = sizeof(UINT32);
   UINT32 num_response_handles = %(num_response_handles)s;"""
   _UNMARSHAL_END = """
+  if ((result == TPM_RC_SUCCESS) && *size) {
+    result = TPM_RC_SIZE;
+  }
   return result;
 }
 """
