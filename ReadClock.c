@@ -13,9 +13,20 @@ TPM2_ReadClock(
    )
 {
 // Command Output
-
    out->currentTime.time = g_time;
    TimeFillInfo(&out->currentTime.clockInfo);
 
+#ifndef EMBEDDED_MODE
+   {
+       UINT64 start_time = _plat__ClockTimeFromStart();
+       // When running on a simulator, some tests fail, because two commands
+       // invoked back to back happen to run within the same millisecond, but
+       // the test expects time readings to be different. Modifying the tests
+       // is more involved, let's just wait a couple of milliseconds here to
+       // avoid those tests' false negatives.
+       while ((_plat__ClockTimeFromStart() - start_time) < 2)
+           ;
+   }
+#endif
    return TPM_RC_SUCCESS;
 }
