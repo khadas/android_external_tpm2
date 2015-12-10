@@ -39,7 +39,7 @@ TPM2_ReadPublic(
    out->outPublic.t.publicArea = object->publicArea;
 
    // Copy name to output
-   out->name.t.size = ObjectGetName(in->objectHandle, &out->name.t.name);
+   out->name.t.size = ObjectGetName(in->objectHandle, &out->name.t.buffer);
 
    // Copy qualified name to output
    ObjectGetQualifiedName(in->objectHandle, &out->qualifiedName);
