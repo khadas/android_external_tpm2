@@ -10,8 +10,12 @@
 BOOL TPMIsStarted(
         void
         );
+void TPMInit(
+        void
+        );
 void TPMRegisterStartup(
         void
         );
 
 #endif // __TPM2_POWER_FP_H
+

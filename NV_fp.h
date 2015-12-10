@@ -99,6 +99,9 @@ BOOL NvIsPlatformPersistentHandle(
 BOOL NvIsUndefinedIndex(
         TPMI_RH_NV_INDEX         handle                 // IN: handle
         );
+BOOL NvPowerOn(
+        void
+        );
 void NvReadPersistent(
         void
         );
