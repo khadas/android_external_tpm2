@@ -319,7 +319,10 @@ TPM_RC %(new_type)s_Unmarshal(
       out_file: The output file.
       field: A Field object describing this type.
     """
-    out_file.write(self._UNMARSHAL_CALL % {'type': field.field_type,
+    obj_type = field.field_type
+    if obj_type == 'TPM_CC':
+      obj_type = 'UINT32'
+    out_file.write(self._UNMARSHAL_CALL % {'type': obj_type,
                                            'name': field.field_name})
 
   def _OutputTypedefMarshalDecl(self, out_file, declared_types, typemap):
@@ -622,6 +625,11 @@ TPM_RC %(new_type)s_Unmarshal(
   if (result != TPM_RC_SUCCESS) {
     return result;
   }"""
+  _UNMARSHAL_VALUE_ALLOW_RC_VALUE = """
+  result = %(old_type)s_Unmarshal(target, buffer, size);
+  if ((result != TPM_RC_VALUE) && (result != TPM_RC_SUCCESS)) {
+    return result;
+  }"""
   _SETUP_CHECK_SUPPORTED_VALUES = """
   uint16_t supported_values[] = %(supported_values)s;
   size_t length = sizeof(supported_values)/sizeof(supported_values[0]);
@@ -730,8 +738,10 @@ TPM_RC %(type)s_Unmarshal(
                      {'supported_values': self.supported_values})
     if len(self.valid_values)+len(self.bounds) > 0:
       out_file.write(self._SETUP_CHECK_VALUES)
-
-    out_file.write(self._UNMARSHAL_VALUE % {'old_type': self.old_type})
+      out_file.write(self._UNMARSHAL_VALUE_ALLOW_RC_VALUE %
+                     {'old_type': self.old_type})
+    else:
+      out_file.write(self._UNMARSHAL_VALUE % {'old_type': self.old_type})
 
     if self.supported_values:
       out_file.write(self._CHECK_SUPPORTED_VALUES %
