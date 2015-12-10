@@ -75,18 +75,30 @@ class Table(object):
     _alg_id_table: actual table of various TPM2 algorithms, a copy of Table 9
                    from part 2. It is used to convert encoded algorithm specs
                    used in other tables into a list of matching algorithms.
-    self._h_file: a multiline string, the accumulated .h file defining all TPM
-                  objects processed so far.
-
-    self._type_map: a dictionary of various TPM types, keyed by the string -
-                    the type name
-
-    self._command_map: a dictionary of command_generator.Command objects,
-                       keyed by the string, the command name
-
-    self.skip_tables: a tuple of integers, the numbers of tables which should
-                      not be included in the .h file, as the same information
-                      was derived from part 4 earlier.
+    _h_file: a multiline string, the accumulated .h file defining all TPM
+                   objects processed so far.
+    _type_map: a dictionary of various TPM types, keyed by the string - the
+                   type name
+    _command_map: a dictionary of command_generator.Command objects, keyed by
+                   the string, the command name
+    skip_tables: a tuple of integers, the numbers of tables which should not
+                   be included in the .h file, as the same information was
+                   derived from part 4 earlier.
+    _title: a string, title of the currently being processed specification
+                   table
+    _title_type: a string, base type of the object defined by the currently
+                   being processed specification table
+    _alg_type: a string, in some tables included in the title in curly
+                   brackets, to indicate what type of the algorithm this table
+                   deals with (usually RSA or ECC)
+    _body: a list of strings, rows of the currently being processed
+                   specification table
+    _has_selector_column: a Boolean, set to True if the third column of the
+                   table is the selector to be used to process this row (as in
+                   picking the object type when the table represents a union)
+    _skip_printing: a Boolean, set to True if the table contents should not be
+                   included on tpm_types.h - some tables are also defined in
+                   files extracted from Part 4 of the specification.
 
   """
 
@@ -144,18 +156,26 @@ class Table(object):
     Args:
       title: a string, the title of the table as included in the TCG spec.
     """
-    title_bracket_filter = re.compile(r'({.*?\}) ?')
+    title_bracket_filter = re.compile(r'({.*?}) ?')
     title_type_filter = re.compile(r'(\(.*?\)) ?')
-    # Drop the curly brackets and base type, if present.
-    stripped_title = title_type_filter.sub('', title).strip()
-    self._title = title_bracket_filter.sub('', stripped_title).strip()
-    # Now retrieve the base type, if present
-    self._title_type = ''
+    # Retrieve base type, if present in the table title.
     m = title_type_filter.search(title)
     if m:
       # the header shown in the docstring above would result in the match of
       # '(UINT16)', remove the parenthesis and save the base type.
       self._title_type = m.groups()[0][1:-1]
+      self._title = title_type_filter.sub('', title).strip()
+    else:
+      self._title_type = ''
+      self._title = title.strip()
+    # Now retrieve algorithm type, if present in the table title.
+    m = title_bracket_filter.search(self._title)
+    self._alg_type = ''
+    if m:
+      self._title = title_bracket_filter.sub('', self._title).strip()
+      alg_type = m.groups()[0][1:-1].strip()
+      if not alg_type.startswith('!'):
+        self._alg_type = alg_type
     self._body = []
     self._has_selector_column = False
     self._skip_printing = False
@@ -374,17 +394,23 @@ class Table(object):
         # Exclusive selection, must exactly match algorithm type from table 9
         # (which is in the second column). Add to the return value all
         # matching rows of table 9.
-        filtered_table.extend(row for row in self._alg_id_table
-                              if row[1] == alg_type)
+        extension = []
+        for row in self._alg_id_table:
+          if row[1] == alg_type:
+            if self._alg_type and self._alg_type != row[2]:
+              continue
+            extension.append(row)
+        filtered_table.extend(extension)
       elif re.match('^[a-z]+$', alg_type):
         # Inclusive selection. All type letters must be present in the type
         # column, but no exact match is required.
-        for alg in self._alg_id_table:
+        for row in self._alg_id_table:
           for char in alg_type.upper():
-            if char not in alg[1]:
+            if char not in row[1]:
               break
           else:
-            filtered_table.append(alg)
+            if not self._alg_type or self._alg_type == row[2]:
+              filtered_table.append(row)
     return filtered_table
 
   def _ParseAlgorithmRegex(self, token):
