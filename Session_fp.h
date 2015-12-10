@@ -37,5 +37,8 @@ BOOL SessionIsLoaded(
 BOOL SessionIsSaved(
         TPM_HANDLE            handle                // IN: session handle
                     );
+void SessionResetPolicyData(
+        SESSION            *session             // IN: the session to reset
+        );
 
 #endif // __TPM2_SESSION_FP_H
