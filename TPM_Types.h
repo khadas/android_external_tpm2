@@ -174,6 +174,21 @@ typedef INT8 TPM_CLOCK_ADJUST;
 #define TPM_CLOCK_MEDIUM_FASTER (TPM_CLOCK_ADJUST)(2)
 #define TPM_CLOCK_COARSE_FASTER (TPM_CLOCK_ADJUST)(3)
 
+// Table 17 - TPM_EO Constants
+typedef UINT16 TPM_EO;
+#define TPM_EO_EQ          (TPM_EO)(0x0000)
+#define TPM_EO_NEQ         (TPM_EO)(0x0001)
+#define TPM_EO_SIGNED_GT   (TPM_EO)(0x0002)
+#define TPM_EO_UNSIGNED_GT (TPM_EO)(0x0003)
+#define TPM_EO_SIGNED_LT   (TPM_EO)(0x0004)
+#define TPM_EO_UNSIGNED_LT (TPM_EO)(0x0005)
+#define TPM_EO_SIGNED_GE   (TPM_EO)(0x0006)
+#define TPM_EO_UNSIGNED_GE (TPM_EO)(0x0007)
+#define TPM_EO_SIGNED_LE   (TPM_EO)(0x0008)
+#define TPM_EO_UNSIGNED_LE (TPM_EO)(0x0009)
+#define TPM_EO_BITSET      (TPM_EO)(0x000A)
+#define TPM_EO_BITCLEAR    (TPM_EO)(0x000B)
+
 // Table 18 - TPM_ST Constants
 typedef UINT16 TPM_ST;
 #define TPM_ST_RSP_COMMAND          (TPM_ST)(0x00C4)
@@ -672,6 +687,8 @@ typedef struct {
   UINT64          time;
   TPMS_CLOCK_INFO clockInfo;
 } TPMS_TIME_INFO;
+
+TPM2B_TYPE(TIME_INFO, sizeof(TPMS_TIME_INFO));
 
 // Table 107 - TPMS_TIME_ATTEST_INFO Structure
 typedef struct {
