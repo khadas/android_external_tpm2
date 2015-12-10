@@ -538,13 +538,19 @@ UINT16 %(command_name)s_Out_Marshal(
 
   def _SplitArgs(self, args):
     """Splits a list of args into handles and parameters."""
+    always_params = {
+        'TPM_CC_FlushContext': 'TPMI_DH_CONTEXT',
+        'TPM_CC_Hash': 'TPMI_RH_HIERARCHY',
+        'TPM_CC_LoadExternal': 'TPMI_RH_HIERARCHY',
+        'TPM_CC_SequenceComplete': 'TPMI_RH_HIERARCHY',
+    }
     handles = []
     parameters = []
     always_handle = set(['TPM_HANDLE'])
     # Handle types that appear as command parameters.
     always_parameter = set(['TPMI_RH_ENABLES', 'TPMI_DH_PERSISTENT'])
-    if self.command_code == 'TPM_CC_FlushContext':
-      always_parameter.add('TPMI_DH_CONTEXT')
+    if self.command_code in always_params:
+      always_parameter.add(always_params[self.command_code])
     for arg in args:
       if (arg['type'] in always_handle or
           (self._HANDLE_RE.search(arg['type']) and
