@@ -1121,8 +1121,10 @@ typedef struct {
 
 // Table 188 - TPM2B_SENSITIVE Structure
 typedef struct {
-  UINT16         size;
-  TPMT_SENSITIVE sensitiveArea;
+        struct {
+                UINT16         size;
+                TPMT_SENSITIVE sensitiveArea;
+        } t;
 } TPM2B_SENSITIVE;
 
 // Table 189 - _PRIVATE Structure
@@ -1279,6 +1281,8 @@ enum {
         RC_Load_inPrivate,
         RC_Load_inPublic,
         RC_Load_parentHandle,
+        RC_LoadExternal_hierarchy,
+        RC_LoadExternal_inPublic,
 };
 
 enum {
