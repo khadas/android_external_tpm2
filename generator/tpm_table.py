@@ -690,10 +690,6 @@ class Table(object):
     Args:
       type_name: a string, name of the TPM object type
     """
-    field_fixes = {
-        'TPMU_PUBLIC_PARMS': {'TPMS_SYMCIPHER_PARMS': 'TPMT_SYM_DEF_OBJECT',},
-        'TPMT_ECC_SCHEME': {'TPMU_ASYM_SCHEME': 'TPMU_SIG_SCHEME',},
-    }
     union_mode = 'Union' in self._title
     if union_mode:
       tpm_obj = Union(type_name)
@@ -751,8 +747,6 @@ class Table(object):
         conditional = 'TRUE'
       else:
         conditional = 'FALSE'
-      if type_name in field_fixes and field_type in field_fixes[type_name]:
-        field_type = field_fixes[type_name][field_type]
       if field_type or value:
         body_fields.append(Field(field_type,
                                  value,
