@@ -51,7 +51,7 @@ _SELECTORS = {
         'selectors': {
             'TPM_ALG_AES': 'aes',
             'TPM_ALG_SM4': 'SM4',
-            'TPM_ALG_XOR': 'xor',
+            'TPM_ALG_XOR': 'xor_',
             'TPM_ALG_NULL': '',
         }
     },
@@ -72,7 +72,7 @@ _SELECTORS = {
         'type': ['TPMI_ALG_KEYEDHASH_SCHEME'],
         'selectors': {
             'TPM_ALG_HMAC': 'hmac',
-            'TPM_ALG_XOR': 'xor',
+            'TPM_ALG_XOR': 'xor_',
             'TPM_ALG_NULL': '',
         }
     },

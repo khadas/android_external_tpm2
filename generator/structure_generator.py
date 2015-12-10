@@ -1102,6 +1102,9 @@ TPM_RC %(type)s_Unmarshal(
       array_length: Length of array if field is an array type. None if not an
           array type.
     """
+    # xor is a C++ keyword and must be fixed.
+    if field_name == 'xor':
+      field_name = 'xor_'
     self.fields.append(self.Field(field_type, field_name, array_length))
 
   def _OutputMarshalField(
