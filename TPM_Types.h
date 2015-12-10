@@ -560,28 +560,18 @@ typedef struct {
   TPM_ST            tag;
   TPMI_RH_HIERARCHY hierarchy;
   TPM2B_DIGEST      digest;
-} TPMT_TK_CREATION;
+} TPMT_TK_COMMON;
+
+typedef TPMT_TK_COMMON TPMT_TK_CREATION;
 
 // Table 85 - TPMT_TK_VERIFIED Structure
-typedef struct {
-  TPM_ST            tag;
-  TPMI_RH_HIERARCHY hierarchy;
-  TPM2B_DIGEST      digest;
-} TPMT_TK_VERIFIED;
+typedef TPMT_TK_COMMON TPMT_TK_VERIFIED;
 
 // Table 86 - TPMT_TK_AUTH Structure
-typedef struct {
-  TPM_ST            tag;
-  TPMI_RH_HIERARCHY hierarchy;
-  TPM2B_DIGEST      digest;
-} TPMT_TK_AUTH;
+typedef TPMT_TK_COMMON TPMT_TK_AUTH;
 
 // Table 87 - TPMT_TK_HASHCHECK Structure
-typedef struct {
-  TPM_ST            tag;
-  TPMI_RH_HIERARCHY hierarchy;
-  TPM2B_DIGEST      digest;
-} TPMT_TK_HASHCHECK;
+typedef TPMT_TK_COMMON TPMT_TK_HASHCHECK;
 
 // Table 88 - TPMS_ALG_PROPERTY Structure
 typedef struct {
@@ -1365,6 +1355,10 @@ enum {
         RC_PolicySigned_cpHashA,
         RC_PolicySigned_expiration,
         RC_PolicySigned_nonceTPM,
+        RC_PolicyTicket_cpHashA,
+        RC_PolicyTicket_policySession,
+        RC_PolicyTicket_ticket,
+        RC_PolicyTicket_timeout,
 };
 
 enum {
