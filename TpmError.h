@@ -32,6 +32,6 @@ typedef void    (*FAIL_FUNCTION)(const char *, int, int);
 #if defined(EMPTY_ASSERT)
 #   define pAssert(a) ((void)0)
 #else
-#   define pAssert(a) (!!(a) ? 1 : (FAIL(FATAL_ERROR_PARAMETER), 0))
+#   define pAssert(a) {if (!(a)) { FAIL(FATAL_ERROR_PARAMETER);}}
 #endif
 #endif // _TPM_ERROR_H

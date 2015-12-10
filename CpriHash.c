@@ -5,6 +5,8 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include <string.h>
+
 #include     "OsslCryptoEngine.h"
 #include     "CpriHashData.c"
 #define OSSL_HASH_STATE_DATA_SIZE     (MAX_HASH_STATE_SIZE - 8)
@@ -64,6 +66,7 @@ GetHashServer(
    default:
        FAIL(FATAL_ERROR_INTERNAL);
    }
+   return NULL; // Never reached.
 }
 //
 //

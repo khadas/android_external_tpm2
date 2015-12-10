@@ -918,4 +918,6 @@ typedef TPM2B_MAX_HASH_BLOCK    TPM2B_HASH_BLOCK;
 //      Define the 2B structure for a seed
 //
 TPM2B_TYPE(SEED, PRIMARY_SEED_SIZE);
+
+#define UNREFERENCED_PARAMETER(x) (void)(x)
 #endif // _IMPLEMENTATION_H_
