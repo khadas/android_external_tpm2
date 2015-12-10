@@ -143,6 +143,9 @@ void CryptGenerateNewSymmetric(
         TPM2B_SEED                   *seed,                  //   IN: seed used in creation
         TPM2B_NAME                   *name                   //   IN: name of the object
         );
+const TPMT_ECC_SCHEME * CryptGetCurveSignScheme(
+        TPM_ECC_CURVE         curveId            // IN: The curve selector
+);
 LIB_EXPORT UINT16 CryptGetHashDigestSize(
         TPM_ALG_ID           hashAlg              // IN: hash algorithm
                                          );
@@ -282,8 +285,9 @@ TPM_RC CryptSecretEncrypt(
         TPM2B_DATA                    *data,                //   OUT: secret value
         TPM2B_ENCRYPTED_SECRET        *secret               //   OUT: secret structure
         );
-const TPMT_ECC_SCHEME * CryptGetCurveSignScheme(
-        TPM_ECC_CURVE         curveId            // IN: The curve selector
+TPMT_RSA_DECRYPT* CryptSelectRSAScheme(
+        TPMI_DH_OBJECT             rsaHandle,         // IN: handle of sign key
+        TPMT_RSA_DECRYPT          *scheme             // IN: a sign or decrypt scheme
         );
 TPM_RC CryptSelectSignScheme(
         TPMI_DH_OBJECT   signHandle,        // IN: handle of signing key
