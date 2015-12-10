@@ -842,6 +842,7 @@ enum {
         RC_CertifyCreation_signHandle,
         RC_Certify_inScheme,
         RC_Certify_signHandle,
+        RC_ClockSet_newTime,
 };
 
 #endif // __TPM2_TPM_TYPES_H
