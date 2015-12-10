@@ -2616,6 +2616,25 @@ TPM_RC TPMS_RSA_PARMS_Unmarshal(TPMS_RSA_PARMS* target,
   return TPM_RC_SUCCESS;
 }
 
+UINT16 TPMS_SYMCIPHER_PARMS_Marshal(TPMS_SYMCIPHER_PARMS* source,
+                                    BYTE** buffer,
+                                    INT32* size) {
+  UINT16 total_size = 0;
+  total_size += TPMT_SYM_DEF_OBJECT_Marshal(&source->sym, buffer, size);
+  return total_size;
+}
+
+TPM_RC TPMS_SYMCIPHER_PARMS_Unmarshal(TPMS_SYMCIPHER_PARMS* target,
+                                      BYTE** buffer,
+                                      INT32* size) {
+  TPM_RC result;
+  result = TPMT_SYM_DEF_OBJECT_Unmarshal(&target->sym, buffer, size);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
+  return TPM_RC_SUCCESS;
+}
+
 UINT16 TPMI_ALG_ASYM_SCHEME_Marshal(TPMI_ALG_ASYM_SCHEME* source,
                                     BYTE** buffer,
                                     INT32* size) {
@@ -2951,121 +2970,13 @@ TPM_RC TPMI_ALG_ECC_SCHEME_Unmarshal(TPMI_ALG_ECC_SCHEME* target,
   return TPM_RC_SUCCESS;
 }
 
-UINT16 TPMS_SCHEME_HMAC_Marshal(TPMS_SCHEME_HMAC* source,
-                                BYTE** buffer,
-                                INT32* size) {
-  return TPMS_SCHEME_HASH_Marshal(source, buffer, size);
-}
-
-TPM_RC TPMS_SCHEME_HMAC_Unmarshal(TPMS_SCHEME_HMAC* target,
-                                  BYTE** buffer,
-                                  INT32* size) {
-  return TPMS_SCHEME_HASH_Unmarshal(target, buffer, size);
-}
-
-UINT16 TPMU_SIG_SCHEME_Marshal(TPMU_SIG_SCHEME* source,
-                               BYTE** buffer,
-                               INT32* size,
-                               UINT32 selector) {
-  switch (selector) {
-#ifdef TPM_ALG_RSASSA
-    case TPM_ALG_RSASSA:
-      return TPMS_SIG_SCHEME_RSASSA_Marshal(
-          (TPMS_SIG_SCHEME_RSASSA*)&source->rsassa, buffer, size);
-#endif
-#ifdef TPM_ALG_RSAPSS
-    case TPM_ALG_RSAPSS:
-      return TPMS_SIG_SCHEME_RSAPSS_Marshal(
-          (TPMS_SIG_SCHEME_RSAPSS*)&source->rsapss, buffer, size);
-#endif
-#ifdef TPM_ALG_ECDSA
-    case TPM_ALG_ECDSA:
-      return TPMS_SIG_SCHEME_ECDSA_Marshal(
-          (TPMS_SIG_SCHEME_ECDSA*)&source->ecdsa, buffer, size);
-#endif
-#ifdef TPM_ALG_ECDAA
-    case TPM_ALG_ECDAA:
-      return TPMS_SIG_SCHEME_ECDAA_Marshal(
-          (TPMS_SIG_SCHEME_ECDAA*)&source->ecdaa, buffer, size);
-#endif
-#ifdef TPM_ALG_SM2
-    case TPM_ALG_SM2:
-      return TPMS_SIG_SCHEME_SM2_Marshal((TPMS_SIG_SCHEME_SM2*)&source->sm2,
-                                         buffer, size);
-#endif
-#ifdef TPM_ALG_ECSCHNORR
-    case TPM_ALG_ECSCHNORR:
-      return TPMS_SIG_SCHEME_ECSCHNORR_Marshal(
-          (TPMS_SIG_SCHEME_ECSCHNORR*)&source->ecschnorr, buffer, size);
-#endif
-#ifdef TPM_ALG_HMAC
-    case TPM_ALG_HMAC:
-      return TPMS_SCHEME_HMAC_Marshal((TPMS_SCHEME_HMAC*)&source->hmac, buffer,
-                                      size);
-#endif
-#ifdef TPM_ALG_NULL
-    case TPM_ALG_NULL:
-      return 0;
-#endif
-  }
-  return 0;
-}
-
-TPM_RC TPMU_SIG_SCHEME_Unmarshal(TPMU_SIG_SCHEME* target,
-                                 BYTE** buffer,
-                                 INT32* size,
-                                 UINT32 selector) {
-  switch (selector) {
-#ifdef TPM_ALG_RSASSA
-    case TPM_ALG_RSASSA:
-      return TPMS_SIG_SCHEME_RSASSA_Unmarshal(
-          (TPMS_SIG_SCHEME_RSASSA*)&target->rsassa, buffer, size);
-#endif
-#ifdef TPM_ALG_RSAPSS
-    case TPM_ALG_RSAPSS:
-      return TPMS_SIG_SCHEME_RSAPSS_Unmarshal(
-          (TPMS_SIG_SCHEME_RSAPSS*)&target->rsapss, buffer, size);
-#endif
-#ifdef TPM_ALG_ECDSA
-    case TPM_ALG_ECDSA:
-      return TPMS_SIG_SCHEME_ECDSA_Unmarshal(
-          (TPMS_SIG_SCHEME_ECDSA*)&target->ecdsa, buffer, size);
-#endif
-#ifdef TPM_ALG_ECDAA
-    case TPM_ALG_ECDAA:
-      return TPMS_SIG_SCHEME_ECDAA_Unmarshal(
-          (TPMS_SIG_SCHEME_ECDAA*)&target->ecdaa, buffer, size);
-#endif
-#ifdef TPM_ALG_SM2
-    case TPM_ALG_SM2:
-      return TPMS_SIG_SCHEME_SM2_Unmarshal((TPMS_SIG_SCHEME_SM2*)&target->sm2,
-                                           buffer, size);
-#endif
-#ifdef TPM_ALG_ECSCHNORR
-    case TPM_ALG_ECSCHNORR:
-      return TPMS_SIG_SCHEME_ECSCHNORR_Unmarshal(
-          (TPMS_SIG_SCHEME_ECSCHNORR*)&target->ecschnorr, buffer, size);
-#endif
-#ifdef TPM_ALG_HMAC
-    case TPM_ALG_HMAC:
-      return TPMS_SCHEME_HMAC_Unmarshal((TPMS_SCHEME_HMAC*)&target->hmac,
-                                        buffer, size);
-#endif
-#ifdef TPM_ALG_NULL
-    case TPM_ALG_NULL:
-      return TPM_RC_SUCCESS;
-#endif
-  }
-  return TPM_RC_SELECTOR;
-}
-
 UINT16 TPMT_ECC_SCHEME_Marshal(TPMT_ECC_SCHEME* source,
                                BYTE** buffer,
                                INT32* size) {
   UINT16 total_size = 0;
   total_size += TPMI_ALG_ECC_SCHEME_Marshal(&source->scheme, buffer, size);
   total_size +=
-      TPMU_SIG_SCHEME_Marshal(&source->details, buffer, size, source->scheme);
+      TPMU_ASYM_SCHEME_Marshal(&source->details, buffer, size, source->scheme);
   return total_size;
 }
 
@@ -3077,8 +2988,8 @@ TPM_RC TPMT_ECC_SCHEME_Unmarshal(TPMT_ECC_SCHEME* target,
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
-  result =
-      TPMU_SIG_SCHEME_Unmarshal(&target->details, buffer, size, target->scheme);
+  result = TPMU_ASYM_SCHEME_Unmarshal(&target->details, buffer, size,
+                                      target->scheme);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
@@ -3182,6 +3093,18 @@ TPM_RC TPMI_ALG_KEYEDHASH_SCHEME_Unmarshal(TPMI_ALG_KEYEDHASH_SCHEME* target,
     return TPM_RC_VALUE;
   }
   return TPM_RC_SUCCESS;
+}
+
+UINT16 TPMS_SCHEME_HMAC_Marshal(TPMS_SCHEME_HMAC* source,
+                                BYTE** buffer,
+                                INT32* size) {
+  return TPMS_SCHEME_HASH_Marshal(source, buffer, size);
+}
+
+TPM_RC TPMS_SCHEME_HMAC_Unmarshal(TPMS_SCHEME_HMAC* target,
+                                  BYTE** buffer,
+                                  INT32* size) {
+  return TPMS_SCHEME_HASH_Unmarshal(target, buffer, size);
 }
 
 UINT16 TPMS_SCHEME_XOR_Marshal(TPMS_SCHEME_XOR* source,
@@ -3313,8 +3236,8 @@ UINT16 TPMU_PUBLIC_PARMS_Marshal(TPMU_PUBLIC_PARMS* source,
 #endif
 #ifdef TPM_ALG_SYMCIPHER
     case TPM_ALG_SYMCIPHER:
-      return TPMT_SYM_DEF_OBJECT_Marshal(
-          (TPMT_SYM_DEF_OBJECT*)&source->symDetail, buffer, size);
+      return TPMS_SYMCIPHER_PARMS_Marshal(
+          (TPMS_SYMCIPHER_PARMS*)&source->symDetail, buffer, size);
 #endif
 #ifdef TPM_ALG_RSA
     case TPM_ALG_RSA:
@@ -3342,8 +3265,8 @@ TPM_RC TPMU_PUBLIC_PARMS_Unmarshal(TPMU_PUBLIC_PARMS* target,
 #endif
 #ifdef TPM_ALG_SYMCIPHER
     case TPM_ALG_SYMCIPHER:
-      return TPMT_SYM_DEF_OBJECT_Unmarshal(
-          (TPMT_SYM_DEF_OBJECT*)&target->symDetail, buffer, size);
+      return TPMS_SYMCIPHER_PARMS_Unmarshal(
+          (TPMS_SYMCIPHER_PARMS*)&target->symDetail, buffer, size);
 #endif
 #ifdef TPM_ALG_RSA
     case TPM_ALG_RSA:
@@ -6949,25 +6872,6 @@ TPM_RC TPMS_SIGNATURE_SM2_Unmarshal(TPMS_SIGNATURE_SM2* target,
   return TPMS_SIGNATURE_ECC_Unmarshal(target, buffer, size);
 }
 
-UINT16 TPMS_SYMCIPHER_PARMS_Marshal(TPMS_SYMCIPHER_PARMS* source,
-                                    BYTE** buffer,
-                                    INT32* size) {
-  UINT16 total_size = 0;
-  total_size += TPMT_SYM_DEF_OBJECT_Marshal(&source->sym, buffer, size);
-  return total_size;
-}
-
-TPM_RC TPMS_SYMCIPHER_PARMS_Unmarshal(TPMS_SYMCIPHER_PARMS* target,
-                                      BYTE** buffer,
-                                      INT32* size) {
-  TPM_RC result;
-  result = TPMT_SYM_DEF_OBJECT_Unmarshal(&target->sym, buffer, size);
-  if (result != TPM_RC_SUCCESS) {
-    return result;
-  }
-  return TPM_RC_SUCCESS;
-}
-
 UINT16 TPMT_PUBLIC_PARMS_Marshal(TPMT_PUBLIC_PARMS* source,
                                  BYTE** buffer,
                                  INT32* size) {
@@ -7138,6 +7042,102 @@ TPM_RC TPMT_SIGNATURE_Unmarshal(TPMT_SIGNATURE* target,
     return result;
   }
   return TPM_RC_SUCCESS;
+}
+
+UINT16 TPMU_SIG_SCHEME_Marshal(TPMU_SIG_SCHEME* source,
+                               BYTE** buffer,
+                               INT32* size,
+                               UINT32 selector) {
+  switch (selector) {
+#ifdef TPM_ALG_RSASSA
+    case TPM_ALG_RSASSA:
+      return TPMS_SIG_SCHEME_RSASSA_Marshal(
+          (TPMS_SIG_SCHEME_RSASSA*)&source->rsassa, buffer, size);
+#endif
+#ifdef TPM_ALG_RSAPSS
+    case TPM_ALG_RSAPSS:
+      return TPMS_SIG_SCHEME_RSAPSS_Marshal(
+          (TPMS_SIG_SCHEME_RSAPSS*)&source->rsapss, buffer, size);
+#endif
+#ifdef TPM_ALG_ECDSA
+    case TPM_ALG_ECDSA:
+      return TPMS_SIG_SCHEME_ECDSA_Marshal(
+          (TPMS_SIG_SCHEME_ECDSA*)&source->ecdsa, buffer, size);
+#endif
+#ifdef TPM_ALG_ECDAA
+    case TPM_ALG_ECDAA:
+      return TPMS_SIG_SCHEME_ECDAA_Marshal(
+          (TPMS_SIG_SCHEME_ECDAA*)&source->ecdaa, buffer, size);
+#endif
+#ifdef TPM_ALG_SM2
+    case TPM_ALG_SM2:
+      return TPMS_SIG_SCHEME_SM2_Marshal((TPMS_SIG_SCHEME_SM2*)&source->sm2,
+                                         buffer, size);
+#endif
+#ifdef TPM_ALG_ECSCHNORR
+    case TPM_ALG_ECSCHNORR:
+      return TPMS_SIG_SCHEME_ECSCHNORR_Marshal(
+          (TPMS_SIG_SCHEME_ECSCHNORR*)&source->ecschnorr, buffer, size);
+#endif
+#ifdef TPM_ALG_HMAC
+    case TPM_ALG_HMAC:
+      return TPMS_SCHEME_HMAC_Marshal((TPMS_SCHEME_HMAC*)&source->hmac, buffer,
+                                      size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return 0;
+#endif
+  }
+  return 0;
+}
+
+TPM_RC TPMU_SIG_SCHEME_Unmarshal(TPMU_SIG_SCHEME* target,
+                                 BYTE** buffer,
+                                 INT32* size,
+                                 UINT32 selector) {
+  switch (selector) {
+#ifdef TPM_ALG_RSASSA
+    case TPM_ALG_RSASSA:
+      return TPMS_SIG_SCHEME_RSASSA_Unmarshal(
+          (TPMS_SIG_SCHEME_RSASSA*)&target->rsassa, buffer, size);
+#endif
+#ifdef TPM_ALG_RSAPSS
+    case TPM_ALG_RSAPSS:
+      return TPMS_SIG_SCHEME_RSAPSS_Unmarshal(
+          (TPMS_SIG_SCHEME_RSAPSS*)&target->rsapss, buffer, size);
+#endif
+#ifdef TPM_ALG_ECDSA
+    case TPM_ALG_ECDSA:
+      return TPMS_SIG_SCHEME_ECDSA_Unmarshal(
+          (TPMS_SIG_SCHEME_ECDSA*)&target->ecdsa, buffer, size);
+#endif
+#ifdef TPM_ALG_ECDAA
+    case TPM_ALG_ECDAA:
+      return TPMS_SIG_SCHEME_ECDAA_Unmarshal(
+          (TPMS_SIG_SCHEME_ECDAA*)&target->ecdaa, buffer, size);
+#endif
+#ifdef TPM_ALG_SM2
+    case TPM_ALG_SM2:
+      return TPMS_SIG_SCHEME_SM2_Unmarshal((TPMS_SIG_SCHEME_SM2*)&target->sm2,
+                                           buffer, size);
+#endif
+#ifdef TPM_ALG_ECSCHNORR
+    case TPM_ALG_ECSCHNORR:
+      return TPMS_SIG_SCHEME_ECSCHNORR_Unmarshal(
+          (TPMS_SIG_SCHEME_ECSCHNORR*)&target->ecschnorr, buffer, size);
+#endif
+#ifdef TPM_ALG_HMAC
+    case TPM_ALG_HMAC:
+      return TPMS_SCHEME_HMAC_Unmarshal((TPMS_SCHEME_HMAC*)&target->hmac,
+                                        buffer, size);
+#endif
+#ifdef TPM_ALG_NULL
+    case TPM_ALG_NULL:
+      return TPM_RC_SUCCESS;
+#endif
+  }
+  return TPM_RC_SELECTOR;
 }
 
 UINT16 TPMT_SIG_SCHEME_Marshal(TPMT_SIG_SCHEME* source,
