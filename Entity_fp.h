@@ -7,6 +7,10 @@
 #ifndef __SOURCE_ENTITY_FP_H
 #define __SOURCE_ENTITY_FP_H
 
+TPMI_ALG_HASH EntityGetAuthPolicy(
+        TPMI_DH_ENTITY       handle,             // IN: handle of entity
+        TPM2B_DIGEST        *authPolicy          // OUT: authPolicy of the entity
+        );
 UINT16 EntityGetAuthValue(
         TPMI_DH_ENTITY       handle,             // IN: handle of entity
         AUTH_VALUE          *auth                // OUT: authValue of the entity

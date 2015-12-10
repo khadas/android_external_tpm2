@@ -18,6 +18,9 @@ void PhysicalPresenceCommandClear(
 void PhysicalPresenceCommandSet(
         TPM_CC               commandCode       // IN: command code
         );
+BOOL PhysicalPresenceIsRequired(
+        TPM_CC             commandCode           // IN: command code
+        );
 void PhysicalPresencePreInstall_Init(
         void
         );
