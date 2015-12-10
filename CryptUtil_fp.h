@@ -143,6 +143,9 @@ void CryptGenerateNewSymmetric(
 LIB_EXPORT UINT16 CryptGetHashDigestSize(
         TPM_ALG_ID           hashAlg              // IN: hash algorithm
                                          );
+TPMI_ALG_HASH CryptGetSignHashAlg(
+        TPMT_SIGNATURE     *auth             // IN: signature
+        );
 INT16 CryptGetSymmetricBlockSize(
         TPMI_ALG_SYM         algorithm,           // IN: symmetric algorithm
         UINT16               keySize              // IN: key size in bit
@@ -349,6 +352,11 @@ void CryptUpdateDigestInt(
         UINT32   intSize,           // IN: the size of 'intValue' in byte
         void    *intValue           // IN: integer value to be hashed
                           );
+TPM_RC CryptVerifySignature(
+        TPMI_DH_OBJECT       keyHandle,         // IN: The handle of sign key
+        TPM2B_DIGEST        *digest,            // IN: The digest being validated
+        TPMT_SIGNATURE      *signature          // IN: signature
+        );
 void KDFa(
         TPM_ALG_ID           hash,        //   IN: hash algorithm used in HMAC
         TPM2B               *key,         //   IN: HMAC key

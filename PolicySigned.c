@@ -104,7 +104,7 @@ TPM2_PolicySigned(
    }
 // Internal Data Update
    // Need the Name of the signing entity
-   entityName.t.size = EntityGetName(in->authObject, &entityName.t.name);
+   entityName.t.size = EntityGetName(in->authObject, &entityName.t.buffer);
 
    // Update policy with input policyRef and name of auth key
    // These values are updated even if the session is a trial session
@@ -128,7 +128,7 @@ TPM2_PolicySigned(
        // used has the side-effect of making the returned value a big-endian,
        // 64-bit value that is byte aligned.
        out->timeout.t.size = sizeof(UINT64);
-       UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
+       (void)UINT64_TO_BYTE_ARRAY(authTimeout, out->timeout.t.buffer);
 
        // Compute policy ticket
        TicketComputeAuth(TPM_ST_AUTH_SIGNED, EntityGetHierarchy(in->authObject),
