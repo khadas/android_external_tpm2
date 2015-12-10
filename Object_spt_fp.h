@@ -60,6 +60,23 @@ TPM_RC PrivateToSensitive(
                                         //     will be ignored
         TPMT_SENSITIVE     *sensitive        // OUT: sensitive structure
                           );
+UINT16 ProduceOuterWrap(
+        TPM_HANDLE           protector,          //   IN: The handle of the object that provides
+        //       protection. For object, it is parent
+        //       handle. For credential, it is the handle
+        //       of encrypt object.
+        TPM2B_NAME          *name,               //   IN: the name of the object
+        TPM_ALG_ID           hashAlg,            //   IN: hash algorithm for outer wrap
+        TPM2B_SEED          *seed,               //   IN: an external seed may be provided for
+        //       duplication blob. For non duplication
+        //       blob, this parameter should be NULL
+        BOOL                 useIV,              //   IN: indicate if an IV is used
+        UINT16               dataSize,           //   IN: the size of sensitive data, excluding the
+        //       leading integrity buffer size or the
+        //       optional iv size
+        BYTE                *outerBuffer         //   IN/OUT: outer buffer with sensitive data in
+        //     it
+        );
 TPM_RC PublicAttributesValidation(
         BOOL                load,                 // IN: TRUE if load checks, FALSE if
                                              //     TPM2_Create()
@@ -110,5 +127,21 @@ void SensitiveToPrivate(
                                             //       temporary.
         TPM2B_PRIVATE       *outPrivate         //   OUT: output private structure
 );
+TPM_RC UnwrapOuter(
+        TPM_HANDLE           protector,             //   IN: The handle of the object that provides
+        //       protection. For object, it is parent
+        //       handle. For credential, it is the handle
+        //       of encrypt object.
+        TPM2B_NAME          *name,                  //   IN: the name of the object
+        TPM_ALG_ID           hashAlg,               //   IN: hash algorithm for outer wrap
+        TPM2B_SEED          *seed,                  //   IN: an external seed may be provided for
+        //       duplication blob. For non duplication
+        //       blob, this parameter should be NULL.
+        BOOL                 useIV,                 //   IN: indicates if an IV is used
+        UINT16               dataSize,              //   IN: size of sensitive data in outerBuffer,
+        //       including the leading integrity buffer
+        //       size, and an optional iv area
+        BYTE                *outerBuffer            //   IN/OUT: sensitive data
+        );
 
 #endif // __TPM2_OBJECT_SPT_FP_H
