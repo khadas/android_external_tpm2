@@ -429,13 +429,6 @@ TPM_RC ParseHandleBuffer(TPM_CC command_code,
 #endif
 #ifdef TPM_CC_Hash
     case TPM_CC_Hash:
-      result = TPMI_RH_HIERARCHY_Unmarshal(
-          (TPMI_RH_HIERARCHY*)&request_handles[*num_request_handles],
-          request_handle_buffer_start, request_buffer_remaining_size, TRUE);
-      if (result != TPM_RC_SUCCESS) {
-        return result;
-      }
-      ++(*num_request_handles);
       return TPM_RC_SUCCESS;
 #endif
 #ifdef TPM_CC_HashSequenceStart
@@ -492,13 +485,6 @@ TPM_RC ParseHandleBuffer(TPM_CC command_code,
 #endif
 #ifdef TPM_CC_LoadExternal
     case TPM_CC_LoadExternal:
-      result = TPMI_RH_HIERARCHY_Unmarshal(
-          (TPMI_RH_HIERARCHY*)&request_handles[*num_request_handles],
-          request_handle_buffer_start, request_buffer_remaining_size, TRUE);
-      if (result != TPM_RC_SUCCESS) {
-        return result;
-      }
-      ++(*num_request_handles);
       return TPM_RC_SUCCESS;
 #endif
 #ifdef TPM_CC_MakeCredential
@@ -1161,13 +1147,6 @@ TPM_RC ParseHandleBuffer(TPM_CC command_code,
       result = TPMI_DH_OBJECT_Unmarshal(
           (TPMI_DH_OBJECT*)&request_handles[*num_request_handles],
           request_handle_buffer_start, request_buffer_remaining_size, FALSE);
-      if (result != TPM_RC_SUCCESS) {
-        return result;
-      }
-      ++(*num_request_handles);
-      result = TPMI_RH_HIERARCHY_Unmarshal(
-          (TPMI_RH_HIERARCHY*)&request_handles[*num_request_handles],
-          request_handle_buffer_start, request_buffer_remaining_size, TRUE);
       if (result != TPM_RC_SUCCESS) {
         return result;
       }

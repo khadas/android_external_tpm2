@@ -40,14 +40,16 @@ TPM_RC Hash_In_Unmarshal(Hash_In* target,
                          BYTE** buffer,
                          INT32* size) {
   TPM_RC result = TPM_RC_SUCCESS;
-  // Get request handles from request_handles array.
-  target->hierarchy = request_handles[0];
   // Unmarshal request parameters.
   result = TPM2B_MAX_BUFFER_Unmarshal(&target->data, buffer, size);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
   result = TPMI_ALG_HASH_Unmarshal(&target->hashAlg, buffer, size, FALSE);
+  if (result != TPM_RC_SUCCESS) {
+    return result;
+  }
+  result = TPMI_RH_HIERARCHY_Unmarshal(&target->hierarchy, buffer, size, TRUE);
   if (result != TPM_RC_SUCCESS) {
     return result;
   }
