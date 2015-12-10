@@ -65,7 +65,7 @@ TPM2_Sign(
    {
        if(       in->digest.t.size
              != CryptGetHashDigestSize(in->inScheme.details.any.hashAlg))
-             return TPM_RCS_SIZE + RC_Sign_digest;
+             return TPM_RC_SIZE + RC_Sign_digest;
    }
 
 // Command Output

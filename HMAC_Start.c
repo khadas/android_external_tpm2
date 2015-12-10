@@ -35,15 +35,15 @@ TPM2_HMAC_Start(
 
    // Make sure that the key is an HMAC key
    if(publicArea->type != TPM_ALG_KEYEDHASH)
-       return TPM_RCS_TYPE + RC_HMAC_Start_handle;
+       return TPM_RC_TYPE + RC_HMAC_Start_handle;
 
    // and that it is unrestricted
    if(publicArea->objectAttributes.restricted == SET)
-       return TPM_RCS_ATTRIBUTES + RC_HMAC_Start_handle;
+       return TPM_RC_ATTRIBUTES + RC_HMAC_Start_handle;
 
    // and that it is a signing key
    if(publicArea->objectAttributes.sign != SET)
-       return TPM_RCS_KEY + RC_HMAC_Start_handle;
+       return TPM_RC_KEY + RC_HMAC_Start_handle;
 
    // See if the key has a default
    if(publicArea->parameters.keyedHashDetail.scheme.scheme == TPM_ALG_NULL)
@@ -60,7 +60,7 @@ TPM2_HMAC_Start(
    }
    // if we ended up without a hash algorith then return an error
    if(hashAlg == TPM_ALG_NULL)
-       return TPM_RCS_VALUE + RC_HMAC_Start_hashAlg;
+       return TPM_RC_VALUE + RC_HMAC_Start_hashAlg;
 
 // Internal Data Update
 
