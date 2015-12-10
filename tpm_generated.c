@@ -1055,6 +1055,12 @@ UINT16 TPM2B_CREATION_DATA_Marshal(TPM2B_CREATION_DATA* source,
   total_size += UINT16_Marshal(&source->t.size, buffer, size);
   total_size +=
       TPMS_CREATION_DATA_Marshal(&source->t.creationData, buffer, size);
+  {
+    BYTE* size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(UINT16);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    UINT16_Marshal(&payload_size, &size_location, &size_field_size);
+  }
   return total_size;
 }
 
@@ -1184,6 +1190,12 @@ UINT16 TPM2B_ECC_POINT_Marshal(TPM2B_ECC_POINT* source,
   UINT16 total_size = 0;
   total_size += UINT16_Marshal(&source->t.size, buffer, size);
   total_size += TPMS_ECC_POINT_Marshal(&source->t.point, buffer, size);
+  {
+    BYTE* size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(UINT16);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    UINT16_Marshal(&payload_size, &size_location, &size_field_size);
+  }
   return total_size;
 }
 
@@ -1518,6 +1530,12 @@ UINT16 TPM2B_NV_PUBLIC_Marshal(TPM2B_NV_PUBLIC* source,
   UINT16 total_size = 0;
   total_size += UINT16_Marshal(&source->t.size, buffer, size);
   total_size += TPMS_NV_PUBLIC_Marshal(&source->t.nvPublic, buffer, size);
+  {
+    BYTE* size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(UINT16);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    UINT16_Marshal(&payload_size, &size_location, &size_field_size);
+  }
   return total_size;
 }
 
@@ -3389,6 +3407,12 @@ UINT16 TPM2B_PUBLIC_Marshal(TPM2B_PUBLIC* source, BYTE** buffer, INT32* size) {
   UINT16 total_size = 0;
   total_size += UINT16_Marshal(&source->t.size, buffer, size);
   total_size += TPMT_PUBLIC_Marshal(&source->t.publicArea, buffer, size);
+  {
+    BYTE* size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(UINT16);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    UINT16_Marshal(&payload_size, &size_location, &size_field_size);
+  }
   return total_size;
 }
 
@@ -3639,6 +3663,12 @@ UINT16 TPM2B_SENSITIVE_CREATE_Marshal(TPM2B_SENSITIVE_CREATE* source,
   total_size += UINT16_Marshal(&source->t.size, buffer, size);
   total_size +=
       TPMS_SENSITIVE_CREATE_Marshal(&source->t.sensitive, buffer, size);
+  {
+    BYTE* size_location = *buffer - total_size;
+    INT32 size_field_size = sizeof(UINT16);
+    UINT16 payload_size = total_size - (UINT16)size_field_size;
+    UINT16_Marshal(&payload_size, &size_location, &size_field_size);
+  }
   return total_size;
 }
 
