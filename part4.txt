@@ -3237,7 +3237,7 @@ Level 00 Revision 01.16              Copyright © TCG 2006-2014                 
 
      6     Main
 
-     6.1      CommandDispatcher()
+     6.1      CommandDispatcher.h
 
      In the reference implementation, a program that uses TPM 2.0 Part 3 as input automatically generates
      the command dispatch code. The function prototype header file (CommandDispatcher_fp.h) is shown
@@ -3684,7 +3684,7 @@ Level 00 Revision 01.16              Copyright © TCG 2006-2014                 
 351   }
 
 
-      6.3    ParseHandleBuffer()
+      6.3    ParseHandleBuffer.h
 
       In the reference implementation, the routine for unmarshaling the command handles is automatically
       generated from TPM 2.0 Part 3 command tables. The prototype header file (HandleProcess_fp.h) is
