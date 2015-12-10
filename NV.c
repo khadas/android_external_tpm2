@@ -7,7 +7,7 @@
 
 #define NV_C
 #include "InternalRoutines.h"
-#include <Platform.h>
+#include "Platform.h"
 //
 //      NV Index/evict object iterator value
 //
@@ -1381,7 +1381,7 @@ NvGetName(
     // Complete digest leaving room for the nameAlg
     CryptCompleteHash(&hashState, digestSize, &((BYTE *)name)[2]);
     // Include the nameAlg
-    UINT16_TO_BYTE_ARRAY(nvIndex.publicArea.nameAlg, (BYTE *)name);
+    (void)UINT16_TO_BYTE_ARRAY(nvIndex.publicArea.nameAlg, (BYTE *)name);
     return digestSize + 2;
 }
 //
