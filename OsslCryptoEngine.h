@@ -28,6 +28,38 @@
 #   endif
 #   include    "CpriRSA_fp.h"
 #endif
+
+#ifdef OPENSSL_IS_BORINGSSL
+// libtpm2 reads internal EVP_MD state (e.g. ctx_size). The boringssl headers
+// don't expose this type so define it here.
+struct env_md_st {
+  /* type contains a NID identifing the digest function. (For example,
+   * NID_md5.) */
+  int type;
+
+  /* md_size contains the size, in bytes, of the resulting digest. */
+  unsigned md_size;
+
+  /* flags contains the OR of |EVP_MD_FLAG_*| values. */
+  uint32_t flags;
+
+  /* init initialises the state in |ctx->md_data|. */
+  void (*init)(EVP_MD_CTX *ctx);
+
+  /* update hashes |len| bytes of |data| into the state in |ctx->md_data|. */
+  void (*update)(EVP_MD_CTX *ctx, const void *data, size_t count);
+
+  /* final completes the hash and writes |md_size| bytes of digest to |out|. */
+  void (*final)(EVP_MD_CTX *ctx, uint8_t *out);
+
+  /* block_size contains the hash's native block size. */
+  unsigned block_size;
+
+  /* ctx_size contains the size, in bytes, of the state of the hash function. */
+  unsigned ctx_size;
+};
+#endif
+
 //
 //     This is a structure to hold the parameters for the version of KDFa() used by the CryptoEngine(). This
 //     structure allows the state to be passed between multiple functions that use the same pseudo-random
