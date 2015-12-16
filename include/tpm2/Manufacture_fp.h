@@ -7,6 +7,9 @@
 #ifndef __TPM2_MANUFACTURE_FP_H
 #define __TPM2_MANUFACTURE_FP_H
 
+#include "bool.h"
+#include "TpmBuildSwitches.h"
+
 LIB_EXPORT int TPM_Manufacture(
     BOOL firstTime  // IN: indicates if this is the first call from main()
     );

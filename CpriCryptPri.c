@@ -5,6 +5,8 @@
 // Level 00 Revision 01.16
 // October 30, 2014
 
+#include <stdlib.h>
+
 #include "CryptoEngine.h"
 #include "OsslCryptoEngine.h"
 static void Trap(const char *function, int line, int code);
