@@ -30,4 +30,11 @@ TPM_ECC_CURVE _cpri__GetCurveIdByIndex(
         return TPM_ECC_NONE;
     return eccCurves[i].curveId;
 }
+
+UINT32 _cpri__EccGetCurveCount(
+  void)
+{
+    return ECC_CURVE_COUNT;
+}
+
 #endif // TPM_ALG_ECC
