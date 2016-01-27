@@ -1265,10 +1265,13 @@ typedef union {
 } TPM2B_ECC_PARAMETER;
 
 // Table 162  Definition of TPMS_ECC_POINT Structure
+// TODO(ngm): To be fixed in the generator, crbug.com/49770.
 typedef struct {
+  UINT16 unused_pad1;
   TPM2B_ECC_PARAMETER  x;
+  UINT16 unused_pad2;
   TPM2B_ECC_PARAMETER  y;
-} TPMS_ECC_POINT;
+} TPMS_ECC_POINT __attribute__ ((aligned (4)));
 
 // Table   163    Definition of TPM2B_ECC_POINT Structure
 typedef union {
