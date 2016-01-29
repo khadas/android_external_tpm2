@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
-#include <setjmp.h>
 #include "bool.h"
 #include "Platform.h"
 #include "ExecCommand_fp.h"

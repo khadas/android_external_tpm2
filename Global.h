@@ -12,7 +12,9 @@
 #include        "Tpm.h"
 #include        "TPMB.h"
 #include        "CryptoEngine.h"
+#ifndef EMBEDDED_MODE
 #include        <setjmp.h>
+#endif
 //
 //
 //
@@ -1179,7 +1181,9 @@ extern   BYTE     s_responseBuffer[MAX_RESPONSE_SIZE];// response buffer
 //      occurred. This address value isn't useful for anything other than helping the vendor to know in which file
 //      the failure occurred.
 //
+#ifndef EMBEDDED_MODE
 extern jmp_buf   g_jumpBuffer;          //           the jump buffer
+#endif
 extern BOOL      g_inFailureMode;       //           Indicates that the TPM is in failure mode
 extern BOOL      g_forceFailureMode;    //           flag to force failure mode during test
 #if defined TPM_FAIL_C || defined GLOBAL_C           || 1
