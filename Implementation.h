@@ -60,9 +60,9 @@
 #define   ALG_ECC                   ALG_YES
 #define   ALG_ECDH                  (ALG_YES*ALG_ECC)
 #define   ALG_ECDSA                 (ALG_YES*ALG_ECC)
-#define   ALG_ECDAA                 (ALG_YES*ALG_ECC)
-#define   ALG_SM2                   (ALG_YES*ALG_ECC)
-#define   ALG_ECSCHNORR             (ALG_YES*ALG_ECC)
+#define   ALG_ECDAA                 (ALG_NO*ALG_ECC)
+#define   ALG_SM2                   (ALG_NO*ALG_ECC)
+#define   ALG_ECSCHNORR             (ALG_NO*ALG_ECC)
 #define   ALG_ECMQV                 (ALG_NO*ALG_ECC)
 #define   ALG_SYMCIPHER             ALG_YES
 #define   ALG_KDF1_SP800_56A        (ALG_YES*ALG_ECC)
