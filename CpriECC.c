@@ -422,6 +422,7 @@ _cpri__EccPointMultiply(
     BN_CTX_free(context);
     return retVal;
 }
+#if defined TPM_ALG_ECDAA || defined TPM_ALG_SM2 //%
 //
 //
 //       ClearPoint2B()
@@ -438,7 +439,6 @@ ClearPoint2B(
         p->y.t.size = 0;
     }
 }
-#if defined TPM_ALG_ECDAA || defined TPM_ALG_SM2 //%
 //
 //
 //       _cpri__EccCommitCompute()
