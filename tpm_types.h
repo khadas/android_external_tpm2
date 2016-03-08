@@ -1119,12 +1119,9 @@ typedef union {
 #ifdef TPM_ALG_ECDSA
   TPMS_SIG_SCHEME_ECDSA      ecdsa;
 #endif
-// TODO(ngm): ECDAA is not currently supported,
-// but this field has unguarded references in
-// CryptUtil.c, so allow its inclusion.
-// #ifdef TPM_ALG_ECDAA
+#ifdef TPM_ALG_ECDAA
   TPMS_SIG_SCHEME_ECDAA      ecdaa;
-// #endif
+#endif
 #ifdef TPM_ALG_SM2
   TPMS_SIG_SCHEME_SM2        sm2;
 #endif
