@@ -3171,7 +3171,7 @@ CryptIsSplitSign(
     TPM_ALG_ID           scheme             // IN: the algorithm selector
     )
 {
-    if(   scheme != scheme
+    if(   0
 #    ifdef   TPM_ALG_ECDAA
        || scheme == TPM_ALG_ECDAA
 #    endif   // TPM_ALG_ECDAA
