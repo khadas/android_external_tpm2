@@ -303,6 +303,8 @@ SOURCES += stubs_ecc.c
 SOURCES += stubs_hash.c
 SOURCES += stubs_sym.c
 CFLAGS += -DEMBEDDED_MODE
+# Configure system headers appropriately.
+CFLAGS += -DTHIRD_PARTY
 ifneq ($(ROOTDIR),)
 CFLAGS += -I$(ROOTDIR)
 endif
