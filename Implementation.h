@@ -263,7 +263,7 @@
 #define MAX_CAP_BUFFER                    1024
 #ifdef EMBEDDED_MODE
 // This must be matched by the package using this library!
-#define NV_MEMORY_SIZE                    9932
+#define NV_MEMORY_SIZE                    16076
 #else
 #define NV_MEMORY_SIZE                    16384
 #endif
