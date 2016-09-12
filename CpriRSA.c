@@ -197,6 +197,11 @@ _cpri__TestKeyRSA(
    }
    else
    {
+       if (BN_is_zero(bnP))
+       {
+           retVal = CRYPT_PARAMETER;
+           goto Cleanup;
+       }
        // One prime provided so find the second prime by division
        BN_bin2bn(publicKey->buffer, publicKey->size, bnN);
         // Get q = n/p;
