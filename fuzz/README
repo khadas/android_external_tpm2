@@ -18,5 +18,6 @@ Quick start:
 
   Look in /tmp/fuzzers to see the executables. Run them like so:
 
-    $ docker run -ti -v /tmp/fuzzers:/out ossfuzz/libfuzzer-runner \
-                 /out/tpm2_execute_command_fuzzer -runs=100
+    $ docker run -ti -v $(pwd)/fuzz/corpus-execute-command:/corpus \
+                 -v /tmp/fuzzers:/out ossfuzz/libfuzzer-runner \
+                 /out/tpm2_execute_command_fuzzer /corpus -runs=100
