@@ -60,6 +60,10 @@ NvIsAvailable(
     void
     )
 {
+    // Make sure that NV state is still good
+    if (s_NvStatus == TPM_RC_SUCCESS)
+	NvCheckState();
+
     return s_NvStatus;
 }
 //
