@@ -6,4 +6,5 @@
 #
 FROM ossfuzz/base-libfuzzer
 RUN apt-get install -y make libssl-dev binutils libgcc-5-dev
-CMD /src/tpm2/fuzz/build-fuzzers.sh
+ENV GIT_URL="https://chromium.googlesource.com/chromiumos/third_party/tpm2/"
+COPY fuzz/build.sh /src/
