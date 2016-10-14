@@ -13,7 +13,7 @@ make V=1 obj=/work/tpm2 /work/tpm2/libtpm2.a
 find /usr/lib -name "*.a"
 grep -r BN_CTX_get /usr/lib/
 
-$CXX $CXXFLAGS $LDFLAGS -std=c++11 \
+$CXX $CXXFLAGS $FUZZER_LDFLAGS -std=c++11 \
   /src/tpm2/fuzz/execute-command.cc -o /out/tpm2_execute_command_fuzzer \
   /work/libfuzzer/*.o /work/tpm2/libtpm2.a \
   /usr/lib/x86_64-linux-gnu/libcrypto.a /usr/lib/x86_64-linux-gnu/libssl.a \
