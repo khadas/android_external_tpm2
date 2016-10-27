@@ -658,8 +658,12 @@ NvReadPersistent(
     // Algorithm selection persistent data
     NvReadReserved(NV_ALGORITHM_SET, &gp.algorithmSet);
     // Firmware version persistent data
+#ifdef EMBEDDED_MODE
+   _plat__GetFwVersion(&gp.firmwareV1, &gp.firmwareV2);
+#else
     NvReadReserved(NV_FIRMWARE_V1, &gp.firmwareV1);
     NvReadReserved(NV_FIRMWARE_V2, &gp.firmwareV2);
+#endif
     return;
 }
 //
