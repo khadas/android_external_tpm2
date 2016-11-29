@@ -45,12 +45,8 @@
 #define    ALG_XOR                     ALG_YES
 #define    ALG_KEYEDHASH               ALG_YES
 #define    ALG_SHA256                  ALG_YES
-#ifdef EMBEDDED_MODE
-#define    ALG_SHA384                  ALG_NO
-#else
 #define    ALG_SHA384                  ALG_YES
-#endif
-#define    ALG_SHA512                  ALG_NO
+#define    ALG_SHA512                  ALG_YES
 #define    ALG_SM3_256                 ALG_NO
 #define    ALG_SM4                     ALG_NO
 #define    ALG_RSASSA                  (ALG_YES*ALG_RSA)
@@ -265,7 +261,10 @@
 // This must be matched by the package using this library!
 #define NV_MEMORY_SIZE                    16076
 // Versioning NV storage format will allow to smoothly migrate NVRAM contents.
-#define NV_FORMAT_VERSION                 1
+// Versions:
+// 1 - full non-serialized objects in NVRAM, max SHA digest is SHA-256
+// 2 - full non-serialized objects in NVRAM, max SHA digest is SHA-512
+#define NV_FORMAT_VERSION                 2
 #else
 #define NV_MEMORY_SIZE                    16384
 #endif
