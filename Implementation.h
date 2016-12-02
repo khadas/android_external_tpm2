@@ -264,6 +264,8 @@
 #ifdef EMBEDDED_MODE
 // This must be matched by the package using this library!
 #define NV_MEMORY_SIZE                    16076
+// Versioning NV storage format will allow to smoothly migrate NVRAM contents.
+#define NV_FORMAT_VERSION                 1
 #else
 #define NV_MEMORY_SIZE                    16384
 #endif
