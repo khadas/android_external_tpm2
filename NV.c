@@ -780,6 +780,48 @@ NvFindHandle(
     pAssert(addr == 0);
     return addr;
 }
+
+//
+//   NvCheckAndMigrateIfNeeded()
+//
+// Supported only in EMBEDDED_MODE.
+//
+// Check if the NVRAM storage format changed, and if so - reinitialize the
+// NVRAM. No content migration yet, hopefully it will come one day.
+//
+// Note that the NV_FIRMWARE_V1 and NV_FIRMWARE_V2 values not used to store
+// TPM versoion when in embedded mode are used for NVRAM format version
+// instead.
+//
+//
+static void
+NvCheckAndMigrateIfNeeded(void)
+{
+#ifdef EMBEDDED_MODE
+  UINT32 nv_vers1;
+  UINT32 nv_vers2;
+
+  NvReadReserved(NV_FIRMWARE_V1, &nv_vers1);
+  NvReadReserved(NV_FIRMWARE_V2, &nv_vers2);
+
+  if ((nv_vers1 == ~nv_vers2) && (nv_vers1 == NV_FORMAT_VERSION))
+    return; // All is well.
+
+  // This will reinitialize NVRAM to empty. Migration code will come here
+  // later.
+  NvInit();
+
+  nv_vers1 = NV_FORMAT_VERSION;
+  nv_vers2 = ~NV_FORMAT_VERSION;
+
+  NvWriteReserved(NV_FIRMWARE_V1, &nv_vers1);
+  NvWriteReserved(NV_FIRMWARE_V2, &nv_vers2);
+
+  NvCommit();
+#endif
+}
+
+
 //
 //
 //          NvPowerOn()
@@ -804,7 +846,8 @@ NvPowerOn(
     {
         if((nvError = _plat__NVEnable(0)) < 0)
             FAIL(FATAL_ERROR_NV_UNRECOVERABLE);
-          NvInitStatic();
+	NvInitStatic();
+	NvCheckAndMigrateIfNeeded();
     }
     return nvError == 0;
 }
