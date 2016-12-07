@@ -13,8 +13,8 @@ Quick start:
 
   Build fuzzers
 
-    $ docker run -i --rm -v $(pwd):/src/tpm2 -v /tmp/fuzzers:/out \
-                 -t ossfuzz/tpm2
+    $ docker run -ti --rm -v $(pwd):/src/tpm2 -v /tmp/fuzzers:/out \
+                 ossfuzz/tpm2
 
   Look in /tmp/fuzzers to see the executables. Run them like so:
 
@@ -30,8 +30,8 @@ To reproduce a crash under gdb:
 
   Build fuzzers
 
-    $ docker run -i --rm -v $(pwd):/src/tpm2 -v /tmp/fuzzers:/out \
-                 -t ossfuzz/tpm2
+    $ docker run -ti --rm -v $(pwd):/src/tpm2 -v /tmp/fuzzers:/out \
+                 ossfuzz/tpm2
 
   Get a shell in the container
 
