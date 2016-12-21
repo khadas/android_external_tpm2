@@ -357,6 +357,7 @@ typedef UINT16              TPM_ALG_ID;
 #define ALG_SM4_VALUE                0x0013
 #if defined ALG_RSASSA && ALG_RSASSA == YES
 #define TPM_ALG_RSASSA               (TPM_ALG_ID)(0x0014)
+#define SUPPORT_PADDING_ONLY_RSASSA  YES
 #endif
 #define ALG_RSASSA_VALUE             0x0014
 #if defined ALG_RSAES && ALG_RSAES == YES
