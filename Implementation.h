@@ -262,8 +262,12 @@
 #define NV_MEMORY_SIZE                    16076
 // Versioning NV storage format will allow to smoothly migrate NVRAM contents.
 // Versions:
-// 1 - full non-serialized objects in NVRAM, max SHA digest is SHA-256
-// 2 - full non-serialized objects in NVRAM, max SHA digest is SHA-512
+// 1 - full non-serialized objects in NVMEM, max SHA digest is SHA-256
+// 2 - a mix of serialized and non-serialized objects in NVMEM, max SHA digest
+//     is SHA-512. Eviction objects can be stored either serialized or
+//     non-serialized. The size of the stored entity smaller than
+//     sizeof(OBJECT) is considered an indication of the serialized form.
+
 #define NV_FORMAT_VERSION                 2
 #else
 #define NV_MEMORY_SIZE                    16384
