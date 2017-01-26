@@ -259,7 +259,7 @@
 #define MAX_CAP_BUFFER                    1024
 #ifdef EMBEDDED_MODE
 // This must be matched by the package using this library!
-#define NV_MEMORY_SIZE                    16076
+#define NV_MEMORY_SIZE                    11980
 // Versioning NV storage format will allow to smoothly migrate NVRAM contents.
 // Versions:
 // 1 - full non-serialized objects in NVMEM, max SHA digest is SHA-256
