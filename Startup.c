@@ -163,5 +163,8 @@ TPM2_Startup(
    // The H-CRTM state no longer matters
    g_DrtmPreStartup = FALSE;
 
+   if (startup == SU_RESET)
+       _plat__ResetCallback();
+
    return TPM_RC_SUCCESS;
 }
